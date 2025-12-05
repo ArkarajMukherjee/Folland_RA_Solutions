@@ -1,0 +1,606 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath, amssymb, amsthm, graphicx, physics}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{EvanPink}{rgb}{0.85, 0.13, 0.55}
+\usepackage[colorlinks=true,
+            linkcolor=OliveGreen,
+            urlcolor=EvanPink,
+            citecolor=OliveGreen]{hyperref}
+\usepackage{cleveref}
+\usepackage{etoolbox}
+\newenvironment{solution}{%
+  \par\noindent\textit{Solution.}\ }{\qed}
+\newtheoremstyle{problemstyle}
+  {1em}   
+  {1em}   
+  {}      
+  {}      
+  {\bfseries} 
+  {.}     
+  {0.5em} 
+  {}      
+\theoremstyle{problemstyle}
+\newtheorem{problem}{Problem}[section]
+\apptocmd{\problem}{%
+  \addcontentsline{toc}{subsection}{Problem~\thesection.\arabic{problem}}%
+}{}{}
+\crefname{problem}{Problem}{Problems}
+\Crefname{problem}{Problem}{Problems}
+\setcounter{tocdepth}{2}
+\title{\textbf{\texttt{Real Analysis \\ Modern Techniques and Their Applications}} \\ \texttt{Solutions}}
+\author{\texttt{Arkaraj Mukherjee}}
+\date{\texttt{\today}}
+\def\bN{\mathbb{N}}
+\def\bR{\mathbb{R}}
+\def\bZ{\mathbb{Z}}
+\def\bQ{\mathbb{Q}}
+\def\mM{\mathcal{M}}
+\def\mR{\mathcal{R}}
+\def\mN{\mathcal{N}}
+\def\mE{\mathcal{E}}
+\def\mA{\mathcal{A}}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Chapter 1 : Measures}
+\begin{problem}\label{prob:1.1}
+A family of sets $\mathcal{R} \subset \mathcal{P}(X)$ is called a \textbf{ring} if it is closed under finite unions and differences (i.e., if $E_1, \dots, E_n \in \mathcal{R}$, then $\cup_{1}^{n} E_j \in \mathcal{R}$, and if $E, F \in \mathcal{R}$, then $E \setminus F \in \mathcal{R}$). A ring that is closed under countable unions is called a \textbf{$\sigma$-ring}.
+\begin{enumerate}[label=\alph*.]
+    \item Rings (resp. $\sigma$-rings) are closed under finite (resp. countable) intersections.
+    \item If $\mathcal{R}$ is a ring (resp. $\sigma$-ring), then $\mathcal{R}$ is an algebra (resp. $\sigma$-algebra) iff $X \in \mathcal{R}$.
+    \item If $\mathcal{R}$ is a $\sigma$-ring, then $\{E \subset X : E \in \mathcal{R} \text{ or } E^c \in \mathcal{R}\}$ is a $\sigma$-algebra.
+    \item If $\mathcal{R}$ is a $\sigma$-ring, then $\{E \subset X : E \cap F \in \mathcal{R} \text{ for all } F \in \mathcal{R}\}$ is a $\sigma$-algebra.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item If $A,B\in\mR$ then, $A\setminus B\in\mR$ and again, $A\setminus(A\setminus B)=A\cap B\in\mR.$ 
+    We can induct on the number of sets and conclude that $\mR$ is closed under finite intersections. 
+    If $\mR$ was a $\sigma$-ring and $\{A_n\}\subseteq\mR$ then $A_1\setminus A_1,A_1\setminus A_2,A_1\setminus A_3,\ldots\in\mR$ and $\cup (A_1\setminus A_n)=A_1\setminus(\cap A_n)\in\mR$ by definition. 
+    Thus, $A_1\setminus(A_1\setminus \cap A_n)=\cap A_n\in\mR.$
+    \item The existence of $X\in\mR$ implies that its closed under complements and we can conclude using part (a). 
+    Now if it was a $\sigma$-algebra to begin with then, $X\in\mR$ follows from definition. 
+    \item Let this set be $\mathcal S$.
+    As, $\phi\in\mR\subseteq\mathcal S$ we must also have $X\in\mathcal S.$ 
+    If $A$ is in this set then $A\in\mR$ or, $A^c\in\mR$, in the first case $X\setminus A=A^c\in\mR$ and in the second case $A^c\in\mR$ already, proving the closure of this set under complements. 
+    Now let $\{E_n\}_{n=1}^{\infty} \subset \mathcal{S}$. 
+    If $E_n \in \mathcal{R}$ for all $n$, then $\bigcup E_n \in \mathcal{R} \subset \mathcal{S}$ because $\mathcal{R}$ is a $\sigma$-ring. 
+    If there exists at least one $k$ such that $E_k \notin \mathcal{R}$, then necessarily $E_k^c \in \mathcal{R}$. 
+    We examine the complement of the union, 
+    $$E^c_k\supseteq\left(\bigcup_{n=1}^\infty E_n\right)^c = \bigcap_{n=1}^\infty E_n^c = \bigcap_{n=1}^\infty (E_n^c \cap E_k^c)$$
+    For any $n$, if $E_n \in \mathcal{R}$, then $E_n^c \cap E_k^c = E_k^c \setminus E_n \in \mathcal{R}$. If $E_n^c \in \mathcal{R}$, then $E_n^c \cap E_k^c \in \mathcal{R}$ by closure under intersections. 
+    Thus, the sequence $\{E_n^c \cap E_k^c\}_n$ lies entirely in $\mathcal{R}$. Since $\sigma$-rings are closed under countable intersections by part (a), we conclude $(\bigcup E_n)^c \in \mathcal{R}$, which implies $\bigcup E_n \in \mathcal{S}$.
+    \item Clearly, $\phi,X$ are included in this set. If $A$ is in this then $\forall F\in\mR,A\cap F\in\mR$ and by definition $F\setminus (F\cap A)=F\cap A^c\in\mR$ so $A^c$ is in it, thus its closed under complements. 
+    If $A_1,A_2\ldots$ are in it then $\forall n\in\bN,\forall F\in\mR,A_n\cap F\in\mR$ and a $\mR$ is a $\sigma$-ring we must have $\cup(A_n\cap F)=F\cap(\cup A_n)\in\mR$ which is enough to show that its closed under coutnable unions, thus its a $\sigma$-algebra.
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:1.2}
+Complete the proof of Proposition 1.2.
+\end{problem}
+\begin{solution}
+    Trivial.
+\end{solution}
+\begin{problem}\label{prob:1.3}
+Let $\mathcal{M}$ be an infinite $\sigma$-algebra.
+\begin{enumerate}[label=\alph*.]
+    \item $\mathcal{M}$ contains an infinite sequence of disjoint sets.
+    \item $\text{card}(\mathcal{M}) \ge \mathfrak{c}$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    Let $\{E_n\}_{n\in\bN}$ be a countably infinite collection of distinct sets in $\mM$ which we can choose by the virtue of it being infinite. Consider the atoms formed by this collection, 
+    $$\left\{\bigcap_{n\in\bN}E_n^{f(n)}\Big\vert f:\bN\to\{1,c\}\right\}$$
+    This is a subset of $\mM$ as $\mM$ is a sigma algebra. 
+    Clearly for any two different $f,g$ the intersections they produce are disjoint. Also, every set in our collection is an union of some sets from these atoms,
+    $$E_n=\bigcup_{\substack{f\in\{1,c\}^\bN\\ f(n)=1}}\bigcap_{n\in\bN}E_n^{f(n)}$$
+    So if there are finitely many nonempty atoms, say $n$ then its easy to show that there are atmose $2^n$ sets to begin with which neccesitates that there be infinite atoms. 
+    Thus there exists some countably infinite sequence of pairwise disjoint nonempty sets in $\mM$(choose some atoms) proving part (a). 
+    Let $\{F_n\}_{n\in\bN}$ be the collection of some pairwise disjoint sets in $\mM$. 
+    Identifying $A^0$ with $\phi,$ consider the collection
+    $$\mathcal G:=\left\{\bigcup_{n\in\bN}F_n^{f(n)}\Big\vert f:\bN\to\{0,1\}\right\}$$
+    Clearly $\mathcal G\subseteq\mM$ and all the sets in this are distinct as $F_n$ are all pairwise disjoint. 
+    Also this is in bijection to $\{0,1\}^\bN.$ 
+    Thus, $|\mM|\geq|\mathcal G|=|\{0,1\}^\bN|=\mathfrak c.$
+\end{solution}
+\begin{problem}\label{prob:1.4}
+An algebra $\mathcal{A}$ is a $\sigma$-algebra iff $\mathcal{A}$ is closed under countable increasing unions (i.e., if $\{E_j\}_{1}^{\infty} \subset \mathcal{A}$ and $E_1 \subset E_2 \subset \cdots$, then $\cup_{1}^{\infty} E_j \in \mathcal{A}$).
+\end{problem}
+\begin{solution}
+    If its a $\sigma$-algebra then its tirvially an algebra closed under all sorts of intersections. 
+    If its an algebra closed under increasing countable unions then for $A_1,\ldots\in\mathcal A$ consider $B_n:=\cup_{m\leq n}A_m\in\mathcal A$. 
+    Clearly $B_n$ is increasing and thus, $\cup B_n=\cup A_n\in\mathcal A.$
+\end{solution}
+\begin{problem}\label{prob:1.5}
+If $\mathcal{M}$ is the $\sigma$-algebra generated by $\mathcal{E}$, then $\mathcal{M}$ is the union of the $\sigma$-algebras generated by $\mathcal{F}$ as $\mathcal{F}$ ranges over all countable subsets of $\mathcal{E}$. (Hint: Show that the latter object is a $\sigma$-algebra.)
+\end{problem}
+\begin{solution}
+    We wish to prove that,
+    $$\mM(\mE)=\bigcup_{\substack{A\subseteq\mE\\ |A|\leq|\bN|}}\mM(A)$$
+    Izt suffices to show that the set on the right is a $\sigma$-algebra as $\mE$ is already a subset and we can conclude using the definition of generated $\sigma$-algebra. 
+    The set is clearly closed under complements and also $\phi,X$ are in it. 
+    Now, say $\{A_n\}$ is subset, then we can find $\mE_n\subseteq\mE$ such that $A_n\in\mM(\mE_n)$. 
+    Then, $|\cup\mE_n|\leq|\bN|$ and
+    $$\bigcup_{n\in\bN}A_n\in\mM\left(\bigcup_{n\in\bN}\mM(\mE_n)\right)\subseteq\mM\left(\bigcup_{n\in\bN}\mE_n\right)\subseteq\bigcup_{\substack{A\subseteq\mE\\ |A|\leq|\bN|}}\mM(A)$$
+    proving that its a sigma algebra.
+\end{solution}
+\begin{problem}\label{prob:1.6}
+Complete the proof of Theorem 1.9.
+\end{problem}
+\begin{solution}
+    First we show that $\overline{\mM}$ is a sigma algebra. It clearly has $\phi,X$ and is closed under countable unions, all thats left to show is that its closed under complements. Now, if $E\cup F\in\overline{\mM}$ with $E\in\mM$ and $F\subseteq N\in mN$, write it as $E\cup F=E\cup(E\setminus F)\in\overline{\mM}$ with $E\subseteq\mM$ and $F\setminus E\subseteq N\setminus E\in\mN$. 
+    As, $E$ and $N\setminus E$ are disjoint we see that it suffices to assume $E\cap N=\phi$ from the start and we do so. 
+    Write $E\cup F=(E\cup N)\cap(F\cup N^c)=(E\cup N)\cap(N\setminus F)^c$ and $(E\cup F)^c=(E\cup N)^c\cup(N\setminus F)$ with $E\cup N\in\mM$ and $N\setminus F\subseteq N\in\mN$ so $(E\cup F)\in\overline{\mM}$ proving that its a $\sigma$-algebra. 
+    Set $\overline{\mu}(E\cup F):=\mu(E)$ when $E\in\mM,F\subseteq N\in\mN$, this is well defined because if $E_1\cup F_1=E_2\cup F_2$ with $E_1,E_2\in\mM$ and $F_1,F_2\subseteq N_1,N_2$ resp. in $\mN$. 
+    Then, $\mu(E_1)=\overline{\mu}(E_1\cup F_1)=\overline{\mu}(E_1\cup N_1)=\mu(E_1\cup N_1)\geq\mu(E_2)$ as $E_2\subseteq E_1\cup F_1\subseteq E_1\cup N_1$. 
+    Similarly we get that $\mu(E_1)\leq\mu(E_2)$, thus $\overline{\mu}(E_2\cup E_2)=\mu(E_2)=\mu(E_1)=\overline{\mu}(E_1\cup F_1)$. 
+    $\overline{\mu}$ is measure as trivially, $\overline{\mu}(\phi)=0$ and for any disjoint countable collection of sets $\{E_n\cup F_n\}_{n\in\bN}\subseteq\overline{\mM}$ with $E_n\in\mM$ and $F_n\subseteq N_n\in\mN$ we have,
+    $$\overline{\mu}\left(\bigcup_{n\in N}(E_n\cup F_n)\right)=\overline{\mu}\left(\left(\bigcup_{n\in\bN}E_n\right)\cup\left(\bigcup_{n\in\bN}F_n\right)\right)=\mu\left(\bigcup_{n\in N}E_n\right)=\sum_{n=1}^\infty\mu(E_n)=\sum_{n=1}^\infty \overline{\mu}(E_n\cup F_n)$$
+    where $\cup E_n\in\mM$ and $\cup F_n\subseteq\cup N_n\in\mN$ by sigma additivity of $\mu.$
+    Now we prove uniqueness, suppose $\mu_*$ is another such measure which extends $\mu$. 
+    Then, by definition $\mu_*|_{\mM}=\mu$ so, for $E\cup F\in\overline{\mM}$ as before, 
+    $$\overline{\mu}(E\cup F)=\mu(E)=\mu_*(E)\leq\mu_*(E\cup F)\leq\mu_*(E\cup N)=\mu(E\cup N)=\mu(E)+0=\overline{\mu}(E\cup F)$$
+    by monotonicity, which proves that $\mu_*=\overline{\mu}$ and we are done.
+\end{solution}
+\begin{problem}\label{prob:1.7}
+If $\mu_1, \dots, \mu_n$ are measures on $(X, \mathcal{M})$ and $a_1, \dots, a_n \in [0, \infty)$, then $\sum_{1}^{n} a_j \mu_j$ is a measure on $(X, \mathcal{M})$.
+\end{problem}
+\begin{solution}
+    $\left(\sum_i a_i\mu_i\right)(\phi)=\sum_i a_i\mu_i(\phi)=\sum_i a_i\cdot 0=0$ and for any disjoint countable collection of sets $\{E_n\}$ we find that, as $a_i\cdot\mu_i(E_n)\geq 0$ for all valid $i,n$ we can interchange the order of summation as we are working in the extended reals and deduce,
+    $$\left(\sum_i a_i\mu_i\right)\left(\bigcup_{n\in\bN}E_n\right)=\sum_i a_i\mu_i\left(\bigcup_{n\in\bN}E_n\right)=\sum_i \sum_{n\in\bN} a_i\mu_i(E_n)$$
+    $$=\sum_{n\in\bN}\sum_i a_i\mu_i(E_n)=\sum_{n\in\bN}\left(\sum_i a_i\mu_i\right)(E_n)$$
+    proving that $\sum_i a_i\mu_i$ is a measure.
+\end{solution}
+\begin{problem}\label{prob:1.8}
+If $(X, \mathcal{M}, \mu)$ is a measure space and $\{E_j\}_{1}^{\infty} \subset \mathcal{M}$, then $\mu(\liminf E_j) \le \liminf \mu(E_j)$. Also, $\mu(\limsup E_j) \ge \limsup \mu(E_j)$ provided that $\mu(\cup_{1}^{\infty} E_j) < \infty$.
+\end{problem}
+\begin{solution}
+    $$\mu(\liminf E_j)=\mu\left(\bigcup_{k\geq 1}\bigcap_{n\geq k}E_n\right)=\lim_{k\to\infty}\mu\left(\bigcap_{n\geq k}E_n\right)$$
+    as the sequence of sets $\{\cap_{n\geq k}E_n\}_{k\in\bN}$ is increasing. Now, $\mu(E_n)\geq\mu(\cap_{n\geq k}E_n)$ for all $k\geq n$ by monotonicity and using the definition of infimums, $\inf_{n\geq k}\mu(E_n)\geq\mu(\cap_{n\geq k}E_n)$ and taking the limits on both sides as $k$ tends to infinity we have,
+    $$\liminf\mu(E_j)=\lim_{k\to\infty}\inf_{n\geq k}\mu(E_n)\geq\lim_{k\to\infty}\mu\left(\bigcap_{n\geq k}E_n\right)=\mu\left(\liminf E_j\right)$$
+    Now assume that $\mu(\cup E_n)<\infty$, then similarly
+    $$\mu(\limsup E_j)=\mu\left(\bigcap_{k\geq 1}\bigcup_{n\geq k}E_n\right)=\lim_{k\to\infty}\mu\left(\bigcup_{n\geq k}E_n\right)$$
+    as the sequence of sets $\{\cup_{n\geq k}E_n\}_{k\in\bN}$ is decreasing and the set at index $1$ has finite measure. 
+    Now, clearly $\mu(\cup_{n\geq k}E_n)\geq\sup_{n\geq k}E_n$ from the definition of supremums and taking the limits on both sides as $k\to\infty$ we have,
+    $$\mu(\limsup E_j)=\lim_{k\to\infty}\mu\left(\bigcup_{n\geq k}E_n\right)\geq\lim_{k\to\infty}\sup_{n\geq k}\mu(E_n)=\limsup\mu(E_j)$$
+\end{solution}
+\begin{problem}\label{prob:1.9}
+If $(X, \mathcal{M}, \mu)$ is a measure space and $E, F \in \mathcal{M}$, then $\mu(E) + \mu(F) = \mu(E \cup F) + \mu(E \cap F)$.
+\end{problem}
+\begin{solution}
+    If atleast one of $\mu(E),\mu(F)$ is infinite then the equality holds trivially. 
+    So assume that both of the sets $E,F$ have finit measure, in which case both $\mu(E\cap F)\leq\mu(E)$ and $\mu(E\cup F)\leq\mu(E)+\mu(F)$ also have finite measure. 
+    As $(E\cup F)\setminus F=E\setminus F=E\setminus(E\cap F)$, using monotonicity we can write
+    $$\mu(E\cup F)-\mu(F)=\mu((E\cup F)\setminus F)=\mu(E\setminus(E\cap F))=\mu(E)-\mu(E\cap F)$$
+    rearranging(all the terms are finite so we can do this) which gives us the required equality.
+\end{solution}
+\begin{problem}\label{prob:1.10}
+Given a measure space $(X, \mathcal{M}, \mu)$ and $E \in \mathcal{M}$, define $\mu_E(A) = \mu(A \cap E)$ for $A \in \mathcal{M}$. Then $\mu_E$ is a measure.
+\end{problem}
+\begin{solution}
+    Clearly $\mu_E(\phi)=\mu(\phi\cap E)=\mu(\phi)=0$ and if $A_1,A_2,\ldots$ are disjoint then,
+    $$\mu_E\left(\bigcup_{n\in\bN}E_n\right)=\mu\left(A\cap\bigcap_{n\in\bN}E_n\right)=\mu\left(\bigcap_{n\in\bN}(A\cap E_n)\right)=\sum_{n=1}^{\infty}\mu(A\cap E_n)=\sum_{n=1}^\infty\mu_E(A_n)$$
+    as $A_n\cap E$ are also disjoint, hence proving that $\mu_E$ is a measure.
+\end{solution}
+\begin{problem}\label{prob:1.11}
+A finitely additive measure $\mu$ is a measure iff it is continuous from below as in Theorem 1.8c. If $\mu(X) < \infty$, $\mu$ is a measure iff it is continuous from above as in Theorem 1.8d.
+\end{problem}
+\begin{solution}
+    This is trivial.
+\end{solution}
+\begin{problem}\label{prob:1.12}
+Let $(X, \mathcal{M}, \mu)$ be a finite measure space.
+\begin{enumerate}[label=\alph*.]
+    \item If $E, F \in \mathcal{M}$ and $\mu(E \triangle F) = 0$, then $\mu(E) = \mu(F)$.
+    \item Say that $E \sim F$ if $\mu(E \triangle F) = 0$; then $\sim$ is an equivalence relation on $\mathcal{M}$.
+    \item For $E, F \in \mathcal{M}$, define $\rho(E, F) = \mu(E \triangle F)$. Then $\rho(E, G) \le \rho(E, F) + \rho(F, G)$, and hence $\rho$ defines a metric on the space $\mathcal{M} / \sim$ of equivalence classes.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}
+        \item We have $E\Delta F=(E\cup F)\setminus (E\cap F)$.
+        If $\mu(E\cap F)=\infty$ then clearly $\mu(E)=\infty=\mu(F)$ and we are done.
+        Otherwise using monotonicity and rearranging we can write, $\mu(E\cup F)=\mu(E\cap F)$.
+        Again, using monotonicity we have, $\mu(E)\leq\mu(E\cup F)=\mu(E\cap F)\leq\mu(E)\implies\mu(E)=\mu(E\cup F)$.
+        Similarly, $\mu(F)=\mu(E\cup F)$ and we have $\mu(E)=\mu(F).$
+        \item This is clearly a equivalence relation as its reflexive ($\mu(A\Delta A)=\mu(\phi)=0$), symmetric as the symmetric difference operator is symmetric in its arguements, transitive as $A\sim B,B\sim C\implies\mu(A\Delta C)\leq\mu(A\Delta B)+\mu(B\Delta C)=0+0,$ this is proved in the next part.
+        \item We have the following inclusion for $A,B,C\in\mM$
+        $$(A\setminus B)\cup (B\setminus C)\supseteq A\setminus C$$
+        Using this we get, $\mu(A\setminus B)+\mu(B\setminus C)\geq\mu(A\setminus C).$ 
+        Similarly, $\mu(B\setminus A)+\mu(C\setminus B)\geq\mu(C\setminus A)$ and adding the two gives,
+        $$(\mu(A\setminus B)+\mu(B\setminus A))+(\mu(B\setminus C)+\mu(C\setminus B))\geq (\mu(A\setminus C)+\mu(C\setminus A))$$
+        And as $\mu(A\Delta B)=\mu(A\setminus B)+\mu(B\setminus A)$ we get the desired inequality. 
+        Thus $\rho(E,F):=\mu(E\Delta F)$ is a metric on $\mM$. If $E'\in[E]\in\mM/\sim, F'\in[F]\in\mM/\sim$ then we wish to prove that $\rho(E,F)=\rho(E',F')$. 
+        This is true as $\rho(E,F)\leq\rho(E,E')+\rho(E',F)=\rho(E',F)\leq\rho(E',F')+\rho(F',F)=\rho(E',F')$ and similarly $\rho(E',F')\leq\rho(E,F)$ as well, so we have equality. 
+        We showed that the choice of the representative from an equivalence class of $\sim$ does not matter so we can define $\rho$ to be a metric on $\mM/\sim$ by letting $\rho([E],[F]):=\rho(E',F')$ where $E'\in[E],F'\in[F]$ are some representatives.
+    \end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:1.13}
+Every $\sigma$-finite measure is semifinite.
+\end{problem}
+\begin{solution}
+    Let $E_1,E_2,\ldots$ be such that $X=\cup E_n$ and $\mu(E_n)<\infty$, then for any $E\in\mM$ with $\mu(E)=\infty$ we see that, $\mu(E)=\mu(\cup(E\cap E_n))\leq\sum_{n=1}^\infty \mu(E_n\cap E)$. 
+    As the sum is positive, not all terms can be zero, let $\mu(E\cap E_n)>0$, we also see that $\mu(E\cap E_n)\leq\mu(E_n)<\infty$. 
+    This proves that $\mu$ is semifinite as we found $E\cap E_n\subseteq E$ with positive finite measure.
+\end{solution}
+\begin{problem}\label{prob:1.14}
+If $\mu$ is a semifinite measure and $\mu(E) = \infty$, for any $C > 0$ there exists $F \subset E$ with $C < \mu(F) < \infty$.
+\end{problem}
+\begin{solution}
+    For the sake of contradiction assume that $s=\sup\{\mu(F)|\mM\ni F\subseteq E,\mu(F)<\infty\}<\infty$. Then there exist $F_n\subseteq E$ with $s-1/n\leq\mu(F_n)\leq s$ and thus, $K:=\cup F_n$ has measure atleast $s$. There are two cases, either $\mu(\cup F_n)$ is finite or its infinite. If its finite, as $\mu(E)=\infty,$ we must have $\mu(E\setminus K)=\infty$ and as $\mu$ is semifinite there exists some $G\subseteq E\setminus K$ with finite positive measure, but this leads to a contradiction as $\mu(E\cup K)=\mu(E)+\mu(K)$ is finite and stricly larger than $s$, here we used the fact that, by construction $G\cap K=\phi.$
+    In the other case, if $\mu(K)=\infty$ then consider the increasing sequence of sets $G_n:=\cup_{k\leq n}F_k$, we thus have that $\mu(\cup G_n)=\lim\mu(G_n)=\infty$ so there exists some $n\in\bN$ such that $\mu(G_n)>S$ and also by construction we find that $\mu(G_n)\leq n\cdot s<\infty$ contradicting the maximality of $s$. So $s$ must have been $\infty$ to begin with which implies that there subsets of $E$ of arbitrarily large finite measure.
+\end{solution}
+\begin{problem}\label{prob:1.15}
+Given a measure $\mu$ on $(X, \mathcal{M})$, define $\mu_0$ on $\mathcal{M}$ by $\mu_0(E) = \sup\{\mu(F) : F \subset E \text{ and } \mu(F) < \infty\}$.
+\begin{enumerate}[label=\alph*.]
+    \item $\mu_0$ is a semifinite measure. It is called the \textbf{semifinite part} of $\mu$.
+    \item If $\mu$ is semifinite, then $\mu = \mu_0$. (Use Exercise 14.)
+    \item There is a measure $\nu$ on $\mathcal{M}$ (in general, not unique) which assumes only the values $0$ and $\infty$ such that $\mu = \mu_0 + \nu$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item Clearly, $\mu_0(\phi)=0$ and for disjoint $\{E_n\}\subseteq\mM$, 
+        $$\mu_0\left(\bigcup_{n\in\bN}E_n\right):=\sup\{\mu(E)<\infty:E\in\mM,E\subseteq\bigcup_{n\in\bN}E_n\}$$
+        $$=\sup\left\{\sum_{n=1}^\infty\mu(E_n\cap E)<\infty:E\in\mM,E\subseteq\bigcup_{n\in\bN}E_n\right\}$$
+        $$\leq\sum_{n=1}^\infty\sup\{\mu(F)<\infty:F\in\mM,F\subseteq E_n\}=\sum_{n=1}^\infty\mu_0(E_n)$$
+        as, for all $n\in\bN,\mu(E\cap E_n)\leq\mu(E)<\infty$ and $\mu(E\cap E_n)\leq\mu_0(E_n)$.
+        It suffices to prove the other direction of the equality as we have already established sub additivity. 
+        There are two cases:
+        \begin{enumerate}[label=\Roman*.]
+            \item If $\sum_{n=1}^{\infty}\mu_0(E_n)<\infty$ then for arbitrary $\epsilon>0$, for all $n\in\bN$ let $\mM\ni F_n\subseteq E_n$ be such that $\mu_0(E_n)-\epsilon 2^{-n}\leq\mu(F_n)\leq\mu_0(E_n)$ as $\mu_0(E_n)<\infty$ is a supremum. 
+            Summing both sides as $n\in\bN$ we get,
+            $$\sum_{n=1}^\infty\mu_0(E_n)-\epsilon\leq\sum_{n=1}^\infty\mu(F_n)\leq\sum_{n=1}^\infty\mu_0(E_n)$$
+            we see that $\cup F_n$ is considered in the set $\{\mu(E)<\infty:\mM\ni E\subseteq\cup E_n\}$ as $\mu(\cup F_n)\leq\sum\mu_0(E_n)<\infty$ and thus $\sum\mu_0(E_n)-\epsilon\leq\mu_0(\cup E_n)$. 
+            As $\epsilon$ was arbitrary, we must have that $\sum\mu_0(E_n)\leq\mu(\cup E_n)$ and we are done.
+            \item If $\sum_{n=1}^\infty\mu_0(E_n)=\infty$, then its trivial if $\mu_0(E_n)=\infty$ for some $n\in\bN$ so assume thats not the case. 
+            For any $M>0$ there must exist some $n\in\bN$ such that $\sum_{k\leq n}\mu_0(E_k)\geq M$. 
+            Using arguements similar to those in the first case, for any $\epsilon>0$ we can find $\mM\ni F\subseteq\cup_{k\leq n}E_k\subseteq\cup E_k$ such that $M-\epsilon\leq\sum_{n\leq k}\mu_0(E)-\epsilon\leq\mu(F)\leq\sum_{k\leq n}\mu_0(E_k)<\infty$.
+            Again using a similar line of reasoning we find that $M-\epsilon\leq\mu_0(\cup E_k)$ and as $M$ was arbitrarily large and $\epsilon$ arbitrarily small we must have $\mu_0(\cup E_n)=\infty=\sum\mu_0(E_n)$.
+            we have hence proven that $\mu_0$ is a measure
+        \end{enumerate}
+        we have hence proven that $\mu_0$ is a measure. Now suppose $\mu_0(E)=\infty$, then there must exist $\mM\ni F\subseteq E$ with finite positive measure, and for these $F$, we trivially have $\mu_0(F)=\mu(F)$ so $\mu_0$ is semifinite.
+        \item Clearly, $\mu_0\leq\mu$ always holds and we have equality when $\mu<\infty$, we will show that equality still holds when $\mu=\infty$ if $\mu$ is semifinite. 
+        Say $\mu(E)=\infty,$ then there exists $\mM\ni F\subseteq E$ with arbitrarily large $\mu(F)<\infty$ by \hyperref[prob:1.14]{Problem 1.14} which implies that $\mu_0(E)=\infty$ and we are done.
+        \item Let $\nu(E)$ be $0$ if $E$ is $\mu\text{-}\sigma$ finite and $\infty$ otherwise. To prove that $\nu$ is a measure it suffices to prove that if $\cup E_n$ is not $\mu\text{-}\sigma$ finite for disjoint $\{E_n\}_{n\in\bN}$ then not all $E_n$ can be $\mu\text{-}\sigma$ finite. 
+        This is true because if all $E_n$ are $\mu\text{-}\sigma$ finite, we can write $E_n=\cup_j F_{n,j}$ with $\mu(F_{n,j})<\infty$ and thus, $\cup E_n=\cup_{n,j} F_{n,j}$ which is a countable union, making $\cup E_n$ $\mu\text{-}\sigma$ finite which is not true.
+        This is sufficnent as, if $\{E_n\}$ are disjoint sets and $\cup E_n$ is not $\mu\text{-}\sigma$ finite then $\nu(\cup E_n)=\infty$ by definition and $\sum\nu(E_n)=\infty$ too as some $E_n$ is not $\mu\text{-}\sigma$ finite, making $\nu(E_n)=\infty$ and when $\cup E_n$ is $\mu\text{-}\sigma$ finite we see that all of $E_n$ are trivially also $\mu\text{-}\sigma$ finite, thus $\nu(\cup E_n)=0=\sum\nu(E_n)$ as $\nu(E_n)=0$ for all $n\in\bN$. As $\nu(\phi)=0$ clearly and $\nu$ has sigma additivity, its a measure.
+        Now $\mu=\mu_0+\nu$ as $\mu=mu_0$ on $\mu\text{-}\sigma$ finite sets (if $E=\cup E_n$ with $\mu(E_n)<\infty$ then consider, for $n\in\bN$ $G_n:=E_n\setminus\cup_{k<n}E_k\in\mM,$ these are of finite measure too by monotonicity and partition $E$, thus $\mu(E)=\mu(\cup G_n)=\sum\mu(G_n)=\sum\mu_0(G_n)=\mu_0(\cup G_n)=\mu_0(E)$ and when $E$ is not sigma finite we clearly have $\mu(E)=\infty$ and $\mu_0(E)+\nu(E)=\mu_0(E)=\infty=\mu(E)$ so we are done.
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:1.16}
+Let $(X, \mathcal{M}, \mu)$ be a measure space. A set $E \subset X$ is called \textbf{locally measurable} if $E \cap A \in \mathcal{M}$ for all $A \in \mathcal{M}$ such that $\mu(A) < \infty$. Let $\tilde{\mathcal{M}}$ be the collection of all locally measurable sets. Clearly $\mathcal{M} \subset \tilde{\mathcal{M}}$; if $\mathcal{M} = \tilde{\mathcal{M}}$, then $\mu$ is called \textbf{saturated}.
+\begin{enumerate}[label=\alph*.]
+    \item If $\mu$ is $\sigma$-finite, then $\mu$ is saturated.
+    \item $\tilde{\mathcal{M}}$ is a $\sigma$-algebra.
+    \item Define $\tilde{\mu}$ on $\tilde{\mathcal{M}}$ by $\tilde{\mu}(E) = \mu(E)$ if $E \in \mathcal{M}$ and $\tilde{\mu}(E) = \infty$ otherwise. Then $\tilde{\mu}$ is a saturated measure on $\tilde{\mathcal{M}}$, called the \textbf{saturation} of $\mu$.
+    \item If $\mu$ is complete, so is $\tilde{\mu}$.
+    \item Suppose that $\mu$ is semifinite. For $E \in \tilde{\mathcal{M}}$, define $\underline{\mu}(E) = \sup\{\mu(A) : A \in \mathcal{M} \text{ and } A \subset E\}$. Then $\underline{\mu}$ is a saturated measure on $\tilde{\mathcal{M}}$ that extends $\mu$.
+    \item Let $X_1, X_2$ be disjoint uncountable sets, $X = X_1 \cup X_2$, and $\mathcal{M}$ the $\sigma$-algebra of countable or co-countable sets in $X$. Let $\mu_0$ be counting measure on $\mathcal{P}(X_1)$, and define $\mu$ on $\mathcal{M}$ by $\mu(E) = \mu_0(E \cap X_1)$. Then $\mu$ is a measure on $\mathcal{M}$, $\tilde{\mathcal{M}} = \mathcal{P}(X)$, and in the notation of parts (c) and (e), $\tilde{\mu} \ne \underline{\mu}$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item Let, $X=\cup E_n$ with $\mu(E_n)<\infty$ then, $A\in\tilde{\mM}\implies\forall n\in\bN,A\cap E_n\in\mM$ and thus $\cup(E_n\cap A)=A\cap X=A\in\mM$ proving $\tilde{\mM}\subseteq \mM$ making $\mu$ saturated.
+        \item Clearly $\phi,X\in\mM$ and if $A\in\tilde{\mM}$ then for all $E\in\mu^{-1}([0,\infty)),A\cap E\in\mM$ and thus, $E\setminus (A\cap E)=E\cap A^c\in\mM\implies A^c\in\mM$ so $\tilde{\mM}$ is closed under complements. 
+        If $\{A_n\}_{n\in\bN}\subseteq\tilde{\mM}$ then, $\mu(E)<\infty\implies\forall n\in\bN,A_n\cap E\in\mM\implies\cup(A_n\cap E)=E\cap(\cup A_n)\in\mM\implies\cup A_n\in\tilde{\mM}$ and hence $\tilde{\mM}$ is a $\sigma$-algebra.
+        \item Clearly $\tilde{\mu}(\phi)=0$ and if $\{E_n\}_{n\in\bN}\subseteq\tilde{\mM}$ are disjoint then when $\tilde{\mu}(\cup E_n)=\infty$ there are two cases : either $\cup E_n\not\in\mM,$ in which case theres some $E_n\not\in\mM$ as well, making $\sum\tilde{\mu}(E_n)=\infty$ as well, otherwise $\cup E_n\in\mM$, now if $A=\{n\in\bN:E_n\in\mM\}$ then $\cup_{n\in\bN\setminus A}E_n\in\mM$ and thus $\tilde{\mu}(\cup E_n)=\mu(\cup_{n\in A}E_n)+\mu(\cup_{n\in\bN\setminus A}E_n)$. 
+        If $\mu(\cup_{n\in A}E_n)=\infty$ then clearly we have sigma additivity for $\{E_n\}$ and otherwise, we must have $\mu(\cup_{n\in\bN\setminus A}E_n)=\infty$ and we again have sigma additivity as $\tilde{\mu}(E_k)=\infty$ for $k\in\bN\setminus A$.  
+        The other case is that of $\tilde{\mu}(\cup E_n)<\infty$ in which case $\cup E_n\in\tilde{\mM}\implies E_n\cap(\cup_m E_m)=E_n\in\mM$ for all $n\in\bN$ by definition so we have sigma additivity.
+        We have thus shown that $\tilde{\mu}$ is sigma additive and maps $\phi$ to $0$ making it a measure.
+        To show saturation we have to show that $\tilde{\tilde{M}}\subseteq\tilde{M}$.
+        If $A\in\tilde{\tilde{\mM}}$ we have that $E\in\tilde{M}$ and $\tilde{\mu}(E)<\infty\implies A\cap E\in\tilde{M}$ and as $E\in\mM$ in this case we have that $E\in\mM$ and $\tilde{\mu}(E)=\mu(E)<\infty\implies A\cap E\in\tilde{M}$ and again, $A\cap E\in\tilde{M}\implies(A\cap E)\cap E=A\cap E\in\mM\implies A\in\tilde{M}$ thus $\tilde{\tilde{\mM}}\subseteq\tilde{\mM}$ and we are done.
+        \item If $A\in\tilde{\mM}$ and $\tilde{\mu}(A)=0\implies A\in\mM$ and thus $\tilde{\mu}(A)=\mu(A)=0$. 
+        Now if $F\subseteq A$ then as $\mu$ is complete we have $F\in\mM\subseteq\tilde{\mM}\ni F$ and thus, $\tilde{\mu}(F)=\mu(F)=0$ so $\tilde{\mu}$ is complete as well.
+        \item Clearly $\underline{\mu}\vert_{\mM}=\mu$ by monotonicity, we will prove sigma additivity now. 
+        First we prove the claim : if $\mu$ is semifinite then $\underline{\mu}(E)=\sup\{\mu(F):F\in\mM,F\subseteq E,\mu(F)<\infty\}$. If $\underline{\mu}(E)=\infty$ then that means that theres some $\mM\ni F\subseteq E$ with $\mu(F)=\infty$ or, arbitrarily large $\mu(F)$, in the later case we are done but in the prior case, as $\mu$ is semifinite we can find arbitrarily large $\mu(K)$ for $\mM\ni K\subseteq F\subseteq E$ by using \hyperref[prob:1.14]{Problem 1.14} which implies $\sup\{\mu(F):F\in\mM,F\subseteq E,\mu(F)<\infty\}=\infty=\underline{\mu}(E).$
+        In the other case where $\underline{\mu}(E)<\infty$ its trivial to see that our claim is true as, using similar definitions, $\mu(F)<\infty$ is forced already.
+        We will use this now, let $\{E_n\}_{n\in\bN}\subseteq\tilde{\mM}$ be disjoint, then
+        $$\underline{\mu}\left(\bigcup_{n\in\bN}E_n\right)=\sup\left\{\mu(E):E\in\mM,E\subseteq\bigcup_{n\in\bN}E_n,\mu(E)<\infty\right\}$$
+        $$=\sup\left\{\sum_{n=1}^\infty\underbrace{\mu(E\cap E_n)}_{\leq\underline{\mu}(E_n),\text{ as }E\cap E_n\in\mM}:E\in\mM,E\subseteq\bigcup_{n\in\bN}E_n,\mu(E)<\infty\right\}\leq\sum_{n=1}^\infty\underline{\mu}(E_n)$$
+        $$=\sum_{n=1}^\infty\sup\left\{\mu(F_n):F_n\in\mM,F_n\subseteq E_n,\mu(F_n)<\infty\right\}$$
+        $$=\sup\left\{\sum_{n=1}^\infty\mu(F_n):n\in\bN,F_n\in\mM,F_n\subseteq E_n,\mu(F_n)<\infty\right\}$$
+        $$=\sup\left\{\mu\left(\bigcup_{n\in\bN}F_n\right):\mM\ni\bigcup_{n\in\bN}F_n\subseteq\bigcup_{n\in\bN}E_n\right\}$$
+        $$\leq\sup\{\mu(F):\mM\ni F\subseteq \cup E_n\}=\underline{\mu}(\cup E_n)$$
+        and thus we have sigma additivity making $\underline{\mu}$ a measure. Now its saturated as $A\in\tilde{\tilde{M}}$ implies that for all $B\in\mM\subseteq\tilde{\mM}$ with $\mu(B)<\infty$ we have $\mu(B)=\underline{\mu}(B)<\infty$ and thus, $B\cap A\in\tilde{M}$ and $(B\cap A)\cap B=B\cap A\in\mM\implies A\in\mM\implies \tilde{\tilde{M}}\subseteq\tilde{M}$ and we are done. 
+        \item Write subsets $S$ as $S_1\cup S_2$ where $S_i\subseteq X_i;i=1,2$ from now on. $\mu$ is a measure by \hyperref[prob:1.10]{Problem 1.10}.
+        We see that a set in $\mM$ has finite measure iff it has finite intersection with $X_1$, thus these are countable or cocountable sets of form $Y_1\cup Y_2$ with $Y_1$ finite and when these are countable we clearly have that $Y_2$ is countable or otherwise we need them to be cocountable in which case $(Y_1\cup Y_2)^c=(X_1\setminus Y_1)\cup(X_2\setminus Y_2)$ is countable which is impossible as $|X_1\setminus Y_1|=\mathfrak{c}>\omega$. 
+        Thus the sets of finite measure are exactly those of form $Y_1\cup Y_2$ with $Y_1$ finite and $Y_2$ countable. 
+        Given any $S_1\cup S_2\subseteq X$ we see that $(S_1\cup S_2)\cap(Y_1\cup Y_2)=(S_1\cap Y_1)\cup(S_2\cap Y_2)$ is countable and as its a subset of a countable set $Y_1\cup Y_2$ making $\tilde{M}=\mathcal P(X)$. 
+        Now, $\tilde{\mu}(X_2\cup\{x_1\})$ where $x_1$ is some element in $X_1$ is $\infty$ as $X_2\cup\{x_1\}$ not cocountable nor countable whereas $\underline{\mu}(X_2\cup\{x_1\})=\sup\{\mu(Y_1)=\mu(Y_1\cup Y_2):Y_1\in\{\{x_1\},\phi\},|Y_2|\leq\omega,Y_2\subseteq X_2\}=1$ and thus $\underline{\mu}\neq\tilde{\mu}.$
+    \end{enumerate} 
+\end{solution}
+\begin{problem}\label{prob:1.17}
+If $\mu^*$ is an outer measure on $X$ and $\{A_j\}_1^\infty$ is a sequence of disjoint $\mu^*$-measurable sets, then $\mu^*(E \cap (\cup_1^\infty A_j)) = \sum_1^\infty \mu^*(E \cap A_j)$ for any $E \subset X$.
+\end{problem}
+\begin{solution}
+    As outer measures are subadditive, it suffices to show $\mu^*(E\cap(\cup A_n))\geq\sum\mu^*(E\cap A_n).$ 
+    Let, $B_n=\cup_{k\leq n}A_k$ and $B=\cup A_n=\cup B_n.$ 
+    Then as $A_n$ are all measurable and hence we can say,
+    $$\mu^*(E\cap B)\geq\mu^*(E\cap B_n)=\mu^*(E\cap B_n\cap A_n)+\mu^*(E\cap B_n\cap A_n^c)$$
+    $$=\mu^*(E\cap A_n)+\mu^*(E\cap B_{n-1})=\ldots=\sum_{m\leq n}\mu^*(E\cap A_m)$$
+    by monotonicity and the definition of measurablity for outer measures. 
+    As $n\to\infty$ we get our desired inequality. 
+\end{solution}
+\begin{problem}\label{prob:1.18}
+Let $\mathcal{A} \subset \mathcal{P}(X)$ be an algebra, $\mathcal{A}_\sigma$ the collection of countable unions of sets in $\mathcal{A}$, and $\mathcal{A}_{\sigma\delta}$ the collection of countable intersections of sets in $\mathcal{A}_\sigma$. Let $\mu_0$ be a premeasure on $\mathcal{A}$ and $\mu^*$ the induced outer measure.
+\begin{enumerate}[label=\alph*.]
+    \item For any $E \subset X$ and $\epsilon > 0$ there exists $A \in \mathcal{A}_\sigma$ with $E \subset A$ and $\mu^*(A) \le \mu^*(E) + \epsilon$.
+    \item If $\mu^*(E) < \infty$, then $E$ is $\mu^*$-measurable iff there exists $B \in \mathcal{A}_{\sigma\delta}$ with $E \subset B$ and $\mu^*(B \setminus E) = 0$.
+    \item If $\mu_0$ is $\sigma$-finite, the restriction $\mu^*(E) < \infty$ in (b) is superfluous.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item By the definition of the outer measure as an infimum, for any $\epsilon>0$ there exists (wlog we can consider these to be disjoint) $\{K_n\}\subseteq\mA$ such that $\sum\mu_0(K_n)\leq\mu^*(E)+\epsilon$.  
+        Now we see that, 
+        $$\sum_{n=1}^{\infty}\mu_0(K_n)=\lim_{m\to\infty}\sum_{n<m}\mu_0(K_n)=\lim_{m\to\infty}\mu_0(\underbrace{\bigcup_{n<m}K_n}_{\in\mA})=\lim_{m\to\infty}\mu^*(\underbrace{\bigcup_{n<m}K_n}_{\in\mM(\mA)})=\mu^*(\cup K_n)$$
+        using continuity from below as $\mu^*$ is a measure on the sigma algebra of $\mu^*$-measureable sets which contiains $\mA$ and thus $\mM(\mA)$ as well. As $\cup K_n\in\mA_\sigma$ we are done.
+        \item Assume that $E$ is measurable. 
+        By part (a) we can find $E\subseteq E_n\in A_\sigma$ with $\mu^*(E)+1/n>\mu^*(E_n)\geq\mu^*(E).$ 
+        Then using continuity from above ($\mu^*(E)+1/n<\infty$ as per the statement) we get that $\mu^*(\cap E_n)=\mu^*(E)$ and $E\subseteq K:=\cap E_n\in\mA_{\sigma\delta}.$ 
+        Using the definition of measurablity and finitude of $\mu^*(E)$ we get that $\mu^*(K\setminus E)=\mu^*(K)-\mu^*(E)=0$. 
+        For the other direction, let $B,E$ be as in the statement, then as $\mu^*$ is complete and $\mA_{\sigma\delta}\subseteq\mM(\mA),B\setminus E$ and $B$ are measureable here, this makes their difference measureable too i.e. $B\setminus(B\setminus E)=E$ is also measurable. 
+        \item Assuming $\sigma$-finiteness, let $\{H_n\}_{n\in\bN}\subseteq\mA$ be disjoint and of finite $\mu_0$-measure such that $X\subseteq\cup H_n$. 
+        Assume that $E$ is measurable now. $H_n$ being measurable forces $E\cap H_n$ to be measurable as well.
+        Using part (a), fixing $\epsilon>0$ we can find $B_n\in\mA_\sigma$ containing $E\cap H_n$ such that $\mu^*(B_n)\leq\mu^*(E\cap H_n)+\epsilon 2^{-n}$ which, by the finitude of $\mu^*(E\cap H_n)$ (its clearly less than $\mu_0(H_n)<\infty$) and definition of $\mu^*$-measurablity, after moving a term to another side of the equality implies $\mu^*(B_n\setminus (E\cap H_n))=\mu^*(B)-\mu^*(E\cap H_n)<\epsilon2^{-n}$. 
+        Thus summing these over $n\in\bN$ and using subadditivity of outer measures we have
+        $$\mu^*\left(\bigcup_{n\in\bN}(B_n\setminus (E_n\cap H_n))\right)\leq\sum_{n\in\bN}\mu^*(B_n\setminus(H_n\cap E))\leq\epsilon$$
+        Now using monotonicity and the fact that $(\cup B_n)\setminus E=(\cup B_n)\setminus(\cup(H_n\cap E))\subseteq\cup(B_n\setminus(H_n\cap E))$ we see that $\mu^*((\cup B_n)\setminus E)<\epsilon$ where $E\subseteq\cup B_n\in\mA_{\sigma\sigma}=\mA_\sigma$.
+        As $\epsilon$ was arbitrarily small we can find $V_n\in\mA_\sigma$ containing $E$ for which $\mu^*(V_n\setminus E)<1/n$.
+        And again by monotonicity we see that $\mu^*((\cap V_n)\setminus E)=0$ with $\cap V_n\in\mA_{\sigma\delta}$. The proof for another direction does not depend on the finitude of $\mu^*(E)$ and is exactly the same to that in part (b) so we are done. 
+    \end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:1.19}
+Let $\mu^*$ be an outer measure on $X$ induced from a finite premeasure $\mu_0$. If $E \subset X$, define the inner measure of $E$ to be $\mu_*(E) = \mu_0(X) - \mu^*(E^c)$. Then $E$ is $\mu^*$-measurable iff $\mu^*(E) = \mu_*(E)$. (Use Exercise 18.)
+\end{problem}
+\begin{solution}
+    $\mu_0$ being finite cleary makes $\mu^*$ finite as well so we can rearrange terms freely.
+    The only if direction is trivial, we will prove the if direction so assume that $\mu^*(E)=\mu_*(E)$, equivalently $\mu^*(X)=\mu^*(E)+\mu^*(E^c)$. 
+    For any $S\subseteq X$ and any $\epsilon>0$, from \hyperref[prob:1.18]{Problem 1.18} we can find $\mu^*$-measurable $K$ containing $S$ with $\mu^*(S)+\epsilon>\mu^*(K)$. 
+    As $K$ is $\mu^*$-measurable, by definition we have
+    $$(\mu^*(S)+\epsilon)+\mu^*(K^c)>\mu^*(K)+\mu^*(K^c)=\mu^*(X)=\mu^*(E)+\mu^*(E^c)$$
+    $$=\mu^*(E\cap K)+\mu^*(E\cap K^c)+\mu^*(E^c\cap K)+\mu^*(E^c\cap K^c)\geq\mu^*(E\cap K)+\mu^*(E^c\cap K)+\mu^*(K^c)$$
+    $$\geq\mu^*(E\cap S)+\mu^*(E^c\cap S)+\mu^*(K^c)$$
+    by using subadditivity and monotonicity. 
+    Subtracting $\mu^*(K^c)$ we get, $\mu^*(S)+\epsilon\geq\mu^*(E\cap S)+\mu^*(E^c\cap S)$ and as $\epsilon$ was arbitrarily small we can remove it from the inequality and it will still be valid, which is enough to prove equality as we already have subadditivity by the virtue of $\mu^*$ being an outer measure.
+\end{solution}
+\begin{problem}\label{prob:1.20}
+Let $\mu^*$ be an outer measure on $X$, $\mathcal{M}^*$ the $\sigma$-algebra of $\mu^*$-measurable sets, $\bar{\mu} = \mu^*|\mathcal{M}^*$, and $\mu^+$ the outer measure induced by $\bar{\mu}$ as in (1.12) (with $\bar{\mu}$ and $\mathcal{M}^*$ replacing $\mu_0$ and $\mathcal{A}$).
+\begin{enumerate}[label=\alph*.]
+    \item If $E \subset X$, we have $\mu^*(E) \le \mu^+(E)$, with equality iff there exists $A \in \mathcal{M}^*$ with $A \supset E$ and $\mu^*(A) = \mu^*(E)$.
+    \item If $\mu^*$ is induced from a premeasure, then $\mu^* = \mu^+$. (Use Exercise 18a.)
+    \item If $X = \{0, 1\}$, there exists an outer measure $\mu^*$ on $X$ such that $\mu^* \ne \mu^+$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item $\mu^*\leq\mu^+$ follows from subadditivity, monotonicity and the definition of an infimum. 
+        Now suppose we have $\mu^*(E)=\mu^+(E),$ by the definition of $\mu^+$, for all $n\in\bN$ we can find $A_n=\cup_m K_{m,n}\supseteq E$ with $K_{m,n}\in\mM^*$ such that 
+        $$\mu^+(E)+1/n\geq\sum_m\mu^*(K_{m,n})\geq\mu^*(A_n)$$
+        using monotonicity. As $\mM^*$ forms a $\sigma$-algebra we see that $\cap A_n\in\mM^*$ and by monotonicity, $\mu^*(\cap A_n)\leq\mu^*(E)$ and we have equality as $E\subseteq\cap A_n$. 
+        The other direction is trivial.
+        \item Let $\mu^*$ be induced from a premeasure $\mu_0$ on $\mA$. Then using part (a) of \hyperref[prob:1.18]{Problem 1.18}, for any $E\subseteq X$ we can find $A_n\in\mA_\sigma\subseteq\mM^*$ containing $E$ such that $\mu^*(E)+1/n\geq\mu^*(A_n)$, now as $\mM^*$ is a sigma algebra we have $E\subseteq\cap A_n\in\mM^*$ and also $\mu^*(E)\geq\mu^*(\cap A_n)$, which implies equality by monotonicity. 
+        Thus we have found a set $\cap A_n\in\mM^*$ containing $E$ with $\mu^*(\cap A_n)=\mu^*(E)$ and thus by part (a) we must have $\mu^*(E)=\mu^+(E).$
+        As $E$ was arbitrary we have $\mu^*=\mu^+.$
+        \item Define $\mu^*:\emptyset\mapsto 0,\{0\}\mapsto 2,\{1\}\mapsto 3,\{0,1\}\mapsto 4$. 
+        This meets all the criterions for being an outer measure i.e. monotonicity and $\sigma$-subadditivity and being $0$ on the emptyset.
+        It can be shown that $\mM^*=\{\emptyset,\{0,1\}\}$ and that $\mu^+(\{1\})=4\neq\mu^*(\{1\})$ so we are done.
+     \end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:1.21}
+Let $\mu^*$ be an outer measure induced from a premeasure and $\bar{\mu}$ the restriction of $\mu^*$ to the $\mu^*$-measurable sets. Then $\bar{\mu}$ is saturated. (Use Exercise 18.)
+\end{problem}
+\begin{solution}
+    If $A\subseteq X$ be locally $\bar{\mu}$-measurable. 
+    If $F\subseteq X$ is such that $\mu^*(F)=\infty$ then by subadditivity atleast one of $\mu^*(F\cap A),\mu^*(F\cap A^c)$ is infinite and thus we must have $\mu^*(F)=\infty=\mu^*(F\cap A)+\mu^*(F\cap A^c)$. 
+    Now suppose we had $\mu^*(F)<0,$ using part (a) of \hyperref[prob:1.18]{Problem 1.18} and the arguements in part (a) of \hyperref[prob:1.20]]{Problem 1.20} we can find a $\mu^*$-measureable $C\supset F$ such that $\mu^*(F)=\mu^*(C)$.
+    As $\mu^*(C)<\infty$ we must have that $C\cap F$ is measurable and thus so is $C\setminus(C\cap A)=C\cap A^c$ as the measurable sets form a $\sigma$-algebra here. 
+    Thus we have,
+    $$\mu^*(F)=\mu^*(C)=\bar{\mu}(C)=\bar{\mu}(C\cap A)+\bar{\mu}(C\cap A^c)=\mu^*(C\cap A)+\mu^*(C\cap A^c)$$
+    $$\geq\mu^*(F\cap A)+\mu^*(F\cap A^c)$$
+    using additivity of $\bar{\mu}$ and monotonicity of $\mu^*$.
+    This implies, by subadditivity of $\mu^*$ that $\mu^*(F)=\mu^*(F\cap A)+\mu^*(F\cap A^c)$ and we have proven that this holds for all $F\subseteq X$, hence proving measurablity of $A$ by definition. 
+    This shows that all locally measurable sets are measureable w.r.t $\bar{\mu}$, making it saturated. 
+\end{solution}
+\begin{problem}\label{prob:1.22}
+Let $(X, \mathcal{M}, \mu)$ be a measure space, $\mu^*$ the outer measure induced by $\mu$ according to (1.12), $\mathcal{M}^*$ the $\sigma$-algebra of $\mu^*$-measurable sets, and $\bar{\mu} = \mu^*|\mathcal{M}^*$.
+\begin{enumerate}[label=\alph*.]
+    \item If $\mu$ is $\sigma$-finite, then $\bar{\mu}$ is the completion of $\mu$. (Use Exercise 18.)
+    \item In general, $\bar{\mu}$ is the saturation of the completion of $\mu$. (See Exercises 16 and 21.)
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item $\sigma$-algebras are algebras and measures are also premeasures, this allows us to utilise parts of \hyperref[prob:1.18]{Problem 1.18}. 
+        The completion of $\mu$ is denoted by $\hat{\mu}$. 
+        We will show that 
+        $$\mM^*=\overline{\mM}:=\{E\cup F|E\in\mM,\exists N\in\mM:\mu(N)=0\text{ and }F\subseteq N\}$$ 
+        this is sufficient as by caratheodory's theorem $\bar{\mu}$ is complete and we also know that $\mu^*|_{\mM}=\mu$ (from proposition 1.13), so it extends $\mu$. 
+        As this complete extension is unique, $\bar{\mu}$ must be the completion here. 
+        If $S\in\mM^*$ then using part (c) of problem 18 we can find $B\in\mM_{\sigma\delta}=\mM$ such that $S\subseteq B$ and $\mu^*(B\setminus S)=0$.
+        By part (a) of problem 18, with some work we can show that there exists some $N\in\mM_\sigma=\mM$ such that $B\setminus S\subseteq N$ and $\mu^*(B\setminus S)=\mu^*(N)=\mu(N)=0$. 
+        Now, to show that $E\in\mM$, it suffices to show that $E^c\in\mM$ as $\mM$ is a $\sigma$-algebra.
+        Rewriting $E$ as $B\setminus(B\setminus E)$ we have $E^c=B^c\cup(B\setminus E)$ with $B^c\in\mM$ and $B\setminus E\subseteq N\in\mM$ of zero measure and thus $E^c\in\overline{\mM}$ implying $\mM^*\subseteq\overline{\mM}$.
+        For the other direction of the set inclusion, any $E\cup F$ with $E\in\mM,F\subseteq N\in\mM$ with $\mu(N)=0$. 
+        Also, $E\cup N\in\mM$ and $(E\cup N)\setminus(E\cup F)\subseteq N\setminus F$ so $\mu^*((E\cup N)\setminus(E\cup F))\leq\mu^*(N\setminus F)\leq\mu^*(N)=\mu(N)=0$, making $E\cup F$ measurable by part (b) of Problem 18.
+        \item We need to first show that $\mM^*=\tilde{\overline{\mM}}$. 
+        Let $E\in\mM^*,$ consider $K\in\overline{\mM}\subseteq\mM^*$ of finite $\mu$-measure, then we see that $E\cap K\in\mM^*$ and they have finite $\mu^*$-measure, using part (a,b) of problem 18 as we did in part (a) of this problem we can prove that $E\cap K\in\tilde{\overline{\mM}}$.
+        This shows one direction of the equality $\mM^*\subseteq\overline{\mM}.$ 
+        Now we show the other direction $\tilde{\overline{\mM}}\subseteq\mM^*$. 
+        Suppose $G\in\tilde{\overline{\mM}}$ then for all $K\in\overline{\mM}$, of finite $\hat{\mu}$-measure we have $G\cap K\in\overline{\mM}$. 
+        It suffices to show that $G\in\tilde{\mM^*}$ as $\mu^*$ is saturated. 
+        If $K\in\mM^*$ has finite $\mu^*$-measure then we have shown earlier that $K\in\overline{\mM}$.
+        We also have that $\mu^*=\hat{\mu}$ on $\overline{\mM}$ as any $E\cup F$ with $E\in\mM$ and $F\subseteq N\in\mu^{-1}(\{0\})$, thus $\mu^*(E\cup F)\leq\mu^*(E\cup N)\leq\mu^*(E)+\mu^*(N)=\mu(E)+\mu(N)=\mu(E)$ and we have equality by monotonicity.
+        Now we see that $\mu^*(K)<\infty\implies\hat{\mu}(K)<\infty$ and thus $E\cap K\in\overline{\mM}\subseteq\mM^*$ proving $\tilde{\overline{\mM}}\subseteq\mM^*$, finally resulting in equality.
+        Now to show that both of these measures agree, we already know that they agree on $\overline{\mM}$, outside which $\hat{\mu}=\infty$ and thus we need to show that $\mu^*=\infty$ too.
+        However this is true as $\mu^*(E)<\infty$ for $E\in\mM^*$ implies $E\in\overline{\mM}$ so we are done.
+    \end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:1.23}
+Let $\mathcal{A}$ be the collection of finite unions of sets of the form $(a, b] \cap \mathbb{Q}$ where $-\infty \le a < b \le \infty$.
+\begin{enumerate}[label=\alph*.]
+    \item $\mathcal{A}$ is an algebra on $\mathbb{Q}$. (Use Proposition 1.7.)
+    \item The $\sigma$-algebra generated by $\mathcal{A}$ is $\mathcal{P}(\mathbb{Q})$.
+    \item Define $\mu_0$ on $\mathcal{A}$ by $\mu_0(\emptyset) = 0$ and $\mu_0(A) = \infty$ for $A \ne \emptyset$. Then $\mu_0$ is a premeasure on $\mathcal{A}$, and there is more than one measure on $\mathcal{P}(\mathbb{Q})$ whose restriction to $\mathcal{A}$ is $\mu_0$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item This is trivial.
+        \item Given any nonempty $X\subseteq\bQ$ we see that it must be countable, thus 
+        $$X=\bigcup_{x\in X}\{x\}=\bigcup_{x\in X}\bigcap_{n\in\bN}\Big(x-\frac{1}{n},x\Big]\in\mA_{\delta\sigma}\subseteq\mM(\mA)$$ 
+        thus we must have equality as $\mM(\mA)\subseteq\mathcal P(\bQ)$. 
+        \item All elements of $\mA$ can be easily shown to have have nonempty interior.
+        Let $\mu_1=\infty$ except on $\emptyset$ and $\mu_2=\infty$ except on $\{\emptyset,\{0\}\}$.
+        It can be easily shown that $\mu_1|_{\mA}=\mu_2|_{\mA}=\mu_0$ with $\mu_1\neq\mu_2$
+    \end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:1.24}
+Let $\mu$ be a finite measure on $(X, \mathcal{M})$, and let $\mu^*$ be the outer measure induced by $\mu$. Suppose that $E \subset X$ satisfies $\mu^*(E) = \mu^*(X)$ (but not that $E \in \mathcal{M}$).
+\begin{enumerate}[label=\alph*.]
+    \item If $A, B \in \mathcal{M}$ and $A \cap E = B \cap E$, then $\mu(A) = \mu(B)$.
+    \item Let $\mathcal{M}_E = \{A \cap E : A \in \mathcal{M}\}$, and define the function $\nu$ on $\mathcal{M}_E$ defined by $\nu(A \cap E) = \mu(A)$ (which makes sense by (a)). Then $\mathcal{M}_E$ is a $\sigma$-algebra on $E$ and $\nu$ is a measure on $\mathcal{M}_E$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item We have $A\setminus B=((A\cap E)\setminus(B\cap E)\cup((A\cap E^c)\setminus(B\cap E^c)))=(A\cap E^c)\setminus(B\cap E^c)$ and also $(A\setminus B)^c=(B\cap E^c)\cup(A\cap E^c)^c=(B\cap E^c)\cup(A^c\cup E)\supseteq E$.
+        This implies $\mu((A\setminus B)^c)=\mu^*((A\setminus B)^c)\geq\mu^*(E)=\mu(X)$ and thus we must have $\mu(A\setminus B)=\mu(X)-\mu((A\setminus B)^c)=\mu(X)-\mu(X)=0.$
+        Thus, $\mu(A)=\mu(A\setminus B)+\mu(B\cap A)=\mu(B\cap A)$ by additivity and similarly $\mu(B)=\mu(A\cap B)$ too, so we have $\mu(A)=\mu(B)$.
+        \item $\mM_E$ clearly contains $E,\emptyset$ and is closed under countable unions.
+        If $E\cap K\in\mM_E$ with $K\in\mM$, we see that $K^c\in\mM$ and thus $E\cap K^c=E\setminus(E\cap K)$ i.e. the complement of $E\cap K$ in $E$ is also in $\mM_E$ so its closed under complements as well, making it a $\sigma$-algebra.
+        Clearly $\nu(\emptyset)=0$ and if $\{A_n\cap E\}_{n\in\bN}\subseteq\mM_E$ are disjoint, then using the fact that $S\cap E=(S\cap E)\cap E$ for all $S\in\mM$ and thus $\mu(S)=\mu(S\cap E)$, we have
+        $$\nu\left(\bigcup_{n\in\bN}(A_n\cap E)\right)=\nu\left(E\cap\bigcup_{n\in\bN}A_n\right)=\mu(\underbrace{\bigcup_{n\in\bN} A_n}_{\in\mM})=\mu\left(E\cap\bigcup_{n\in\bN}A_n\right)$$
+        $$=\mu\left(\bigcup_{n\in\bN}(E\cap A_n)\right)=\sum_{n\in\bN}\mu(E\cap A_n)=\sum_{n\in\bN}\mu(A_n)=\sum_{n\in\bN}\nu(E\cap A_n)$$
+    \end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:1.25}
+Complete the proof of Theorem 1.19.
+\end{problem}
+\begin{solution}
+    We start with the following lemma: If $F_n\subseteq(n,n+1]$ are closed subsets for $n\in\bZ$ then so is their union. 
+    For a proof, consider any sequence with terms in the union that converges. 
+    If the limit is in $(n,n+1]$ then we see that the sequence is eventually in $F_n\cup F_{n+1}$ which is indeed closed and the sequence converges in $F_n\cup F_{n+1}$, and thus also in $\cup F_n$ making it closed. 
+    Clearly (b,c) imply (a), we prove the other directions. 
+    As the measure $\mu$ defined here is sigma finite, we can consider $\{H_n=(n,n+1]\}_{\in\bZ}\subseteq\mM_\mu$ of finite measure which partitions $\bR$. 
+    Now, for every $n\in\bN$ let $U_{n,k}$ and $F_{n,k}$ be open and closed sets respectively such that $F_{n,k}\subseteq H_n\cap E\subseteq U_{n,k}$ and
+    $$\mu(U_{n,k})-2^{-|n|}/3k\leq\mu(E)\leq\mu(F_{n,k})+2^{-|n|}/3k$$
+    as every term is finite here we can rearrange them to get
+    $$\mu(U_{n,k}\setminus E\cap H_n),\mu(E\cap H_n\setminus F_{n,k})\leq 2^{-|n|}/3k$$
+    We have that $U^*_k:=\cup_n U_{n,k}$ is open, contains $E$ and $F^*_k:=\cup_n F_{n,k}$(this is a disjoint union too) is closed and contained in $E$ such that
+    $$\mu\qty(U^*_k\setminus E)\leq\mu\qty(\bigcup_{n\in\bZ}(U_{n,k}\setminus H_n\cap E))\leq\sum_{n\in\bZ}\mu(U_{n,k\setminus H_n\cap E})\leq\sum_{n\in\bZ}2^{-|n|}/3k=1/k$$
+    using monotonicity as $(\cup U_{n,k})\setminus(\cup E\cap H_n)\subseteq\cup(U_{n,k}\setminus E\cap H_n)$.
+    Similarly,
+    $$\mu\qty(E\setminus F^*_k)\leq\mu\qty(\bigcup_{n\in\bZ}(E\cap H_n\setminus F_{n,k}))=\sum_{n\in\bZ}\mu(E\cap H_n\setminus F_{n,k})\leq\sum_{n\in\bZ}2^{-|n|}/3k=1/k$$ 
+    Let, $U:=\cap U^*_k\in G_\delta$ and $F:=\cup F^*_k\in F_\sigma$ then $F\subseteq E\subseteq U$ and we have $\mu(E\setminus F)=\mu(U\setminus E)=0$. 
+    Now, using additivity of $\mu$ we have $\mu(U)=\mu(U\setminus E)+\mu(E)=\mu(E)$ and $\mu(E)=\mu(F)+\mu(E\setminus F)=\mu(F)$. 
+    Now we can write $E=U\setminus(U\setminus E)=F\cup(E\setminus F)$ proving that (a) implies (b,c) too and we are done.
+
+\end{solution} 
+\begin{problem}\label{prob:1.26}
+Prove Proposition 1.20. (Use Theorem 1.18.)
+\end{problem}
+\begin{solution}
+    Using theorem 1.18, given any $\epsilon>0$ we can find open $U\supset E$ with $\mu(U)\leq\mu(E)+\epsilon$ rearranging which gives $\mu(E\Delta U)<\epsilon$.
+    Suppose $U=\cup I_k$ where $\{I_k\}$ are disjoint open intervals, then the sum $\sum\mu(I_k)=\mu(A)<\infty$. 
+    Truncating this we can find $M\in\bN$ such that $\mu(\cup_{1\leq k\leq m}I_k)+\epsilon\geq\mu(U)$ and thus $\mu((\cup_{1\leq k\leq m}I_k)\Delta U)<\epsilon$.
+    As $\mu(\cup_{1\leq k\leq m}I_k),\mu(E),\mu(U)$ are all finite, we have
+    $$\mu\qty(E\Delta\qty(\bigcup_{1\leq k\leq m}I_k))\leq\mu\qty(E\Delta U)+\mu\qty(U\Delta(\bigcup_{1\leq m}I_k))<2\epsilon$$
+    proving the proposition.
+\end{solution}
+\begin{problem}\label{prob:1.27}
+Prove Proposition 1.22a. (Show that if $x, y \in C$ and $x < y$, there exists $z \notin C$ such that $x < z < y$.)
+\end{problem}
+\begin{solution}
+    This is trivial by considering ternary expansions.
+\end{solution}
+\begin{problem}\label{prob:1.28}
+Let $F$ be increasing and right continuous, and let $\mu_F$ be the associated measure. Then $\mu_F(\{a\}) = F(a) - F(a-)$, $\mu_F([a, b)) = F(b-) - F(a-)$, $\mu_F([a, b]) = F(b) - F(a-)$, and $\mu_F((a, b)) = F(b-) - F(a)$.
+\end{problem}
+\begin{solution}
+    All of these follows from upper and lower continuity theorems of measures.
+\end{solution}
+\begin{problem}\label{prob:1.29}
+Let $E$ be a Lebesgue measurable set.
+\begin{enumerate}[label=\alph*.]
+    \item If $E \subset N$ where $N$ is the nonmeasurable set described in \S1.1, then $m(E) = 0$.
+    \item If $m(E) > 0$, then $E$ contains a nonmeasurable set. (It suffices to assume $E \subset [0, 1]$. In the notation of \S1.1, $E = \cup_{r \in R} (E \cap N_r)$.)
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item If $E$ is a measurable subset of $N$ then we find that, for $r\in\bQ\cap[0,1),E_r:=(r+E\cap[0,1-r))\cup(-1+r+E\cap[1-r,1))\subseteq N_r$ is measurable and $m(E)=m(E_r)$.
+        As $N_r$ are disjoint, $E_r$ must also be disjoint.
+        Thus,
+        $$\sum_{r\in\bQ\cap[0,1)}m(E)=\sum_{r\in[0,1)\cap\bQ}m(E_r)=m\qty(\bigcup_{r\in\bQ\cap[0,1)}E_r)\leq m([0,1))=1$$ 
+        this is possible only when $\mu(E)=0$ so that must be the case here. 
+        \item After shifting taking a finite measured subset of $E$, we can assume $E\subseteq[0,1)$.
+        If all of $E\cap N_r$ are measurable, then as any measurable subset of the nonmeasurable sets $N_r$ has measure $0$ from the previous part (This can be proven using the same arguements we used to prove it for $N$ i.e. when $r=0$) we have,
+        $$m(E)=m\qty(\bigcup_{r\in\bQ\cap[0,1)}N_r\cap E)=\sum_{r\in\bQ\cap[0,1)}m(E\cap N_r)=\sum_{r\in\bQ\cap[0,1)}0=0$$
+        which is false as $m(E)>0$. 
+    \end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:1.30}
+If $E \in \mathcal{L}$ and $m(E) > 0$, for any $\alpha < 1$ there is an open interval $I$ such that $m(E \cap I) > \alpha m(I)$.
+\end{problem}
+\begin{solution}
+    Unless $m(E)<\infty$, we can consider some finite positive measured subset of $E$ so wlog it is safe to assume $m(E)<\infty$ from the start and we do so.
+    First we define the following supremum, 
+    $$C:=\sup\qty{\frac{m(E\cap I)}{m(I)}:I\text{ is a nonempty open interval}}$$
+    which exists because $m(E\cap I)/m(I)\leq 1$ by monotonicity. 
+    Thus we must have that $m(E\cap I)\leq Cm(I)$ for all nonempty open $I$.
+    By \hyperref[prob:1.18]{Problem 1.18}, for any $\epsilon>0$ we can find open $U\supset E$ with $m(E)+\epsilon>m(U)$.
+    Suppose $U=\cup I_k$ with $I_k$ being mutually disjoint open intervals. 
+    Then as $E=E\cap U=\cup(E\cap I_k)$ we can write,
+    $$m(E)=m\qty(\bigcup_{k}(E\cap I_k))=\sum_{k}m(E\cap I_k)\leq\sum_{k}Cm(I_k)=Cm(U)$$
+    and thus, for all $\epsilon>0$ we must have $Cm(U)+\epsilon\geq m(E)+\epsilon>m(U)$ implying that 
+    $$\epsilon>(1-C)m(U)\geq(1-C)m(E)$$
+    Now as $m(E)>0$ this is only possible when $1-C=0$ and we are done.
+\end{solution}
+\begin{problem}\label{prob:1.31}
+If $E \in \mathcal{L}$ and $m(E) > 0$, the set $E - E = \{x - y : x, y \in E\}$ contains an interval centered at $0$. (If $I$ is as in Exercise 30 with $\alpha > 3/4$, then $E - E$ contains $(-1/2 m(I), 1/2 m(I))$).
+\end{problem}
+\begin{solution}
+    Consider the setup in the hint, then for $r\in(-0.5m(I),0.5m(I))$ we see that $r\in E-E$ iff $(|r|+E)\cap E$ is nonempty. 
+    As it contains $\supset (|r|+E\cap I)\cap(E\cap I)$, proving this to be nonempty suffices. 
+    Now by the inclusion exclusion principle for measures, for our case we can write 
+    $$m((|r|+E\cap I)\cap E\cap I)=m(|r|+E\cap I)+m(E\cap I)-m((|r|+E\cap I)\cup E\cap I)$$
+    $$\geq 2m(E\cap I)-m(I\cup(|r|+I))\geq 1.5m(I)-(1+|r|)m(I)=(0.5-|r|)m(I)>0$$
+    so it definetly can not be empty and we are done.
+\end{solution}
+\begin{problem}\label{prob:1.32}
+Suppose $\{\alpha_j\}_1^\infty \subset (0, 1)$.
+\begin{enumerate}[label=\alph*.]
+    \item $\prod_1^\infty (1 - \alpha_j) > 0$ iff $\sum_1^\infty \alpha_j < \infty$. (Compare $\sum \log(1 - \alpha_j)$ to $\sum \alpha_j$.)
+    \item Given $\beta \in (0, 1)$, exhibit a sequence $\{\alpha_j\}$ such that $\prod_1^\infty (1 - \alpha_j) = \beta$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    The first one follows from continuity of the logarithm on its domain and comparison principle for sums using the fact that $\log(1-x)=-x+O(x^2)$ for small $x$. For the second one consider $\alpha_j:=1-\beta^{2^{-j}}$.
+\end{solution}
+\begin{problem}\label{prob:1.33}
+There exists a Borel set $A \subset [0, 1]$ such that $0 < m(A \cap I) < m(I)$ for every subinterval $I$ of $[0, 1]$. (Hint: Every subinterval of $[0, 1]$ contains Cantor-type sets of positive measure.)
+\end{problem}
+\begin{solution}
+    By the previous problem we easily notice that there are cantor-like measurable sets $\subseteq[0,1]$ which are closed, nowhere dense and have positive measure. 
+    Let $\{I_n\}$ be an ennumeration of the nonempty open (this is clearly sufficient) subintervals with rational endpoints in $[0,1]$. 
+    Let $K_1\subseteq I_1$ be such a set as discussed before, as $K_1$ is nowhere dense there is an open interval in $K_1\setminus K_1$ and we can choose a positive measured nowhere dense set $C_1\subseteq I_1\setminus K_1$ after shifting and dilating sets like $K$.
+    Inductively choose $K_1,C_1,\ldots,K_n,C_n$. 
+    As the union of finitely many nowhere dense sets is still nowhere dense, there is an open interval in $I_{n+1}\setminus(\cup_{k\leq n}K_k\cup C_k)$ and we can choose a nowhere dense set $K_{n+1}$ in it of positive measure.
+    Again we can choose a similar $C_{n+1}\subseteq I_{n+1}\setminus(K_{n+1}\cup(\cup_{k\leq n}K_k\cup C_k))$.
+    Continuing ad infintum we get two collections of sets $\{K_n\}$ and $\{C_n\}$, and clearly $K:=\cup K_n$ is disjoint with $C:=\cup C_n.$
+    We claim that $A=K$ works. 
+    Now, given any subinterval $I$ of $[0,1]$ having positive measure we can find some $I_n\subseteq I$ and thus, because $K_n\subseteq I_n$ we see that $m(I\cap K)\geq m(I_n\cap K_n)=m(K_n)>0$ and we also have that $m(I\cap K^c)\geq m(I_n\cap C_n)=m(C_n)>0$ as $C\subseteq K^c$.
+    Thus we have that $0<m(A\cap I)=m(I)-m(A^c\cap I)<m(I)$ so this $A$ satisfies the criterion,
+    As all the $K_n$ were closed, $A\in F_\sigma$ so its clearly borel and we are done.
+\end{solution}
+\end{document}
