@@ -1,0 +1,490 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath, amssymb, amsthm, amsfonts, graphicx, physics, enumitem, geometry, esint}
+\geometry{margin=1in}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{EvanPink}{rgb}{0.85, 0.13, 0.55}
+\usepackage[colorlinks=true,
+            linkcolor=OliveGreen,
+            urlcolor=EvanPink,
+            citecolor=OliveGreen]{hyperref}
+\usepackage{cleveref}
+\usepackage{etoolbox}
+\newenvironment{solution}{%
+  \par\noindent\textit{Solution.}\ }{\qed}
+\newtheoremstyle{problemstyle}
+  {1em}   
+  {1em}   
+  {}      
+  {}      
+  {\bfseries} 
+  {.}     
+  {0.5em} 
+  {}      
+\theoremstyle{problemstyle}
+\newtheorem{problem}{Problem}[section]
+\apptocmd{\problem}{%
+  \addcontentsline{toc}{subsection}{Problem~\thesection.\arabic{problem}}%
+}{}{}
+\crefname{problem}{Problem}{Problems}
+\Crefname{problem}{Problem}{Problems}
+\setcounter{tocdepth}{2}
+\title{\textbf{Chapter 2 : Integration}}
+\author{Arkaraj Mukherjee}
+\def\bN{\mathbb{N}}
+\def\bR{\mathbb{R}}
+\def\bZ{\mathbb{Z}}
+\def\bQ{\mathbb{Q}}
+\def\bC{\mathbb{C}}
+\def\mM{\mathcal{M}}
+\def\mR{\mathcal{R}}
+\def\mN{\mathcal{N}}
+\def\mE{\mathcal{E}}
+\def\mA{\mathcal{A}}
+\def\oR{\overline{\mathbb{R}}}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Chapter 2 : Integration}
+\begin{problem}\label{prob:2.1}
+Let $f: X \to \overline{\bR}$ and $Y = f^{-1}(\bR)$. Then $f$ is measurable iff $f^{-1}(\{-\infty\}) \in \mM$, $f^{-1}(\{\infty\}) \in \mM$, and $f|_Y$ is measurable on $Y$.
+\end{problem}
+\begin{solution}
+    For the only if direction, $\{\infty\},\{-\infty\},\bR=Y\in\mathcal B_{\oR}$ making $f^{-1}$ map them into $\mM$ as $f$ is measurable and as $\mM$ is a sigma algebra we see that $f\vert_Y:Y\to\oR$ is $\mM_Y$-measurable as $f^{-1}(E)\cap Y\in\mM_Y$ for all $E\in\mathcal B_{\oR}$. 
+    Now for the if direction, as $\mathcal B_{\oR}=\{E\cup I:E\in\mathcal B_{\bR}, I\subseteq\{\infty,-\infty\}\}$ we see that for any such $E\cup I\in\mathcal B_{\oR}$ we have $f^{-1}(E\cup I)=f^{-1}(E)\cup f^{-1}(I)$ and as $f^{-1}(E)\cap Y=f^{-1}(E)\in\mM_Y\subseteq\mM$ from and $f^{-1}(I)\in\mM$ so $f$ is measurable on $\mM$.
+\end{solution}
+\begin{problem}\label{prob:2.2}
+Suppose $f, g: X \to \oR$ are measurable.
+\begin{enumerate}[label=\alph*.]
+    \item $fg$ is measurable (where $0 \cdot (\pm\infty) = 0$).
+    \item Fix $\alpha \in \oR$ and define $h(x) = \alpha$ if $f(x) = -g(x) = \pm\infty$ and $h(x) = f(x) + g(x)$ otherwise. Then $h$ is measurable.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item Consider the two maps,
+        $$X\ni x\longrightarrow (f(x),g(x))\text{ and }\oR^2\ni(x,y)\mapsto xy$$
+        the first is a measurable map from $X$ (with sigma algebra $\mM$) to $R\times R$ (with sigma algebra $\otimes^2_1 \mathcal B_{\oR}$) and the second from this to $\oR$ (with sigma algebra $\mathcal B_{\oR}$) and as the composition of measurable maps are measurable we are done.
+        Here, the measurability of $(x,y)\to xy$ follows from its continuity (note: the metric on $\oR$ considered throughout the chapter is usually $d(x,y):=|\arctan(x)-\arctan(y)|$ with $\arctan(\pm\infty)=\pm\pi/2$).
+        \item Similarly again consider $x\mapsto(f(x),g(x))$ but this time with $(x,y)\to J(x,y)$ where,
+        $$J(x,y):=\begin{cases}\alpha\text{ if }x=-y=\pm\infty\\ x+y\text{ otherwise}\end{cases}$$
+        We will use \hyperref[prob:2.5]{Problem 1.5} here. 
+        Let $A=\{(+\infty,-\infty),(-\infty,+\infty)\}$ and $B=\oR^2\setminus A$, it is clear that $J$ is continuous on $B$ and hence measurable on it and as it is constant on $A$ it is trivially measurable on it so we are done.
+        As compositions of measurable functions are measurable we are done.
+    \end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:2.3}
+If $\{f_n\}$ is a sequence of measurable functions on $X$, then $\{x : \lim f_n(x) \text{ exists}\}$ is a measurable set.
+\end{problem}
+\begin{solution}
+    We know that $g_1=\limsup f_n$ and $g_2=-\liminf f_n$ are measurable functions, define 
+    $$h(x):=\begin{cases}2026\text{ if }g_1(x)=-g_2(x)=\pm\infty\\ g_1(x)+g_2(x)\text{ otherwise}\end{cases}$$
+    $h$ is a measurable function by \hyperref[prob:2.2]{Problem 1.2} and $f_n$ converges iff $g_1=-g_2$ and we get that 
+    $$\left\{x:\lim f_n(x)\text{ exists}\right\}=h^{-1}(\{0,2026\})$$
+    which implies that the set infact is measurable as all the sets we performed unions and intersections on are in $\mM$.
+\end{solution}
+\begin{problem}\label{prob:2.4}
+If $f: X \to \overline{\bR}$ and $f^{-1}((r, \infty]) \in \mM$ for each $r \in \bQ$, then $f$ is measurable.
+\end{problem}
+\begin{solution}
+    It can easily be shown that these sets being in $\mM$ implies that $f^{-1}((k,\infty])\in\mM$ for any $k\in\oR$ easily so we are done.
+\end{solution}
+\begin{problem}\label{prob:2.5}
+If $X = A \cup B$ where $A, B \in \mM$, a function $f$ on $X$ is measurable iff $f|_A$ is measurable on $A$ and $f|_B$ is measurable on $B$.
+\end{problem}
+\begin{solution}
+    If $f$ is measurable then measurability on $A,B\in\mM$ are trivial.
+    For the other direction, suppsoe $f:X\to Y$ with $\mN$ being the sigma algebra on $Y$, for any $E\in\mN$ we have,
+    $$f^{-1}(E)=(f^{-1}(E)\cap A)\cup(f^{-1}(E)\cap B)=(f\vert_A^{-1}(E))\cup(f\vert_B^{-1}(E))\in\mM$$
+    as these two sets are in $\mM_A,\mM_B\subseteq\mM$ respectively anyways.
+\end{solution}
+\begin{problem}\label{prob:2.6}
+The supremum of an uncountable family of measurable $\bR$-valued functions on $X$ can fail to be measurable (unless the $\sigma$-algebra $\mM$ is very special).
+\end{problem}
+\begin{solution}
+    Suppose $X=\bR$ with the sigma algebra being the lebesgue measurable sets, then for a non measurable set $E\subseteq\bR$ consider the family $\{\chi_{\{r\}}\}_{r\in E}$, these are all measurable clearly whereas $\sup_{r\in E}\chi_{\{r\}}=\chi_E$ is clearly non measurable unless $\mM$.
+\end{solution}
+\begin{problem}\label{prob:2.7}
+Suppose that for each $\alpha \in \bR$ we are given a set $E_\alpha \in \mM$ such that $E_\alpha \subset E_\beta$ whenever $\alpha < \beta$, $\bigcup_{\alpha \in \bR} E_\alpha = X$, and $\bigcap_{\alpha \in \bR} E_\alpha = \varnothing$. Then there is a measurable function $f: X \to \bR$ such that $f(x) \le \alpha$ on $E_\alpha$ and $f(x) \ge \alpha$ on $E_\alpha^c$ for every $\alpha$. (Use Exercise 4.)
+\end{problem}
+\begin{solution}
+    We claim that the following function works
+    $$f(x) := \sup\{r\in\bQ:x\notin E_r\}$$
+    For $x\in E_\alpha$, from the definition we have that $x\in E_\beta$ for all $\bQ\ni\beta\geq\alpha$ and thus $f(x)=\sup\{r\in\bQ:r<\alpha, x\notin E_r\}\leq\alpha$. 
+    Now, for $x\in E_\alpha^c$ its clearly $\geq\alpha$. 
+    We claim that, for $r\in\bQ$ we have 
+    $$f^{-1}((r,\infty))\bigcup_{\bQ\ni\alpha\geq r}E_\alpha^c$$
+    If $f(x)>r$, then the set of $\beta$ for which $x\in E^c_\beta$ (its an open ray unbounded below) must contain $r$, i.e its of form $(-\infty,v)$ with $v>r$ and we can find a rational $q\in(r,v)$ such that $x\in E_q$ so we have one direction of the equality, the other direction is trivial and we are done as the set on the right is in $\mM$ being a countable union of sets from $\mM$ which is sufficient to prove measurablity via \hyperref[prob:2.4]{Problem 2.4}
+\end{solution}
+\begin{problem}\label{prob:2.8}
+If $f: \bR \to \bR$ is monotone, then $f$ is Borel measurable.
+\end{problem}
+\begin{solution}
+    trivial.
+\end{solution}
+\begin{problem}\label{prob:2.9}
+Let $f: [0, 1] \to [0, 1]$ be the Cantor function ($\S 1.5$), and let $g(x) = f(x) + x$.
+\begin{enumerate}[label=\alph*.]
+    \item $g$ is a bijection from $[0, 1]$ to $[0, 2]$, and $h = g^{-1}$ is continuous from $[0, 2]$ to $[0, 1]$.
+    \item If $C$ is the Cantor set, $m(g(C)) = 1$.
+    \item By Exercise 29 of Chapter 1, $g(C)$ contains a Lebesgue nonmeasurable set $A$. Let $B = g^{-1}(A)$. Then $B$ is Lebesgue measurable but not Borel.
+    \item There exist a Lebesgue measurable function $F$ and a continuous function $G$ on $\bR$ such that $F \circ G$ is not Lebesgue measurable.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item It is known that the cantor function is continuous on $[0,1]$ as well as being increasing. 
+    This makes $g(x)=f(x)+x$ strictly increasing and continuous, with this we can say using the intermediate value theorem that $g$ is is a continuous bijection from $[0,1]$ to $[0,2]$ and $h=g^-1$ is also continuous. 
+    \item As the cantor set is borel and $h$ is continuous, it must be borel measurable. 
+    Thus, $h^{-1}(C)=g(C)$ is borel (as well as being lebesgue measurable which is weaker). 
+    We can write $m(g([0,1]))=m(g(C))+m(g([0,1]\setminus C))$ as the sets here are disjoint (the second one is clearly measurable). 
+    From the previous parts we see that $m(g(C))=2-m(g([0,1]\setminus C))$. 
+    This set is the disjoint union of the middle third intervals removed in the process of constructing the cantor set, on which, by defintion the cantor function is constant. 
+    These removed open intervals have measures summing to $1$ and as $g$ is a translation on these we see that $m(g([0,1]\setminus C))=1$ showing that $m(g(C))=1$. 
+    \item As the lebesge measure is complete we see that $B$ being the subset of the cantor set which has measure zero, must be lebesgue measurable too. 
+    Now, if $B$ was borel then so would be $h^-1(B)=A$ as $g^{-1}$ is continuous, so it is not borel. 
+    \item Consider $\chi_{B}\circ h$, we see that $(\chi_B\circ h)^{-1}(\{1\})=h^{-1}(\chi_B^{-1}(\{1\}))=h^{-1}(B)=A$ which is not lebesgue measurable while we had $h$ be continuous (a homomorphism even) and $\chi_B$ lebesgue measurable so we are done as $\{1\}$ is borel.
+
+\end{enumerate}
+\end{solution} 
+
+\begin{problem}\label{prob:2.10}
+Prove that the following implications are valid iff the measure $\mu$ is complete:
+\begin{enumerate}[label=\alph*.]
+    \item If $f$ is measurable and $f=g$ $\mu$-a.e. then $g$ is measurable.
+    \item If $f_n$ is measurable for $n\in\bN$ and $f_n\longrightarrow f$ $\mu$-a.e. then $f$ is measurable. 
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item First assume that $\mu$ is complete and that $f$ and $g$ disagree on some $N\in\mM$ with $\mu(N)=0$, then for any measurable $E$ in the range we must have that 
+        $$g^{-1}(E)=(g^{-1}(E)\cap N^c)\cup(g^{-1}(E)\cap N)=(g|_{N^c}^{-1}(E))\cup(g^{-1}(E)\cap N)$$
+        $$=(\underbrace{f|_{N^c(\in\mM)}^{-1}(E)}_{\in\mM})\cup(\underbrace{g^{-1}(E)\cap N}_{\subseteq N\implies\in\mM})$$
+        and thus this set must be in $\mM$ itself. 
+        For the other direction, suppose $\mu(N)=0$ for some $N\in\mM$ and $K\subseteq N$. 
+        Let, $f=\chi_N$ and $g=\chi_K$, we see that $f=g$ on $N^c$ and thus $f=g$ $\mu$-a.e. which makes $g$ measurable and thus $g^{-1}(\{1\})=K$ must also be measurable making $\mu$ complete. 
+        \item For one direction assume that $\mu$ is complete. 
+        By \hyperref[prob:2.3]{Problem 2.3} we know that the set where we have convergence, is measurable so let it be $E$. 
+        Further, a.e. convergence implies that $\mu(X\setminus E)=0$. 
+        Let $g=\lim\chi_E f_n(x)$, we see that $g$ is measurable on $E$ as well as on $E^c$ and is thus measurable on $X$, being the limit (it always exists) of measurable functions. 
+        Suppose, $N$ is the set where $f_n\not\longrightarrow f$, by our hypothesis this is of measure zero. 
+        For $x\in N^c$ however $f_n(x)\longrightarrow f(x)$ and thus $f(x)=g(x)$ so $f(x)\neq g(x)$ can only happen on $N$ implying that $f=g$ a.e after which part a proves measurablity of $f$ and we are done. 
+        For the other direction, suppose $E$ is a set of measure zero and $K\subseteq E$. 
+        Let, $f=\chi_K$ and $f_n=0$, with this we see that $f_n\to f$ on $E^c$ which shows that $f_n\to f$ a.e. and thus $f$ is measurable so we are done. 
+    \end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:2.11}
+Suppose that $f$ is a function on $\bR \times \bR^k$ such that $f(x, \cdot)$ is Borel measurable for each $x \in \bR$ and $f(\cdot, y)$ is continuous for each $y \in \bR^k$. For $n \in \bN$, define $f_n$ as follows. For $i \in \bZ$ let $a_i = i/n$, and for $a_i \le x \le a_{i+1}$ let
+\[ f_n(x, y) = \frac{f(a_{i+1}, y)(x - a_i) - f(a_i, y)(x - a_{i+1})}{a_{i+1} - a_i} \]
+Then $f_n$ is Borel measurable on $\bR \times \bR^k$ and $f_n \to f$ pointwise; hence $f$ is Borel measurable on $\bR \times \bR^k$. Conclude by induction that every function on $\bR^n$ that is continuous in each variable separately is Borel measurable.
+\end{problem}
+\begin{solution}
+    We can write $\bR\times\bR^k$ as a countable union of the borel sets $\{[a_i,a_{i+1}]\times\bR^k\}_{i\in\bZ}$ and proving borel measurablity of $f_n$ on these suffices to prove borel measurablity globally. 
+    It being borel on $[a_i,a_{i+1}]\times\bR^k$ follows from these maps being clearly borel 
+    $$(x,y)\mapsto (x-a_i),(x,y)\mapsto (x-a_{i+1}),(x,y)\mapsto f(a_i,y),(x,y)\mapsto f(a_{i+1},y)$$ 
+    as the borel measurability is preserved under products and sums. 
+    To prove pointwise convergence just notice that for $(x,y)\in[a_i,a_{i+1}]\times\bR^k,f_n(x,y)$ is between $f(a_i,y)$ and $f(a_{i+1},y)$ which converge to $f(x,y)$ as $n\to\infty$ by continuity of $f(\cdot,y)$. 
+    This shows that if $f(\cdot,y)$ is continuous and $f(x,\cdot)$ borel, for all $(x,y)\in\bR\times\bR^k$ then $f$ is borel. 
+    Now, suppose that $f:\bR^n\to\bR$ is continuous in each variable, suppose that the proposition holds for $n-1$, then for all $x\in\bR,f(x,\cdot):y\in\bR^{n-1}\mapsto f(x,y)$ is borel because this is continuous in each variable as well and for all $y\in\bR^{n-1},f(\cdot,y):x\in\bR\mapsto f(x,y)$ is continuous too, which implies that $f$ is borel. 
+    We can induct on $n$ from the base case of $n=1$ where the proposition is true due to continuity in each variable coinciding with continuity (which is stronger than borel measurability), hence proving the proposition. 
+\end{solution}
+\begin{problem}\label{prob:2.12}
+Prove Proposition 2.20. (See Proposition 0.20, where a special case is proved.)
+\end{problem}
+
+\begin{problem}\label{prob:2.13}
+Suppose $\{f_n\} \subset L^+$, $f_n \to f$ pointwise, and $\int f = \lim \int f_n < \infty$. Then $\int_E f = \lim \int_E f_n$ for all $E \in \mM$. However, this need not be true if $\int f = \lim \int f_n = \infty$.
+\end{problem}
+
+\begin{problem}\label{prob:2.14}
+If $f \in L^+$, let $\lambda(E) = \int_E f \, d\mu$ for $E \in \mM$. Then $\lambda$ is a measure on $\mM$, and for any $g \in L^+$, $\int g \, d\lambda = \int gf \, d\mu$. (First suppose that $g$ is simple.)
+\end{problem}
+
+\begin{problem}\label{prob:2.15}
+If $\{f_n\} \subset L^+$, $f_n$ decreases pointwise to $f$, and $\int f_1 < \infty$, then $\int f = \lim \int f_n$.
+\end{problem}
+
+\begin{problem}\label{prob:2.16}
+If $f \in L^+$ and $\int f < \infty$, for every $\epsilon > 0$ there exists $E \in \mM$ such that $\mu(E) < \infty$ and $\int_E f > (\int f) - \epsilon$.
+\end{problem}
+
+\begin{problem}\label{prob:2.17}
+Assume Fatou's lemma and deduce the monotone convergence theorem from it.
+\end{problem}
+
+\begin{problem}\label{prob:2.18}
+Fatou's lemma remains valid if the hypothesis that $f_n \in L^+$ is replaced by the hypothesis that $f_n$ is measurable and $f_n \ge -g$ where $g \in L^+ \cap L^1$. What is the analogue of Fatou's lemma for nonpositive functions?
+\end{problem}
+
+\begin{problem}\label{prob:2.19}
+Suppose $\{f_n\} \subset L^1(\mu)$ and $f_n \to f$ uniformly.
+\begin{enumerate}[label=\alph*.]
+    \item If $\mu(X) < \infty$, then $f \in L^1(\mu)$ and $\int f_n \to \int f$.
+    \item If $\mu(X) = \infty$, the conclusions of (a) can fail. (Find examples on $\bR$ with Lebesgue measure.)
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.20}
+(A generalized Dominated Convergence Theorem) If $f_n, g_n, f, g \in L^1$, $f_n \to f$ and $g_n \to g$ a.e., $|f_n| \le g_n$, and $\int g_n \to \int g$, then $\int f_n \to \int f$. (Rework the proof of the dominated convergence theorem.)
+\end{problem}
+
+\begin{problem}\label{prob:2.21}
+Suppose $f_n, f \in L^1$ and $f_n \to f$ a.e. Then $\int |f_n - f| \to 0$ iff $\int |f_n| \to \int |f|$. (Use Exercise 20.)
+\end{problem}
+
+\begin{problem}\label{prob:2.22}
+Let $\mu$ be counting measure on $\bN$. Interpret Fatou's lemma and the monotone and dominated convergence theorems as statements about infinite series.
+\end{problem}
+
+\begin{problem}\label{prob:2.23}
+Given a bounded function $f: [a, b] \to \bR$, let
+\[ H(x) = \lim_{\delta \to 0} \sup_{|y-x|\le\delta} f(y), \quad h(x) = \lim_{\delta \to 0} \inf_{|y-x|\le\delta} f(y). \]
+Prove Theorem 2.28b by establishing the following lemmas:
+\begin{enumerate}[label=\alph*.]
+    \item $H(x) = h(x)$ iff $f$ is continuous at $x$.
+    \item In the notation of the proof of Theorem 2.28a, $H = G$ a.e. and $h = g$ a.e. Hence $H$ and $h$ are Lebesgue measurable, and $\int_{[a, b]} H \, dm = \overline{I}_a^b(f)$ and $\int_{[a, b]} h \, dm = \underline{I}_a^b(f)$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.24}
+Let $(X, \mM, \mu)$ be a measure space with $\mu(X) < \infty$, and let $(X, \overline{\mM}, \overline{\mu})$ be its completion. Suppose $f: X \to \bR$ is bounded. Then $f$ is $\overline{\mM}$-measurable (and hence in $L^1(\overline{\mu})$) iff there exist sequences $\{\phi_n\}$ and $\{\psi_n\}$ of $\mM$-measurable simple functions such that $\phi_n \le \psi_n$ and $\int (\psi_n - \phi_n) \, d\mu < n^{-1}$. In this case, $\lim \int \phi_n \, d\mu = \lim \int \psi_n \, d\mu = \int f \, d\overline{\mu}$.
+\end{problem}
+
+\begin{problem}\label{prob:2.25}
+Let $f(x) = x^{-1/2}$ if $0 < x < 1, f(x) = 0$ otherwise. Let $\{r_n\}_1^\infty$ be an enumeration of the rationals, and set $g(x) = \sum_1^\infty 2^{-n} f(x - r_n)$.
+\begin{enumerate}[label=\alph*.]
+    \item $g \in L^1(m)$, and in particular $g < \infty$ a.e.
+    \item $g$ is discontinuous at every point and unbounded on every interval, and it remains so after any modification on a Lebesgue null set.
+    \item $g^2 < \infty$ a.e., but $g^2$ is not integrable on any interval.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.26}
+If $f \in L^1(m)$ and $F(x) = \int_{-\infty}^x f(t) \, dt$, then $F$ is continuous on $\bR$.
+\end{problem}
+
+\begin{problem}\label{prob:2.27}
+Let $f_n(x) = ae^{-nax} - be^{-nbx}$ where $0 < a < b$.
+\begin{enumerate}[label=\alph*.]
+    \item $\sum_1^\infty \int_0^\infty |f_n(x)| \, dx = \infty$.
+    \item $\sum_1^\infty \int_0^\infty f_n(x) \, dx = 0$.
+    \item $\sum_1^\infty f_n \in L^1([0, \infty), m)$, and $\int_0^\infty \sum_1^\infty f_n(x) \, dx = \log(b/a)$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.28}
+Compute the following limits and justify the calculations:
+\begin{enumerate}[label=\alph*.]
+    \item $\lim_{n \to \infty} \int_0^\infty (1 + (x/n))^{-n} \sin(x/n) \, dx$.
+    \item $\lim_{n \to \infty} \int_0^1 (1 + nx^2)(1 + x^2)^{-n} \, dx$.
+    \item $\lim_{n \to \infty} \int_0^\infty n \sin(x/n) [x(1 + x^2)]^{-1} \, dx$.
+    \item $\lim_{n \to \infty} \int_a^\infty n(1 + n^2x^2)^{-1} \, dx$. (The answer depends on whether $a > 0$, $a = 0$, or $a < 0$. How does this accord with the various convergence theorems?)
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.29}
+Show that $\int_0^\infty x^n e^{-x} \, dx = n!$ by differentiating the equation $\int_0^\infty e^{-tx} \, dx = 1/t$. Similarly, show that $\int_{-\infty}^\infty e^{-x^2} e^{2tx} \, dx = (\pi)^{1/2} e^{t^2}$ by differentiating the equation $\int_{-\infty}^\infty e^{-tx^2} \, dx = \sqrt{\pi/t}$ (see Proposition 2.53).
+\end{problem}
+
+\begin{problem}\label{prob:2.30}
+Show that $\lim_{k \to \infty} \int_0^k x^n (1 - k^{-1}x)^k \, dx = n!$.
+\end{problem}
+
+\begin{problem}\label{prob:2.31}
+Derive the following formulas by expanding part of the integrand into an infinite series and justifying the term-by-term integration. Exercise 29 may be useful. (Note: In (d) and (e), term-by-term integration works, and the resulting series converges, only for $a > 1$, but the formulas as stated are actually valid for all $a > 0$.)
+\begin{enumerate}[label=\alph*.]
+    \item For $a > 0$, $\int_0^\infty e^{-x^2} \cos ax \, dx = \sqrt{\pi}e^{-a^2/4}$.
+    \item For $a > -1$, $\int_0^1 x^a (1 - x)^{-1} \log x \, dx = \sum_1^\infty (a + k)^{-2}$.
+    \item For $a > 1$, $\int_0^\infty x^{a-1} (e^x - 1)^{-1} \, dx = \Gamma(a) \zeta(a)$, where $\zeta(a) = \sum_1^\infty n^{-a}$.
+    \item For $a > 1$, $\int_0^\infty e^{-ax} x^{-1} \sin x \, dx = \arctan(a^{-1})$.
+    \item For $a > 1$, $\int_0^\infty e^{-ax} J_0(x) \, dx = (a^2 + 1)^{-1/2}$, where $J_0(x) = \sum_0^\infty (-1)^n x^{2n} / 4^n(n!)^2$ is the Bessel function of order zero.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.32}
+Suppose $\mu(X) < \infty$. If $f$ and $g$ are complex-valued measurable functions on $X$, define
+\[ \rho(f, g) = \int \frac{|f - g|}{1 + |f - g|} \, d\mu. \]
+Then $\rho$ is a metric on the space of measurable functions if we identify functions that are equal a.e., and $f_n \to f$ with respect to this metric iff $f_n \to f$ in measure.
+\end{problem}
+
+\begin{problem}\label{prob:2.33}
+If $f_n \ge 0$ and $f_n \to f$ in measure, then $\int f \le \lim \inf \int f_n$.
+\end{problem}
+
+\begin{problem}\label{prob:2.34}
+Suppose $|f_n| \le g \in L^1$ and $f_n \to f$ in measure.
+\begin{enumerate}[label=\alph*.]
+    \item $\int f = \lim \int f_n$.
+    \item $f_n \to f$ in $L^1$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.35}
+$f_n \to f$ in measure iff for every $\epsilon > 0$ there exists $N \in \bN$ such that $\mu(\{x : |f_n(x) - f(x)| \ge \epsilon\}) < \epsilon$ for $n \ge N$.
+\end{problem}
+
+\begin{problem}\label{prob:2.36}
+If $\mu(E_n) < \infty$ for $n \in \bN$ and $\chi_{E_n} \to f$ in $L^1$, then $f$ is (a.e. equal to) the characteristic function of a measurable set.
+\end{problem}
+
+\begin{problem}\label{prob:2.37}
+If $f_n \to f$ in measure and $g_n \to g$ in measure, then $f_n + g_n \to f + g$ in measure, and $f_ng_n \to fg$ in measure if $\mu(X) < \infty$, but not necessarily if $\mu(X) = \infty$.
+\end{problem}
+
+\begin{problem}\label{prob:2.38}
+If $f_n \to f$ a.e. and $\mu(X) < \infty$, then $f_n \to f$ in measure.
+\end{problem}
+
+\begin{problem}\label{prob:2.39}
+If $f_n \to f$ almost uniformly, then $f_n \to f$ a.e. and $f_n \to f$ in measure.
+\end{problem}
+
+\begin{problem}\label{prob:2.40}
+In Egoroff's theorem, the hypothesis ``$\mu(X) < \infty$'' can be replaced by ``$|f_n| \le g$ for all $n$, where $g \in L^1(\mu)$.''
+\end{problem}
+
+\begin{problem}\label{prob:2.41}
+If $\mu$ is $\sigma$-finite and $f_n \to f$ a.e., there exist measurable $E_1, E_2, \dots \subset X$ such that $\mu( (\bigcup_1^\infty E_j)^c ) = 0$ and $f_n \to f$ uniformly on each $E_j$.
+\end{problem}
+
+\begin{problem}\label{prob:2.42}
+Let $\mu$ be counting measure on $\bN$. Then $f_n \to f$ in measure iff $f_n \to f$ uniformly.
+\end{problem}
+
+\begin{problem}\label{prob:2.43}
+Suppose that $\mu(X) < \infty$ and $f: X \times [0, 1] \to \bC$ is a function such that $f(\cdot, y)$ is measurable for each $y \in [0, 1]$ and $f(x, \cdot)$ is continuous for each $x \in X$.
+\begin{enumerate}[label=\alph*.]
+    \item If $0 < \epsilon, \delta < 1$ then $E_{\epsilon, \delta} = \{x : |f(x, y) - f(x, 0)| \le \epsilon \text{ for all } y < \delta\}$ is measurable.
+    \item For any $\epsilon > 0$ there is a set $E \subset X$ such that $\mu(E) < \epsilon$ and $f(\cdot, y) \to f(\cdot, 0)$ uniformly on $E^c$ as $y \to 0$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.44}
+(Lusin's Theorem) If $f: [a, b] \to \bC$ is Lebesgue measurable and $\epsilon > 0$, there is a compact set $E \subset [a, b]$ such that $m(E^c) < \epsilon$ and $f|_E$ is continuous. (Use Egoroff's theorem and Theorem 2.26.)
+\end{problem}
+
+\begin{problem}\label{prob:2.45}
+If $(X_j, \mM_j)$ is a measurable space for $j = 1, 2, 3$, then $\bigotimes_1^3 \mM_j = (\mM_1 \otimes \mM_2) \otimes \mM_3$. Moreover, if $\mu_j$ is a $\sigma$-finite measure on $(X_j, \mM_j)$, then $\mu_1 \times \mu_2 \times \mu_3 = (\mu_1 \times \mu_2) \times \mu_3$.
+\end{problem}
+
+\begin{problem}\label{prob:2.46}
+Let $X = Y = [0, 1]$, $\mM = \mN = \mathcal{B}_{[0, 1]}$, $\mu = \text{Lebesgue measure}$, and $\nu = \text{counting measure}$. If $D = \{(x, x) : x \in [0, 1]\}$ is the diagonal in $X \times Y$, then $\iint \chi_D \, d\mu \, d\nu$, $\iint \chi_D \, d\nu \, d\mu$, and $\int \chi_D \, d(\mu \times \nu)$ are all unequal. (To compute $\int \chi_D \, d(\mu \times \nu)$, go back to the definition of $\mu \times \nu$.)
+\end{problem}
+
+\begin{problem}\label{prob:2.47}
+Let $X = Y$ be an uncountable linearly ordered set such that for each $x \in X$, $\{y \in X : y < x\}$ is countable. (Example: the set of countable ordinals.) Let $\mM = \mN$ be the $\sigma$-algebra of countable or co-countable sets, and let $\mu = \nu$ be defined on $\mM$ by $\mu(A) = 0$ if $A$ is countable and $\mu(A) = 1$ if $A$ is co-countable. Let $E = \{(x, y) \in X \times X : y < x\}$. Then $E_x$ and $E^y$ are measurable for all $x, y$, but $\iint \chi_E \, d\mu \, d\nu$ and $\iint \chi_E \, d\nu \, d\mu$ exist but are not equal. (If one believes in the continuum hypothesis, one can take $X = [0, 1]$ [with a nonstandard ordering] and thus obtain a set $E \subset [0, 1]^2$ such that $E_x$ is countable and $E^y$ is co-countable [in particular, Borel] for all $x, y$, but $E$ is not Lebesgue measurable.)
+\end{problem}
+
+\begin{problem}\label{prob:2.48}
+Let $X = Y = \bN, \mM = \mN = \mathcal{P}(\bN), \mu = \nu = \text{counting measure}$. Define $f(m, n) = 1$ if $m = n, f(m, n) = -1$ if $m = n + 1$, and $f(m, n) = 0$ otherwise. Then $\int f \, d\mu \, d\nu$ and $\int f \, d\nu \, d\mu$ exist and are unequal.
+\end{problem}
+
+\begin{problem}\label{prob:2.49}
+Prove Theorem 2.39 by using Theorem 2.37 and Proposition 2.12 together with the following lemmas.
+\begin{enumerate}[label=\alph*.]
+    \item If $E \in \mM \times \mN$ and $\mu \times \nu(E) = 0$, then $\nu(E_x) = 0$ for a.e. $x$ and $\mu(E^y) = 0$ for a.e. $y$.
+    \item If $f$ is $\mM$-measurable and $f = 0$ $\lambda$-a.e., then $f_x$ and $f^y$ are integrable for a.e. $x$ and $y$, and $\int f_x \, d\nu = \int f^y \, d\mu = 0$ for a.e. $x$ and $y$. (Here the completeness of $\mu$ and $\nu$ is needed.)
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.50}
+Suppose $(X, \mM, \mu)$ is a $\sigma$-finite measure space and $f \in L^+(X)$. Let
+\[ G_f = \{(x, y) \in X \times [0, \infty] : y \le f(x)\}. \]
+Then $G_f$ is $\mM \times \mathcal{B}_{\bR}$-measurable and $\mu \times m(G_f) = \int f \, d\mu$; the same is also true if the inequality $y \le f(x)$ in the definition of $G_f$ is replaced by $y < f(x)$. (To show measurability of $G_f$, note that the map $(x, y) \mapsto f(x) - y$ is the composition of $(x, y) \mapsto (f(x), y)$ and $(z, y) \mapsto z - y$.) This is the definitive statement of the familiar theorem from calculus, ``the integral of a function is the area under its graph.''
+\end{problem}
+
+\begin{problem}\label{prob:2.51}
+Let $(X, \mM, \mu)$ and $(Y, \mN, \nu)$ be arbitrary measure spaces (not necessarily $\sigma$-finite).
+\begin{enumerate}[label=\alph*.]
+    \item If $f: X \to \bC$ is $\mM$-measurable, $g: Y \to \bC$ is $\mN$-measurable, and $h(x, y) = f(x)g(y)$, then $h$ is $\mM \otimes \mN$-measurable.
+    \item If $f \in L^1(\mu)$ and $g \in L^1(\nu)$, then $h \in L^1(\mu \times \nu)$ and $\int h \, d(\mu \times \nu) = (\int f \, d\mu)(\int g \, d\nu)$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.52}
+The Fubini-Tonelli theorem is valid when $(X, \mM, \mu)$ is an arbitrary measure space and $Y$ is a countable set, $\mN = \mathcal{P}(Y)$, and $\nu$ is counting measure on $Y$. (Cf. Theorems 2.15 and 2.25.)
+\end{problem}
+
+\begin{problem}\label{prob:2.53}
+Fill in the details of the proof of Theorem 2.41.
+\end{problem}
+
+\begin{problem}\label{prob:2.54}
+How much of Theorem 2.44 remains valid if $T$ is not invertible?
+\end{problem}
+
+\begin{problem}\label{prob:2.55}
+Let $E = [0, 1] \times [0, 1]$. Investigate the existence and equality of $\int_E f \, dm^2$, $\int_0^1 \int_0^1 f(x, y) \, dx \, dy$, and $\int_0^1 \int_0^1 f(x, y) \, dy \, dx$ for the following $f$:
+\begin{enumerate}[label=\alph*.]
+    \item $f(x, y) = (x^2 - y^2)(x^2 + y^2)^{-2}$.
+    \item $f(x, y) = (1 - xy)^{-a}$ ($a > 0$).
+    \item $f(x, y) = (x - \frac{1}{2})^{-3}$ if $0 < y < |x - \frac{1}{2}|$, $f(x, y) = 0$ otherwise.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.56}
+If $f$ is Lebesgue integrable on $(0, a)$ and $g(x) = \int_x^a t^{-1} f(t) \, dt$, then $g$ is integrable on $(0, a)$ and $\int_0^a g(x) \, dx = \int_0^a f(x) \, dx$.
+\end{problem}
+
+\begin{problem}\label{prob:2.57}
+Show that $\int_0^\infty e^{-sx} x^{-1} \sin x \, dx = \arctan(s^{-1})$ for $s > 0$ by integrating $e^{-sxy} \sin x$ with respect to $x$ and $y$. (It may be useful to recall that $\tan(\frac{\pi}{2} - \theta) = (\tan \theta)^{-1}$. Cf. Exercise 31d.)
+\end{problem}
+
+\begin{problem}\label{prob:2.58}
+Show that $\int e^{-sx} x^{-1} \sin^2 x \, dx = \frac{1}{4} \log(1 + 4s^{-2})$ for $s > 0$ by integrating $e^{-sx} \sin 2xy$ with respect to $x$ and $y$.
+\end{problem}
+
+\begin{problem}\label{prob:2.59}
+Let $f(x) = x^{-1} \sin x$.
+\begin{enumerate}[label=\alph*.]
+    \item Show that $\int_0^\infty |f(x)| \, dx = \infty$.
+    \item Show that $\lim_{b \to \infty} \int_0^b f(x) \, dx = \frac{1}{2}\pi$ by integrating $e^{-xy} \sin x$ with respect to $x$ and $y$. (In view of part (a), some care is needed in passing to the limit as $b \to \infty$.)
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.60}
+$\Gamma(x)\Gamma(y)/\Gamma(x+y) = \int_0^1 t^{x-1}(1-t)^{y-1} \, dt$ for $x, y > 0$. (Recall that $\Gamma$ was defined in $\S 2.3$. Write $\Gamma(x)\Gamma(y)$ as a double integral and use the argument of the exponential as a new variable of integration.)
+\end{problem}
+
+\begin{problem}\label{prob:2.61}
+If $f$ is continuous on $[0, \infty)$, for $\alpha > 0$ and $x \ge 0$ let
+\[ I_\alpha f(x) = \frac{1}{\Gamma(\alpha)} \int_0^x (x - t)^{\alpha-1} f(t) \, dt. \]
+$I_\alpha f$ is called the $\alpha$th \textbf{fractional integral} of $f$.
+\begin{enumerate}[label=\alph*.]
+    \item $I_{\alpha+\beta} f = I_\alpha (I_\beta f)$ for all $\alpha, \beta > 0$. (Use Exercise 60.)
+    \item If $n \in \bN$, $I_n f$ is an $n$th-order antiderivative of $f$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:2.62}
+The measure $\sigma$ on $S^{n-1}$ is invariant under rotations.
+\end{problem}
+
+\begin{problem}\label{prob:2.63}
+The technique used to prove Proposition 2.54 can also be used to integrate any polynomial over $S^{n-1}$. In fact, suppose $f(x) = \prod_1^n x_j^{\alpha_j}$ ($\alpha_j \in \bN \cup \{0\}$) is a monomial. Then $\int f \, d\sigma = 0$ if any $\alpha_j$ is odd, and if all $\alpha_j$'s are even,
+\[ \int f \, d\sigma = \frac{2\Gamma(\beta_1) \dots \Gamma(\beta_n)}{\Gamma(\beta_1 + \dots + \beta_n)} \quad \text{where } \beta_j = \frac{\alpha_j + 1}{2}. \]
+\end{problem}
+
+\begin{problem}\label{prob:2.64}
+For which real values of $a$ and $b$ is $|x|^a |\log |x||^b$ integrable over $\{x \in \bR^n : |x| < \frac{1}{2}\}$? Over $\{x \in \bR^n : |x| > 2\}$?
+\end{problem}
+
+\begin{problem}\label{prob:2.65}
+Define $G : \bR^n \to \bR^n$ by $G(r, \phi_1, \dots, \phi_{n-2}, \theta) = (x_1, \dots, x_n)$ where
+\begin{align*}
+x_1 &= r \cos \phi_1, \quad x_2 = r \sin \phi_1 \cos \phi_2, \quad x_3 = r \sin \phi_1 \sin \phi_2 \cos \phi_3, \dots, \\
+x_{n-1} &= r \sin \phi_1 \dots \sin \phi_{n-2} \cos \theta, \quad x_n = r \sin \phi_1 \dots \sin \phi_{n-2} \sin \theta.
+\end{align*}
+\begin{enumerate}[label=\alph*.]
+    \item $G$ maps $\bR^n$ onto $\bR^n$, and $|G(r, \phi_1, \dots, \theta)| = |r|$.
+    \item $\det D_G(r, \phi_1, \dots, \theta) = r^{n-1} \sin^{n-2} \phi_1 \sin^{n-3} \phi_2 \dots \sin \phi_{n-2}$.
+    \item Let $\Omega = (0, \infty) \times (0, \pi)^{n-2} \times (0, 2\pi)$. Then $G|_\Omega$ is a diffeomorphism and $m(\bR^n \setminus G(\Omega)) = 0$.
+    \item Let $F(\phi_1, \dots, \phi_{n-2}, \theta) = G(1, \phi_1, \dots, \phi_{n-2}, \theta)$ and $\Omega' = (0, \pi)^{n-2} \times (0, 2\pi)$. Then $(F|\Omega')^{-1}$ defines a coordinate system on $S^{n-1}$ except on a $\sigma$-null set, and the measure $\sigma$ is given in these coordinates by
+    \[ d\sigma(\phi_1, \dots, \phi_{n-2}, \theta) = \sin^{n-2} \phi_1 \sin^{n-3} \phi_2 \dots \sin \phi_{n-2} \, d\phi_1 \dots d\phi_{n-2} \, d\theta. \]
+\end{enumerate}
+\end{problem}
+\end{document}
