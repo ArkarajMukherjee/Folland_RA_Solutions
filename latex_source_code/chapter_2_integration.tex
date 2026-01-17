@@ -195,27 +195,76 @@ Then $f_n$ is Borel measurable on $\bR \times \bR^k$ and $f_n \to f$ pointwise; 
 \begin{problem}\label{prob:2.12}
 Prove Proposition 2.20. (See Proposition 0.20, where a special case is proved.)
 \end{problem}
-
+\begin{solution}
+    If $f^{-1}(\{\infty\})$ is not null then the integral will trivially be infinite and thus it must be a null set. 
+    Now, consider the sets $H_n=f^{-1}(1/n,\infty]$ and we find that $\{x:f(x)>0\}=\cup H_n$. 
+    Here, we see that $f\geq n^{-1}\chi_{H_n}$ for all $n\geq 1$ and thus $\int f\geq n^{-1}\mu(H_n)$ forces all the $H_n$ to have finite measure. 
+\end{solution}
 \begin{problem}\label{prob:2.13}
 Suppose $\{f_n\} \subset L^+$, $f_n \to f$ pointwise, and $\int f = \lim \int f_n < \infty$. Then $\int_E f = \lim \int_E f_n$ for all $E \in \mM$. However, this need not be true if $\int f = \lim \int f_n = \infty$.
 \end{problem}
-
+\begin{solution}
+    For any $E\in\mM$ we can see that $f_n\chi_E\longrightarrow f\chi_E$ pointwise as well and thus, by fatou's lemma and the additivity of the integral we have, 
+    $$\int f\chi_E\leq\liminf\int f_n\chi_E\text{ and }\int f\chi_{X\setminus E}\leq\liminf\int f_n\chi_{X\setminus E}$$
+    $$\implies\int f=\int f\chi_E+\int f\chi_{X\setminus E}\leq\liminf\int f_n\chi E+\liminf\int f\chi_{X\setminus E}$$ 
+    Using the fact that the limit infimum is subadditive we see that the above is
+    $$\leq\liminf\left(\int f_n\chi_E+f_n\chi_{X\setminus E}\right)=\liminf\int f_n=\int f$$ 
+    as all the terms involved in this string of inequalities are finite (this follows from the fact that $\int f<\infty$ and that $\int f_n$ is close to $\int f$ eventually) we must have that, 
+    $$\int  f\chi_E=\liminf\int f_n\chi_E$$
+    Assume wlog $\int f_n$ is always finite, then by the superadditivity of the limit supremum and the equality we developed earlier, we have
+    $$\limsup\int f_n\chi_{E}=\limsup\left(\int f_n-\int f_n\chi_{E^c}\right)\leq\limsup\int f_n+\limsup\left(-\int f_n\chi_{E^c}\right)$$
+    $$=\limsup\int f_n-\liminf\int f_n\chi_{E^c}=\int f-\int f\chi_{E^c}=\int f\chi_E$$ 
+    $$\limsup\int f_n\chi_E\leq\int f\chi_E=\liminf f_n\chi_E\implies\lim\int f_n\chi_E=\int f\chi_E$$  
+    For a counterexample we can consider a function on $\bR$ given by $f_n=n\chi_{(0,1/n)}+\chi_{[1,\infty)}$ which converges pointwise to $\chi_{[1,\infty)}$ and $\int f=\lim\int f_n=\infty$ but if we focus on $(0,1)$ then $\lim f_n\chi_{(0,1)}=1$ whereas $\int f\chi_{(0,1)}=0$. 
+    Here the area escaped to infinity in the unit open interval and hence the contradiction. 
+\end{solution}
 \begin{problem}\label{prob:2.14}
 If $f \in L^+$, let $\lambda(E) = \int_E f \, d\mu$ for $E \in \mM$. Then $\lambda$ is a measure on $\mM$, and for any $g \in L^+$, $\int g \, d\lambda = \int gf \, d\mu$. (First suppose that $g$ is simple.)
 \end{problem}
-
+\begin{solution}
+    For any disjoint collection $\{E_n\}_{n\in\bN}\subseteq\mM$ with union $E$ then by the sigma additivity of the integral we have, 
+    $$\lambda(E)=\int f\chi_Ed\mu=\int\sum_{n\in\bN}f\chi_{E_n}d\mu=\sum_{n\in\bN}\int f\chi_{E_n}d\mu=\sum_{n\in\bN}\lambda(E_n)$$ 
+    Now, suppose $\phi=\sum a_j\chi_{E_j}$ is a simple function, then we see that 
+    $$\int\phi d\lambda=\sum a_j\lambda(E_j)=\sum a_j\int f\chi_{E_j}d\mu=\int\sum a_jf\chi_{E_j}d\mu=\int f\phi d\mu$$ 
+    Now, if $g\in L^+,$ we can find a sequence of simple functions $\{\phi_n\}$ that increase to $g$, for these we also see that $f\phi_n$ iincreases to $fg$ and by the monotone convergence theorem and the fact that $\lambda$ and $\mu$ are defined on the same sigma algebra $\mM$ we have that, 
+    $$\int fg d\mu=\int\lim f\phi_n d\mu\longleftarrow\int f\phi_n d\mu=\int\phi_n\lambda\longrightarrow \int\lim\phi_n\lambda=\int g\lambda$$ 
+    where we used the the monotone convergence theorem on both sides.
+\end{solution}
 \begin{problem}\label{prob:2.15}
 If $\{f_n\} \subset L^+$, $f_n$ decreases pointwise to $f$, and $\int f_1 < \infty$, then $\int f = \lim \int f_n$.
 \end{problem}
-
+\begin{solution}
+    Clearly we have $\int f\leq\lim\int f_n<\infty$. 
+    For the other direction, consider the measurable set $E=\{f>0\}$. 
+    Fix $\alpha>1$ and define $F_n:=\{x\in E:f_n(x)\leq\alpha f(x)\}$, then $\{F_n\}$ is an increasing sequence of measurable sets and $\cup F_n=E$. 
+    From the definiton we see that $\int_{F_n}f_n\leq\alpha\int_{F_n}f$ and $\int_E f_n-\int_{F_n}f_n=\int_{E\setminus F_n}f_n\leq\int_{E\setminus F_n}f_1$. 
+    As $A\mapsto\int_A f_1$ is a measure on $\mM$ and $E\setminus F_n$ is a decreasing sequence with $\int_{E\setminus F_1}f_1\leq\int f_1<\infty$ we see that 
+    $$\lim_{n\to\infty}\int_{F\setminus F_n}f_1=\int_{\cap E\setminus F_n}f_1=\int_{E\setminus E}f_1=0$$
+    this implies that $\lim\int_{F_n}f_n=\lim\int_E f_n$. 
+    As $A\mapsto\int_Af$ is also a measure, we have 
+    $$\lim\int_{F_n}f_n=\lim\int_E f_n\implies\lim\int_Ef_n\leq\lim\alpha\int_{F_n} f=\alpha\lim\int_{F_n}f=\alpha\int_{\cup F_n}f=\int_Ef$$ 
+    As this is true for any $\alpha>1$ we have $\lim\int_Ef_n\leq\int_Ef$. 
+    Now, consider $E^c$ on which $f$ is zero and thus $f_n$ decreases to $0$ here. 
+    Let $G_n:=\{x\in E^c:f_n(x)\leq f_1(x)/n\}$ see that $\{G_n\}$ is an increasing sequence of measurable sets with $\cup G_n=E^c$. 
+    It can also be shown that $\lim\int_{G_n}f_n=\lim\int_{E^c}f_n$ using similar arguements as we did when working over $E$ and from the definition we see that $\int_{G_n}f_n\leq n^{-1}\int_{G_n}f_1\leq n^{-1}\int f_1\to 0$ and thus, $\lim\int_{E^c}f_n=0=\int_{E^c}f$. 
+    Combining these two deductions, namely $\lim\int_Ef_n\leq\int_Ef$ and $\lim\int_{E^c}f_n=0=\int_{E^c}f$ we see that $\lim\int f_n\leq\int f$ as the integral is additive. 
+    Having shown both directions of the inequality we must have $\int f=\lim\int f_n$. 
+    
+\end{solution}
 \begin{problem}\label{prob:2.16}
 If $f \in L^+$ and $\int f < \infty$, for every $\epsilon > 0$ there exists $E \in \mM$ such that $\mu(E) < \infty$ and $\int_E f > (\int f) - \epsilon$.
 \end{problem}
-
+\begin{solution}
+From \hyperref[prob:2.12]{Problem 2.12} we see that the set $E=\{x:f(x)>0\}$ is sigma finite so we write it as a disjoint(standard technique) union of countably many sets of finite measure as $E=\cup F_n$, now from the additivity of the integral we have, 
+$$\int f=\int f\chi_E+\underbrace{\int f\chi_{E^c}}_{=0}=\int_E f=\sum_{n\in\bN}\int_{F_n}f=\lim_{n}\sum_{k=1}^n\int_{F_n}f=\lim_n\int_{\cup_{k\leq n}F_k}f$$ 
+Now, for any $\epsilon>0$ we can find a $N$ such that $\int f<\epsilon+\int_{\cup_{k\leq N}F_k}f$ and as $\mu(\cup_{k\leq N}F_k)=\sum_{k\leq N}\mu(F_k)<\infty$ we are done. 
+\end{solution}
 \begin{problem}\label{prob:2.17}
 Assume Fatou's lemma and deduce the monotone convergence theorem from it.
 \end{problem}
-
+\begin{solution}
+    Fatou's lemma implies that $\lim\int f_n=\liminf\int f_n\geq\int\liminf f_n=\int f$ while the other direction of the inequality is trivial. 
+\end{solution}
 \begin{problem}\label{prob:2.18}
 Fatou's lemma remains valid if the hypothesis that $f_n \in L^+$ is replaced by the hypothesis that $f_n$ is measurable and $f_n \ge -g$ where $g \in L^+ \cap L^1$. What is the analogue of Fatou's lemma for nonpositive functions?
 \end{problem}
