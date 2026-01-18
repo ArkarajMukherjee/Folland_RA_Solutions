@@ -244,9 +244,9 @@ If $\{f_n\} \subset L^+$, $f_n$ decreases pointwise to $f$, and $\int f_1 < \inf
     As $A\mapsto\int_Af$ is also a measure, we have 
     $$\lim\int_{F_n}f_n=\lim\int_E f_n\implies\lim\int_Ef_n\leq\lim\alpha\int_{F_n} f=\alpha\lim\int_{F_n}f=\alpha\int_{\cup F_n}f=\int_Ef$$ 
     As this is true for any $\alpha>1$ we have $\lim\int_Ef_n\leq\int_Ef$. 
-    Now, consider $E^c$ on which $f$ is zero and thus $f_n$ decreases to $0$ here. 
-    Let $G_n:=\{x\in E^c:f_n(x)\leq f_1(x)/n\}$ see that $\{G_n\}$ is an increasing sequence of measurable sets with $\cup G_n=E^c$. 
-    It can also be shown that $\lim\int_{G_n}f_n=\lim\int_{E^c}f_n$ using similar arguements as we did when working over $E$ and from the definition we see that $\int_{G_n}f_n\leq n^{-1}\int_{G_n}f_1\leq n^{-1}\int f_1\to 0$ and thus, $\lim\int_{E^c}f_n=0=\int_{E^c}f$. 
+    Now, fix $\alpha>0$ and consider $E^c$ on which $f$ is zero and thus $f_n$ decreases to $0$ here. 
+    Let $G_n:=\{x\in E^c:f_n(x)\leq \alpha f_1(x)\}$ see that $\{G_n\}$ is an increasing sequence of measurable sets with $\cup G_n=E^c$. 
+    It can also be shown that $\lim\int_{G_n}f_n=\lim\int_{E^c}f_n$ using similar arguements as we did when working over $E$ and from the definition we see that $\int_{G_n}f_n\leq n^{-1}\int_{G_n}f_1\leq\alpha\int f_1$ and thus, $\lim\int_{E^c}f_n=0=\int_{E^c}f$ as $\alpha>0$ was arbitrary. 
     Combining these two deductions, namely $\lim\int_Ef_n\leq\int_Ef$ and $\lim\int_{E^c}f_n=0=\int_{E^c}f$ we see that $\lim\int f_n\leq\int f$ as the integral is additive. 
     Having shown both directions of the inequality we must have $\int f=\lim\int f_n$. 
     
