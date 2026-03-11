@@ -32,7 +32,7 @@
 \Crefname{problem}{Problem}{Problems}
 \setcounter{tocdepth}{2}
 \title{\textbf{Chapter 2 : Integration}}
-\author{Arkaraj Mukherjee}
+\author{your mother's favorite rapper}
 \def\bN{\mathbb{N}}
 \def\bR{\mathbb{R}}
 \def\bZ{\mathbb{Z}}
@@ -246,7 +246,7 @@ If $\{f_n\} \subset L^+$, $f_n$ decreases pointwise to $f$, and $\int f_1 < \inf
     As this is true for any $\alpha>1$ we have $\lim\int_Ef_n\leq\int_Ef$. 
     Now, fix $\alpha>0$ and consider $E^c$ on which $f$ is zero and thus $f_n$ decreases to $0$ here. 
     Let $G_n:=\{x\in E^c:f_n(x)\leq \alpha f_1(x)\}$ see that $\{G_n\}$ is an increasing sequence of measurable sets with $\cup G_n=E^c$. 
-    It can also be shown that $\lim\int_{G_n}f_n=\lim\int_{E^c}f_n$ using similar arguements as we did when working over $E$ and from the definition we see that $\int_{G_n}f_n\leq n^{-1}\int_{G_n}f_1\leq\alpha\int f_1$ and thus, $\lim\int_{E^c}f_n=0=\int_{E^c}f$ as $\alpha>0$ was arbitrary. 
+    It can also be shown that $\lim\int_{G_n}f_n=\lim\int_{E^c}f_n$ using similar arguements as we did when working over $E$ and from the definition we see that $\int_{G_n}f_n\leq\alpha\int_{G_n}f_1\leq\alpha\int f_1$ and thus, $\lim\int_{E^c}f_n=0=\int_{E^c}f$ as $\alpha>0$ was arbitrary. 
     Combining these two deductions, namely $\lim\int_Ef_n\leq\int_Ef$ and $\lim\int_{E^c}f_n=0=\int_{E^c}f$ we see that $\lim\int f_n\leq\int f$ as the integral is additive. 
     Having shown both directions of the inequality we must have $\int f=\lim\int f_n$. 
     
@@ -268,7 +268,14 @@ Assume Fatou's lemma and deduce the monotone convergence theorem from it.
 \begin{problem}\label{prob:2.18}
 Fatou's lemma remains valid if the hypothesis that $f_n \in L^+$ is replaced by the hypothesis that $f_n$ is measurable and $f_n \ge -g$ where $g \in L^+ \cap L^1$. What is the analogue of Fatou's lemma for nonpositive functions?
 \end{problem}
-
+\begin{solution}
+Clearly $f_n+g\in L^+$ so we can apply fatou's lemma on it and get
+$$\int g+\liminf\int f_n=\liminf\qty(\int f_n+\int g)=\liminf\int g+f_n$$
+$$\geq\int\liminf(f_n+g)=\int g+\liminf f=\int g+\int \liminf f_n$$
+and now we can just cancel out the $\int g$ terms. 
+For nonpositive functions $f$ ($-f\in L^+$) we will have that
+$$\limsup\int f_n\leq\int\limsup f_n$$
+\end{solution}
 \begin{problem}\label{prob:2.19}
 Suppose $\{f_n\} \subset L^1(\mu)$ and $f_n \to f$ uniformly.
 \begin{enumerate}[label=\alph*.]
@@ -276,15 +283,28 @@ Suppose $\{f_n\} \subset L^1(\mu)$ and $f_n \to f$ uniformly.
     \item If $\mu(X) = \infty$, the conclusions of (a) can fail. (Find examples on $\bR$ with Lebesgue measure.)
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+\item This is trivial.
+\item consider $f_n=n^{-1}\chi_{[0,n^2]}$ on $\bR$ with respect to the lebesgue measure.
+\end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:2.20}
 (A generalized Dominated Convergence Theorem) If $f_n, g_n, f, g \in L^1$, $f_n \to f$ and $g_n \to g$ a.e., $|f_n| \le g_n$, and $\int g_n \to \int g$, then $\int f_n \to \int f$. (Rework the proof of the dominated convergence theorem.)
 \end{problem}
-
+\begin{solution}
+We see that $g_n+f_n,g_n-f_n\in L^1$ and also as $f_n\to f,g_n\to g$ a.e. we can restrict the integrals to a set $E$ where convergence is global such that $\int=\int_E$ (as operators) and we work inside $E$ now without mention. 
+By fatou's lemma
+$$\int g+\liminf\int f_n=\liminf\int f_n+\lim\int g_n=\liminf\qty(\int f_n+\int g_n)=\liminf\int f_n+g_n$$
+$$\geq\int\liminf(g_n+f_n)\geq\int\liminf g+\liminf f_n=\int f+g=\int f+\int g$$
+cancelling out the $\int g$ terms we get $\liminf\int f_n\geq \int f$ and doing the same with $g_n-f_n$ we get $-\limsup\int f_n=\liminf\int-f_n\geq\int -f=-\int f$ which implies that $\int f\geq\limsup\int f$ and thus finally we have $\limsup\int f_n\leq\int f\leq\liminf\int f_n\implies\lim\int f_n=\int f$.
+\end{solution}
 \begin{problem}\label{prob:2.21}
 Suppose $f_n, f \in L^1$ and $f_n \to f$ a.e. Then $\int |f_n - f| \to 0$ iff $\int |f_n| \to \int |f|$. (Use Exercise 20.)
 \end{problem}
-
+\begin{solution}
+	For the only if direction we can use generalised dominated convergence (\hyperref[prob:2.20]{Problem 2.20}) on $|f_n-f|\to 0$ a.e. where it is dominated by $|f_n|+|f|\to 2|f|$ a.e. as $\int |f_n|+|f|=\int|f|+\int|f_n|\to 2\int|f|=\int2|f|$ and for the if direction we can consider $|f_n|\leq|f|+|f_n-f|$ and proceed similarly.
+\end{solution}
 \begin{problem}\label{prob:2.22}
 Let $\mu$ be counting measure on $\bN$. Interpret Fatou's lemma and the monotone and dominated convergence theorems as statements about infinite series.
 \end{problem}
@@ -298,11 +318,50 @@ Prove Theorem 2.28b by establishing the following lemmas:
     \item In the notation of the proof of Theorem 2.28a, $H = G$ a.e. and $h = g$ a.e. Hence $H$ and $h$ are Lebesgue measurable, and $\int_{[a, b]} H \, dm = \overline{I}_a^b(f)$ and $\int_{[a, b]} h \, dm = \underline{I}_a^b(f)$.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+	\item This is trivial.
+	\item If it was continuous outside a null set then we can show riemann integrablity by considering partitions of form $P=\{a_1<b_1<\ldots<a_n<b_n\}\cup P_\delta$ where, by our assumptions $m(E=\cup(a_i,b_i))=\epsilon$ is small such that $f$ is continuous on the compact set $[a,b]\setminus E$ and $P_\delta$ is of small enough mesh such as to make $U(f|_{[a,b]\setminus E},P_\delta)-L(f|_{[a,b]\setminus E})<\delta$.
+	Now, as $f$ is bounded there is some $M$ such that $|f|\leq M$ then
+	$$U(f,P)-L(f,P)\leq 2M\epsilon+\delta$$
+	which can be made arbitrarily small so $f$ must be integrable.
+	Now we will prove the converse. If $f$ is integrable then there exists an increasing sequence of finite partitions $P_k$ such that $\norm{P_k}\to 0$ and $\lim\int G_{P_k}dm =\int f=\lim\int g_{P_k}dm$. It was already shown in the book that $g=G$ a.e. when $f$ is riemann integrable so if we show that $H=G$ a.e. and $h=g$ a.e. then we would be done using part (a) as this implies $H=h$ a.e. which is equivalent to continuity a.e. by part (a). 
+	We will show that $H=G$ a.e. and the rest will follow similarly. Let $K$ be the set of all endpoints of some interval in $P_k$ for some $k$, this is a null set and we will show that $H=G$ outside it. 
+	Say $x\in[a,b]\setminus K$ is any point then we first show that $H\geq G.$ 
+First define $H_\delta(x):=\sup_{|x-y|\leq\delta}f(y)$ then we see that $H=\lim_{\delta\to 0}H_\delta$ by definition and $H_\delta\leq H_{\delta'}$ for all $0\leq\delta\leq\delta'$. 
+Now, for any $\delta>0$ we can find some $k$ such that $x\in(a_k,b_k)\subseteq(x-\delta,x+\delta)$ where $(a_k,b_k)$ is an interval in $P_k$ as $\norm{P_k}\to 0$. 
+Then we must have that $G_{P_k}(x)\leq H_\delta(x)$ and as $G_{P_k}$ is decreasing we have that $G(x)\leq H_\delta(x)$ and then taking the limit as $\delta\searrow 0$ we have $G(x)\leq H(x)$. 
+To show the other direcrion of the equality we notice that for any $P_k$ with the interval $(a_k,b_k)$ containing $x$ within it we can find some $\delta>0$ such that $(x-\delta,x+\delta)\subseteq(a_k,b_k)$ and this implies that $G_{P_k}(x)\geq H_\delta(x)$ and as $H_\delta(x)$ is decreasing in delta, taking the limit we see that $G_{P_k}(x)\geq H(x)$ and again takinng the limit as $k\to\infty$ we see that $G\geq H$ so we are done.
+\end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:2.24}
-Let $(X, \mM, \mu)$ be a measure space with $\mu(X) < \infty$, and let $(X, \overline{\mM}, \overline{\mu})$ be its completion. Suppose $f: X \to \bR$ is bounded. Then $f$ is $\overline{\mM}$-measurable (and hence in $L^1(\overline{\mu})$) iff there exist sequences $\{\phi_n\}$ and $\{\psi_n\}$ of $\mM$-measurable simple functions such that $\phi_n \le \psi_n$ and $\int (\psi_n - \phi_n) \, d\mu < n^{-1}$. In this case, $\lim \int \phi_n \, d\mu = \lim \int \psi_n \, d\mu = \int f \, d\overline{\mu}$.
+Let $(X, \mM, \mu)$ be a measure space with $\mu(X) < \infty$, and let $(X, \overline{\mM}, \overline{\mu})$ be its completion. Suppose $f: X \to \bR$ is bounded. Then $f$ is $\overline{\mM}$-measurable (and hence in $L^1(\overline{\mu})$) iff there exist sequences $\{\phi_n\}$ and $\{\psi_n\}$ of $\mM$-measurable simple functions such that $\phi_n \le f \le  \psi_n$ and $\int (\psi_n - \phi_n) \, d\mu < n^{-1}$. In this case, $\lim \int \phi_n \, d\mu = \lim \int \psi_n \, d\mu = \int f \, d\overline{\mu}$.
 \end{problem}
+\begin{solution}
+To show the if direction we can consider the functions $g:=\sup_n\phi_n$ and $h:=\inf_n\psi_n$then these are $\mM$-measurable and we have that $\int g-h<1/n$ for all $n$ and thus it is zero which makes $h=g$ a.e. and thus $f=g=h$ $\mu$-a.e. 
+Now, If $h,g$ are $\mM$ measurable then they are clearly $\overline{\mM}$ measurable as well and as $\mM\subseteq\overline{\mM}$ we see that $\overline{\mu}$-a.e. too so we must have that $h=f=g$ $\overline{\mu}$-a.e as well. which implies that $f$ is $\overline{\mM}$ measurable. For the converse, we first deal with the case where $f\geq 0$ consider the following simple functions which are $\overline{\mM}$ measurable,
+$$\phi_n^*:=\sum_{k=0}^{2^{2n}-1}\frac{k}{2^n}\cdot\chi_{f^{-1}\qty([k2^{-n},(k+1)2^{-n}))}$$
+$$\psi_n^*:=\sum_{k=0}^{2^{2n}-1}\frac{k+1}{2^n}\cdot\chi_{f^{-1}\qty([k2^{-n},(k+1)2^{-n}))}$$
+Then, for all large enough $n$ we have that $\psi_n^*\geq f\geq \phi_n^*$ and $0\leq f-\phi_n^*,\psi_n^*-f\leq 2^{-n}$. 
+As $f$ is bounded we can find some constant $M$ with $f\leq M$. 
+For brevity write
+$$\phi_n^*=\sum_{k=1}^ma_k\chi_{E_k\cup F_k}\text{ where }E_i\cup F_i\text{ are disjoint }E_i\in\mM,F_i\subseteq N_i\in\mM\text{ with }\mu(N_i)=0$$
+Then define, $\phi_n:=\sum_{k=1}^ma_k\chi_{E_k}$ and we have $\phi_n\leq\phi_n^*$ with equality $\overline{\mu}$ a.e. Again writing $\psi_n^*$ in the exact same notation with $N=\cup N_i\in\mM$ we see that 
+$$\psi_n:=\chi_{N^c}\psi_n^*+(M+1)\chi_N=(M+1)\chi_N+\sum_{k=1}^ma_k\chi_{E_m\cap N^c}$$
+is such that $\psi_n\geq\psi^*_n$ with equality with equality $\overline{\mu}$ a.e. (We use $M+1$ instead of $M$ to guarantee the inequality, we need to do this due to how $\psi_n^*\leq f+2^{-n}\leq M+1$ for large enough $n$). 
+We now have $\mM$ measurable simple functions $\psi_n,\phi_n$ such that $\psi_n\geq f\geq \phi_n$ and also $\psi_n=\psi^*_n\text{ and }\phi_n=\phi_n^*$ $\overline{\mu}$-a.e. (both together), from this we can say that $\psi_n-f,f-\phi_n\leq 2^{-n}$ together $\overline{\mu}$-a.e. implying $\psi_n-\phi_n\leq 2^{-n+1}$ $\overline{\mu}$-a.e. and thus,
+$$\int \psi_n-\phi_nd\overline{\mu}=\int\psi_n-\phi_nd\mu\leq\int2^{-n+1}d\mu=\frac{\mu(X)}{2^{-n+1}}\longrightarrow 0$$
+and we can start from a larger index to have $\int\psi_n-\phi_n<n^{-1}.$ 
+In the previous line we assumed the following: if $g$ is some $\mM$ measurable function then $\int gd\mu=\int gd\overline{\mu}$, this is easy to prove and we omit the proof. 
+We also see that $\phi_n\leq f\leq \phi_n+2^{-n}$ $\overline{\mu}$-a.e. for large enough $n$ and thus for large $n$ we have $\int\phi_nd\mu\leq\int fd\overline{\mu}\leq\mu(X)\cdot2^{-n}+\int\phi_nd\mu$ using the assumption from earlier along the way which implies that $\lim\int\phi_nd\mu=\int fd\overline{\mu}$. 
+The same can be proved for $\psi_n$ similarly so we are done with the proof for $f\geq 0$. 
+Now, for general such $f$ we first split it into its measurable (and bounded in this case  positive and negative parts, in usual notation $f=f_+-f_-$. 
+Let $\phi_n^+,\psi_n^+$ be as in the previous case, for $f_+$ and $\phi_n^-,\psi_n^-$ be those for $f_-$, then we see that $\phi_n^+-\psi_n^-\leq f_+-f_-\leq\psi_n^+-\phi_n^-$. 
+As $|\phi_n^+-\psi_n^--(f_+-f_-)|\leq|\phi_n^+-f_+|+|\psi_n^--f_-|\leq 2^{-n}+2^{-n}$ $\overline{\mu}$-a.e for large enough $n$ implying 
+$$\phi_n^+-\psi_n^-\leq f_+-f_-\leq\phi_n^+-\psi_n^-+2^{-n+1}$$
+and we can get the corresponding bounds for $\psi_n^+-\phi_n^-$ as well and finish like in the previous case using the $\mM$ measurable simple functions functions $\zeta_n:=\phi_n^+-\psi_n^-$ and $\gamma_n:=\psi_n^+-\phi_n^-$ with $\zeta_n\leq f\leq\gamma_n$ and $\gamma_n-\zeta_n\leq 2^{-n+2}$ holding $\overline{\mu}$-a.e.
 
+\end{solution}
 \begin{problem}\label{prob:2.25}
 Let $f(x) = x^{-1/2}$ if $0 < x < 1, f(x) = 0$ otherwise. Let $\{r_n\}_1^\infty$ be an enumeration of the rationals, and set $g(x) = \sum_1^\infty 2^{-n} f(x - r_n)$.
 \begin{enumerate}[label=\alph*.]
@@ -311,7 +370,12 @@ Let $f(x) = x^{-1/2}$ if $0 < x < 1, f(x) = 0$ otherwise. Let $\{r_n\}_1^\infty$
     \item $g^2 < \infty$ a.e., but $g^2$ is not integrable on any interval.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+\item It follows from the monotone convergence theorem and the fact that the lebesgue integral and riemann integral agree that $\int gdm=\sum_{n=1}^\infty\int 2^{-n}f(x-r_n)dm=\sum_{n=1}^\infty2^{-n}\cdot \int_0^1x^{-1/2}dx=2$ implying $g\in L^1(m)$ which again forces $\{g\geq\infty\}$ to be null.
+\item 	
+\end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:2.26}
 If $f \in L^1(m)$ and $F(x) = \int_{-\infty}^x f(t) \, dt$, then $F$ is continuous on $\bR$.
 \end{problem}
