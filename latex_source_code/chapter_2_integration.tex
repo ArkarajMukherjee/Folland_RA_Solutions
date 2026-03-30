@@ -373,13 +373,25 @@ Let $f(x) = x^{-1/2}$ if $0 < x < 1, f(x) = 0$ otherwise. Let $\{r_n\}_1^\infty$
 \begin{solution}
 \begin{enumerate}[label=\alph*.]
 \item It follows from the monotone convergence theorem and the fact that the lebesgue integral and riemann integral agree that $\int gdm=\sum_{n=1}^\infty\int 2^{-n}f(x-r_n)dm=\sum_{n=1}^\infty2^{-n}\cdot \int_0^1x^{-1/2}dx=2$ implying $g\in L^1(m)$ which again forces $\{g\geq\infty\}$ to be null.
-\item 	
+\item given any real $y$, if $r_n<y<1+r_n$ then we see that $g(y)>2^{-n}(y-r_n)^{-2}$. Now, given any $x\in\bR$ and small enough $\delta>0$ we can find some $r_n$ such that $x-\delta<r_n<x<x+\delta<r_n+1$ and thus, for all small enough $\epsilon>0$ with $r_n<r_n+\epsilon<x$ we see that $g(r_n+\epsilon)>2^{-n}\epsilon^{-2}$ which can be made arbitrarily large, this shows that $g$ is unbounded in any open neighbourhood around $x$ from whcih the claim follows.
+\item As $g<\infty$ a.e. we clearly have $g^2<\infty$ a.e. as well. With the same setup as the previous part, we see that $g(y)^2>4^{-n}(y-r_n)^{-1}$ and thus 
+	\[
+		\int_{x-\delta}^{x+\delta}g^2\mathrm{d}m\geq\int_{r_n}^{x} \frac{1}{2^n(y-r_n)} \mathrm{d}m(y) = \infty
+	\]
+thus, its not integrable on any interval of form $(x-\delta,x+\delta)$ proving the claim after noticing how all intervals have an interval of this form.
+	
 \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:2.26}
 If $f \in L^1(m)$ and $F(x) = \int_{-\infty}^x f(t) \, dt$, then $F$ is continuous on $\bR$.
 \end{problem}
-
+\begin{solution}
+	First we prove right continuity using the sequential criterion. Say $x_n\searrow x$, then as $A\mapsto\int\chi_A|f|$ is a finite measure on $\mathcal L$ we see that 
+	\[
+		\lim\qty|F(x_n)-F(x)|=\lim\qty| \int_{[x,x_n]}f\mathrm{d}m|\leq\lim\int_{[x,x_n]}|f|\mathrm{d}m=\int_{\cap[x,x_n]}|f|dm=0
+	\]
+	as $\cap[x,x_n]=\{x\}$ is a lebesge null set and we follow the convention of $0\cdot\infty=0$. Right continuity is proven similarly and hence we have continuity.
+\end{solution}
 \begin{problem}\label{prob:2.27}
 Let $f_n(x) = ae^{-nax} - be^{-nbx}$ where $0 < a < b$.
 \begin{enumerate}[label=\alph*.]
@@ -388,6 +400,9 @@ Let $f_n(x) = ae^{-nax} - be^{-nbx}$ where $0 < a < b$.
     \item $\sum_1^\infty f_n \in L^1([0, \infty), m)$, and $\int_0^\infty \sum_1^\infty f_n(x) \, dx = \log(b/a)$.
 \end{enumerate}
 \end{problem}
+\begin{solution}
+    This is just a bunch of calculations. However it furnishes an example to how how $\int\sum|f_n|\notin L^1$ might result in $\int\sum f_n\neq\sum\int f_n$ even whe both are finite and $\sum f_n\in L^1$
+\end{solution}
 
 \begin{problem}\label{prob:2.28}
 Compute the following limits and justify the calculations:
@@ -398,15 +413,37 @@ Compute the following limits and justify the calculations:
     \item $\lim_{n \to \infty} \int_a^\infty n(1 + n^2x^2)^{-1} \, dx$. (The answer depends on whether $a > 0$, $a = 0$, or $a < 0$. How does this accord with the various convergence theorems?)
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=(\alph*)]
+		\item Let, $f_n(x)=(1+x/n)^{-n}\sin(x/n)$ then it converges $e^{-x}\cdot\sin(0)=0$ pointwise and it can be checked that $|f_n|\leq (1+x/2)^{-2}$ for all $n\geq 2$ and as this is $L^1$, it allows us to conclude that the limit is $0$ by DCT.
+		\item Let $f_n(x)=(1+nx^2)/(1+x^2)^n$ then it converges to $\chi_{\{1\}}$ pointwise and as $|f_n|\leq 1$ in the interval $[0,1]$ we can apply DCT to conclude that the limit is $0$
+		\item In a similar fashion we see that the integrands are dominated by $(1+x^2)^{-1}$ and converge pointwise to it as well after which we can conclude with DCT that the limit is $\pi/2$ using basic calculus.
+		\item If $a>0$ then we see that the integrands are eventually dominated by $(1+x^2)^{-1}$ as $1/n+nx^2\geq 1+x^2\iff x^2>1/n$ which is always true in our case for large enough $n$ allowing us to apply DCT and conclude that the limit is zero as the integrands converge to $0$ pointwise. However, if $a\leq 0$ then the integrands converge to $\infty\cdot\chi_{\{0\}}$ pointwise which integrates to $0$ whereas the limit is that of the terms $\pi/2-\arctan(na)$ which has a strictly positive limit here for the $a\leq 0$ we consider. This shows us that DCT \textit{can't be applied} here, in fact it is easily proven without the DCT that any function which dominates this sequence can not be $L^1$ by considering the values on intervals of form $[1/n,1/(n-1)]$ which is left to the reader as an exercise.
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:2.29}
-Show that $\int_0^\infty x^n e^{-x} \, dx = n!$ by differentiating the equation $\int_0^\infty e^{-tx} \, dx = 1/t$. Similarly, show that $\int_{-\infty}^\infty e^{-x^2} e^{2tx} \, dx = (\pi)^{1/2} e^{t^2}$ by differentiating the equation $\int_{-\infty}^\infty e^{-tx^2} \, dx = \sqrt{\pi/t}$ (see Proposition 2.53).
+	Show that $\int_0^\infty x^n e^{-x} \, dx = n!$ by differentiating the equation $\int_0^\infty e^{-tx} \, dx = 1/t$. Similarly, show that $\int_{-\infty}^\infty x^{2n}e^{-x^2}\, dx = (2n)!\sqrt{\pi}/4^nn!$ by differentiating the equation\\ $\int_{-\infty}^\infty e^{-tx^2} \, dx = \sqrt{\pi/t}$ (see Proposition 2.53).
 \end{problem}
+\begin{solution}
+	Let $f:[1,\infty)\times[0,\infty)\to\bR$ be defined as $f(t,x)=e^{-tx}$, we see that for all $t,x$ we have
+	\[
+		\qty|\frac{\partial}{\partial t}f(x,t)| = xe^{-tx}\leq xe^{-x}
+	\]
+	which is $L^1$ allowing us to use Theorem 2.27 (page 56) to deduce that
+	\[
+		\frac{-1}{t^2}=\frac{d}{dt}\int_{0}^{\infty}e^{-tx}\mathrm{d}x = \int_0^\infty\frac{\partial}{\partial t}f(x,t)dx=\int_0^\infty -xe^{-tx}dx
+	\]
+	repeating this a total of $n$ times with the dominating functions being $x^ne^{-x}$ we get the desired conclusion after setting $t=1$ at the end. 
+	For the second parts we work with $t$ over the same interval but this time $x$ varies over $\bR$ with $f(t,x)=e^{-tx^2}$ and following the exact same steps with dominating functions of form $x^{2n}e^{-x^2}$ we arrive at a proof.
+\end{solution}
 
 \begin{problem}\label{prob:2.30}
 Show that $\lim_{k \to \infty} \int_0^k x^n (1 - k^{-1}x)^k \, dx = n!$.
 \end{problem}
-
+\begin{solution}
+	The integrands $\chi_{[0,k]}x^n(1-x/k)^k$ are dominated by $x^ne^{-x}$ which is $L^1$ and also the pointwise limit of the integrands. 
+	Applying DCT and using the previosu problem we arrive at the required conclusion.
+\end{solution}
 \begin{problem}\label{prob:2.31}
 Derive the following formulas by expanding part of the integrand into an infinite series and justifying the term-by-term integration. Exercise 29 may be useful. (Note: In (d) and (e), term-by-term integration works, and the resulting series converges, only for $a > 1$, but the formulas as stated are actually valid for all $a > 0$.)
 \begin{enumerate}[label=\alph*.]
@@ -417,17 +454,53 @@ Derive the following formulas by expanding part of the integrand into an infinit
     \item For $a > 1$, $\int_0^\infty e^{-ax} J_0(x) \, dx = (a^2 + 1)^{-1/2}$, where $J_0(x) = \sum_0^\infty (-1)^n x^{2n} / 4^n(n!)^2$ is the Bessel function of order zero.
 \end{enumerate}
 \end{problem}
+\begin{solution}
+    All of these are very easily proven by expanding some function into its power series representation and then using DCT (with the dominating function being of form $\sum|f_n|$ for functions of form $\sum f_n$) to switch the summation and integration so we state what we expand for each.
+	\begin{enumerate}[label=(\alph*)]
+		\item expand the cosine term and use the previous problem (we set $t=1$ at the end, here we require the result without that substitution.)
+		\item expand the denominator.
+		\item Rewrite the integrand as
+			\[
+				\frac{x^{a-1}}{e^x-1}= \frac{x^{a-1}e^{-x}}{1-e^{-x}}=\sum_{n=0}^\infty x^{a-1}e^{-x}(e^{-x})^n
+			\]
+		\item expand the sine term and use the previous problem.
+		\item this is already given as a power series
+	\end{enumerate}
+	
+\end{solution}
 
 \begin{problem}\label{prob:2.32}
 Suppose $\mu(X) < \infty$. If $f$ and $g$ are complex-valued measurable functions on $X$, define
 \[ \rho(f, g) = \int \frac{|f - g|}{1 + |f - g|} \, d\mu. \]
 Then $\rho$ is a metric on the space of measurable functions if we identify functions that are equal a.e., and $f_n \to f$ with respect to this metric iff $f_n \to f$ in measure.
 \end{problem}
-
+\begin{solution}
+    For the if part, first notice that $x\mapsto x/(1+x)$ is an increasing map on the nonnegatives and thus we have for any arbitrary $\epsilon>0$ that,
+\[
+	\int_X \frac{|f-f_n|}{1+|f-f_n|}d\mu=\int_{|f-f_n|\geq\epsilon} \frac{|f-f_n|}{1+|f-f_n|}d\mu+\int_{|f-f_n|<\epsilon} \frac{|f-f_n|}{1+|f-f_n|}d\mu
+\]
+\[
+	\leq 1\cdot\mu(\{|f_n-f|\geq\epsilon\})+\frac{\epsilon}{1+\epsilon}\cdot\mu(\{|f_n-f|<\epsilon\})\leq\mu(\{|f_n-f|\geq\epsilon\})+\epsilon\cdot\mu(X)
+\]
+And as $f_n\to f$ in measure we see that $\lim\rho(f_n,f)\leq\epsilon\mu(X)$ which can be made arbitrarily small proving this direction.
+For the other direction we similarly have that
+\[
+	\rho(f_n,f)\geq \frac{\epsilon}{1+\epsilon}\cdot\mu(\{|f_n-f|\geq\epsilon\})
+\]
+As $\rho(f_n,f)\to 0$ we must have the right side of the inequality tend to $0$ proving the claim.
+\end{solution}
 \begin{problem}\label{prob:2.33}
 If $f_n \ge 0$ and $f_n \to f$ in measure, then $\int f \le \lim \inf \int f_n$.
 \end{problem}
-
+\begin{solution}
+	By the definition of the limit infimum we can find a subsequence $f_{n_k}$ such that $\liminf\int f_n=\lim\int f_{n_k}$.
+	As $f_n$ converges in measure to $f$ so does $f_{n_k}$ and we can find a subsequence $f_{n_{k_m}}$ that converges a.e. to $f$. Now, we see that
+\[
+	\liminf_n\int f_n=\lim_k\int f_{n_k}\limsup_k\int f_{n_k}\geq\limsup_m\int f_{n_{k_m}}\geq\liminf_m\int f_{n_{k_m}}\geq\int\liminf f_{n_{k_m}}
+\]
+where we use fatou's lemma for the last inequality. 
+As $f_{n_{k_m}}\to f$ a.e., the last expression is just $\int f$ so we are done.
+\end{solution}
 \begin{problem}\label{prob:2.34}
 Suppose $|f_n| \le g \in L^1$ and $f_n \to f$ in measure.
 \begin{enumerate}[label=\alph*.]
@@ -435,10 +508,23 @@ Suppose $|f_n| \le g \in L^1$ and $f_n \to f$ in measure.
     \item $f_n \to f$ in $L^1$.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+	\begin{enumerate}[label=(\alph*)]
+		\item By \hyperref[prob:2.33]{Problem 1.33} we can use fatou's lemma just like we did in the proof for DCT here as well by considering the sequences $g-f_n,g+f_n$ whice are nonnegative and converge to $g-f,g+f$ respectively in measure. 
+		\item By part (a) and the assumption we clearly see that $f_n,f$ are $L^1$ and as $|f_n|\to|f|$ in measure too while being dominated by $g$ we can apply part (a) again to see that $\int |f|=\lim\int |f_n|$ which is equivalent to the claim by \hyperref[prob:2.21]{Problem 1.21}.
+	\end{enumerate}
+	enumerate
+\end{solution}
 \begin{problem}\label{prob:2.35}
 $f_n \to f$ in measure iff for every $\epsilon > 0$ there exists $N \in \bN$ such that $\mu(\{x : |f_n(x) - f(x)| \ge \epsilon\}) < \epsilon$ for $n \ge N$.
 \end{problem}
+\begin{solution}
+	The only if direction follows directly from the definition and for the if direction, given $\epsilon>0$ and $\delta>0$ let, $\nu=\min\{\epsilon,\delta\}$ we see that $\{|f_n-f|\geq\epsilon\}\subseteq\{|f_n-f|\geq\nu\}$ and we can find some $N\in\bN$ such that for all $n\geq N$,
+\[
+	\mu(\{|f_n-f|\geq\epsilon\})\leq\mu(\{|f_n-f|\geq\nu\})<\nu\leq\delta
+\]
+and we are done.
+\end{solution}
 
 \begin{problem}\label{prob:2.36}
 If $\mu(E_n) < \infty$ for $n \in \bN$ and $\chi_{E_n} \to f$ in $L^1$, then $f$ is (a.e. equal to) the characteristic function of a measurable set.
