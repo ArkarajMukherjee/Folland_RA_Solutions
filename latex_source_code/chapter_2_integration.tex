@@ -414,7 +414,7 @@ Compute the following limits and justify the calculations:
 \end{enumerate}
 \end{problem}
 \begin{solution}
-    \begin{enumerate}[label=(\alph*)]
+    \begin{enumerate}[label=\alph*.]
 		\item Let, $f_n(x)=(1+x/n)^{-n}\sin(x/n)$ then it converges $e^{-x}\cdot\sin(0)=0$ pointwise and it can be checked that $|f_n|\leq (1+x/2)^{-2}$ for all $n\geq 2$ and as this is $L^1$, it allows us to conclude that the limit is $0$ by DCT.
 		\item Let $f_n(x)=(1+nx^2)/(1+x^2)^n$ then it converges to $\chi_{\{1\}}$ pointwise and as $|f_n|\leq 1$ in the interval $[0,1]$ we can apply DCT to conclude that the limit is $0$
 		\item In a similar fashion we see that the integrands are dominated by $(1+x^2)^{-1}$ and converge pointwise to it as well after which we can conclude with DCT that the limit is $\pi/2$ using basic calculus.
@@ -456,7 +456,7 @@ Derive the following formulas by expanding part of the integrand into an infinit
 \end{problem}
 \begin{solution}
     All of these are very easily proven by expanding some function into its power series representation and then using DCT (with the dominating function being of form $\sum|f_n|$ for functions of form $\sum f_n$) to switch the summation and integration so we state what we expand for each.
-	\begin{enumerate}[label=(\alph*)]
+	\begin{enumerate}[label=\alph*.]
 		\item expand the cosine term and use the previous problem (we set $t=1$ at the end, here we require the result without that substitution.)
 		\item expand the denominator.
 		\item Rewrite the integrand as
@@ -509,7 +509,7 @@ Suppose $|f_n| \le g \in L^1$ and $f_n \to f$ in measure.
 \end{enumerate}
 \end{problem}
 \begin{solution}
-	\begin{enumerate}[label=(\alph*)]
+	\begin{enumerate}[label=\alph*.]
 		\item By \hyperref[prob:2.33]{Problem 1.33} we can use fatou's lemma just like we did in the proof for DCT here as well by considering the sequences $g-f_n,g+f_n$ whice are nonnegative and converge to $g-f,g+f$ respectively in measure. 
 		\item By part (a) and the assumption we clearly see that $f_n,f$ are $L^1$ and as $|f_n|\to|f|$ in measure too while being dominated by $g$ we can apply part (a) again to see that $\int |f|=\lim\int |f_n|$ which is equivalent to the claim by \hyperref[prob:2.21]{Problem 1.21}.
 	\end{enumerate}
@@ -523,37 +523,119 @@ $f_n \to f$ in measure iff for every $\epsilon > 0$ there exists $N \in \bN$ suc
 \[
 	\mu(\{|f_n-f|\geq\epsilon\})\leq\mu(\{|f_n-f|\geq\nu\})<\nu\leq\delta
 \]
-and we are done.
+and we are done. 
 \end{solution}
-
 \begin{problem}\label{prob:2.36}
 If $\mu(E_n) < \infty$ for $n \in \bN$ and $\chi_{E_n} \to f$ in $L^1$, then $f$ is (a.e. equal to) the characteristic function of a measurable set.
 \end{problem}
-
+\begin{solution}
+	As the convergence is $L^1$ we can find a subsequence $\chi_{E_{n_k}}$ that converges to $f$ outside a set of measure $0$. 
+Outside this set we cleary have that $f$ is a charecteristic function and its also measurable restricted to this set being the limit of measurable functions, thus it is a.e. equal to a characteristic function of a measurable set.
+\end{solution}
 \begin{problem}\label{prob:2.37}
+Suppose that $f_n$ and $f$ are measurable complex valued functions and $\phi:\bC\to\bC$.
+\begin{enumerate}[label=\alph*.]
+	\item If $\phi$ is continuous and $f_n\to f$ a.e., then $\phi\circ f_n\to\phi\circ f$ a.e.
+	\item If $\phi$ is uniformly continuous and $f_n\to f$ uniformly, almost uniformly, or in measure, then $\phi\circ f_n\to\phi\circ f$ uniformly, almost uniformly, or in measure, 
+respectively. 
+	\item There are counter examples when the continuity assumptions on $\phi$ are not satisfied
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+	\item This is obvious from the fact that composition by continuous functions conserve pointwise convergence which is clear from the definition of continuity.
+	\item It is a fact from basic real analysis that composition with uniformly continuous functions conserves uniform convergence and in the case of almost uniform convergence we just restrict ourselves to a suitable set.
+In the case of convergence in measure, first choose $\delta>0$ such that $|x-y|<\delta\implies|\phi(x)-\phi(y)|<\epsilon$, then we see that,
+\[
+	\{x\in X:|f_n(x)-f(x)|<\delta\}\subseteq\{x\in X:|\phi(f_n(x))-\phi(f(x))|<\epsilon\}
+\]
+and taking complements,
+\[
+	\{x\in X:|f_n(x)-f(x)|\geq\delta\}\supseteq\{x\in X:|\phi(f_n(x))-\phi(f(x))|\geq\epsilon\}
+\]
+Thus, we see that,
+\[    
+	0\longleftarrow\mu(\{x\in X:|f_n(x)-f(x)|\geq\delta\})\geq\mu(\{x\in X:|\phi(f_n(x))-\phi(f(x))|\geq\epsilon\})
+\]
+proving this claim. 
+\item A counterexample for part (a) if continuity of $\phi$ is not assumed is: $X=\bR$ with the lebesgue measure, $\phi(x)=1-\chi_{\{0\}}$ and $f_n(x)=1/n\to 0$. For part (b) in the case of uniform and almost uniform convergence is, in the same measurable space as the previous is: $f_n(x)=x+1/n\to x$ and $\phi(x)=x^2$, this is also a counterexample for the case of convergence in measure.
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:2.38}
 If $f_n \to f$ in measure and $g_n \to g$ in measure, then $f_n + g_n \to f + g$ in measure, and $f_ng_n \to fg$ in measure if $\mu(X) < \infty$, but not necessarily if $\mu(X) = \infty$.
 \end{problem}
-
-\begin{problem}\label{prob:2.38}
-If $f_n \to f$ a.e. and $\mu(X) < \infty$, then $f_n \to f$ in measure.
-\end{problem}
-
+\begin{solution}
+The first part follows from the fact that 
+\[
+	\{x\in X:|f_n+g_n-(f+g)|\geq\epsilon\}\subseteq\{x\in X:|f_n-f|\geq\epsilon\}\cup\{x\in X:|g_n-g|\geq\epsilon\}
+\]
+from the triangle inequality. 
+Forthe second part it suffices to prove that if $\psi_n\to 0$ in measure then $\psi_n \phi\to 0$ in measure for any measurable $\phi$ as,
+\[
+	|f_ng_n-fg|\leq |f_n-f||g_n|+|f||g_n-g|\leq|g||f_n-f|+|g-g_n||f-f_n|+|f||g_n-g|
+\]
+due to the middle term converging to $0$ in measure, which follows from the set inclusion below. 
+For any $\epsilon>0$
+\[
+	\{|f_n-f||g_n-g|\geq\epsilon\}\subseteq\{|f_n-f|\geq\sqrt{\epsilon}\}\cup\{|f_n-f|\geq\sqrt{\epsilon}\}
+\]
+After which we can apply the previous result that convergence in measure is preserved unded addition.
+Now consider $S_n:=\{x\in X:n\leq |\phi|<n+1\}$. Then $\{S_n\}_{n\geq 0}$ is a partition of $X$. We see that $$\sum_{n\geq 0}\mu(S_n)=\mu(X)<\infty$$ and thus for any $\epsilon>0$ there exists some $m_\epsilon$ such that $$\sum_{n>m_\epsilon}\mu(S_n)<\epsilon/2$$
+Implying that,
+\[
+\mu(\{x\in X:|\phi\psi_k|\geq \epsilon\})<\sum_{n=0}^{m_\epsilon}\mu(\{x\in S_n:|\psi_k\phi|\geq\epsilon\})+\epsilon/2
+\]
+From construction, for $k=0,1,\ldots,m_\epsilon$ we have that
+\[
+	\{x\in S_n:|\phi\psi_k|\geq\epsilon\}\subseteq\{x\in X:|\psi_k|\geq\frac{\epsilon}{n+1}\}\subseteq\{|\psi_k|\geq\frac{\epsilon}{m_\epsilon+1}\}
+\]
+Let $N$ be such that $k\geq N\implies \mu(\{|\psi_k|\geq\epsilon/(m_\epsilon+1)
+\})<\epsilon/2(m_\epsilon+1)$. 
+Then from the previous work we see that
+\[
+	\mu(\{|\phi\psi_k|\geq\epsilon\})<\sum_{n=0}^{m_\epsilon}\mu(\{x\in S_n:|\psi_k\phi|\geq \epsilon\})+\epsilon/2
+ <\frac{(m_\epsilon+1)\epsilon}{2(m_\epsilon+1)}+\frac{\epsilon}{2}=\epsilon
+\]
+for all $k\geq N$ implying convergence in measure (by \hyperref[prob:2.35]{Problem 1.35}) and we are done. 
+For a counter example in the case of $\mu(X)=\infty$ consider $g_n(x)=x^2$ and $f_n(x)=1/n$ on $\bR$ with the lebesgue measure.
+\end{solution}
 \begin{problem}\label{prob:2.39}
 If $f_n \to f$ almost uniformly, then $f_n \to f$ a.e. and $f_n \to f$ in measure.
 \end{problem}
-
+\begin{solution}
+    Suppose $E_n$ are measurable sets such that $\mu(E_n^c)<1/n$ then we have that $\mu((\cup E_n)^c=\cap E_n^c)<1/n$ for all $n$ and hence $0$. 
+	If $x\in\cup E_n$ then $x\in E_n$ for some $n$ and thus $f_n(x)\to f(x)$ as we have uniform convergence which implies pointwise convergence on $E_n$. 
+	Thus, we have convergence a.e. due to $(\cup E_n)^c$ being null.
+\end{solution}
 \begin{problem}\label{prob:2.40}
 In Egoroff's theorem, the hypothesis ``$\mu(X) < \infty$'' can be replaced by ``$|f_n| \le g$ for all $n$, where $g \in L^1(\mu)$.''
 \end{problem}
-
+\begin{solution}
+We first restrict ourselves to a set witha null complement such that we have pointwise convergence on it and assume this to be the whole space here on which causes no problems due to the complement being null. It would suffice for the sets $E_{1}(k)$ to have finite measure, which they do as
+\[
+	\bigcup_{m\geq n}\left\{x\in X:|f_m(x)-f(x)|\geq \frac{1}{k}\right\}\subseteq\left\{x\in X:2g(x)\geq \frac{1}{k}\right\}
+\]
+with the set on the right being of finite measure due to $g$ being $L^1$ (more precisely, it is easily shown that it has measure atmost $k\int_Xg)$
+\end{solution}
 \begin{problem}\label{prob:2.41}
-If $\mu$ is $\sigma$-finite and $f_n \to f$ a.e., there exist measurable $E_1, E_2, \dots \subset X$ such that $\mu( (\bigcup_1^\infty E_j)^c ) = 0$ and $f_n \to f$ uniformly on each $E_j$.
+If $\mu$ is $\sigma$-finite and $f_n \to f$ a.e., there exist measurable $E_1, E_2, \ldots \subset X$ such that $\mu( (\bigcup_1^\infty E_j)^c ) = 0$ and $f_n \to f$ uniformly on each $E_j$.
 \end{problem}
-
+\begin{solution}
+Using sigma finiteness write $X=\cup E_n$ with $E_n$ being finite. 
+We can apply egoroff's on each of the $E_n$'s to get $E_{n}^{(m)}\subseteq E_n$ on which we have uniform convergence, with $\mu(E_n\setminus E_n^{(m)})<1/m$, then we see that $\mu(E_n\setminus\cup_mE_n^{(m)})=0$. 
+As,
+\[
+	X\setminus\bigcup_{m,n}E_n^{(m)}=\qty(\bigcup_n E_n)\setminus\bigcup_n\bigcup_m E_n^{(m)}\subseteq\bigcup_n\qty(E_n\setminus\bigcup_m E_n^{(m)})
+\]
+we see that the collection $\{E_n^{(m)}\}_{m,n}$ satisfies the condition in the problem statement as a countable union of null sets (which are $E_n\setminus\cup_mE_n^{(m)}$ here) is still null.
+\end{solution}
 \begin{problem}\label{prob:2.42}
 Let $\mu$ be counting measure on $\bN$. Then $f_n \to f$ in measure iff $f_n \to f$ uniformly.
 \end{problem}
-
+\begin{solution}
+	For the only if direction notice that, for any $\epsilon>0$ if $\mu(\{|f_n-f|\geq\epsilon\})<1/2$ for all $n\geq N$ then this set is empty implying that $|f_n(x)-f(x)|<\epsilon$ for all $x\in\bN$, for all $n\geq N$ proving uniform convergence.
+	The only if direction is always true regardless of the domain measurable space as, if $|f_n(x)-f(x)|<\epsilon$ for all $n$ large enough, then $\{|f_n-f|\geq\epsilon\}$ is eventually always empty and thus has measure $0$ for large enough $n$ making the measure tend to $0$ as $n\to\infty$ proving convergence in measure. 
+\end{solution}
 \begin{problem}\label{prob:2.43}
 Suppose that $\mu(X) < \infty$ and $f: X \times [0, 1] \to \bC$ is a function such that $f(\cdot, y)$ is measurable for each $y \in [0, 1]$ and $f(x, \cdot)$ is continuous for each $x \in X$.
 \begin{enumerate}[label=\alph*.]
@@ -561,18 +643,59 @@ Suppose that $\mu(X) < \infty$ and $f: X \times [0, 1] \to \bC$ is a function su
     \item For any $\epsilon > 0$ there is a set $E \subset X$ such that $\mu(E) < \epsilon$ and $f(\cdot, y) \to f(\cdot, 0)$ uniformly on $E^c$ as $y \to 0$.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+	\item By continuity we have that,
+		\[
+			E_{\epsilon,\delta}=\bigcap_{r\in\bQ\cap(0,\delta)}\{x\in X:|f(x,r)-f(x,0)|\leq\epsilon\}
+		\]
+	as the sets we take the intersection of are measurable, so is the set itself.
+	\item This is almost like a continuous version (as in, the variable we judge uniform convergence over is continuous) of egoroff's theorem. Consider the sets
+		\[
+			F_n(k) = \bigcup_{m\geq n}E_{1/k,1/m}^c
+		\]
+		\[
+			= \left\{x\in X:\exists m(m\geq n)\text{ such that }|f(x,y)-f(x,0)|\geq\frac{1}{k}\text{ for some }y< \frac{1}{m}\right\}
+		\]
+		By continuity we know that for any fixed $x\in X$ we have $f(x,y)\to f(x,0)$ as $y\to 0$, thus for any fixed $k$, we see that $\cap_n F_n(k)$ is empty as if some $x$ were to be in it then for any $n$ we could find some $m\geq n$ such that there exists some $y$ with $0<y<1/m\leq 1/n$ and $|f(x,y)-f(x,0)|\geq 1/k$ which would contradict continuity as there is some $n$ such that $y<1/n$ implies $|f(x,y)-f(x,0)|<1/k$. 
+		As we have $\mu(X)<\infty$ and $F_n(k)$ decreases in $n$ we see that $\lim_n\mu(F_n(k))=\mu(\cap_nF_n(k))=0$.
+		For any $\epsilon>0$, for all $k$ we can find some $n_k$ with $\mu(F_{n_k}(k))<\epsilon 2^{-k}$.
+	Thus, $\mu(\cup_k F_{n_k}(k))<\epsilon$ and as,
+	\[
+		\qty(\bigcup_kF_{n_k}(k))^c=\bigcap_k(F_{n_k}(k))^c
+	\]
+	\[
+		=\left\{x\in X:\forall k,m\geq n_k\implies|f(x,y)-f(x,0)|< \frac{1}{k}\text{ for all }y< \frac{1}{m}\right\}
+	\]
+	Let, $E=\cup_kF_{n_k}(k)$, then for all $x\in E^c$, if $y<1/n_k$ then $|f(x,y)-f(x,0)|<1/k$ and thus we have uniform convergence on this set.
+	As $\mu(E)<\epsilon$ we are done.
+\end{enumerate}   
+\end{solution}
 \begin{problem}\label{prob:2.44}
 (Lusin's Theorem) If $f: [a, b] \to \bC$ is Lebesgue measurable and $\epsilon > 0$, there is a compact set $E \subset [a, b]$ such that $m(E^c) < \epsilon$ and $f|_E$ is continuous. (Use Egoroff's theorem and Theorem 2.26.)
 \end{problem}
-
+\begin{solution}
+	Fix an $\epsilon>0$, then following a a similar arguement as we did in \hyperref[prob:2.38]{Problem 1.38} we can find some $M$ such that $m(\{x\in [a,b]:|f(x)|\geq M\})<\epsilon$, let the complement of this set be $E$. 
+	Then, as $f$ is bounded on $E$, it is $L^1$ and using Theorem $2.26$ we can find continuous functions arbitrarily close to this on $E$ in the $L^1$ metric. 
+	We can hence choose a sequence of continuous functions that converge to $f$ on $E$ in the $L^1$ metric, due to which we can choose a subsequence of this sequence that converges in measure to our function by Corollary $2.32$, after that using Egoroff's theorem we can find some measurable $F\subseteq E$ with $m(E\setminus F)<\epsilon$ on which convergence is uniform. 
+	As the limit of an uniformly convergent sequence of continuous functions is continuous we have that $f$ is continuous on $F$. 
+	Now, as $F^c\subseteq(E\setminus F)\cup E^c$ we see thatm $m(F^c)=m(E^c)+m(E\setminus F)<\epsilon+\epsilon=2\epsilon$. 
+	As the lebesgue measure is inner regular (Theorem $1.18$ on page $36$) we can find some compact $K\subseteq F$ such that $\mu(F\setminus K)<\epsilon$ and thus similarly, $m(K^c)=m(F\setminus K)+m(F^c)<\epsilon+2\epsilon=3\epsilon.$
+	Thus, we have found a compact set $K\subseteq[a,b]$ with $m(K^c)<3\epsilon$ on which $f$ is continuous.
+\end{solution}
 \begin{problem}\label{prob:2.45}
 If $(X_j, \mM_j)$ is a measurable space for $j = 1, 2, 3$, then $\bigotimes_1^3 \mM_j = (\mM_1 \otimes \mM_2) \otimes \mM_3$. Moreover, if $\mu_j$ is a $\sigma$-finite measure on $(X_j, \mM_j)$, then $\mu_1 \times \mu_2 \times \mu_3 = (\mu_1 \times \mu_2) \times \mu_3$.
 \end{problem}
-
+\begin{solution}
+    Having identified $A\times b\times C$ with $(A\times B)\times C$ in the text, we find that by definiton we see that $\otimes^3_1\mathcal M_j=(\mathcal M_1\otimes\mathcal M_2)\otimes\mathcal M_3$ as each of these clearly contains the generators of the other.
+	These two measures also clearly agree on the measurable rectangles and thus we can say that they are equal on the algebra formed by the finite disjoint unions of these rectangles, hence we can say that they are equal on the whole sigma algebra by the uniqueness criterion in caratheodory's extension theorem from chapter $1$ as the premeasures in this case are clearly $\sigma$-finite (the reasoning behind this is given for the case of two measurable spaces at the bottom of page $64$ and we thus omit the extremely similar arguement needed here)
+\end{solution}
 \begin{problem}\label{prob:2.46}
 Let $X = Y = [0, 1]$, $\mM = \mN = \mathcal{B}_{[0, 1]}$, $\mu = \text{Lebesgue measure}$, and $\nu = \text{counting measure}$. If $D = \{(x, x) : x \in [0, 1]\}$ is the diagonal in $X \times Y$, then $\iint \chi_D \, d\mu \, d\nu$, $\iint \chi_D \, d\nu \, d\mu$, and $\int \chi_D \, d(\mu \times \nu)$ are all unequal. (To compute $\int \chi_D \, d(\mu \times \nu)$, go back to the definition of $\mu \times \nu$.)
 \end{problem}
+\begin{solution}
+	a    
+\end{solution}
 
 \begin{problem}\label{prob:2.47}
 Let $X = Y$ be an uncountable linearly ordered set such that for each $x \in X$, $\{y \in X : y < x\}$ is countable. (Example: the set of countable ordinals.) Let $\mM = \mN$ be the $\sigma$-algebra of countable or co-countable sets, and let $\mu = \nu$ be defined on $\mM$ by $\mu(A) = 0$ if $A$ is countable and $\mu(A) = 1$ if $A$ is co-countable. Let $E = \{(x, y) \in X \times X : y < x\}$. Then $E_x$ and $E^y$ are measurable for all $x, y$, but $\iint \chi_E \, d\mu \, d\nu$ and $\iint \chi_E \, d\nu \, d\mu$ exist but are not equal. (If one believes in the continuum hypothesis, one can take $X = [0, 1]$ [with a nonstandard ordering] and thus obtain a set $E \subset [0, 1]^2$ such that $E_x$ is countable and $E^y$ is co-countable [in particular, Borel] for all $x, y$, but $E$ is not Lebesgue measurable.)
