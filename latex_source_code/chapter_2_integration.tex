@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{amsmath, amssymb, amsthm, amsfonts, graphicx, physics, enumitem, geometry, esint}
+\usepackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs, graphicx, physics, enumitem, geometry, esint,twemojis}
 \geometry{margin=1in}
 \usepackage[dvipsnames]{xcolor}
 \definecolor{EvanPink}{rgb}{0.85, 0.13, 0.55}
@@ -694,25 +694,85 @@ If $(X_j, \mM_j)$ is a measurable space for $j = 1, 2, 3$, then $\bigotimes_1^3 
 Let $X = Y = [0, 1]$, $\mM = \mN = \mathcal{B}_{[0, 1]}$, $\mu = \text{Lebesgue measure}$, and $\nu = \text{counting measure}$. If $D = \{(x, x) : x \in [0, 1]\}$ is the diagonal in $X \times Y$, then $\iint \chi_D \, d\mu \, d\nu$, $\iint \chi_D \, d\nu \, d\mu$, and $\int \chi_D \, d(\mu \times \nu)$ are all unequal. (To compute $\int \chi_D \, d(\mu \times \nu)$, go back to the definition of $\mu \times \nu$.)
 \end{problem}
 \begin{solution}
-	a    
+	$D$ is clearly measurable and thus $\chi_D\in L^+$.
+	We have that $D_x=\{x\}$ and $D^y=\{y\}$, we use this to compute the iterated integrals combined with the fact that for any $E$ we have $(\chi_E)_x=\chi_{E_x}$ and similarly for $y$ as well.
+	\[
+		\int\int\chi_Dd\mu(x)d\nu(y)=\int\int\chi_{D^y}(x)d\mu(x)d\nu(y)=\int\int\chi_{\{y\}}(x)d\mu(x)d\nu(y)=\int\mu(\{y\})d\nu(y)=0
+	\]
+	as $\mu(\{y\})$ is always $0$. 
+	\[
+		\int\int\chi_Dd\nu(y)d\mu(x)=\int\nu(\{x\})d\mu(x)=\int 1d\mu(x)=\int_{[0,1]}1\mu(x)=1
+	\]
+	We will now show that $\int\chi_Dd(\mu\times\nu)=\mu\times\nu(D)=\infty$. 
+	If $D\subseteq\cup I_n$ with $I_n\in\mathcal A$ then, we can break these $I_n$ into rectangles and have $D\subset \cup A_m\times B_m=\cup I_n$. 
+	Clearly we must have $[0,1]\subseteq \cup(A_m\cap B_m)$ as $(x,x)\in A_m\times B_m$ iff $x\in A_m\cap B_m$.
+	Keeping in mind that $A_m,B_m\in\mathcal B_{[0,1]}$ we thus have that $\sum\mu(A_m\cup B_m)\geq 1$ which implies that, for some $m$ we must have $\mu(A_m),\mu(B_m)\geq\mu(A_m\cap B_m)>0$ but then $B_m$ has more than countably many elements making $\nu(B_m)=\infty$ so $\mu\times\nu(A_m\times B_m)=\mu(A_m)\nu(B_m)=\infty$. 
+	Thus, in the definiton of $\mu\times\nu$ the numbers we take an infimum over is the singleton $\{\infty\}$ making the measure of $D$ infinite and thus all the integrals are unequal.
 \end{solution}
-
 \begin{problem}\label{prob:2.47}
 Let $X = Y$ be an uncountable linearly ordered set such that for each $x \in X$, $\{y \in X : y < x\}$ is countable. (Example: the set of countable ordinals.) Let $\mM = \mN$ be the $\sigma$-algebra of countable or co-countable sets, and let $\mu = \nu$ be defined on $\mM$ by $\mu(A) = 0$ if $A$ is countable and $\mu(A) = 1$ if $A$ is co-countable. Let $E = \{(x, y) \in X \times X : y < x\}$. Then $E_x$ and $E^y$ are measurable for all $x, y$, but $\iint \chi_E \, d\mu \, d\nu$ and $\iint \chi_E \, d\nu \, d\mu$ exist but are not equal. (If one believes in the continuum hypothesis, one can take $X = [0, 1]$ [with a nonstandard ordering] and thus obtain a set $E \subset [0, 1]^2$ such that $E_x$ is countable and $E^y$ is co-countable [in particular, Borel] for all $x, y$, but $E$ is not Lebesgue measurable.)
 \end{problem}
-
+\begin{solution}
+	Clearly $E_x=\{y\in X:y<x\}$ and $E^y=\{x\in X:x>y\}$. 
+	By definition we see that $E_x$ is always countable and $E^y$ always uncountable having a countable complement $E_y\cup\{y\}$, so these are always measurable.
+	Thus,
+	\[
+	    \int\int\chi_Ed\nu d\mu=\int\nu(E_x)d\mu(x)=\int 0d\mu(x)=0
+	\]
+	\[
+		\int\int\chi_Ed\mu d\nu=\int\mu(E^y)\nu(y)=\int 1d\nu(y)=\nu(Y)=1\text{ as }Y\text{ is }\twemoji{coconut}\text{able}
+	\]
+	So these integrals are unequal.	
+\end{solution}
 \begin{problem}\label{prob:2.48}
 Let $X = Y = \bN, \mM = \mN = \mathcal{P}(\bN), \mu = \nu = \text{counting measure}$. Define $f(m, n) = 1$ if $m = n, f(m, n) = -1$ if $m = n + 1$, and $f(m, n) = 0$ otherwise. Then $\int f \, d\mu \, d\nu$ and $\int f \, d\nu \, d\mu$ exist and are unequal.
 \end{problem}
-
+\begin{solution}
+    Firstly we see that $f(k,k)=1$ and $f(k,k-1)=1$. Also, $f$ is measurable (all functions are) as $\mathcal P(\bN)\otimes\mathcal P(\bN)=\mathcal M(\mathcal P(\bN)\times\mathcal P(\bN))=\mathcal P(\bN\times\bN)$. Integration with respect to these counting measures is just summation, thus we can write,
+	\[
+		\int\int fd\mu d\nu=\sum_{m=1}^\infty\sum_{n=1}^\infty f(m,n)=1+(1-1)+(1-1)+\ldots=1
+	\]
+	\[
+		\int\int fd\nu d\mu=\sum_{n=1}^\infty\sum_{m=1}^\infty f(m,n)=(1-1)+(1-1)+\ldots=0
+	\]
+		
+\end{solution}
 \begin{problem}\label{prob:2.49}
 Prove Theorem 2.39 by using Theorem 2.37 and Proposition 2.12 together with the following lemmas.
 \begin{enumerate}[label=\alph*.]
-    \item If $E \in \mM \times \mN$ and $\mu \times \nu(E) = 0$, then $\nu(E_x) = 0$ for a.e. $x$ and $\mu(E^y) = 0$ for a.e. $y$.
-    \item If $f$ is $\mM$-measurable and $f = 0$ $\lambda$-a.e., then $f_x$ and $f^y$ are integrable for a.e. $x$ and $y$, and $\int f_x \, d\nu = \int f^y \, d\mu = 0$ for a.e. $x$ and $y$. (Here the completeness of $\mu$ and $\nu$ is needed.)
+    \item If $E \in \mM \otimes \mN$ (typo in the book) and $\mu \times \nu(E) = 0$, then $\nu(E_x) = 0$ for a.e. $x$ and $\mu(E^y) = 0$ for a.e. $y$.
+    \item If $f$ is $\mathcal L$-measurable and $f = 0$ $\lambda$-a.e., then $f_x$ and $f^y$ are integrable for a.e. $x$ and $y$, and $\int f_x \, d\nu = \int f^y \, d\mu = 0$ for a.e. $x$ and $y$. (Here the completeness of $\mu$ and $\nu$ is needed.)
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    We first prove the lemmas. 
+	\begin{enumerate}[label=\alph*.]
+		\item From the assumptions we have that
+			\[
+			    0=\mu\times\nu(E)=\int\mu(E^y)\nu(y)=\int\nu(E_x)\mu(x)
+			\]
+			thus, $\nu(E_x)=0$ for a.e. $x$ and similarly for $y$.
+		\item As $f$ is $\mathcal L=\overline{\mathcal M\otimes\mathcal N}$ measurable, by proposition $2.12$, there exists a $\mathcal M\otimes\mathcal N$ measurable function $g$ such that $f=g$ $\lambda$-a.e. which clearly implies that $f=g$ $\mu\times\nu$-a.e. as well. 
+			Now, if $f$ is $0$ $\lambda$ a.e. then so is $g$ and thus we also similarly have that $g=0$ $\mu\times\nu$-a.e. 
+			We see that $g_x$ and $g^y$ are $\mathcal M$ and $\mathcal N$ measurable respectively. 
+			Suppose we had $f=g$ outside $N$ with $\mu\times\nu(N)=0$ then by part(a) we see that $\mu(N^y)=0$ for a.e. $y$ and $\nu(N_x)=0$ for a.e $x$. 
+			As, $f_x=g_x$ outside $N_x$ which is null for a.e. $x$, we have that $f_x=g_x$ a.e. for a.e. $x$. 
+			In the context of the theorem, $\mathcal N$ is complete which makes $f_x$ measurable if $f_x=g_x$ a.e. 
+			As $g$ is $0$ $\mu\times\nu$-a.e. we see that $g\in L^1(\mu\times\nu)$ allowing us to use Tonelli's theorem to say that,
+			\[
+				0=\int g\, d(\mu\times\nu)=\int\int g_x(y)\, d\nu(y) d\mu(x)\implies\int g_x\, d\nu=0\text{ for a.e. }x
+			\]
+			Combined with the fact that $f_x=g_x$ a.e. (implying $\int f_x=\int g_x$) for a.e. $x$ we see that $\int f_x\, d\nu=0$ for a.e. $x$. and thus $f_x$ is integrable for a.e. $x$ as well.
+			The same can be shown for $y$ as well following the same procedure but with different variables.
+	\end{enumerate}
+	Now we prove the theorem.
+	The claims concerning the measurablity of $f_x$ and $f^y$ are evident from the proof of the second lemma. 
+	Now we will prove the rest, proving the other implications of the first case where $f\in L^+(\lambda)$ first.
+	We assume the same setup as in the lemmas proved above again. 
+	We can clearly choose $g$ such that $g\geq 0$ as well (make it $0$ on the null set wher it isn't equal to $f$, i.e. consider $g\chi_{N^c}$ which is also measurable  following the same notation as used above) and thus $g\in L^+(\mu\times\nu)$ making $x\mapsto\int g_x\,d\nu$ measurable by Tonelli's theorem. 
+	From the second lemma's proof we see that $f_x=g_x$ a.e for a.e. $x$ making $\int f_x\,d\nu=\int g_x\,d\nu$ a.e. and as $\mathcal M$ is complete we must have that $x\mapsto\int f_x\,d\nu$ is measurable, being equal a.e. to a measurable function.
+	
+\end{solution}
 \begin{problem}\label{prob:2.50}
 Suppose $(X, \mM, \mu)$ is a $\sigma$-finite measure space and $f \in L^+(X)$. Let
 \[ G_f = \{(x, y) \in X \times [0, \infty] : y \le f(x)\}. \]
