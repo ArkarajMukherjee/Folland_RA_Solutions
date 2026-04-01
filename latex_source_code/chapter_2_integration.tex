@@ -754,7 +754,7 @@ Prove Theorem 2.39 by using Theorem 2.37 and Proposition 2.12 together with the 
 			thus, $\nu(E_x)=0$ for a.e. $x$ and similarly for $y$.
 		\item As $f$ is $\mathcal L=\overline{\mathcal M\otimes\mathcal N}$ measurable, by proposition $2.12$, there exists a $\mathcal M\otimes\mathcal N$ measurable function $g$ such that $f=g$ $\lambda$-a.e. which clearly implies that $f=g$ $\mu\times\nu$-a.e. as well. 
 			Now, if $f$ is $0$ $\lambda$ a.e. then so is $g$ and thus we also similarly have that $g=0$ $\mu\times\nu$-a.e. 
-			We see that $g_x$ and $g^y$ are $\mathcal M$ and $\mathcal N$ measurable respectively. 
+			We see that $g_x$ and $g^y$ are $\mathcal N$ and $\mathcal M$ measurable respectively. 
 			Suppose we had $f=g$ outside $N$ with $\mu\times\nu(N)=0$ then by part(a) we see that $\mu(N^y)=0$ for a.e. $y$ and $\nu(N_x)=0$ for a.e $x$. 
 			As, $f_x=g_x$ outside $N_x$ which is null for a.e. $x$, we have that $f_x=g_x$ a.e. for a.e. $x$. 
 			In the context of the theorem, $\mathcal N$ is complete which makes $f_x$ measurable if $f_x=g_x$ a.e. 
@@ -767,18 +767,42 @@ Prove Theorem 2.39 by using Theorem 2.37 and Proposition 2.12 together with the 
 	\end{enumerate}
 	Now we prove the theorem.
 	The claims concerning the measurablity of $f_x$ and $f^y$ are evident from the proof of the second lemma. 
-	Now we will prove the rest, proving the other implications of the first case where $f\in L^+(\lambda)$ first.
-	We assume the same setup as in the lemmas proved above again. 
+	Now we will prove the rest assuming the same setup as used above, proving the other implications of the first case where $f\in L^+(\lambda)$ first.
 	We can clearly choose $g$ such that $g\geq 0$ as well (make it $0$ on the null set wher it isn't equal to $f$, i.e. consider $g\chi_{N^c}$ which is also measurable  following the same notation as used above) and thus $g\in L^+(\mu\times\nu)$ making $x\mapsto\int g_x\,d\nu$ measurable by Tonelli's theorem. 
-	From the second lemma's proof we see that $f_x=g_x$ a.e for a.e. $x$ making $\int f_x\,d\nu=\int g_x\,d\nu$ a.e. and as $\mathcal M$ is complete we must have that $x\mapsto\int f_x\,d\nu$ is measurable, being equal a.e. to a measurable function.
-	
+	From the second lemma's proof we see that $f_x=g_x$ a.e for a.e. $x$ making $\int f_x\,d\nu=\int g_x\,d\nu$ a.e. and as $\mathcal M$ is complete we must have that $x\mapsto\int f_x\,d\nu$ is measurable, being equal a.e. to a measurable function. 
+	Now, as $\int g_x\,d\nu=\int f_x\,d\nu$ a.e we also see that $\int\int g\,d\nu d\mu=\int\int f\,d\nu d\mu$. 
+	Using Tonelli's theorem again with the fact that the integrals w.r.t the completion and the underlying measure are equal for functions which are measurable w.r.t the underlying measure (this is easily proven) we find that,
+	\[
+	    \int f\,d\lambda=\int g\,d\lambda=\int g\,d(\mu\times\nu)=\int\int g\,d\nu d\mu=\int f\,d\nu d\mu
+	\]
+	The other order for integration can be dealt with similarly. 
+	Now we prove the rest of the implications for part(b).
+	If $f\in L^1(\lambda)$ then as $f=g$ a.e. we see that,
+	\[
+	    \int|g|\,d(\mu\times\nu)=\int|g|\,d(\lambda)=\int|f|d(\lambda)<\infty
+	\]
+	and thus, $g\in L^1(\mu\times\nu)$. 
+	Tonelli's theorem tells us that $g_x\in L^1(\nu)$ for a.e $x$ and that the a.e. defined function $x\mapsto\int g_x\,d\nu$ is integrable (and also measurable outside a null set, this can be easily proven.) 
+	As $\mathcal N$ is complete we see that it is measurable (we can ignore it on a null set, if this is hard to understand just email me.) 
+	Now, clearly we have that $\int f_x=\int g_x$ for a.e. $x$ making $x\mapsto\int f_x\,d\nu$ a mesurable map.
+	Thus, by Tonelli's theorem and the previous line we can say that
+	\[
+	    \int\int f_x(y)\,d\nu(y)d\mu(x)=\int\int g_x(y)\,d\nu(y)d\mu(x)=\int g\,d(\mu\times\nu)=\int f\,d\lambda
+	\]
+so we are done.
 \end{solution}
 \begin{problem}\label{prob:2.50}
 Suppose $(X, \mM, \mu)$ is a $\sigma$-finite measure space and $f \in L^+(X)$. Let
 \[ G_f = \{(x, y) \in X \times [0, \infty] : y \le f(x)\}. \]
 Then $G_f$ is $\mM \times \mathcal{B}_{\bR}$-measurable and $\mu \times m(G_f) = \int f \, d\mu$; the same is also true if the inequality $y \le f(x)$ in the definition of $G_f$ is replaced by $y < f(x)$. (To show measurability of $G_f$, note that the map $(x, y) \mapsto f(x) - y$ is the composition of $(x, y) \mapsto (f(x), y)$ and $(z, y) \mapsto z - y$.) This is the definitive statement of the familiar theorem from calculus, ``the integral of a function is the area under its graph.''
 \end{problem}
-
+\begin{solution}
+    $G_f$ is measurable as the composition of measurable maps is measurable, as hinted in the problem statement. 
+	Now, Theorem $2.36$ tells us that,
+	$\mu\times m(G_f)=\int m((G_f)_x\,d\mu(x)$
+	Now, clearly $(G_f)_x=[0,f(x)]$ which has lebesge measure $f(x)$ so we are done.
+	If the inequality was strict then when $f(x)=0$ the section would be an empty set, which also has $0=f(x)$ and for $f(x)>0$ the one sided open interval $[0,f(x))$ still has lebesgue measure $f(x).$
+\end{solution}
 \begin{problem}\label{prob:2.51}
 Let $(X, \mM, \mu)$ and $(Y, \mN, \nu)$ be arbitrary measure spaces (not necessarily $\sigma$-finite).
 \begin{enumerate}[label=\alph*.]
@@ -786,7 +810,19 @@ Let $(X, \mM, \mu)$ and $(Y, \mN, \nu)$ be arbitrary measure spaces (not necessa
     \item If $f \in L^1(\mu)$ and $g \in L^1(\nu)$, then $h \in L^1(\mu \times \nu)$ and $\int h \, d(\mu \times \nu) = (\int f \, d\mu)(\int g \, d\nu)$.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    This is obvious for characteristic functions and we can extend it to simple functions bylinearity. 
+	Part (a) is trivial as the compositon of measurable maps is measurable so we prove part (b). 
+	By Theorem $2.10$ there exists measurable simple functions $\phi_n,\psi_n$,  which tend to $f,g$ such that $|\phi_n|\nearrow|f|$ and $|\psi_n|\nearrow|g|$. 
+	By the monotone convergence theorem we see that,
+	\[
+		\int|fg|=\lim\int|\psi_n\phi_n|=\lim\qty(\int|\psi_n|\int|\phi_n|)=\int|f|\int|g|<\infty\implies fg\in L^1(\mu\times\nu)
+	\]
+	Now, by DCT(we use it on the extreme equalities) we have that,
+	\[
+		\int fg=\lim\int \phi_n\psi_n=\lim\int\phi_n\int\psi_n=\qty(\lim\int\phi_n)\qty(\lim\int\psi_n)=\int f\int g
+	\]
+\end{solution}
 \begin{problem}\label{prob:2.52}
 The Fubini-Tonelli theorem is valid when $(X, \mM, \mu)$ is an arbitrary measure space and $Y$ is a countable set, $\mN = \mathcal{P}(Y)$, and $\nu$ is counting measure on $Y$. (Cf. Theorems 2.15 and 2.25.)
 \end{problem}
