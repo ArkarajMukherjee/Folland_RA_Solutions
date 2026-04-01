@@ -826,7 +826,34 @@ Let $(X, \mM, \mu)$ and $(Y, \mN, \nu)$ be arbitrary measure spaces (not necessa
 \begin{problem}\label{prob:2.52}
 The Fubini-Tonelli theorem is valid when $(X, \mM, \mu)$ is an arbitrary measure space and $Y$ is a countable set, $\mN = \mathcal{P}(Y)$, and $\nu$ is counting measure on $Y$. (Cf. Theorems 2.15 and 2.25.)
 \end{problem}
-
+\begin{solution}
+    By the countable additivity of the integral for any nonnegative measurable function $f$ we have that,
+	\[
+		\int_{X\times Y}f\,d\mu(\mu\times\nu)=\sum_{y\in Y}\int_{X\times\{y\}}f(x,y)\,d\mu(x)d\nu(y)
+	\]
+	Now, any mesaurable subset of $X\times\{y\}$ clearly has form $E\times\{y\}$ where $E$ is $\mathcal M$ measurable and we see that  $\mu\times\nu(E\times\{y\})=\mu(E)\nu(\{y\})=\mu(E)$. 
+	From the definiton of the integral it is clear that
+	\[
+		\int_{X\times\{y\}}f(x,y)\,d\mu(x)d\nu(y)=\int_Xf(x,y)\,d\mu(x)
+	\]
+	The map $y\mapsto\int f(x,y)\,d\mu(x)$ are also trivially measurable as the sigma algebra on $Y$ is the whole power set. 
+	As $\nu$ is the counting measure we thus have,
+	\[
+		\int\int f(x,y)\,d\mu(x)d\nu(y)=\sum_{y\in Y}\int f(x,y)\,d\mu(x)=\int f\,d(\mu\times\nu)   
+	\]
+	Again, by the additivity of the integral here we see that
+	\[
+		\int\int f(x,y)d\nu(y)d\mu(x)=\int\sum_{y\in Y}f(x,y)d\mu(x)=\sum_{y\in Y}\int f(x,y)d\mu(x)
+	\]
+	which is $\int f\,d(\mu\times\nu)$ as we saw before. 
+	We also see that the map $x\mapsto\int f(x,y)\,d\nu(y)$ are measurable as,
+	\[
+		\int f(x,y)\,d\nu(y)=\sum_{y\in Y}f(x,y)
+	\]
+	as its the limit of a sequence of measurable functions $f^{y_1}+\ldots+f^{y_n}$ (here we enumerate $Y$ as $\{y_n:n\in\bN\}$). 
+	We have proven Tonelli's theorem for this case and that of Fubini can be proven from this as in the book, or we can also reenact the same steps while using DCT instead of the additivity of the integral (which was just a corollary of MCT in this case).
+	
+\end{solution}
 \begin{problem}\label{prob:2.53}
 Fill in the details of the proof of Theorem 2.41.
 \end{problem}
