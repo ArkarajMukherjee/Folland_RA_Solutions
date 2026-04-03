@@ -836,7 +836,7 @@ The Fubini-Tonelli theorem is valid when $(X, \mM, \mu)$ is an arbitrary measure
 	\[
 		\int_{X\times\{y\}}f(x,y)\,d\mu(x)d\nu(y)=\int_Xf(x,y)\,d\mu(x)
 	\]
-	The map $y\mapsto\int f(x,y)\,d\mu(x)$ are also trivially measurable as the sigma algebra on $Y$ is the whole power set. 
+	The map $y\mapsto\int f(x,y)\,d\mu(x)$ is also trivially measurable as the sigma algebra on $Y$ is the whole power set. 
 	As $\nu$ is the counting measure we thus have,
 	\[
 		\int\int f(x,y)\,d\mu(x)d\nu(y)=\sum_{y\in Y}\int f(x,y)\,d\mu(x)=\int f\,d(\mu\times\nu)   
@@ -846,22 +846,65 @@ The Fubini-Tonelli theorem is valid when $(X, \mM, \mu)$ is an arbitrary measure
 		\int\int f(x,y)d\nu(y)d\mu(x)=\int\sum_{y\in Y}f(x,y)d\mu(x)=\sum_{y\in Y}\int f(x,y)d\mu(x)
 	\]
 	which is $\int f\,d(\mu\times\nu)$ as we saw before. 
-	We also see that the map $x\mapsto\int f(x,y)\,d\nu(y)$ are measurable as,
+	We also see that the map $x\mapsto\int f(x,y)\,d\nu(y)$ is measurable as,
 	\[
 		\int f(x,y)\,d\nu(y)=\sum_{y\in Y}f(x,y)
 	\]
 	as its the limit of a sequence of measurable functions $f^{y_1}+\ldots+f^{y_n}$ (here we enumerate $Y$ as $\{y_n:n\in\bN\}$). 
 	We have proven Tonelli's theorem for this case and that of Fubini can be proven from this as in the book, or we can also reenact the same steps while using DCT instead of the additivity of the integral (which was just a corollary of MCT in this case).
-	
 \end{solution}
 \begin{problem}\label{prob:2.53}
 Fill in the details of the proof of Theorem 2.41.
 \end{problem}
-
+\begin{solution}
+    Fix $\epsilon>0$. 
+	Take a sequence of simple measurable functions $\phi_n$ such that $|\phi_n|\nearrow|f|$ and by DCT, for large enough $n$ we have $\int|\phi_n-f|<\epsilon$, we write $\phi:=\phi_n$. 	Suppose $\phi=\sum_1^ma_j\chi_{E_j}$ where $a_j\neq 0$ and $E_j$ are disjoint, then we see that
+	\[
+		|a_j|\mu(E_j)=\int_{E_j}|\phi|\leq\int_{E_j}|f|<\infty
+	\]
+	Implying that $\mu(E_j)<\infty$. 
+	By theorem $2.41c$, for each $E_j$ we can find a collection $\{R_{j,i}\}_{i=1}^{k_j}$ such that $m(E_j\Delta\cup_iR_{j,i})<\epsilon$ and each $R_{j,i}$ is a product of intervals, we will call these cubes here on out. 
+	Define $\psi:=\sum_{i,j}a_{j}\chi_{R_{j,i}}$, then we see that
+	\[
+		\int|\phi-\psi|\leq\sum_{j=1}^m|a_j|\int\cdot\bigg|\chi_{E_j}-\sum_{j=1}^{k_j}\chi_{R_{j,i}}\bigg|\leq\sum_{j=1}^m|a_j|\cdot m\qty(E_j\Delta\bigcup_{i=1}^{k_j}R_{j,i})<\epsilon\cdot\sum_{j=1}^m|a_j|
+	\]
+	Thus, we have that $\int|f-\psi|\leq\int|f-\phi|+\int|\phi-\psi|<\epsilon\cdot(1+\sum_1^m|a_j|)$ which can be made arbitrarily small. 
+	But the fact that $\psi$ is of the form described in the problem requires proof. 
+	It suffices to show that any finite union of cubes can be written as a disjont union of such. 
+	We consider cubes whose sides (as defined in the book) are closed intervals, the rest follow similarly. 
+	Suppose, $A=\prod[a_j,b_j]$ and $B=\prod[c_j,d_j]$ then we clearly have that $A\cap B=\prod([a_j,b_j]\cap[c_j,d_j])$ which is also a cube (it might be empty but thats a cube too.) 
+	We also find that 
+	\[
+		A^c=\bigcup_{f\in \{1,c\}^{\{1,\ldots,n\}}}\prod_{j=1}^n[a_j,b_j]^{f(i)}
+	\]
+	by extreme abuse of notation. 
+	Notice that this is a disjoint union. 
+	Also, $[a_j,b_j]^c=(-\infty,a_j)\cup(b_j,\infty)$ and this allows us to write any of the sets in the union above as a finite disjoint union of cubes as these sets are of form (after permuting the sides so it isn't as notationally strenous to write)
+	\[
+		\qty((-\infty,a_1)\cup(b_1,\infty))\times\ldots\times\qty((-\infty,a_m)\cup(b_m,\infty))\times[a_{m+1},b_{m+1}]\times\ldots[a_n,b_n]
+	\]
+	which can be written as a disjoint union of cubes following this set theoretic identity
+	\[
+		\prod_{i\in A}\bigcup_{j\in B}S_{i,j}=\bigcup_{f\in B^A}\prod_{i\in A}S_{i,f(j)}
+	\]
+	as in our case, for fixed $i$, all the $S_{i,j}$ are disjoint. 
+	This shows that the set of all cubes is an elementary family and thus by Propostion $1.7$(page $23$) we can say that that the finite disjoint union of cubes is an algebra. 
+	This tells us that we can write the union of cubes $\cup_{i,j}R_{j,i}$ as a disjoint union of cubesa and using this we can write $\psi$ as a simple function where all the characteristic functions are those of cubes which are disjoint so we are done with the first claim. 
+	Again, by DCT for large enough $m$ we must have that $\int|\psi\cdot\chi_{[-m,m]^n}-f|<2\cdot\epsilon$ starting with small enough $\epsilon>0$. 
+	We clearly see that $\psi\chi_{[-m,m]^n}$ vainshes outside a bounded set and as its defined using charactersitc functions on disjoint cubes, we can approximate it on these cubes by a continuius function as we did in the case of the real line, while ignoring cubes of measure $0$, which on the real line are just singletons, this allows us to get $\mathcal O(\epsilon^n)$ which can be made arbitrarily small. 
+	Then we can use the triangle inequality and conclude that $C_c(\bR^n)$ is dense in $L^1(\bR^n,\mathcal L^n,m)$ in the $L^1$ metric.
+\end{solution}
 \begin{problem}\label{prob:2.54}
 How much of Theorem 2.44 remains valid if $T$ is not invertible?
 \end{problem}
-
+\begin{solution}
+	Part (b) is true and we prove it below whereas part (a) is false, that is $f\circ T$ is not neccessarily lebesgue measurable, given $f$ is. 
+	As $T$ is not invertible we can find some invertible linear map $S$ such that $ST(\bR^n)=\bR^k\times\{0\}^{n-k}$ where $k<n$ and this is measurable with  measure $0$. 
+	Thus, $m(S^{-1}ST(\bR^n))=|\det S^{-1}|m(ST(\bR^n))=0$ showing that $T(\bR^n)$ is a lebesgue null set.
+	Now, for any $E\in\mathcal L^n$(any set even) we have that $T(E)\subseteq T(\bR^n)$ proving part (b) by completeness. 
+	Now to disprove part (a), say $n=2$ and consider the indicator function $\chi$ of the lebesgue measurabe set $N\times 0$ where $N$ is not lebesgue measurable on the real lina and let $T:(x,y)\mapsto(x,0)$ then, $T^{-1}(f^{-1}(0.9,1.1))=N\times\bR$. 
+	Now, if $N\times\bR$ was in $\mathcal L^2$ then its indicator would be measurable and by Theorem $2.39$ we would have that $f^y$ is measurable on $\bR$ for a.e. $y$ which is false as these are all indicators of $N$ on $\bR$ so the set was not measurable to begin with.
+\end{solution}
 \begin{problem}\label{prob:2.55}
 Let $E = [0, 1] \times [0, 1]$. Investigate the existence and equality of $\int_E f \, dm^2$, $\int_0^1 \int_0^1 f(x, y) \, dx \, dy$, and $\int_0^1 \int_0^1 f(x, y) \, dy \, dx$ for the following $f$:
 \begin{enumerate}[label=\alph*.]
@@ -870,19 +913,56 @@ Let $E = [0, 1] \times [0, 1]$. Investigate the existence and equality of $\int_
     \item $f(x, y) = (x - \frac{1}{2})^{-3}$ if $0 < y < |x - \frac{1}{2}|$, $f(x, y) = 0$ otherwise.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+		\item We exclude $\{(0,0)\}$ which has measure $0$ and this does not alter anything we care about. 
+			As $f$ is now continuous, using Theorem $2.39$ we can work in $\mathcal B_{\bR^2}$ and the positive and negative parts evaluate to $\infty$ after some basic calculus paired with fubini's theorem and hence the integral does not exist however the iterated integrals evaluate  to $\pi/4$ and $-\pi/4$ respectively. 
+		\item Removing $\{(1,1)\}$ we can say that this is again continuous and following the same arguements above, revert back to $\mathcal B_{\bR^n}$. 
+			As this is nonegative, all the integrals exist and are equal.
+		\item Its clearly borel, we follow the same arguements above. The first iterated integral exists and equals $0$ whereas the other does not. 
+			The integral of the positive and negative parts are both infinite and thus the integral over the product measure does not exist.
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:2.56}
 If $f$ is Lebesgue integrable on $(0, a)$ and $g(x) = \int_x^a t^{-1} f(t) \, dt$, then $g$ is integrable on $(0, a)$ and $\int_0^a g(x) \, dx = \int_0^a f(x) \, dx$.
 \end{problem}
-
+\begin{solution}
+	Consider the function $H(t,x) := \chi_{t>x}\cdot f(t)t^{-1}$ on $(0,a)^2$. 
+	$H$ is clearly measurable w.r.t $m\times m$ and by Tonelli's theorem we have that
+	\[
+		\int_{(0,a)^2}|H|\,d(m\times m)=\int_0^a\int_0^a|H(t,x)|\,dm(t)\,dm(x)
+	\]
+	\[
+		=\int_0^a\int_0^t \frac{|f(t)|}{t}\,dm(x)dm(t)=\int_0^a|f(t)|\,dm(t)<\infty
+	\]
+	Making $H$ integrable. 
+	Now, by fubini's theorem we can say that $x\mapsto\int_0^aH(x,t)\,dm(t)=\int_a^xf(t)/t\,dm(t)=g(x)$ is measurable and 
+	\[
+	\int_0^af(t)\,dm(t)=\int_{(0,a)^s}H\,d(m\times m)=\int_0^a\int_0^aH(t,x)\,dm(t)dm(x)=\int_0^ag(x)\,dm(x)
+	\]	
+\end{solution}
 \begin{problem}\label{prob:2.57}
 Show that $\int_0^\infty e^{-sx} x^{-1} \sin x \, dx = \arctan(s^{-1})$ for $s > 0$ by integrating $e^{-sxy} \sin x$ with respect to $x$ and $y$. (It may be useful to recall that $\tan(\frac{\pi}{2} - \theta) = (\tan \theta)^{-1}$. Cf. Exercise 31d.)
 \end{problem}
-
+\begin{solution}
+	Consider $f(x,y)=se^{-sxy}\sin(x)$ on $(0,\infty)\times(1,\infty)$, this is integrable as, by tonelli's we have
+	\[
+		\int |f|=\int_0^\infty\int_1^\infty se^{-sxy}|\sin(x)|dydx=\int_0^\infty e^{-sx}|\sin(x)/x|dx\leq\int_0^\infty e^{-sx}=s<\infty
+	\]
+	Now using fubini's theorem we see that,
+	\[
+		\int_0^\infty e^{-sx}x^{-1}\sin(x)dx=\int_0^\infty\int_1^\infty f(x,y)dxdy=\int_1^\infty\int_0^\infty se^{-sxy}\sin(x)dxdy
+	\]
+	\[
+		=\int_1^\infty \frac{s}{1+(sy)^2}dy=\pi/2-\arctan(s)=\arctan(s^{-1})
+	\]
+\end{solution}
 \begin{problem}\label{prob:2.58}
 Show that $\int e^{-sx} x^{-1} \sin^2 x \, dx = \frac{1}{4} \log(1 + 4s^{-2})$ for $s > 0$ by integrating $e^{-sx} \sin 2xy$ with respect to $x$ and $y$.
 \end{problem}
-
+\begin{solution}
+	Using the same setup as before and the identity $\sin(x)^2=(1-\cos(2x))/2$ we just need to evaluate integrals of form $\int e^{ax}\cos(bx)dx$ this time instead of using sine there.
+\end{solution}
 \begin{problem}\label{prob:2.59}
 Let $f(x) = x^{-1} \sin x$.
 \begin{enumerate}[label=\alph*.]
@@ -890,11 +970,59 @@ Let $f(x) = x^{-1} \sin x$.
     \item Show that $\lim_{b \to \infty} \int_0^b f(x) \, dx = \frac{1}{2}\pi$ by integrating $e^{-xy} \sin x$ with respect to $x$ and $y$. (In view of part (a), some care is needed in passing to the limit as $b \to \infty$.)
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=(\alph*)]
+		\item it can be shown with elementary methods that 
+		\[	
+			\int_0^n|\sin(x)/x|dx\gg H_n
+		\]
+		which suffices.
+	\item Consider $f(x,y)=e^{-xy}\sin(x)$. 
+		For any $b>0$ we see that,
+		\[
+			\int_0^b\int_0^\infty| f(x,y)|dydx\leq\int_0^b\int_0^\infty xe^{-xy}dydx=b<\infty
+		\]
+		so its integrable on the domain used for the integral and by fubini's we have,
+		\[
+			\int_0^b\frac{\sin x}{x}dx=\int_0^b\int_0^\infty f(x,y)dydx=\int_0^\infty\int_0^bf(x,y)dxdy
+		\]
+		\[
+			=\lim_{b\to\infty}\int_0^\infty- \underbrace{\frac{e^{-by}\sin(b)+e^{-by}\cos(b)-1}{1+y^2}}_{g_b(y)}dy
+		\]
+		We see that $g_b(y)\longrightarrow (1+y^2)^{-1}$ as $b\to\infty$ and $|g_b(y)|\leq 3(1+y^2)^{-1}$ which is integrable allowing us to use DCT (by passing to sequences) to conclude that,
+		\[
+		    \int_0^b \frac{\sin x}{x}dx=\int_0^\infty \frac{1}{1+y^2}dy= \frac{\pi}{2}
+		\]
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:2.60}
 $\Gamma(x)\Gamma(y)/\Gamma(x+y) = \int_0^1 t^{x-1}(1-t)^{y-1} \, dt$ for $x, y > 0$. (Recall that $\Gamma$ was defined in $\S 2.3$. Write $\Gamma(x)\Gamma(y)$ as a double integral and use the argument of the exponential as a new variable of integration.)
 \end{problem}
-
+\begin{solution}
+	Here, $x>y$ denotes the set $\{(x,y)\in\bR^2:x>y\}$. 
+	Let $f(x,y)=x^{\alpha-1}y^{\beta-1}e^{-(x+y)}$. 
+	Then, by \hyperref[prob:2.51]{Problem 2.51} we see that
+	\[
+		\Gamma(\alpha)\Gamma(\beta)=\int_{(0,\infty)^2}f\,d(m\times m)
+	\]
+	and by Theorem $2.47$, using the invertible linear map $G:(x,y)\mapsto(x-y,y)$ we see that,
+	\[
+		\int_{G(\{x>y\})=(0,\infty)^2}f\,d(m\times m)=\int_{x>y}f(x-y,y)\cdot\underbrace{|\det G|}_{1}d(m\times m)
+	\]
+	and by Tonelli's we have,
+	\[
+		\int_{x>y}f(x-y,y)=\int_0^\infty\int_0^x(x-y)^{\alpha-1}y^{\beta-1}e^{-x}dydx
+	\]
+	\[
+	=\int_0^\infty\int_0^x\qty(1- \frac{y}{x})^{\alpha-1}\qty( \frac{y}{x})^{\beta-1}x^{\alpha+\beta-1}e^{-x}dydx=\int_0^\infty x^{\alpha+\beta-1}e^{-x}\int_0^1v^{\beta-1}(1-v)^{\alpha-1}dv
+	\]
+	by a change of variable $v=y/x$. 
+	We thus have that
+	\[
+		\Gamma(\alpha)\Gamma(\beta)=\Gamma(\alpha+\beta)\int_0^1t^{\alpha-1}(1-t)^{\beta-1}dt
+	\]
+	proving the claim.
+\end{solution}
 \begin{problem}\label{prob:2.61}
 If $f$ is continuous on $[0, \infty)$, for $\alpha > 0$ and $x \ge 0$ let
 \[ I_\alpha f(x) = \frac{1}{\Gamma(\alpha)} \int_0^x (x - t)^{\alpha-1} f(t) \, dt. \]
@@ -904,20 +1032,66 @@ $I_\alpha f$ is called the $\alpha$th \textbf{fractional integral} of $f$.
     \item If $n \in \bN$, $I_n f$ is an $n$th-order antiderivative of $f$.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+		\item By expanding we have that,
+			\[
+				I_\alpha(I_\beta f)(x)=\frac{1}{\Gamma(\alpha)\Gamma(\beta)}\int_0^x\int_0^t(x-t)^{\alpha-1}(t-y)^{\beta-1}f(y)dydt
+			\]
+			Heuristically speaking we integrate over the region $x>t>y>0$. 
+			Using the invertible linear map that switches the coordinates and Theorem $2.47$ and tonelli's theorem we see that this is equal to
+			\[
+				\frac{1}{\Gamma(\alpha)\Gamma(\beta)}\int_0^x\int_x^y(x-t)^{\alpha-1}(t-y)^{\beta-1}f(y)dtdy
+			\]
+			\[
+				= \frac{1}{\Gamma(\alpha)\Gamma(\beta)}\int_0^xf(y)(x-y)^{\alpha+\beta-1}\int_x^y\qty( \frac{x-t}{x-y})^{\alpha-1}\qty( \frac{t-y}{x-y})^{\beta-1} \frac{dt}{x-y}dy
+			\]
+			which is $I_{\alpha+\beta}f(x)$ after a change of variable $v=(t-y)/(x-y)$ and an application of the previous problem.
+		\item This follows from part (a) by repeatedly applying $I_1$ which is the antiderivative.
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:2.62}
 The measure $\sigma$ on $S^{n-1}$ is invariant under rotations.
 \end{problem}
-
+\begin{solution}
+	Let $T$ be a rotation. 
+	Given any borel set $E\subseteq S^{n-1}$, let $E_1=\Phi^{-1}((0,1]\times E)$ as in the text, then we defined $\sigma(E)=n\cdot m(E_1)$ so it suffices to show that $m(E_1)=m(T(E)_1)$. 
+	For any $rx'\in E_1$ in usual notation (same as the text) we find that $T(rx')=rT(x')$ with $T(x')\in S^{n-1}$ as well due to $T$ being a rotation ( $\norm{Tv}=\norm{v}$ for all $v$), thus we have that $T(E_1)=\{rT(x'):r\in(0,1],x'\in E\}=\Phi^{-1}((0,1]\times T(E_1))$ giving us the equality $T(E_1)=T(E)_1$ and by Theorem $2.44$ we have $m(T(E_1))=|\det T|m(E_1)=m(E_1)$ as $|\det T|=1$ here.
+\end{solution}
 \begin{problem}\label{prob:2.63}
 The technique used to prove Proposition 2.54 can also be used to integrate any polynomial over $S^{n-1}$. In fact, suppose $f(x) = \prod_1^n x_j^{\alpha_j}$ ($\alpha_j \in \bN \cup \{0\}$) is a monomial. Then $\int f \, d\sigma = 0$ if any $\alpha_j$ is odd, and if all $\alpha_j$'s are even,
 \[ \int f \, d\sigma = \frac{2\Gamma(\beta_1) \dots \Gamma(\beta_n)}{\Gamma(\beta_1 + \dots + \beta_n)} \quad \text{where } \beta_j = \frac{\alpha_j + 1}{2}. \]
 \end{problem}
-
+\begin{solution}
+    \[
+		\int_{\bR^n}f(x)e^{-\norm{x}^2}\,dm(x)=\int_0^\infty r^{n-1}\int_{S^{n-1}}f(rx')e^{-r^2}\,d\sigma(x')\,dm(r)
+    \]
+	notice that $f(rx')=r^{\Sigma\alpha_i}f(x')$, this makes the above equal 
+	\[
+		\int_0^\infty r^{n-1+\Sigma\alpha_i}e^{-r^2}\int_{S^{n-1}} f(x')\,d\sigma(x')\,dm(r)=\int f\,d\sigma\int_0^\infty r^{n-1+\Sigma\alpha_i}e^{-r^2}dr
+	\]
+	Now, by a change of variable we see that,
+	\[
+		\int_0^\infty r^{n-1+\Sigma\alpha_i}e^{-r^2}dr= \frac{1}{2}\int_0^\infty r^{ \frac{n+\Sigma\alpha_i}{2}-1}e^{-r}= \frac{1}{2}\Gamma\qty( \frac{n+\alpha_1+\ldots+\alpha_n}{2})= \frac{1}{2}\Gamma(\beta_1+\ldots+\beta_n)
+	\]
+	And by fubini's theorem, unless some $\alpha_j$ is odd  we have,
+	\[
+	\int_{R^n}f(x)e^{-\norm{x}^2}\,dm(x)=\prod_{j=1}^n\int_{-\infty}^\infty x^{\alpha_j}e^{-x_j^2}\,dx_j=\prod_{j=1}^n2\cdot\frac{1}{2}\Gamma\qty(\frac{\alpha+1}{2})=\Gamma(\beta_1)\cdots\Gamma(\beta_n)
+	\]
+	now rearranging these proves the claim in this case. 
+	If some $\alpha_j$ are odd then one of the integrals $\int_{-\infty}^\infty x^{\alpha_j}e^{-x_j^2}\,dx_j$ would be $0$ making $\int f\,d\sigma=0$ as $\Gamma(\Sigma\beta_i)>0$ here, this is clear from the definition of the gamma function.
+\end{solution}
 \begin{problem}\label{prob:2.64}
 For which real values of $a$ and $b$ is $|x|^a |\log |x||^b$ integrable over $\{x \in \bR^n : |x| < \frac{1}{2}\}$? Over $\{x \in \bR^n : |x| > 2\}$?
 \end{problem}
-
+\begin{solution}
+    By corollary $2.51$ we have, after attaching a suitable characteristic function, 
+	\[
+		\int_{B(0,1/2)}\norm{x}^a|\log(\norm{x})|^b\,dm(x)=\sigma(S^{n-1})\int_0^{1/2} r^a\|log(r)|^bdr
+	\]
+	It is now trivial to check which $a,b$ work. 
+	In the other case the integral is over $(2,\infty)$.
+\end{solution}
 \begin{problem}\label{prob:2.65}
 Define $G : \bR^n \to \bR^n$ by $G(r, \phi_1, \dots, \phi_{n-2}, \theta) = (x_1, \dots, x_n)$ where
 \begin{align*}
@@ -926,10 +1100,16 @@ x_{n-1} &= r \sin \phi_1 \dots \sin \phi_{n-2} \cos \theta, \quad x_n = r \sin \
 \end{align*}
 \begin{enumerate}[label=\alph*.]
     \item $G$ maps $\bR^n$ onto $\bR^n$, and $|G(r, \phi_1, \dots, \theta)| = |r|$.
-    \item $\det D_G(r, \phi_1, \dots, \theta) = r^{n-1} \sin^{n-2} \phi_1 \sin^{n-3} \phi_2 \dots \sin \phi_{n-2}$.
+	\item $\det D_{(r, \phi_1, \dots, \phi_{n-2}, \theta)}G = r^{n-1} \sin^{n-2} \phi_1 \sin^{n-3} \phi_2 \dots \sin \phi_{n-2}$.
     \item Let $\Omega = (0, \infty) \times (0, \pi)^{n-2} \times (0, 2\pi)$. Then $G|_\Omega$ is a diffeomorphism and $m(\bR^n \setminus G(\Omega)) = 0$.
     \item Let $F(\phi_1, \dots, \phi_{n-2}, \theta) = G(1, \phi_1, \dots, \phi_{n-2}, \theta)$ and $\Omega' = (0, \pi)^{n-2} \times (0, 2\pi)$. Then $(F|\Omega')^{-1}$ defines a coordinate system on $S^{n-1}$ except on a $\sigma$-null set, and the measure $\sigma$ is given in these coordinates by
     \[ d\sigma(\phi_1, \dots, \phi_{n-2}, \theta) = \sin^{n-2} \phi_1 \sin^{n-3} \phi_2 \dots \sin \phi_{n-2} \, d\phi_1 \dots d\phi_{n-2} \, d\theta. \]
 \end{enumerate}
 \end{problem}
+\begin{solution}
+\begin{enumerate}[label=(\alph*)]
+	\item Applying the identity $\sin^2(\theta)+\cos^2(\theta)=1$ collapses $x_1^2+\ldots+x_n^2$ to $r^2$ proving the claim.
+	\item 
+\end{enumerate}
+\end{solution}
 \end{document}
