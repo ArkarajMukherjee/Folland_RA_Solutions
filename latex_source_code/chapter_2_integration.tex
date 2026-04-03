@@ -1109,7 +1109,42 @@ x_{n-1} &= r \sin \phi_1 \dots \sin \phi_{n-2} \cos \theta, \quad x_n = r \sin \
 \begin{solution}
 \begin{enumerate}[label=(\alph*)]
 	\item Applying the identity $\sin^2(\theta)+\cos^2(\theta)=1$ collapses $x_1^2+\ldots+x_n^2$ to $r^2$ proving the claim.
-	\item 
+	\item Consider the transformations  $J(r,\phi_1,\ldots,\phi_{n-2},\theta)=(r\cos\phi_1,r\sin\phi_1,\ldots,\phi_2,\ldots,\phi_{n-2},\theta)$ and $G(x_1,w,\phi_2,\ldots,\phi_{n-2},\theta)=(x_1,G(w,\phi_2,\ldots,\phi_{n-2},\theta))$, then we see that $G=H\circ J$ and by the multivariate chain rule we must have $DG=DH\cdot DJ$, we can calculate $DJ$ easily and $DG$ by induction on the dimension, this proves the claim.
+	\item The variables associated to the $m$-th dimension are subscripted by $m$. 
+		This is trivial for $n=2$ as $G_2(\Omega_2)=\bR^2\setminus\{(x,0):x\geq 0\}$ and this is also clearly a diffeomorphism. 
+		Now, we assume it to be true for $n-1$, that is $G_{n-1}$ is a diffeomorphism and $G_{n-1}(\Omega_{n-1})=U_{n-1}$ where $m(\bR^{n-1}\setminus U_{n-1})=0$. 
+		We also see that $J_n(\Omega_n)=\bR\times(0,\infty)\times(0,\pi)^{n-3}\times(0,2\pi)=\bR\times\Omega_{n-1}$ and this is a diffeomorphism as we only alter the first two coordinates and this corresponds to $G_2$. 
+		By the definition of $H_n$ and the assumption we see that $G_n(\Omega_n)=H_n(J_n(\Omega_n))=\bR\times U_{n-1}$ and this is also a diffeomorphism as the first coordinate is unaltered and the rest correpsonds to $G_{n-1}.$  
+		Thus we have that, $\bR^n\setminus G_n(\Omega_n)=\bR^n\setminus(\bR\times U_{n-1})=\bR\times(\bR^{n-1}\setminus U_{n-1})$ and $G_n$ being a composition of diffeomorphisms, is one itself. 
+		By our convention of $0\cdot\infty=0$ we see that this is of measure $0$ (one could also use the fact that this has measure $\int_\bR m_{n-1}(\bR^{n-1}\setminus u_{n-1})\,dm_1=\int 0\,dm_1=0$)
+	\item By definition we see that $G_n(r,\omega)=rF_n(\omega)$, and as we had $|G_n(r,\omega)|=r$ we see that $F_n(\omega)=G_n(1,\omega)$ maps $\Omega'_n$ into $S^{n-1}$. 
+		As $G_n$ was diffeomorphic on $\Omega_n=(0,\infty)\times\Omega'_n$ and acted injectively we must have $F_n$ act diffeomorphically on $\Omega'_n$ as its still $C^1$ (it shares partial derivatives with $G_n$ clearly.) 
+		Thus, $F_n|_{\Omega'_n}^{-1}$ forms a valid coordinate system on $F_n(\Omega_n')\subseteq S^{n-1}$. 
+		As $G_n(r,\omega)=rF_n(\omega)$ we see that all non-origin points outside a null set can be written uniquely in that form (radius times direction vector on the sphere) and as the radius can be arbitrary, the non-origin points we can not reach must be unreachable due to their direction not being in $F_n(\Omega_n')$. 
+		Hence, $(\bR^n\setminus U_n)\setminus\{0\}=\{rx':r\in(0,\infty),x'\in S^{n-1}\setminus F_n(\Omega_n')\}$. 
+		We thus see that, as $\chi_{(\bR^n\setminus U_n)\setminus\{0\}}(rx')=\chi_{S^{n-1}\setminus F_n(\Omega_n')}(x')$ and by polar integration, the measure of the $(\bR^n\setminus G_n(\Omega_n))\setminus\{0\}$ is
+		\[
+			\int_0^\infty\int_{S^n}\chi_{S^{n-1}\setminus F_n(\Omega_n)}(x')r^{n-1}\,d\sigma(x')\,dm(r)=\sigma(S^{n-1}\setminus F_n(\Omega_n))\int_0^\infty r^{n-1}\,dm(r)
+		\]
+		and we must have the spherical measure be zero here for the whole thing to be zero which was proved in part (c). 
+		Now, we see that for borel sets $E\subseteq S^n$, 
+		\[
+			\int_0^1\int_{S^{n-1}}\chi_E(x')r^{n-1}\,d\sigma(x')dm(r)=\int_{\bR^n}\chi_{E_1}\,dm=\int_{G(\Omega_n)}\chi_{E_1}\,dm
+		\]
+		\[
+			=\int_{\Omega_n}\underbrace{\chi_{E_1}(G(r,\omega))}_{\chi_{(0,1]}(r)\cdot\chi_E(F(\omega))}|\det D_{(r,\omega)G}|\,dm((x,\omega))
+		\]
+		\[
+			=\int_0^\infty\chi_{(0,1]}(r)r^{n-1}\int_{\Omega'_n}\chi_{E}(F(\omega))\sin^{n-2}\phi_1\sin^{n-3}\phi_2\cdots\sin\phi_{n-2}\,dm_{n-1}(\omega)dm(r)
+		\]
+		where we used all the facts developed above freely. 
+		Now, after some simplifications we have
+		\[
+		\sigma(E)=\int_{F^{-1}|_{\Omega_n'}^{-1}(E)}\sin^{n-2}\phi_1\sin^{n-3}\phi_2\cdots\sin\phi_{n-2}\,\mathrm{d}m((\phi_1,\phi_2,\ldots,\phi_1))
+		\]
+		
+		
+		
 \end{enumerate}
 \end{solution}
 \end{document}
