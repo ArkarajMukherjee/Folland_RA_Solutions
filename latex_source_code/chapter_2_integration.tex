@@ -49,13 +49,14 @@
 \newpage
 \tableofcontents
 \newpage
+\setcounter{section}{1}
 \section{Chapter 2 : Integration}
 \begin{problem}\label{prob:2.1}
 Let $f: X \to \overline{\bR}$ and $Y = f^{-1}(\bR)$. Then $f$ is measurable iff $f^{-1}(\{-\infty\}) \in \mM$, $f^{-1}(\{\infty\}) \in \mM$, and $f|_Y$ is measurable on $Y$.
 \end{problem}
 \begin{solution}
     For the only if direction, $\{\infty\},\{-\infty\},\bR=Y\in\mathcal B_{\oR}$ making $f^{-1}$ map them into $\mM$ as $f$ is measurable and as $\mM$ is a sigma algebra we see that $f\vert_Y:Y\to\oR$ is $\mM_Y$-measurable as $f^{-1}(E)\cap Y\in\mM_Y$ for all $E\in\mathcal B_{\oR}$. 
-    Now for the if direction, as $\mathcal B_{\oR}=\{E\cup I:E\in\mathcal B_{\bR}, I\subseteq\{\infty,-\infty\}\}$ we see that for any such $E\cup I\in\mathcal B_{\oR}$ we have $f^{-1}(E\cup I)=f^{-1}(E)\cup f^{-1}(I)$ and as $f^{-1}(E)\cap Y=f^{-1}(E)\in\mM_Y\subseteq\mM$ from and $f^{-1}(I)\in\mM$ so $f$ is measurable on $\mM$.
+    Now for the if direction, as $\mathcal B_{\oR}=\{E\cup I:E\in\mathcal B_{\bR}, I\subseteq\{\infty,-\infty\}\}$ we see that for any such $E\cup I\in\mathcal B_{\oR}$ we have $f^{-1}(E\cup I)=f^{-1}(E)\cup f^{-1}(I)$ and as $f^{-1}(E)\cap Y=f^{-1}(E)\in\mM_Y\subseteq\mM$ and $f^{-1}(I)\in\mM$ so $f$ is measurable on $\mM$.
 \end{solution}
 \begin{problem}\label{prob:2.2}
 Suppose $f, g: X \to \oR$ are measurable.
@@ -106,7 +107,7 @@ If $X = A \cup B$ where $A, B \in \mM$, a function $f$ on $X$ is measurable iff 
 The supremum of an uncountable family of measurable $\bR$-valued functions on $X$ can fail to be measurable (unless the $\sigma$-algebra $\mM$ is very special).
 \end{problem}
 \begin{solution}
-    Suppose $X=\bR$ with the sigma algebra being the lebesgue measurable sets, then for a non measurable set $E\subseteq\bR$ consider the family $\{\chi_{\{r\}}\}_{r\in E}$, these are all measurable clearly whereas $\sup_{r\in E}\chi_{\{r\}}=\chi_E$ is clearly non measurable unless $\mM$.
+    Suppose $X=\bR$ with some some sigma algebra containing singletons (most of the ones we care about do have them, for example the borel sigma algebra), then for any nonempty set $E\subseteq\bR$ consider the family $\{\chi_{\{r\}}\}_{r\in E}$, these are all measurable as singletons are in the sigma algebra whereas $\sup_{r\in E}\chi_{\{r\}}=\chi_E$ always being measurable would imply that the sigma algebra was the whole powerset stemming from $E$ being arbitrary.
 \end{solution}
 \begin{problem}\label{prob:2.7}
 Suppose that for each $\alpha \in \bR$ we are given a set $E_\alpha \in \mM$ such that $E_\alpha \subset E_\beta$ whenever $\alpha < \beta$, $\bigcup_{\alpha \in \bR} E_\alpha = X$, and $\bigcap_{\alpha \in \bR} E_\alpha = \varnothing$. Then there is a measurable function $f: X \to \bR$ such that $f(x) \le \alpha$ on $E_\alpha$ and $f(x) \ge \alpha$ on $E_\alpha^c$ for every $\alpha$. (Use Exercise 4.)
@@ -117,7 +118,7 @@ Suppose that for each $\alpha \in \bR$ we are given a set $E_\alpha \in \mM$ suc
     For $x\in E_\alpha$, from the definition we have that $x\in E_\beta$ for all $\bQ\ni\beta\geq\alpha$ and thus $f(x)=\sup\{r\in\bQ:r<\alpha, x\notin E_r\}\leq\alpha$. 
     Now, for $x\in E_\alpha^c$ its clearly $\geq\alpha$. 
     We claim that, for $r\in\bQ$ we have 
-    $$f^{-1}((r,\infty))\bigcup_{\bQ\ni\alpha\geq r}E_\alpha^c$$
+    $$f^{-1}((r,\infty))=\bigcup_{\bQ\ni\alpha> r}E_\alpha^c$$
     If $f(x)>r$, then the set of $\beta$ for which $x\in E^c_\beta$ (its an open ray unbounded below) must contain $r$, i.e its of form $(-\infty,v)$ with $v>r$ and we can find a rational $q\in(r,v)$ such that $x\in E_q$ so we have one direction of the equality, the other direction is trivial and we are done as the set on the right is in $\mM$ being a countable union of sets from $\mM$ which is sufficient to prove measurablity via \hyperref[prob:2.4]{Problem 2.4}
 \end{solution}
 \begin{problem}\label{prob:2.8}
@@ -147,7 +148,7 @@ Let $f: [0, 1] \to [0, 1]$ be the Cantor function ($\S 1.5$), and let $g(x) = f(
     These removed open intervals have measures summing to $1$ and as $g$ is a translation on these we see that $m(g([0,1]\setminus C))=1$ showing that $m(g(C))=1$. 
     \item As the lebesge measure is complete we see that $B$ being the subset of the cantor set which has measure zero, must be lebesgue measurable too. 
     Now, if $B$ was borel then so would be $h^-1(B)=A$ as $g^{-1}$ is continuous, so it is not borel. 
-    \item Consider $\chi_{B}\circ h$, we see that $(\chi_B\circ h)^{-1}(\{1\})=h^{-1}(\chi_B^{-1}(\{1\}))=h^{-1}(B)=A$ which is not lebesgue measurable while we had $h$ be continuous (a homomorphism even) and $\chi_B$ lebesgue measurable so we are done as $\{1\}$ is borel.
+    \item Consider $\chi_{B}\circ h$, we see that $(\chi_B\circ h)^{-1}(\{1\})=h^{-1}(\chi_B^{-1}(\{1\}))=h^{-1}(B)=A$ which is not lebesgue measurable while we had $h$ be continuous (a homeomorphism even) and $\chi_B$ lebesgue measurable so we are done as $\{1\}$ is borel.
 
 \end{enumerate}
 \end{solution} 
@@ -187,7 +188,7 @@ Then $f_n$ is Borel measurable on $\bR \times \bR^k$ and $f_n \to f$ pointwise; 
     It being borel on $[a_i,a_{i+1}]\times\bR^k$ follows from these maps being clearly borel 
     $$(x,y)\mapsto (x-a_i),(x,y)\mapsto (x-a_{i+1}),(x,y)\mapsto f(a_i,y),(x,y)\mapsto f(a_{i+1},y)$$ 
     as the borel measurability is preserved under products and sums. 
-    To prove pointwise convergence just notice that for $(x,y)\in[a_i,a_{i+1}]\times\bR^k,f_n(x,y)$ is between $f(a_i,y)$ and $f(a_{i+1},y)$ which converge to $f(x,y)$ as $n\to\infty$ by continuity of $f(\cdot,y)$. 
+    To prove pointwise convergence just notice that for $(x,y)\in[a_i,a_{i+1}]\times\bR^k,f_n(x,y)$ is a convex combination of $f(a_i,y)$ and $f(a_{i+1},y)$ which converge to $f(x,y)$ as $n\to\infty$ by continuity of $f(\cdot,y)$. 
     This shows that if $f(\cdot,y)$ is continuous and $f(x,\cdot)$ borel, for all $(x,y)\in\bR\times\bR^k$ then $f$ is borel. 
     Now, suppose that $f:\bR^n\to\bR$ is continuous in each variable, suppose that the proposition holds for $n-1$, then for all $x\in\bR,f(x,\cdot):y\in\bR^{n-1}\mapsto f(x,y)$ is borel because this is continuous in each variable as well and for all $y\in\bR^{n-1},f(\cdot,y):x\in\bR\mapsto f(x,y)$ is continuous too, which implies that $f$ is borel. 
     We can induct on $n$ from the base case of $n=1$ where the proposition is true due to continuity in each variable coinciding with continuity (which is stronger than borel measurability), hence proving the proposition. 
@@ -303,12 +304,27 @@ cancelling out the $\int g$ terms we get $\liminf\int f_n\geq \int f$ and doing 
 Suppose $f_n, f \in L^1$ and $f_n \to f$ a.e. Then $\int |f_n - f| \to 0$ iff $\int |f_n| \to \int |f|$. (Use Exercise 20.)
 \end{problem}
 \begin{solution}
-	For the only if direction we can use generalised dominated convergence (\hyperref[prob:2.20]{Problem 2.20}) on $|f_n-f|\to 0$ a.e. where it is dominated by $|f_n|+|f|\to 2|f|$ a.e. as $\int |f_n|+|f|=\int|f|+\int|f_n|\to 2\int|f|=\int2|f|$ and for the if direction we can consider $|f_n|\leq|f|+|f_n-f|$ and proceed similarly.
+	For the if direction we can use generalised dominated convergence (\hyperref[prob:2.20]{Problem 2.20}) on $|f_n-f|\to 0$ a.e. where it is dominated by $|f_n|+|f|\to 2|f|$ a.e. as $\int |f_n|+|f|=\int|f|+\int|f_n|\to 2\int|f|=\int2|f|$ and for the only if direction we can proceed by the reverse triangle inequality as follows
+\[
+	\qty|{\int |f_n|-\int|f|}|\leq\int||f_n|-|f||\leq\int|f_n-f|\longrightarrow 0
+\]
 \end{solution}
 \begin{problem}\label{prob:2.22}
 Let $\mu$ be counting measure on $\bN$. Interpret Fatou's lemma and the monotone and dominated convergence theorems as statements about infinite series.
 \end{problem}
-
+\begin{solution}
+    A sequence of functions $\{f_k\}$ on $\bN$ corresponds to a double sequence $a_{k,n} = f_k(n)$. Pointwise convergence $f_k \to f$ a.e. means that for each fixed $n$, $\lim_{k\to\infty} a_{k,n} = a_n$ (since the only set of measure zero for the counting measure is the empty set).
+With this we can interpret the three theorems as follows: \\
+\textit{Fatou's Lemma:} If $f_k \in L^+$, then $\int \liminf f_k \le \liminf \int f_k$.
+In series notation: If $a_{k,n} \ge 0$ for all $k,n \in \bN$, then
+$$\sum_{n=1}^\infty \left( \liminf_{k\to\infty} a_{k,n} \right) \le \liminf_{k\to\infty} \sum_{n=1}^\infty a_{k,n}$$
+\textit{Monotone Convergence Theorem:} If $\{f_k\} \subset L^+$, $f_k \le f_{k+1}$, and $f_k \to f$, then $\lim \int f_k = \int f$.
+In series notation: If $0 \le a_{1,n} \le a_{2,n} \le \dots$ for all $n$, and $\lim_{k\to\infty} a_{k,n} = a_n$, then
+$$\lim_{k\to\infty} \sum_{n=1}^\infty a_{k,n}=\sum_{n=1}^\infty a_n$$
+\textit{Dominated Convergence Theorem:} If $f_k \to f$ pointwise, and $|f_k| \le g$ where $g \in L^1(\mu)$, then $\lim \int f_k = \int f$.
+In series notation: If $\lim_{k\to\infty} a_{k,n} = a_n$ for each $n$, and there exists a bounding sequence $\{b_n\}$ such that $|a_{k,n}| \le b_n$ for all $k,n$, and $\sum_{n=1}^\infty b_n < \infty$, then
+$$\lim_{k\to\infty} \sum_{n=1}^\infty a_{k,n}=\sum_{n=1}^\infty a_n$$
+\end{solution}
 \begin{problem}\label{prob:2.23}
 Given a bounded function $f: [a, b] \to \bR$, let
 \[ H(x) = \lim_{\delta \to 0} \sup_{|y-x|\le\delta} f(y), \quad h(x) = \lim_{\delta \to 0} \inf_{|y-x|\le\delta} f(y). \]
@@ -373,7 +389,7 @@ Let $f(x) = x^{-1/2}$ if $0 < x < 1, f(x) = 0$ otherwise. Let $\{r_n\}_1^\infty$
 \begin{solution}
 \begin{enumerate}[label=\alph*.]
 \item It follows from the monotone convergence theorem and the fact that the lebesgue integral and riemann integral agree that $\int gdm=\sum_{n=1}^\infty\int 2^{-n}f(x-r_n)dm=\sum_{n=1}^\infty2^{-n}\cdot \int_0^1x^{-1/2}dx=2$ implying $g\in L^1(m)$ which again forces $\{g\geq\infty\}$ to be null.
-\item given any real $y$, if $r_n<y<1+r_n$ then we see that $g(y)>2^{-n}(y-r_n)^{-2}$. Now, given any $x\in\bR$ and small enough $\delta>0$ we can find some $r_n$ such that $x-\delta<r_n<x<x+\delta<r_n+1$ and thus, for all small enough $\epsilon>0$ with $r_n<r_n+\epsilon<x$ we see that $g(r_n+\epsilon)>2^{-n}\epsilon^{-2}$ which can be made arbitrarily large, this shows that $g$ is unbounded in any open neighbourhood around $x$ from whcih the claim follows.
+\item given any real $y$, if $r_n<y<1+r_n$ then we see that $g(y)>2^{-n}(y-r_n)^{-1/2}$. Now, given any $x\in\bR$ and small enough $\delta>0$ we can find some $r_n$ such that $x-\delta<r_n<x<x+\delta<r_n+1$ and thus, for all small enough $\epsilon>0$ with $r_n<r_n+\epsilon<x$ we see that $g(r_n+\epsilon)>2^{-n}\epsilon^{-2}$ which can be made arbitrarily large, this shows that $g$ is unbounded in any open neighbourhood around $x$ from whcih the claim follows.
 \item As $g<\infty$ a.e. we clearly have $g^2<\infty$ a.e. as well. With the same setup as the previous part, we see that $g(y)^2>4^{-n}(y-r_n)^{-1}$ and thus 
 	\[
 		\int_{x-\delta}^{x+\delta}g^2\mathrm{d}m\geq\int_{r_n}^{x} \frac{1}{2^n(y-r_n)} \mathrm{d}m(y) = \infty
@@ -577,7 +593,7 @@ Forthe second part it suffices to prove that if $\psi_n\to 0$ in measure then $\
 due to the middle term converging to $0$ in measure, which follows from the set inclusion below. 
 For any $\epsilon>0$
 \[
-	\{|f_n-f||g_n-g|\geq\epsilon\}\subseteq\{|f_n-f|\geq\sqrt{\epsilon}\}\cup\{|f_n-f|\geq\sqrt{\epsilon}\}
+	\{|f_n-f||g_n-g|\geq\epsilon\}\subseteq\{|f_n-f|\geq\sqrt{\epsilon}\}\cup\{|g_n-f|\geq\sqrt{\epsilon}\}
 \]
 After which we can apply the previous result that convergence in measure is preserved unded addition.
 Now consider $S_n:=\{x\in X:n\leq |\phi|<n+1\}$. Then $\{S_n\}_{n\geq 0}$ is a partition of $X$. We see that $$\sum_{n\geq 0}\mu(S_n)=\mu(X)<\infty$$ and thus for any $\epsilon>0$ there exists some $m_\epsilon$ such that $$\sum_{n>m_\epsilon}\mu(S_n)<\epsilon/2$$
@@ -605,7 +621,12 @@ If $f_n \to f$ almost uniformly, then $f_n \to f$ a.e. and $f_n \to f$ in measur
 \begin{solution}
     Suppose $E_n$ are measurable sets such that $\mu(E_n^c)<1/n$ then we have that $\mu((\cup E_n)^c=\cap E_n^c)<1/n$ for all $n$ and hence $0$. 
 	If $x\in\cup E_n$ then $x\in E_n$ for some $n$ and thus $f_n(x)\to f(x)$ as we have uniform convergence which implies pointwise convergence on $E_n$. 
-	Thus, we have convergence a.e. due to $(\cup E_n)^c$ being null.
+	Thus, we have convergence a.e. due to $(\cup E_n)^c$ being null. 
+	Given $\delta>0$, almost uniform convergence gives a set $E$ with $\mu(E^c)<\delta$ such that $f_n\to f$ uniformly on $E$. 
+	Because of uniform convergence, for large enough $n$, $|f_n(x)-f(x)|<\epsilon$ for all $x\in E$. 
+	This means that the set $\{|f_n-f|\geq\epsilon\}$ is entirely contained within $E^c$. 
+	Therefore, its measure is less than $\delta$. 
+	Since $\delta$ was arbitrary, the measure tends to $0$.
 \end{solution}
 \begin{problem}\label{prob:2.40}
 In Egoroff's theorem, the hypothesis ``$\mu(X) < \infty$'' can be replaced by ``$|f_n| \le g$ for all $n$, where $g \in L^1(\mu)$.''
@@ -615,7 +636,7 @@ We first restrict ourselves to a set witha null complement such that we have poi
 \[
 	\bigcup_{m\geq n}\left\{x\in X:|f_m(x)-f(x)|\geq \frac{1}{k}\right\}\subseteq\left\{x\in X:2g(x)\geq \frac{1}{k}\right\}
 \]
-with the set on the right being of finite measure due to $g$ being $L^1$ (more precisely, it is easily shown that it has measure atmost $k\int_Xg)$
+with the set on the right being of finite measure due to $g$ being $L^1$ (more precisely, it is easily shown that it has measure atmost $2k\int_Xg)$
 \end{solution}
 \begin{problem}\label{prob:2.41}
 If $\mu$ is $\sigma$-finite and $f_n \to f$ a.e., there exist measurable $E_1, E_2, \ldots \subset X$ such that $\mu( (\bigcup_1^\infty E_j)^c ) = 0$ and $f_n \to f$ uniformly on each $E_j$.
@@ -863,7 +884,7 @@ Fill in the details of the proof of Theorem 2.41.
 		|a_j|\mu(E_j)=\int_{E_j}|\phi|\leq\int_{E_j}|f|<\infty
 	\]
 	Implying that $\mu(E_j)<\infty$. 
-	By theorem $2.41c$, for each $E_j$ we can find a collection $\{R_{j,i}\}_{i=1}^{k_j}$ such that $m(E_j\Delta\cup_iR_{j,i})<\epsilon$ and each $R_{j,i}$ is a product of intervals, we will call these cubes here on out. 
+	By theorem $2.41c$, for each $E_j$ we can find a disjoint(disjoincy is neeeded here by the way) collection $\{R_{j,i}\}_{i=1}^{k_j}$ such that $m(E_j\Delta\cup_iR_{j,i})<\epsilon$ and each $R_{j,i}$ is a product of intervals, we will call these cubes here on out. 
 	Define $\psi:=\sum_{i,j}a_{j}\chi_{R_{j,i}}$, then we see that
 	\[
 		\int|\phi-\psi|\leq\sum_{j=1}^m|a_j|\int\cdot\bigg|\chi_{E_j}-\sum_{j=1}^{k_j}\chi_{R_{j,i}}\bigg|\leq\sum_{j=1}^m|a_j|\cdot m\qty(E_j\Delta\bigcup_{i=1}^{k_j}R_{j,i})<\epsilon\cdot\sum_{j=1}^m|a_j|
@@ -947,7 +968,7 @@ Show that $\int_0^\infty e^{-sx} x^{-1} \sin x \, dx = \arctan(s^{-1})$ for $s >
 \begin{solution}
 	Consider $f(x,y)=se^{-sxy}\sin(x)$ on $(0,\infty)\times(1,\infty)$, this is integrable as, by tonelli's we have
 	\[
-		\int |f|=\int_0^\infty\int_1^\infty se^{-sxy}|\sin(x)|dydx=\int_0^\infty e^{-sx}|\sin(x)/x|dx\leq\int_0^\infty e^{-sx}=s<\infty
+		\int |f|=\int_0^\infty\int_1^\infty se^{-sxy}|\sin(x)|dydx=\int_0^\infty e^{-sx}|\sin(x)/x|dx\leq\int_0^\infty e^{-sx}=s^{-1}<\infty
 	\]
 	Now using fubini's theorem we see that,
 	\[
@@ -987,11 +1008,11 @@ Let $f(x) = x^{-1} \sin x$.
 			\int_0^b\frac{\sin x}{x}dx=\int_0^b\int_0^\infty f(x,y)dydx=\int_0^\infty\int_0^bf(x,y)dxdy
 		\]
 		\[
-			=\lim_{b\to\infty}\int_0^\infty- \underbrace{\frac{e^{-by}\sin(b)+e^{-by}\cos(b)-1}{1+y^2}}_{g_b(y)}dy
+			=\lim_{b\to\infty}\int_0^\infty- \underbrace{\frac{e^{-by}\sin(b)y+e^{-by}\cos(b)-1}{1+y^2}}_{g_b(y)}dy
 		\]
 		We see that $g_b(y)\longrightarrow (1+y^2)^{-1}$ as $b\to\infty$ and $|g_b(y)|\leq 3(1+y^2)^{-1}$ which is integrable allowing us to use DCT (by passing to sequences) to conclude that,
 		\[
-		    \int_0^b \frac{\sin x}{x}dx=\int_0^\infty \frac{1}{1+y^2}dy= \frac{\pi}{2}
+		    \int_0^\infty \frac{\sin x}{x}dx=\int_0^\infty \frac{1}{1+y^2}dy= \frac{\pi}{2}
 		\]
     \end{enumerate}
 \end{solution}
@@ -1041,10 +1062,10 @@ $I_\alpha f$ is called the $\alpha$th \textbf{fractional integral} of $f$.
 			Heuristically speaking we integrate over the region $x>t>y>0$. 
 			Using the invertible linear map that switches the coordinates and Theorem $2.47$ and tonelli's theorem we see that this is equal to
 			\[
-				\frac{1}{\Gamma(\alpha)\Gamma(\beta)}\int_0^x\int_x^y(x-t)^{\alpha-1}(t-y)^{\beta-1}f(y)dtdy
+				\frac{1}{\Gamma(\alpha)\Gamma(\beta)}\int_0^x\int_y^x(x-t)^{\alpha-1}(t-y)^{\beta-1}f(y)dtdy
 			\]
 			\[
-				= \frac{1}{\Gamma(\alpha)\Gamma(\beta)}\int_0^xf(y)(x-y)^{\alpha+\beta-1}\int_x^y\qty( \frac{x-t}{x-y})^{\alpha-1}\qty( \frac{t-y}{x-y})^{\beta-1} \frac{dt}{x-y}dy
+				= \frac{1}{\Gamma(\alpha)\Gamma(\beta)}\int_0^xf(y)(x-y)^{\alpha+\beta-1}\int_y^x\qty( \frac{x-t}{x-y})^{\alpha-1}\qty( \frac{t-y}{x-y})^{\beta-1} \frac{dt}{x-y}dy
 			\]
 			which is $I_{\alpha+\beta}f(x)$ after a change of variable $v=(t-y)/(x-y)$ and an application of the previous problem.
 		\item This follows from part (a) by repeatedly applying $I_1$ which is the antiderivative.
@@ -1087,7 +1108,7 @@ For which real values of $a$ and $b$ is $|x|^a |\log |x||^b$ integrable over $\{
 \begin{solution}
     By corollary $2.51$ we have, after attaching a suitable characteristic function, 
 	\[
-		\int_{B(0,1/2)}\norm{x}^a|\log(\norm{x})|^b\,dm(x)=\sigma(S^{n-1})\int_0^{1/2} r^a\|log(r)|^bdr
+		\int_{B(0,1/2)}\norm{x}^a|\log(\norm{x})|^b\,dm(x)=\sigma(S^{n-1})\int_0^{1/2} r^{a+n-1}|log(r)|^bdr
 	\]
 	It is now trivial to check which $a,b$ work. 
 	In the other case the integral is over $(2,\infty)$.
@@ -1140,11 +1161,9 @@ x_{n-1} &= r \sin \phi_1 \dots \sin \phi_{n-2} \cos \theta, \quad x_n = r \sin \
 		where we used all the facts developed above freely. 
 		Now, after some simplifications we have
 		\[
-		\sigma(E)=\int_{F^{-1}|_{\Omega_n'}^{-1}(E)}\sin^{n-2}\phi_1\sin^{n-3}\phi_2\cdots\sin\phi_{n-2}\,\mathrm{d}m((\phi_1,\phi_2,\ldots,\phi_1))
-		\]
-		
-		
-		
+		\sigma(E)=\int_{F^{-1}|_{\Omega_n'}^{-1}(E)}\sin^{n-2}\phi_1\sin^{n-3}\phi_2\cdots\sin\phi_{n-2}\,\mathrm{d}m((\phi_1,\phi_2,\ldots,\theta))
+		\]	
+		so we are done.
 \end{enumerate}
 \end{solution}
 \end{document}
