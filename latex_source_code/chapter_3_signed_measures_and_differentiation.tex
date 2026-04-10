@@ -1,0 +1,444 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs, graphicx, physics, enumitem, geometry, esint,twemojis}
+\geometry{margin=1in}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{EvanPink}{rgb}{0.85, 0.13, 0.55}
+\usepackage[colorlinks=true,
+            linkcolor=OliveGreen,
+            urlcolor=EvanPink,
+            citecolor=OliveGreen]{hyperref}
+\usepackage{cleveref}
+\usepackage{etoolbox}
+
+\newenvironment{solution}{%
+  \par\noindent\textit{Solution.}\ }{\qed}
+
+\newtheoremstyle{problemstyle}
+  {1em}   
+  {1em}   
+  {}      
+  {}      
+  {\bfseries} 
+  {.}     
+  {0.5em} 
+  {}      
+\theoremstyle{problemstyle}
+\newtheorem{problem}{Problem}[section]
+
+\apptocmd{\problem}{%
+  \addcontentsline{toc}{subsection}{Problem~\thesection.\arabic{problem}}%
+}{}{}
+
+\crefname{problem}{Problem}{Problems}
+\Crefname{problem}{Problem}{Problems}
+
+\setcounter{tocdepth}{2}
+
+\title{\textbf{Chapter 3 : Signed Measures and Differentiation}}
+\author{Arkaraj Mukherjee}
+
+\def\bN{\mathbb{N}}
+\def\bR{\mathbb{R}}
+\def\bZ{\mathbb{Z}}
+\def\bQ{\mathbb{Q}}
+\def\bC{\mathbb{C}}
+\def\mM{\mathcal{M}}
+\def\mR{\mathcal{R}}
+\def\mN{\mathcal{N}}
+\def\mE{\mathcal{E}}
+\def\mA{\mathcal{A}}
+\def\oR{\overline{\mathbb{R}}}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\setcounter{section}{2}
+\stepcounter{section}
+\section*{Chapter \thesection\ : Signed Measures and Differentiation}
+\addcontentsline{toc}{section}{Chapter \thesection\ : Signed Measures and Differentiation}
+
+\begin{problem}\label{prob:3.1}
+Prove Proposition 3.1.
+\end{problem}
+\begin{solution}
+Wlog suppose that $\nu$ omits the value $-\infty$, then if $E_n$ is a sequence increasing sets we have that,
+\[
+	\nu \qty(\bigcup_{n=1}^\infty E_n)=\nu(E_1)+ \sum_{n\geq 2}\nu(E_n\setminus E_{n-1})=\lim_{m\to\infty} \nu(E_1)+ \sum_{n\leq m}\nu(E_n\setminus E_{n-1})=\lim_{m\to\infty}\nu(E_m)
+\]
+And if it was decreasing with $\nu(E_1)$ finite then, $E_1\setminus E_n$ is increasing and we have
+\[
+	\nu(E_1)-\nu \qty(\bigcap E_n)=\nu \qty(E_1\setminus\bigcap E_n)=\nu \qty(\bigcup(E_1\setminus E_n))=\lim_{m\to\infty}\nu(E_1\setminus E_m)=\nu(E_1)- \lim_{m\to\infty}\nu(E_m)
+\]
+after which we can cancel out the finite term of $\nu(E_1)$.
+\end{solution}
+\begin{problem}\label{prob:3.2}
+If $\nu$ is a signed measure, $E$ is $\nu$-null iff $|\nu|(E)=0$. Also, if $\nu$ and $\mu$ are signed measures, $\nu\perp\mu$ iff $|\nu|\perp\mu$ iff $\nu^{+}\perp\mu$ and $\nu^{-}\perp\mu$.
+\end{problem}
+\begin{solution}
+If $|\nu|(E)=0$ then $\nu^+(E)=\nu^-(E)=0$ and as these are positive measures, by monotonicity see that $\nu^+(F)=\nu^-(F)=0$ for any measurable $F\subseteq E$ making $E$ $\nu$-null. 
+Now, if $E$ was $\nu$-null then $|\nu|(E)>0$ would imply that $\nu^+(E)$ or $\nu^-(E)$ is strictly greater than $0$ and if we assume the first to be as described then $\nu(E\cap N)=\nu^+(E\cap N)>0$ which contradicts nullity of $E$ w.r.t $\nu$ as $E\cap N \subseteq E$. 
+The other case leads to a contradiction similarly, thus we must have $|\nu|(E)=0$. 
+
+As a measurable set $E$ is $|\nu|$-null iff $|\nu|(E)=0$ stemming from positivity we see that $\nu\perp\mu$ iff $|\nu|\perp\mu$ by the previous claim. 
+We also see that $|\nu|\perp\mu$ iff $\nu^+,\nu^-\perp\mu$ as $|\nu|(E)=0$ iff $\nu^-(E),\nu^+(E)=0$, which proves the equivalence.
+\end{solution}
+\begin{problem}\label{prob:3.3}
+Let $\nu$ be a signed measure on $(X, \mM)$.
+\begin{enumerate}[label=\alph*.]
+    \item $L^{1}(\nu)=L^{1}(|\nu|)$.
+    \item If $f\in L^{1}(\nu)$, $|\int f~d\nu|\le\int|f|d|\nu|$.
+    \item If $E\in\mM$, $|\nu|(E) = \sup \{ |\int_E f\, d\nu| : |f| \le 1 \}$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+\item As $L^1(\nu):=L^1(\nu^+)\cap L^1(\nu^-)$ we find that, $f\in L^1(\nu)$ implies $ \int_{}^{}|f|,\mathrm{d}\nu^+, \int_{}^{}|f|\,\mathrm{d}\nu^-<\infty$ and thus, $ \int_{}^{}|f|\,\mathrm{d}|\nu|= \int_{}^{}|f|\,\mathrm{d}\nu^++ \int_{}^{}|f|\,\mathrm{d}\nu^-<\infty$ where we have used the following lemma: If $\mu_1,\mu_2$ are positive measures on the same sigma algebra then so is their sum and if $f\in L^+$ then $ \int_{}^{}f\,\mathrm{d}(\mu_1+\mu_2)= \int_{}^{}f\,\mathrm{d}\mu_1+ \int_{}^{}f\,\mathrm{d}\mu_2$. 
+For a proof, one can look at simple functions first where its trivial and then routinely extend to $L^+$ by MCT and approximations using simple functions. 
+Now, if we had $f\in L^1(|\nu|)$ then as $ \int_{}^{}f\,\mathrm{d}|\nu|=\int_{}^{}|f|\,\mathrm{d}\nu^++ \int_{}^{}|f|\,\mathrm{d}\nu^-<\infty$, both of these terms are individually finite which puts $f$ in $L^1(\nu^+)$ and $L^1(\nu^-)$ proving the claim.
+\item This follows from the inequality $ \int_{}^{}|f|\,\mathrm{d}\nu= \int_{}^{}|f|\,\mathrm{d}\nu^+- \int_{}^{}|f|\,\mathrm{d}\nu^-\leq\int_{}^{}|f|\,\mathrm{d}\nu^++ \int_{}^{}|f|\,\mathrm{d}\nu^-= \int_{}^{}|f|\,\mathrm{d}|\nu|$.
+\item Consider the hahn decomposition $P\cup N$ is usual notation leading upto the jordan decomposition, then letting $f=\chi_P-\chi_N$ we see that $ \int_{}^{}f\,\mathrm{d}\nu=\nu(P\cap E)-\nu(N\cap E)=\nu^+(E)+\nu^-(E)=|\nu|(E)$ so we have one direction of the inequality ($\leq$) and for the other direction, by part (b) we can say that $|f|\leq 1$ implies $|\int_{}^{}f\,\mathrm{d}\nu|\leq \int_{}^{}1\,\mathrm{d}|\nu|=|\nu|(E).$ so we are done.
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:3.4}
+If $\nu$ is a signed measure and $\lambda$, $\mu$ are positive measures such that $\nu=\lambda-\mu$, then $\lambda\ge\nu^{+}$ and $\mu\ge\nu^{-}$.
+\end{problem}
+\begin{solution}
+Consider the hahn decomposition $P\cup N$ in usual notation, leading upto the jordan decomposition. 
+Then we have $\nu^+(E)=\nu(E\cap P)=\lambda(E\cap P)-\mu(E\cap P)\leq\lambda(E\cap P)\leq\lambda(E)$ and the other inequality follows similarly. 
+\end{solution}
+\begin{problem}\label{prob:3.5}
+If $\nu_{1}$, $\nu_{2}$ are signed measures that both omit the value $+\infty$ or $-\infty$, then $|\nu_{1}+\nu_{2}|\le|\nu_{1}|+|\nu_{2}|$. (Use Exercise 4.)
+\end{problem}
+\begin{solution}
+It can be easily shown that in this case $\nu_1+\nu_2$ is also a signed measure. 
+As all $\nu_1,\nu_2$ are finite, we can rearrange to get $\nu_1+\nu_2=\nu_1^+-\nu_1^-+\nu_2^+-\nu_2^-=(\nu_1^++\nu_2^+)-(\nu_1^-+\nu_2^-)$ which, by the previous problem implies $(\nu_1+\nu_2)^+\leq\nu_1^++\nu_2^+$ and $(\nu_1+\nu_2)^-\leq\nu_1^-+\nu_2^-$ implying $|\nu_1+\nu_2|\leq(\nu_1^++\nu_2^+)+(\nu_1^-+\nu_2^-)=(\nu_1^++\nu_1^-)+(\nu_2^++\nu_2^-)\leq|\nu_1|+|\nu_2|$.
+\end{solution}
+\begin{problem}\label{prob:3.6}
+Suppose $\nu(E)=\int f~d\mu$ where $\mu$ is a positive measure and $f$ is an extended $\mu$-integrable function. Describe the Hahn decompositions of $\nu$ and the positive, negative, and total variations of $\nu$ in terms of $f$ and $\mu$.
+\end{problem}
+\begin{solution}
+	Let $P= \qty{f>0}$ and $N= \qty{f\leq 0}$, then $P\cup N$ is clearly a hahn decomposition and we see that $\nu_+(E)= \int_{E\cap P}^{}f\,\mathrm{d}\mu= \int_{E}^{}f^+\,\mathrm{d}\mu$ and similarly $\nu_-(E)= \int_{E}^{}f^-\,\mathrm{d}\mu$ and thus, $|\nu|(E)= \int_{E}^{}|f|\,\mathrm{d}\mu$.
+\end{solution}
+\begin{problem}\label{prob:3.7}
+Suppose that $\nu$ is a signed measure on $(X, \mM)$ and $E\in\mM$.
+\begin{enumerate}[label=\alph*.]
+    \item $\nu^{+}(E)=\sup\{\nu(F):F\in\mM,F\subset E\}$ and $\nu^{-}(E)=-\inf\{\nu(F):F\in\mM, F\subset E\}$.
+    \item $|\nu|(E)=\sup\{\sum_{1}^{n}|\nu(E_{j})|:n\in\bN,E_{1},...,E_{n} \text{ are disjoint, and } \bigcup_{1}^{n}E_{j}=E\}$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+	\item $F \subseteq E$ implies that $\nu(F)\leq\nu^+(F)\leq\nu^+(E)$ and $\nu(E\cap P)=\nu^+(E)$ with $E\cap P \subseteq E$ proving one part, the other follows similarly.
+	\item Considering a hahn decomposition $P\cup N$ leading to a jordan decomposition, we see that $|\nu|(E)=\nu^+(E)+\nu^-(E)=|\nu(E\cap P)|+|\nu(E\cap N)|$ as $\nu^+(E)=\nu(E\cap P)\geq 0$ and $\nu^-(E)=-\nu(E\cap N)\geq 0$ proving one direction of the equality. 
+	For the other, it can be easily proved that $|\nu(E)|\leq|\nu|(E)$ and thus, $\bigcup_1^nE_j=E$ (disjoint union) implies $\sum_1^n|\nu(E_j)|\leq\sum_1^n|\nu|(E_j)=|\nu|(E)$ so we are done.
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:3.8}
+$\nu\ll\mu$ iff $|\nu|\ll\mu$ iff $\nu^{+}\ll\mu$ and $\nu^{-}\ll\mu$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.9}
+Suppose $\{\nu_{j}\}$ is a sequence of positive measures. If $\nu_{j}\perp\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\perp\mu$; and if $\nu_{j}\ll\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\ll\mu$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.10}
+Theorem 3.5 may fail when $\nu$ is not finite. (Consider $d\nu(x)=dx/x$ and $d\mu(x)=dx$ on $(0, 1)$, or $\nu = \text{counting measure}$ and $\mu(E)=\sum_{n\in E}2^{-n}$ on $\bN$.)
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.11}
+Let $\mu$ be a positive measure. A collection of functions $\{f_{\alpha}\}_{\alpha\in A}\subset L^{1}(\mu)$ is called uniformly integrable if for every $\epsilon>0$ there exists $\delta>0$ such that $|\int_{E}f_{\alpha}d\mu|<\epsilon$ for all $\alpha\in A$ whenever $\mu(E)<\delta$.
+\begin{enumerate}[label=\alph*.]
+    \item Any finite subset of $L^{1}(\mu)$ is uniformly integrable.
+    \item If $\{f_{n}\}$ is a sequence in $L^{1}(\mu)$ that converges in the $L^{1}$ metric to $f\in L^{1}(\mu)$, then $\{f_{n}\}$ is uniformly integrable.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.12}
+For $j=1,2,$ let $\mu_{j}$, $\nu_{j}$ be $\sigma$-finite measures on $(X_{j},\mM_{j})$ such that $\nu_{j}\ll\mu_{j}$. Then $\nu_{1}\times\nu_{2}\ll\mu_{1}\times\mu_{2}$ and
+\[\frac{d(\nu_{1}\times\nu_{2})}{d(\mu_{1}\times\mu_{2})}(x_{1},x_{2})=\frac{d\nu_{1}}{d\mu_{1}}(x_{1})\frac{d\nu_{2}}{d\mu_{2}}(x_{2}).\]
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.13}
+Let $X=[0,1]$, $\mM=\mathcal{B}_{[0,1]}$, $m=$ Lebesgue measure, and $\mu=$ counting measure on $\mM$.
+\begin{enumerate}[label=\alph*.]
+    \item $m\ll\mu$ but $dm\ne f~d\mu$ for any $f$.
+    \item $\mu$ has no Lebesgue decomposition with respect to $m$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.14}
+If $\nu$ is an arbitrary signed measure and $\mu$ is a $\sigma$-finite measure on $(X, \mM)$ such that $\nu\ll\mu$, there exists an extended $\mu$-integrable function $f:X\rightarrow[-\infty,\infty]$ such that $d\nu=f~d\mu$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.15}
+A measure $\mu$ on $(X, \mM)$ is called decomposable if there is a family $\mathfrak{F}\subset\mM$ with the following properties: (i) $\mu(F)<\infty$ for all $F\in\mathfrak{F}$; (ii) the members of $\mathfrak{F}$ are disjoint and their union is $X$; (iii) if $\mu(E)<\infty$ then $\mu(E)=\sum_{F\in\mathfrak{F}}\mu(E\cap F)$; (iv) if $E\subset X$ and $E\cap F\in\mM$ for all $F\in\mathfrak{F}$ then $E\in\mM$.
+\begin{enumerate}[label=\alph*.]
+    \item Every $\sigma$-finite measure is decomposable.
+    \item If $\mu$ is decomposable and $\nu$ is any signed measure on $(X, \mM)$ such that $\nu\ll\mu$, there exists a measurable $f:X\rightarrow[-\infty,\infty]$ such that $\nu(E)=\int_{E}f~d\mu$ for any $E$ that is $\sigma$-finite for $\mu$, and $|f|<\infty$ on any $F\in\mathfrak{F}$ that is $\sigma$-finite for $\nu$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.16}
+Suppose that $\mu, \nu$ are measures on $(X, \mM)$ with $\nu\ll\mu$, and let $\lambda=\mu+\nu$. If $f=d\nu/d\lambda$, then $0\le f<1$ $\lambda$-a.e. and $d\nu/d\mu=f/(1-f)$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.17}
+Let $(X, \mM, \mu)$ be a $\sigma$-finite measure space, $\mN$ a sub-$\sigma$-algebra of $\mM$, and $\nu=\mu|_{\mN}$. If $f\in L^{1}(\mu)$, there exists $g\in L^{1}(\nu)$ (thus $g$ is $\mN$-measurable) such that $\int_{E}f~d\mu=\int_{E}g~d\nu$ for all $E\in\mN$; if $g^{\prime}$ is another such function then $g=g^{\prime}$ $\nu$-a.e.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.18}
+Prove Proposition 3.13c.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.19}
+If $\nu, \lambda$ are complex measures and $\mu$ is a positive measure, then $\nu\perp\mu$ iff $|\nu|\perp|\mu|$, and $\nu\ll\lambda$ iff $|\nu|\ll\lambda$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.20}
+If $\nu$ is a complex measure on $(X,\mM)$ and $\nu(X)=|\nu|(X)$, then $\nu=|\nu|$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.21}
+Let $\nu$ be a complex measure on $(X, \mM)$. If $E\in\mM$ define
+$\mu_{1}(E)=\sup\{\sum_{1}^{n}|\nu(E_{j})|:n\in\bN,E_{1},...,E_{n} \text{ disjoint}, E=\bigcup_{1}^{n}E_{j}\}$,
+$\mu_{2}(E)=\sup\{\sum_{1}^{\infty}|\nu(E_{j})|:E_{1},E_{2},... \text{ disjoint}, E=\bigcup_{1}^{\infty}E_{j}\}$,
+$\mu_{3}(E)=\sup\{|\int_{E}f~d\nu|:|f|\le1\}.$
+Then $\mu_{1}=\mu_{2}=\mu_{3}=|\nu|$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.22}
+If $f\in L^{1}(\bR^{n})$, $f\ne0,$ there exist $C, R > 0$ such that $Hf(x)\ge C|x|^{-n}$ for $|x|>R$. Hence $m(\{x:Hf(x)>\alpha\})\ge C^{\prime}/\alpha$ when $\alpha$ is small, so the estimate in the maximal theorem is essentially sharp.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.23}
+A useful variant of the Hardy-Littlewood maximal function is $H^{*}f(x)=\sup\{\frac{1}{m(B)}\int_{B}|f(y)|dy:B \text{ is a ball and } x\in B\}$. Show that $Hf\le H^{*}f\le2^{n}Hf$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.24}
+If $f\in L_{loc}^{1}$ and $f$ is continuous at $x$, then $x$ is in the Lebesgue set of $f$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.25}
+If $E$ is a Borel set in $\bR^{n}$, the density $D_{E}(x)$ of $E$ at $x$ is defined as $D_{E}(x)=\lim_{r\rightarrow0}\frac{m(E\cap B(r,x))}{m(B(r,x))}$ whenever the limit exists.
+\begin{enumerate}[label=\alph*.]
+    \item Show that $D_{E}(x)=1$ for a.e. $x\in E$ and $D_{E}(x)=0$ for a.e. $x\in E^{c}$.
+    \item Find examples of $E$ and $x$ such that $D_{E}(x)$ is a given number $\alpha\in(0,1)$, or such that $D_{E}(x)$ does not exist.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.26}
+If $\lambda$ and $\mu$ are positive, mutually singular Borel measures on $\bR^{n}$ and $\lambda+\mu$ is regular, then so are $\lambda$ and $\mu$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.27}
+Verify the assertions in Examples 3.25.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.28}
+If $F\in NBV$, let $G(x)=|\mu_{F}|((-\infty,x])$. Prove that  $|\mu_{F}|=\mu_{T_{F}}$ by showing that $G=T_{F}$ via the following steps.
+\begin{enumerate}[label=\alph*.]
+    \item From the definition of $T_{F}$, $T_{F}\le G$.
+    \item $|\mu_{F}(E)|\le\mu_{T_{F}(E)}$ when $E$ is an interval, and hence when $E$ is a Borel set.
+    \item $|\mu_{F}|\le\mu_{T_{F}}$, and hence $G\le T_{F}$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.29}
+If $F\in NBV$ is real-valued, then $\mu_{F}^{+}=\mu_{P}$ and $\mu_{F}^{-}=\mu_{N}$ where $P$ and $N$ are the positive and negative variations of $F$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.30}
+Construct an increasing function on $\bR$ whose set of discontinuities is $\bQ$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.31}
+Let $F(x)=x^{2}\sin(x^{-1})$ and $G(x)=x^{2}\sin(x^{-2})$ for $x\ne0,$ and $F(0)=G(0)=0$.
+\begin{enumerate}[label=\alph*.]
+    \item $F$ and $G$ are differentiable everywhere (including $x=0$).
+    \item $F\in BV([-1,1])$, but $G\notin BV([-1,1])$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.32}
+If $F_{1},F_{2},...,F\in NBV$ and $F_{j}\rightarrow F$ pointwise, then $T_{F}\le \liminf T_{F_{j}}$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.33}
+If $F$ is increasing on $\bR$, then $F(b)-F(a)\ge\int_{a}^{b}F^{\prime}(t)dt$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.34}
+Suppose $F, G\in NBV$ and $-\infty<a<b<\infty.$
+\begin{enumerate}[label=\alph*.]
+    \item By adapting the proof of Theorem 3.36, show that
+    \[\int_{[a,b]}\frac{F(x)+F(x-)}{2}dG(x)+\int_{[a,b]}\frac{G(x)+G(x-)}{2}dF(x)=F(b)G(b)-F(a-)G(a-)\]
+    \item If there are no points in $[a, b]$ where $F$ and $G$ are both discontinuous, then
+    \[\int_{[a,b]}F~dG+\int_{[a,b]}G~dF=F(b)G(b)-F(a-)G(a-).\]
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.35}
+If $F$ and $G$ are absolutely continuous on $[a, b]$, then so is $FG$, and
+\[\int_{a}^{b}(FG^{\prime}+GF^{\prime})(x)dx=F(b)G(b)-F(a)G(a).\]
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.36}
+Let $G$ be a continuous increasing function on $[a, b]$ and let $G(a)=c$, $G(b)=d.$
+\begin{enumerate}[label=\alph*.]
+    \item If $E\subset[c,d]$ is a Borel set, then $m(E)=\mu_{G}(G^{-1}(E)).$
+    \item If $f$ is a Borel measurable and integrable function on $[c, d]$, then $\int_{c}^{d}f(y)dy=\int_{a}^{b}f(G(x))dG(x)$. In particular, $\int_{c}^{d}f(y)dy=\int_{a}^{b}f(G(x))G^{\prime}(x)dx$ if $G$ is absolutely continuous.
+    \item The validity of (b) may fail if $G$ is merely right continuous rather than continuous.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.37}
+Suppose $F:\bR\rightarrow\bC$. There is a constant $M$ such that $|F(x)-F(y)|\le M|x-y|$ for all $x,y\in\bR$ (that is, $F$ is Lipschitz continuous) iff $F$ is absolutely continuous and $|F^{\prime}|\le M$ a.e.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.38}
+If $f:[a,b]\rightarrow\bR$, consider the graph of $f$ as a subset of $\bC$, namely, $\{t+if(t): t\in[a,b]\}$. The length $L$ of this graph is by definition the supremum of the lengths of all inscribed polygons.
+\begin{enumerate}[label=\alph*.]
+    \item Let $F(t)=t+if(t);$ then $L$ is the total variation of $F$ on $[a, b]$.
+    \item If $f$ is absolutely continuous, $L=\int_{a}^{b}[1+f^{\prime}(t)^{2}]^{1/2}dt$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.39}
+If $\{F_{j}\}$ is a sequence of nonnegative increasing functions on $[a, b]$ such that $F(x)=\sum_{1}^{\infty}F_{j}(x)<\infty$ for all $x\in[a,b]$, then $F^{\prime}(x)=\sum_{1}^{\infty}F_{j}^{\prime}(x)$ for a.e. $x\in[a,b]$.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.40}
+Let $F$ denote the Cantor function on $[0, 1]$ (see §1.5), and set $F(x)=0$ for $x<0$ and $F(x)=1$ for $x>1$. Let $\{[a_{n},b_{n}]\}$ be an enumeration of the closed subintervals of $[0, 1]$ with rational endpoints, and let $F_{n}(x)=F((x-a_{n})/(b_{n}-a_{n}))$. Then $G=\sum_{1}^{\infty}2^{-n}F_{n}$ is continuous and strictly increasing on $[0, 1]$, and $G^{\prime}=0$ a.e.
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.41}
+Let $A\subset[0,1]$ be a Borel set such that $0<m(A\cap I)<m(I)$ for every subinterval $I$ of $[0, 1]$.
+\begin{enumerate}[label=\alph*.]
+    \item Let $F(x)=m([0,x]\cap A)$. Then $F$ is absolutely continuous and strictly increasing on $[0, 1]$, but $F^{\prime}=0$ on a set of positive measure.
+    \item Let $G(x)=m([0,x]\cap A)-m([0,x]\setminus A).$ Then $G$ is absolutely continuous on $[0, 1]$, but $G$ is not monotone on any subinterval of $[0, 1]$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}\label{prob:3.42}
+A function $F:(a,b)\rightarrow\bR(-\infty\le a<b\le\infty)$ is called convex if $F(\lambda s+(1-\lambda)t)\le\lambda F(s)+(1-\lambda)F(t)$ for all $s, t\in(a,b)$ and $\lambda\in(0,1)$.
+\begin{enumerate}[label=\alph*.]
+    \item $F$ is convex iff for all $s, t, s', t' \in (a, b)$ such that $s\le s^{\prime}<t^{\prime}$ and $s<t\le t^{\prime}$,
+    \[\frac{F(t)-F(s)}{t-s}\le\frac{F(t^{\prime})-F(s^{\prime})}{t^{\prime}-s^{\prime}}\]
+    \item $F$ is convex iff $F$ is absolutely continuous on every compact subinterval of $(a, b)$ and $F^{\prime}$ is increasing (on the set where it is defined).
+    \item If $F$ is convex and $t_{0}\in(a,b)$, there exists $\beta\in\bR$ such that $F(t)-F(t_{0})\ge \beta(t-t_{0})$ for all $t\in(a,b)$.
+    \item (Jensen's Inequality) If $(X, \mM, \mu)$ is a measure space with $\mu(X)=1$, $g:X\rightarrow(a,b)$ is in $L^{1}(\mu)$, and $F$ is convex on $(a, b)$, then
+    \[F\left(\int g~d\mu\right)\le\int F\circ g~d\mu.\]
+\end{enumerate}
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\end{document}
