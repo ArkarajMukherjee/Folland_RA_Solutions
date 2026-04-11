@@ -142,23 +142,28 @@ Suppose that $\nu$ is a signed measure on $(X, \mM)$ and $E\in\mM$.
 $\nu\ll\mu$ iff $|\nu|\ll\mu$ iff $\nu^{+}\ll\mu$ and $\nu^{-}\ll\mu$.
 \end{problem}
 \begin{solution}
-
+If $\nu\ll\mu$ then $\mu(E)=0\implies\nu(E)=0$ and as $\mu$ is taken positive we must have that $\mu(E\cap P),\mu(E\cap N)=0$ where $P\cup N$ is the hahn decomposition for $\nu$, this implies that $\nu(E\cap P),\nu(E\cap N)=0$ so $\nu^\pm(E)=0$ and we have that $|\nu|(E)=0$ as well proving $|\nu|\ll\mu$. 
+As $|\nu|(E)\geq|\nu(E)|$ we have that $|\nu|\ll\mu$ implies $\nu\ll\mu$ and hence $\nu\ll\mu$ iff $|\nu|\ll\mu$. 
+If $\nu^+\nu^-\ll\mu$ then $\mu(E)=0$ clearly implies $|\nu|(E)=0$ and if we have $|\nu|\ll\mu$ then $\mu(E)=0$ implies $\nu^+(E)+\nu^-(E)=0$ and thus $\nu^+(E)=\nu^-(E)=0$ proving $\nu^+,\nu^-\ll\mu$ and thus all these conditions are equivalent.
 \end{solution}
-
 \begin{problem}\label{prob:3.9}
 Suppose $\{\nu_{j}\}$ is a sequence of positive measures. If $\nu_{j}\perp\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\perp\mu$; and if $\nu_{j}\ll\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\ll\mu$.
 \end{problem}
 \begin{solution}
-
+Say $E_j$ is $\nu_j$-null and $E_j^c$ is $\mu$-null for all $j$, then we see that, let $E=\bigcap E_j$, then we clearly see that $E$ is $\sum_1^\infty\nu_j$-null and we claim that, $E^c=\bigcup E_j^c$ is $\mu$-null. 
+For any measurable $F\subseteq E^c$, we can write $F=\bigcup_{j=1}^\infty(F\cap(E_j^c\setminus\cup_{i\neq j}^\infty E_i^c))$ is a disjoint union and 
+\[
+    \mu(F)= \sum_{j=1}^{\infty}\mu(F\cap(E_j^c\setminus\cup_{i\neq j}^\infty E_i^c))=0
+\]
+as $(F\cap(E_j^c\setminus\cup_{i\neq j}^\infty E_i^c)) \subseteq E_j^c$.
 \end{solution}
-
 \begin{problem}\label{prob:3.10}
 Theorem 3.5 may fail when $\nu$ is not finite. (Consider $d\nu(x)=dx/x$ and $d\mu(x)=dx$ on $(0, 1)$, or $\nu = \text{counting measure}$ and $\mu(E)=\sum_{n\in E}2^{-n}$ on $\bN$.)
 \end{problem}
 \begin{solution}
-
+We choose the second counterexample. 
+Clearly we have, $\nu\ll\mu$ but for any $\delta>0$ we see that there exists a $E_\delta$ with $\mu(E_\delta)<\delta$ but $\nu(E_\delta)\geq 1$ which just reads ``$E$ is nonempty'' and as the sum $\sum_{n\in\bN}2^{-n}$ converges absolutely we can find such a $E_\delta$ always.
 \end{solution}
-
 \begin{problem}\label{prob:3.11}
 Let $\mu$ be a positive measure. A collection of functions $\{f_{\alpha}\}_{\alpha\in A}\subset L^{1}(\mu)$ is called uniformly integrable if for every $\epsilon>0$ there exists $\delta>0$ such that $|\int_{E}f_{\alpha}d\mu|<\epsilon$ for all $\alpha\in A$ whenever $\mu(E)<\delta$.
 \begin{enumerate}[label=\alph*.]
@@ -167,17 +172,30 @@ Let $\mu$ be a positive measure. A collection of functions $\{f_{\alpha}\}_{\alp
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+	\item Consider $A=\qty{1,\ldots,n}$; for any $\epsilon>0$, as $f_jd\mu\ll\mu$ where $f_jd\mu$ are finite meausres, we can find $\delta_j>0$ such that $|\int_{E}f_jd\mu|<\epsilon$ for all $j\in A$ whenever $\mu(E)<\delta_j$ so taking $\delta=\min_j\delta_j$ suffices.
+	\item As $f_n$ converges in $L^1$, it is cauchy in this metric too so for any $\epsilon>0$ we can find $N$ such that $m,n\geq N\implies|\int_Ef_m-\int_Ef_n|\leq\int|f_m-f_n|<\epsilon$ and by the previous problem, as $\{f_1,\ldots,f_N\}$ are uniformly integrable, we can find $\delta>0$ such that, $|\int_E f_j|<\epsilon<2\epsilon$ for $1\leq j\leq N$ whenever $\mu(E)<\delta$ and for $n>N,$
+		\[
+		    \qty|\int_Ef_nd\mu|\leq\qty|\int_Ef_Nd\mu|+\qty|\int_Ef_n-f_Nd\mu|<\epsilon+\epsilon=2\epsilon
+		\]
+	so we are done.
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:3.12}
 For $j=1,2,$ let $\mu_{j}$, $\nu_{j}$ be $\sigma$-finite measures on $(X_{j},\mM_{j})$ such that $\nu_{j}\ll\mu_{j}$. Then $\nu_{1}\times\nu_{2}\ll\mu_{1}\times\mu_{2}$ and
 \[\frac{d(\nu_{1}\times\nu_{2})}{d(\mu_{1}\times\mu_{2})}(x_{1},x_{2})=\frac{d\nu_{1}}{d\mu_{1}}(x_{1})\frac{d\nu_{2}}{d\mu_{2}}(x_{2}).\]
 \end{problem}
 \begin{solution}
-
+Suppose $\mu_1\times\mu_2(E)=0$ then we see that $0=\int\mu_1(E_x)d\mu_2(x)$ implying $\mu_1(E_x)=0$ (this in turn implies $\nu_1(E_x)=0$ here) for $\mu_2$-a.e. $x$ so suppose its true for all $x$ outside $N$ with $\mu_2(N)=0$ which implies $\nu_2(N)=0$ so we have that $\nu_1\times\nu_2(E)=\int\nu_1(E_x)d\nu_2(x)=0$ as $\nu_1(E_x)=0$ for $\nu_2$-a.e. $x$ thus proving $\nu_1\times\nu_2\ll\mu_1\times\mu_2.$ 
+CLearly these product measures are sigma finite too, so we can find a radon nikodyn derivative $f$ i.e. $d(\nu_1\times\nu_2)=fd(\mu_1\times\mu_2)$ and also $f_1,f_2$ such that $f_jd\mu_j=\nu_j$ for $j=1,2$ and by fubini's we see that,
+\[
+	\int\chi_E(x,y)f_1(x)f_2(y)d(\mu_1\times\mu_2(x,y))=\int\int f_1(x)\chi_{E_x}(y)f_2(y)d\mu_2(y)d\mu_1(x)
+\]
+\[
+    =\int\nu_2(E_x)f_1(x)d\mu_1(x)=\int\nu_2(E_x)d\nu_1(x)=\nu_1\times\nu_2(E)=\int\chi_Ef(x,y)d(\mu_1\times\mu_2(x,y))
+\]
+which proves that $f(x,y)=f_1(x)f_2(y)$ for $\mu_1\times\mu_2$ a.e. $(x,y)$ so we have the equality treating them as equivalence classes.
 \end{solution}
-
 \begin{problem}\label{prob:3.13}
 Let $X=[0,1]$, $\mM=\mathcal{B}_{[0,1]}$, $m=$ Lebesgue measure, and $\mu=$ counting measure on $\mM$.
 \begin{enumerate}[label=\alph*.]
@@ -186,41 +204,72 @@ Let $X=[0,1]$, $\mM=\mathcal{B}_{[0,1]}$, $m=$ Lebesgue measure, and $\mu=$ coun
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+	\item As $\mu(E)=0\implies E=\emptyset$, $m\ll\nu$ holds. 
+		If we had $dm=fd\mu$ then we would have $m( \qty{x})=f(x)=0$ for all $x$ which is absurd as it implies $dm=0$. 
+	\item If we had $\mu=\rho+\lambda$ where $\lambda\perp m$ and $\rho\ll m$ then if $[0,1]=M\cup L$ where $L,M$ are $m,\lambda$-null repsectively then as $m(L)=0$ we have that $m(M)=1$ and thus, $\infty=\mu(M)=\rho(M)+\mu(M)=0+1=1$ which is not possible.
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:3.14}
 If $\nu$ is an arbitrary signed measure and $\mu$ is a $\sigma$-finite measure on $(X, \mM)$ such that $\nu\ll\mu$, there exists an extended $\mu$-integrable function $f:X\rightarrow[-\infty,\infty]$ such that $d\nu=f~d\mu$.
+\begin{enumerate}[label=\alph*.]
+	\item It suffices to assume $\mu$ is finite and $\nu$ is positive.
+	\item With these assumptions there exists $E\in\mM$ that is $\sigma$-finite for $\nu$ and $\mu(E)\geq\mu(F)$ for all sets $F$ that are $\sigma$-finite for $\nu$.
+	\item The radon-nikodym theorem applies on $E$. If $F\cap E=0$, then either $\nu(F)=\mu(F)=0$ or $\mu(F)>0$ and $|\nu(F)|=\infty$.
+\end{enumerate}
 \end{problem}
 \begin{solution}
-
+If this is true for positive $\nu$ and finite $\mu$, then for sigma finite $\mu$ we can write $X=\bigcup_1^\infty E_n$ with $E_n$ being $\mu$-finite and mutually disjoint we have $d\nu_n=f_nd\mu_n$ (we safely set $f_n=0$ outside $E_n$) where $\mu_n(E):=\mu(E\cap E_n)$ and $\nu_n(E)=\nu(E\cap E_n)$ as $\mu_n$ is finite and clearly $\nu_n\ll\mu_n$ still holds. 
+Then, with $f=\sum_1^\infty f_n$ we would have $d\nu=fd\mu$. 
+If $\nu$ was signed on top of that, then using \hyperref[prob:3.8]{Problem 3.8} which states $\nu\ll\mu\implies\nu^+,\nu^-\ll\mu$ we can find $f^+,f^-$ with $d\nu^-=f^-d\mu,d\nu^+=f^+d\mu$ we have $d\nu=d\nu^+-d\nu^-=(f^+-f^-)d\mu$ and $f^+-f^-$ is clearly extended integrable as $\nu$, by definition can only assume atmost one of the values $+\infty,-\infty$. 
+We now prove it for this case. 
+Consider the set $ \qty{\mu(H):H\in\mM,H\text{ is }\nu\,\sigma\text{-finite}}$, let $s$ be its supremum, then $s<\infty$ as $\mu$ is finite and we can find a $\nu$ $\sigma$-finite sequence of sets $F_n$ such that $\mu(F_n)\longrightarrow s$, then we can clearly see that $\mu(\cup F_n)=s$ as $\cup F_n$ is clearly still $\nu$ $\sigma$-finite and we can show both sides of the equality easily. 
+Setting $E=\cup F_n$ gives us a set as described in hint (b).
+The radon nikodym theorem applies on $E$ clearly. 
+If $F\cap E=\emptyset$ then if we have $\nu(F)>0$ we must have $\mu(F)>0$ as $\nu\ll\mu$which forces $\nu(F)=\infty$ as otherwise the existence of $E\cup F$ contradicts the maximality of $E$ and if we have $\mu(F)>0$ then again we similarly have $\nu(F)=\infty$ such as to not contradict the maximality of $E$ so we have proved the claim in hint (c). 
+There are now two cases, first one being whem $\nu(E^c)=\mu(E^c)=0$, in this case we can apply radon-nikodym to get a derivative $f$ on $E$ and extend it to the rest of the set by setting it to be zero outside this, then we see that,
+\[
+	\nu(K)=\nu(K\cap E)+\underbrace{\nu(K\cap E^c)}_{\leq\nu(E^c)=0}=\int_{K\cap E}f\,\mathrm{d}\mu=\int_K f\,\mathrm{d}\mu
+\]
+as $\nu$ was assumed to be positive and $\mu(E^c)=0$ so we have $d\nu=fd\mu$ in general so we are done.
+In the other case where $\mu(E^c)>0$ and $\nu(E^c)=\infty$ we can set $f$ to be $\infty$ on $E^c$, then we see that $\nu(E\cap K)=\int_{E\cap K}fd\mu$ as usual and either $\nu(E^c\cap K)=\mu(E^c\cap K)=0$ or $\nu(E^c\cap K)=\infty$ and $\mu(E^c\cap K)>0$ so we see that $\int_{E^c\cap K}fd\mu$ and $\nu(E^c\cap K)$ are either both infinite or both $0$ by part (c) of the hint as $E^c\cap K$ is disjoint from $E$, hence we have the equality,
+\[
+	\nu(K)=\nu(E\cap K)+\nu(E^c\cap K)=\int_{E\cap K}fd\mu+\int_{E^c\cap K}fd\mu=\int_Kfd\mu
+\]
+so we are done.
 \end{solution}
-
 \begin{problem}\label{prob:3.15}
 A measure $\mu$ on $(X, \mM)$ is called decomposable if there is a family $\mathfrak{F}\subset\mM$ with the following properties: (i) $\mu(F)<\infty$ for all $F\in\mathfrak{F}$; (ii) the members of $\mathfrak{F}$ are disjoint and their union is $X$; (iii) if $\mu(E)<\infty$ then $\mu(E)=\sum_{F\in\mathfrak{F}}\mu(E\cap F)$; (iv) if $E\subset X$ and $E\cap F\in\mM$ for all $F\in\mathfrak{F}$ then $E\in\mM$.
 \begin{enumerate}[label=\alph*.]
     \item Every $\sigma$-finite measure is decomposable.
-    \item If $\mu$ is decomposable and $\nu$ is any signed measure on $(X, \mM)$ such that $\nu\ll\mu$, there exists a measurable $f:X\rightarrow[-\infty,\infty]$ such that $\nu(E)=\int_{E}f~d\mu$ for any $E$ that is $\sigma$-finite for $\mu$, and $|f|<\infty$ on any $F\in\mathfrak{F}$ that is $\sigma$-finite for $\nu$.
+    \item If $\mu$ is decomposable and $\nu$ is any signed measure on $(X, \mM)$ such that $\nu\ll\mu$, there exists a measurable $f:X\rightarrow[-\infty,\infty]$ such that $\nu(E)=\int_{E}f\,d\mu$ for any $E$ that is $\sigma$-finite for $\mu$, and $|f|<\infty$ on any $F\in\mathfrak{F}$ that is $\sigma$-finite for $\nu$. (Use Exercise $14$ if $\nu$ is not $\sigma$-finite.) 
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+	\item It can be easily shown that $\mathfrak F=\{E_n:n\in\bN\}$ works where $E_n$ partition $X$ while being $\mu$-finite.
+	\item Let $\mathfrak F$ be as described in the problem. 
+	As $\mu(F)<\infty$ for any $F\in\mathfrak F$ we can find a measurable $f_F$ on  $F$ such that $\nu(E\cap F)=\int_{E\cap F}fd\mu$ for all $E\in\mM$ by the previous problem and if $F$ is $\sigma$-finite for $\nu$ we can clearly force $|f_F|<\infty$ (in the proof presente in the book we can take all $f_j$'s which are zero outside $A_j$ to be real valued everywhere as shown in case I which makes their sum real valued too as the $A_j$ are disjoint.) as in the proof of the radon-nikodym theorem. 
+	We claim that $f:=f_F$ on $F\in\mathfrak F$ is measurable and it has the properties needed. 
+	For any $E\in\mathcal B_{\overline{\bR}}$ we see that $f^{-1}(E)=\bigcup_{F\in\mathfrak F}f^{-1}(E)\cap F$ and each $f^{-1}(E)\cap F=f|_{F}^{-1}(E)\cap F=f_F^{-1}(E)\cap F\in\mM$ as $f_F$ is measurable which implies that $f^{-1}(E)$ by property (iv). 
+	Now, for any $E$ that is $\sigma$-finite for $\mu$, suppose $E=\cup E_n$ (disjoint union) with $\mu(E_n)<\infty$, then we see that $\mu(E_n)=\sum_{\mathfrak F}\mu(E_n\cap F)<\infty$ and it is well known that only atmost countably many $\mu(E_n\cap F)$ are nonzero, so we can find $\{F_m\}\subseteq\mathfrak F$ such that $\mu(E_n)=\sum_{m=1}^\infty\mu(E_n\cap F_m)$ and thus we also see that $\mu(E_n\setminus(\cup_m(E_n\cap F_m)))=0$ which, by absolute continuity implies $\nu(E_n)=\nu(\cup_m(F_m\cap E_n)=\sum_{m=1}^\infty\mu(E_n\cap F_m)=\sum_{m=1}^\infty\int_{E_n\cap F_m}fd\mu=\int_{E_n}fd\mu$ and thus, $\nu(E)=\sum_1^\infty\nu(E_n)=\sum_1^\infty\int_{E_n}fd\mu=\int_Efd\mu$. 
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:3.16}
 Suppose that $\mu, \nu$ are measures on $(X, \mM)$ with $\nu\ll\mu$, and let $\lambda=\mu+\nu$. If $f=d\nu/d\lambda$, then $0\le f<1$ $\lambda$-a.e. and $d\nu/d\mu=f/(1-f)$.
 \end{problem}
 \begin{solution}
-
+(note: we treat the derivatives as equivalence classes here.) Firstly, it is obvious that $f\geq 0$ $\lambda$-a.e We have $\int_Ed\nu=\nu(E)=\int_Efd(\mu+\nu)\leq\int_Ed\nu+\int_Ed\mu=\int d(\mu+\nu)$, it can then be easily shown that $f\leq 1$ $\lambda$-a.e. 
+If we had $f=1$ over $E$ with $\lambda(E)=\nu(E)+\mu(E)>0$ then we see that, $\nu(E)=\int_Efd\lambda=\lambda(E)$ which implies that $\mu(E)=0$ but then as $\nu\ll\mu$ we have $\nu(E)=0$ too contradicting non-nullity, this proves that $f<1$ $\lambda$-a.e. too so we have proven the first claim. 
+We clearly have $\nu\ll\mu\ll\lambda$ and $\lambda\ll\mu$.
+Thus, $g=d\mu/d\lambda$ exists and by Proposition $3.9$ we see that $f=d\nu/d\lambda=(d\nu/d\mu)(d\mu/d\lambda)=g(d\nu/d\mu)$ and substituting these in we get $d\nu/d\mu=f/g=f/(1-f)$ as $f+g=d\nu/d\lambda+d\mu/d\lambda=d(\mu+\nu)/d\lambda=d\lambda/d\lambda=1.$
 \end{solution}
-
 \begin{problem}\label{prob:3.17}
 Let $(X, \mM, \mu)$ be a $\sigma$-finite measure space, $\mN$ a sub-$\sigma$-algebra of $\mM$, and $\nu=\mu|_{\mN}$. If $f\in L^{1}(\mu)$, there exists $g\in L^{1}(\nu)$ (thus $g$ is $\mN$-measurable) such that $\int_{E}f~d\mu=\int_{E}g~d\nu$ for all $E\in\mN$; if $g^{\prime}$ is another such function then $g=g^{\prime}$ $\nu$-a.e.
 \end{problem}
 \begin{solution}
 
 \end{solution}
-
 \begin{problem}\label{prob:3.18}
 Prove Proposition 3.13c.
 \end{problem}
