@@ -211,7 +211,7 @@ Let $X=[0,1]$, $\mM=\mathcal{B}_{[0,1]}$, $m=$ Lebesgue measure, and $\mu=$ coun
 \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:3.14}
-If $\nu$ is an arbitrary signed measure and $\mu$ is a $\sigma$-finite measure on $(X, \mM)$ such that $\nu\ll\mu$, there exists an extended $\mu$-integrable function $f:X\rightarrow[-\infty,\infty]$ such that $d\nu=f~d\mu$.
+If $\nu$ is an arbitrary signed measure and $\mu$ is a $\sigma$-finite measure on $(X, \mM)$ such that $\nu\ll\mu$, there exists an extended $\mu$-integrable function $f:X\rightarrow[-\infty,\infty]$ such that $d\nu=f~d\mu$. Hints:
 \begin{enumerate}[label=\alph*.]
 	\item It suffices to assume $\mu$ is finite and $\nu$ is positive.
 	\item With these assumptions there exists $E\in\mM$ that is $\sigma$-finite for $\nu$ and $\mu(E)\geq\mu(F)$ for all sets $F$ that are $\sigma$-finite for $\nu$.
@@ -265,10 +265,11 @@ We clearly have $\nu\ll\mu\ll\lambda$ and $\lambda\ll\mu$.
 Thus, $g=d\mu/d\lambda$ exists and by Proposition $3.9$ we see that $f=d\nu/d\lambda=(d\nu/d\mu)(d\mu/d\lambda)=g(d\nu/d\mu)$ and substituting these in we get $d\nu/d\mu=f/g=f/(1-f)$ as $f+g=d\nu/d\lambda+d\mu/d\lambda=d(\mu+\nu)/d\lambda=d\lambda/d\lambda=1.$
 \end{solution}
 \begin{problem}\label{prob:3.17}
-Let $(X, \mM, \mu)$ be a $\sigma$-finite measure space, $\mN$ a sub-$\sigma$-algebra of $\mM$, and $\nu=\mu|_{\mN}$. If $f\in L^{1}(\mu)$, there exists $g\in L^{1}(\nu)$ (thus $g$ is $\mN$-measurable) such that $\int_{E}f~d\mu=\int_{E}g~d\nu$ for all $E\in\mN$; if $g^{\prime}$ is another such function then $g=g^{\prime}$ $\nu$-a.e.
+	Let $(X, \mM, \mu)$ be a $\sigma$-finite measure space, $\mN$ a sub-$\sigma$-algebra of $\mM$, and $\nu=\mu|_{\mN}$ is $\sigma$-finite (This condition is missing in the book statement, without which this is false: Consider the lebesgue measure on $\bR$ as the measure space and take $\mN=\{\emptyset,\bR\}, f=\chi_{[0,1]}$.) If $f\in L^{1}(\mu)$, there exists $g\in L^{1}(\nu)$ (thus $g$ is $\mN$-measurable) such that $\int_{E}f~d\mu=\int_{E}g~d\nu$ for all $E\in\mN$; if $g^{\prime}$ is another such function then $g=g^{\prime}$ $\nu$-a.e. \\
+(In probability theory, $g$ is called the conditional expectation of $f$ on $\mN$.)
 \end{problem}
 \begin{solution}
-
+	As $f\in L^1$ we have that $fd\mu$ is a signed measure and it is clearly still a measure restricted to $\mN$ where we see that $(fd\mu)|_{\mN}\ll\nu=\mu|_{\mN}$ and as $\mN$ is sigma finite for $\nu$ we can apply \hyperref[prob:3.14]{Problem 3.14} to deduce existence of some $g$ such that $(fd\mu)|_{\mN}=gd\nu$ which implies $\int_Efd\mu=\int_Egd\nu$ for all $E\in\mN.$
 \end{solution}
 \begin{problem}\label{prob:3.18}
 Prove Proposition 3.13c.
