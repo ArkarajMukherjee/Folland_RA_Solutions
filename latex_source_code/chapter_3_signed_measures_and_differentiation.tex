@@ -275,34 +275,47 @@ Thus, $g=d\mu/d\lambda$ exists and by Proposition $3.9$ we see that $f=d\nu/d\la
 Prove Proposition 3.13c.
 \end{problem}
 \begin{solution}
-
+Let $g$ be as in the definition ($d\nu=gd\mu$ with $\mu$ being positive) of $|\nu|$ then we see that $|f|d|\nu|=|f||g|d\mu$ and we also have $|f|d\nu=|f|gd\mu$ and we have that,
+\[
+    \qty| \int_{}^{}f\,\mathrm{d}\nu|=\qty| \int_{}^{}fg\,\mathrm{d}\mu|\leq\int|fg|d\mu=\int|f|d|\nu|
+\]
 \end{solution}
-
 \begin{problem}\label{prob:3.19}
 If $\nu, \lambda$ are complex measures and $\mu$ is a positive measure, then $\nu\perp\mu$ iff $|\nu|\perp|\mu|$, and $\nu\ll\lambda$ iff $|\nu|\ll\lambda$.
 \end{problem}
 \begin{solution}
-
+If $\nu\perp\mu$ then by definition $\nu_a\perp\mu_b$ where $a,b=i,r$ following the notation in the book. 
+By \hyperref[prob:3.2]{Problem 3.2} this implies that $|\nu_a|\perp|\mu_b|$ where $a,b=i,r$ and using \hyperref[prob:3.9]{Problem 3.9} twice we see that $|\nu_i|+|\nu_r|\perp|\mu_r|+|\mu_i|$. 
+We see that $\nu\ll|\nu_i|+|\nu_r|$ as $\nu_a\ll|\nu_i|+|\nu_r|$ where $a=i,r$ and similarly for $\mu$ which implies that $\nu\perp|\mu_i|+|\mu_r|$ and by a similar arguement, $\nu\perp\mu.$
+Now if $|\nu|\perp|\mu|$ then, as $\nu\ll|\nu|$ and $\mu\ll|\mu|$ we have that $\nu\perp\mu$. 
 \end{solution}
-
 \begin{problem}\label{prob:3.20}
 If $\nu$ is a complex measure on $(X,\mM)$ and $\nu(X)=|\nu|(X)$, then $\nu=|\nu|$.
 \end{problem}
 \begin{solution}
-
+We see that $\nu(X)=|\nu(X)|=|\nu(E)+\nu(X\setminus E)|\leq|\nu(E)|+|\nu(X\setminus E)|\leq|\nu|(E)+|\nu|(X\setminus E)=|\nu|(X)=\nu(X)$ so all the inequalities must be equalities, which implies that $|\nu(E)|=|\nu|(E)$ as $|\nu(E)|\leq|\nu|(E)$ for all $E\in\mM.$ 
+As we have $|\nu(E)|+|\nu(X\setminus E)|=|\nu(E)+\nu(X\setminus E)|$ which is real, those two complex numbers share the same arguement (unless $0$ but that case is trivial) and as $\nu(E)+\nu(X\setminus E)=\nu(X)$ is real too, they must have no complex part making them real which implies that, $\nu(E)=|\nu(E)|=|\nu|(E)$ proving the claim.
 \end{solution}
-
 \begin{problem}\label{prob:3.21}
 Let $\nu$ be a complex measure on $(X, \mM)$. If $E\in\mM$ define
-$\mu_{1}(E)=\sup\{\sum_{1}^{n}|\nu(E_{j})|:n\in\bN,E_{1},...,E_{n} \text{ disjoint}, E=\bigcup_{1}^{n}E_{j}\}$,
-$\mu_{2}(E)=\sup\{\sum_{1}^{\infty}|\nu(E_{j})|:E_{1},E_{2},... \text{ disjoint}, E=\bigcup_{1}^{\infty}E_{j}\}$,
-$\mu_{3}(E)=\sup\{|\int_{E}f~d\nu|:|f|\le1\}.$
-Then $\mu_{1}=\mu_{2}=\mu_{3}=|\nu|$.
+\[\mu_{1}(E)=\sup\qty{\sum_{1}^{n}|\nu(E_{j})|:n\in\bN,E_{1},...,E_{n} \text{ disjoint}, E=\bigcup_{1}^{n}E_{j}},\]
+\[\mu_{2}(E)=\sup\qty{\sum_{1}^{\infty}|\nu(E_{j})|:E_{1},E_{2},... \text{ disjoint}, E=\bigcup_{1}^{\infty}E_{j}},\]
+\[\mu_{3}(E)=\sup\qty{\qty|\int_{E}f~d\nu|:|f|\leq 1}.\]
+Then $\mu_{1}=\mu_{2}=\mu_{3}=|\nu|$. (First show that $\mu_1\leq\mu_2\leq\mu_3$· To see that $\mu_3 = |\nu|$, let $f=\overline{d\nu/d|v|}$ and apply Proposition $3.13.$ To see that $\nu_3\leq\nu_1$, approximate $f$ by simple functions.)
 \end{problem}
 \begin{solution}
-
+$\mu_1\leq\mu_2$ is obvious and $\mu_2\leq\mu_3$ holds as for any given $E$ and any partition $\qty{E_n}$ of $E$ we can define
+\[
+	f=\sum_n \frac{\overline{\nu(E_n)}}{|\nu(E_n)|}\cdot\chi_{E_n}
+\]
+where the sum is over all $n$ for which $\nu(E_n)\neq 0$, then we clearly see that $|f|\leq 1$ and $\int_Ef\,d\nu=\sum_1^\infty\int_{E_n}f\,d\nu=\sum_1^\infty|\nu(E_n)|$ as $|z|=\overline{z}z/|z|$ for nonzero $z.$ 
+Clearly $\mu_3(E)\leq\int_E d|\nu|=|\nu|(E)$ by Proposition $3.13c$ and with $f$ as in the hint (this can be made to have absolute value atmost $1$ everywhere after changing it on a null set, not affecting any of the integrals below) we see that, 
+\[
+	\int_E\overline{ \frac{d\nu}{d|\nu|}}d\nu=\int_E\overline{ \frac{d\nu}{d\nu|}} \frac{d\nu}{d|\nu|}d|\nu|=\int_E|f|^2d\|\nu|=\int_Ed|\nu|=|\nu|(E)
+\]
+as $|f|=1$ $|\nu|$-a.e. so we must have $\mu_3=|\nu|$. 
+Now, we can  find a sequence of simple functions $\phi_n$ converging $f$ with $|\phi_n|\leq |f|\leq 1$ and convergence can be made uniform here as $f$ is bounded on $E$, this clearly implies that $\lim|\int_E\phi_n\,d\nu|=|\int_E f\,d\nu|$ and thus, as $|\int_E\phi_n\,d\nu|\leq\mu_1(E)$ due to linearity and the triangle inequality we must have $\lim_n|\int_E f\,d\nu|\leq\mu_1(E)$ too so we are done.
 \end{solution}
-
 \begin{problem}\label{prob:3.22}
 If $f\in L^{1}(\bR^{n})$, $f\ne0,$ there exist $C, R > 0$ such that $Hf(x)\ge C|x|^{-n}$ for $|x|>R$. Hence $m(\{x:Hf(x)>\alpha\})\ge C^{\prime}/\alpha$ when $\alpha$ is small, so the estimate in the maximal theorem is essentially sharp.
 \end{problem}
