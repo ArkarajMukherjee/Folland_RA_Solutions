@@ -320,23 +320,32 @@ Now, we can  find a sequence of simple functions $\phi_n$ converging $f$ with $|
 If $f\in L^{1}(\bR^{n})$, $f\ne0,$ there exist $C, R > 0$ such that $Hf(x)\ge C|x|^{-n}$ for $|x|>R$. Hence $m(\{x:Hf(x)>\alpha\})\ge C^{\prime}/\alpha$ when $\alpha$ is small, so the estimate in the maximal theorem is essentially sharp.
 \end{problem}
 \begin{solution}
-
+We are given that $f$ is not $0$ a.e. and thus, $ \int_{\bR}^{}|f|\,\mathrm{d}\mu>0$ and using DCT, we see that there exists some $r>0$ such that $K=\int_{B(0,r)}^{}|f|\,\mathrm{d}\mu>0$. 
+Then, for all $x$, as $B(0,r)\subseteq B(x,|x|+r)$ we have
+\[
+Hf(x)\geq \frac{1}{m(B(x,|x|+r))}\int_{B(x,|x|+r)}|f|\,d\mu\geq \frac{1}{c\cdot(|x|+r)^n}\int_{B(0,r)}|f|\,d\mu\geq \frac{K}{(|x|+r)^n}
+\]
+where $c=m(B(0,1))$. 
+Thus, we can find some $C>0$ and $R>0$ like in the statement. 
+Hence, for small $\alpha>0$ we have $\qty{x:Hf(x)>\alpha}\supseteq \qty{x:C\alpha^{-1}\geq|x|^n>R^n}$. 
+From this we can deduce that, $m( \qty{x:Hf(x)>\alpha})\geq c\cdot(C\alpha^{-1}-R^n)$ which is atleast $C'\alpha^{-1}$ for some $C'>0$ and small $\alpha.$
 \end{solution}
-
 \begin{problem}\label{prob:3.23}
 A useful variant of the Hardy-Littlewood maximal function is $H^{*}f(x)=\sup\{\frac{1}{m(B)}\int_{B}|f(y)|dy:B \text{ is a ball and } x\in B\}$. Show that $Hf\le H^{*}f\le2^{n}Hf$.
 \end{problem}
 \begin{solution}
-
+If $x\in B(p,r)=B$ then we must have that $B(p,r)\subseteq B(x,|x-p|+r)$, thus
+\[
+	\frac{1}{m(B)}\int_B|f|\,dm\leq \frac{c\cdot(|x-p|+r)^n}{c\cdot r^n}Hf(x)\leq 2^nHf(x)
+\]
+where $c=m(B(0,1))$, as $|x-p|<r$ so we must have $H^*f\leq 2^nHf$.
 \end{solution}
-
 \begin{problem}\label{prob:3.24}
 If $f\in L_{loc}^{1}$ and $f$ is continuous at $x$, then $x$ is in the Lebesgue set of $f$.
 \end{problem}
 \begin{solution}
-
+	For all $\epsilon>0$ we can find $\delta>0$ such that $f(B(x,\delta)) \subseteq B(f(x),\epsilon)$, thus for all $0<\delta'<\delta$ we must have $m(B(x,\delta'))^{-1}\int_{B(x,\delta')}|f(x)-f(y)|dy\leq\epsilon$ so it must converge to $0$ implying $x\in L_f.$
 \end{solution}
-
 \begin{problem}\label{prob:3.25}
 If $E$ is a Borel set in $\bR^{n}$, the density $D_{E}(x)$ of $E$ at $x$ is defined as $D_{E}(x)=\lim_{r\rightarrow0}\frac{m(E\cap B(r,x))}{m(B(r,x))}$ whenever the limit exists.
 \begin{enumerate}[label=\alph*.]
@@ -345,16 +354,45 @@ If $E$ is a Borel set in $\bR^{n}$, the density $D_{E}(x)$ of $E$ at $x$ is defi
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+\item Consider the borel measure $\nu(F):=\mu(E\cap F)$, then we have a lebesgue decomposition $\nu=0+\chi_Edm$ and Theorem $3.22.$ we have that $D_E(x)=\chi_E(x)$ for $\mu$-a.e. $x.$ from which the conclusion follows.
+\item Consider $E=\bigcup_{k=1}^{\infty}(B(0,2^{-2k+1})\setminus B(0,2^{-2k}))$ and $x=0$. Let $c = m(B(0,1))$. Then we see that for $m\in\bN$ we have 
+    \[ m(E\cap B(0,2^{-2m+1})) = c\sum_{k=m}^{\infty}\left(2^{n(-2k+1)}-2^{-2kn}\right) = c(2^n-1)\frac{2^{-2mn}}{1-2^{-2n}}. \]
+    Dividing by $m(B(0, 2^{-2m+1})) = c 2^{n(-2m+1)}$, the density along this sequence of radii is:
+    \[ \frac{m(E\cap B(0,2^{-2m+1}))}{m(B(0,2^{-2m+1}))} = \frac{c(2^n-1)2^{-2mn}/(1-2^{-2n})}{c 2^{-2mn} 2^n} = \frac{2^n}{2^n+1}. \]
+    Now consider the sequence of radii $r = 2^{-2m}$. The ball $B(0, 2^{-2m})$ intersects $E$ starting from index $k=m+1$, so:
+    \[ m(E\cap B(0,2^{-2m})) = c\sum_{k=m+1}^{\infty}\left(2^{n(-2k+1)}-2^{-2kn}\right) = c(2^n-1)\frac{2^{-2n(m+1)}}{1-2^{-2n}}. \]
+    Dividing by $m(B(0, 2^{-2m})) = c 2^{-2mn}$ yields:
+    \[ \frac{m(E\cap B(0,2^{-2m}))}{m(B(0,2^{-2m}))} = \frac{c(2^n-1)2^{-2mn}2^{-2n}/(1-2^{-2n})}{c 2^{-2mn}} = \frac{1}{2^n+1}. \]
+    Since $\frac{2^n}{2^n+1}\to 2$ and $ \frac{1}{2^n+1}\to 0$ for all $n \geq 1$, the limit depends on the sequence of radii chosen, hence $D_E(0)$ does not exist.
+    To find an example where $D_E(x) = \alpha \in (0,1)$, choose $x=0$. 
+	If $n \geq 2$, define $E$ as a sector of $\bR^n$ originating at $0$. Let $A \subset S^{n-1}$ be a measurable set on the unit sphere such that its surface measure is $\alpha \sigma(S^{n-1})$ which we can do by considering the function $f:[-1,1]\to\bR$ defined by $f(t):=\sigma( \qty{x\in S^{n-1}:x_1\leq t})$ which can be showed to be continuous via lower and upper continuity, after which we can use the intermediate value theorem. Define $E = \{ y \in \bR^n \setminus \{0\} : y/|y| \in A \}$. For any $r > 0$, $m(E \cap B(0,r)) = \alpha m(B(0,r))$, meaning $D_E(0) = \alpha$ identically for all $r>0$.
+    If $n = 1$, define $E = \bigcup_{k=1}^\infty \left( \left[ \frac{1}{k} - \frac{\alpha}{k(k+1)}, \frac{1}{k} \right] \cup \left[ -\frac{1}{k}, -\frac{1}{k} + \frac{\alpha}{k(k+1)} \right] \right)$. For $r = 1/k$, $m(E \cap (-r, r)) = 2 \sum_{j=k}^\infty \frac{\alpha}{j(j+1)} = \frac{2\alpha}{k} = \alpha (2r)$. Bounding the measure for $r \in (\frac{1}{k+1}, \frac{1}{k})$ shows the ratio to $\alpha$, hence $D_E(0) = \alpha$. 
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:3.26}
 If $\lambda$ and $\mu$ are positive, mutually singular Borel measures on $\bR^{n}$ and $\lambda+\mu$ is regular, then so are $\lambda$ and $\mu$.
 \end{problem}
 \begin{solution}
-
+Define $\nu=\lambda+\mu$ and let $\lambda(A)=\mu(A^c)=0$. 
+For compact $K$ we see that $\lambda(K)+\mu(K)=\nu(K)<\infty$, which implies that $\lambda(K),\mu(K)<\infty$. 
+First, we show outer regularity. 
+If $\lambda(E) = \infty$, the condition $\lambda(E) = \inf\{\lambda(U) : U \supseteq E, U \text{ open}\}$ is trivially satisfied by any open $U \supseteq E$. 
+Assume $\lambda(E) < \infty$. 
+We wish to find an open $U \supseteq E$ with $\lambda(U \setminus E) < \epsilon$. 
+We split $E$ into $E \cap A^c$ and $E \cap A$. 
+Notice that $\nu(E \cap A^c) = \lambda(E \cap A^c) + \mu(E \cap A^c) = \lambda(E \cap A^c) + 0 \le \lambda(E) < \infty$. 
+Since $\nu(E \cap A^c) < \infty$ and $\nu$ is regular, there exists an open $U_1 \supseteq (E \cap A^c)$ with $\nu(U_1 \setminus (E \cap A^c)) < \epsilon/2$, which implies $\lambda(U_1 \setminus (E \cap A^c))\leq\nu(U_1\setminus(E\cap A^c))< \epsilon/2$. 
+For the remaining piece $E \cap A$, we have $\lambda(E \cap A) \le \lambda(A) = 0$. 
+We can write $A = \bigcup_{k=1}^\infty A_k$ where $A_k = A \cap B(0,k)$. 
+As each $A_k$ is bounded, $\nu(A_k) < \infty$, so there exist open sets $V_k \supseteq A_k$ with $\nu(V_k \setminus A_k) < \epsilon/2^{k+1}$. 
+This implies $\lambda(V_k) = \lambda(V_k \setminus A_k) + \lambda(A_k) < \epsilon/2^{k+1} + 0$. 
+Taking $U_2 = \bigcup_{k=1}^\infty V_k$ gives an open set containing $A$ (and thus $E \cap A$) with $\lambda(U_2) \le \sum \lambda(V_k) < \epsilon/2$. 
+Let $U = U_1 \cup U_2$. 
+Then $U$ is open, $U \supseteq E$, and $U \setminus E \subseteq (U_1 \setminus (E \cap A^c)) \cup U_2$. 
+Thus, $\lambda(U \setminus E) \le \lambda(U_1 \setminus (E \cap A^c)) + \lambda(U_2) < \epsilon/2 + \epsilon/2 = \epsilon$ so we have the second condition. 
+The first condition is trivial.
 \end{solution}
-
 \begin{problem}\label{prob:3.27}
 Verify the assertions in Examples 3.25.
 \end{problem}
@@ -365,8 +403,8 @@ Verify the assertions in Examples 3.25.
 \begin{problem}\label{prob:3.28}
 If $F\in NBV$, let $G(x)=|\mu_{F}|((-\infty,x])$. Prove that  $|\mu_{F}|=\mu_{T_{F}}$ by showing that $G=T_{F}$ via the following steps.
 \begin{enumerate}[label=\alph*.]
-    \item From the definition of $T_{F}$, $T_{F}\le G$.
-    \item $|\mu_{F}(E)|\le\mu_{T_{F}(E)}$ when $E$ is an interval, and hence when $E$ is a Borel set.
+	\item From the definition of $T_{F}$, $T_{F}\le G$.
+	\item $|\mu_{F}(E)|\le\mu_{T_{F}}(E)$ when $E$ is an interval, and hence when $E$ is a Borel set.
     \item $|\mu_{F}|\le\mu_{T_{F}}$, and hence $G\le T_{F}$.
 \end{enumerate}
 \end{problem}
