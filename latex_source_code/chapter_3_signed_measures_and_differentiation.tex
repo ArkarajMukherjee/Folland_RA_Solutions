@@ -397,9 +397,8 @@ The first condition is trivial.
 Verify the assertions in Examples 3.25.
 \end{problem}
 \begin{solution}
-
+This is trivial.
 \end{solution}
-
 \begin{problem}\label{prob:3.28}
 If $F\in NBV$, let $G(x)=|\mu_{F}|((-\infty,x])$. Prove that  $|\mu_{F}|=\mu_{T_{F}}$ by showing that $G=T_{F}$ via the following steps.
 \begin{enumerate}[label=\alph*.]
@@ -409,23 +408,60 @@ If $F\in NBV$, let $G(x)=|\mu_{F}|((-\infty,x])$. Prove that  $|\mu_{F}|=\mu_{T_
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+    \item For any $x\in\bR$ and $x_0<\ldots<x_n=x$ we see that,
+        \[
+            \sum_{k=1}^n|F(x_k)-F(x_{k-1})|=\sum_{k=1}^n|\mu_F((x_{k-1},x_k])|\leq\sum_{k=1}^n|\mu_F|((x_{k-1},x_k])=|\mu_F|((x_0,x])
+        \]
+       Which is clearly less than $G(x).$ 
+       This shows that $T_F\leq G$ as $T_F$ is the supremum over all sums of this form.
+   \item For open (we only need these) intervals, the inequality follows from the fact that $T_F(x)-T_F(y)\geq|F(x)-F(y)|$ for $x\geq y$ as we can take limits and say that, for $a<b$
+       \[
+           \mu_{T_F}((a,b))=T_F(b-)-T_F(a)\geq|F(b-)-F(a)|=|\mu_F((a,b))|
+       \]
+       (keep in mind that all the one sided limits exist in this case.) 
+       We know by construction that $\mu_F=\mu_1-\mu_2+i(\mu_3-\mu_4)$ for finite lebesgue stjeltes measures $\mu_i$ as in chapter $1.$ 
+       Let $\mu_5=\mu_{T_F},$ another lebesgue stjeltes measure. 
+       Given borel $E$, by  regularity we can find open sets $U_n^{(i)}\supseteq E$ such that $\mu_i(U_n^{(i)})\to\mu_i(E)$ for all $i$. 
+       Notice that by the \twemoji{sandwich} theorem and monotonicty of $\mu_i$, the sequence of open sets $V_n:=\cap_i U_n^{(i)}$ have the same convergence property by monotonicity of measures and the sandwich property. 
+       As $\mu_i$ are all finite we see that $\mu_F(V_n)\to\mu_F(E).$ 
+       If $\cup I_n$ is a countable disjoint union of open intervals we see that $|\mu_F(\cup I_n)|\leq\mu_{T_F}(\cup I_n)$ by the triangle inequality and sigma additivity of measures.
+       From this, we can conclude that $|\mu_F(V_n)|\leq\mu_{T_F}(V_n)$ for all $n$ and we have the desired inequality by taking the limit as $n\to\infty$
+   \item This can be proven by  the previous part and \hyperref[prob:3.21]{Problem 3.21} directly (look at $\mu_1$) in the hyperlinked problem. 
+       From this we thus have that $G\leq T_F$ by considering left open rays.
+\end{enumerate}
+Now that we have $G=T_F$ we must have that $\mu_G=\mu_{T_F}$ and $\mu_G$ is none other than $|\mu_F|.$
 \end{solution}
-
 \begin{problem}\label{prob:3.29}
 If $F\in NBV$ is real-valued, then $\mu_{F}^{+}=\mu_{P}$ and $\mu_{F}^{-}=\mu_{N}$ where $P$ and $N$ are the positive and negative variations of $F$.
 \end{problem}
 \begin{solution}
-
+It is easily seen that, the positive and negative variations are nonnegative for $NBV$ functions as $F(-\infty)=T_F(-\infty)=0.$ 
+Now, we clearly have $\mu_F=\mu_{P}-\mu_{N}$ (this is true for h-intervals and the sets where this holds forms a sigma algebra due to these being finite measures) which proves that $\mu_P\geq\mu_F^+$ and $\mu_N\geq\mu_F^-$ by \hyperref[prob:3.4]{Problem 3.4}. 
+Now, from page 103 we can also see that
+\[
+    P(x)=\sup\qty{\sum_{k=1}^n[F(x_k)-F(x_{k-1})]^+:x_0<\ldots<x_n=x} + 0
+\]
+as $F\in NBV$, now notice that for $a<b$, we have 
+\[
+    [F(b)-F(a)]^+=[\mu_F((a,b])]^+=[\mu_F^+((a,b])-\mu_F^-((a,b])]^+\leq[\mu_F^+((a,b])]^+=\mu_F^+((a,b])
+\]
+From this we can easily see that $\mu_P((-\infty,x])=P(x)\leq\mu_F^+((-\infty,x])$. 
+But earlier we proved that $\mu_P\geq\mu_F^+$ so we must have equality above and hence $\mu_P=\mu_F^+$ can be easily shown to hold. 
 \end{solution}
-
 \begin{problem}\label{prob:3.30}
 Construct an increasing function on $\bR$ whose set of discontinuities is $\bQ$.
 \end{problem}
 \begin{solution}
-
+    Consider an ennumeration $\{q_n\}$ of the rationals. 
+    Define $f(x):=\sum_{q_n<x}2^{-n}$ then it is obvious that for rationals $r$ we have $f(q_n+)-f(q_n-)\geq 2^{-n}$ making it discontinuous on the rationals. 
+    Now, if $x$ is an irrational, let $\delta>0$ be such that $q_1,\ldots,q_m\not\in(x-\delta,x+\delta)$, we can do this becasue $x$ is irrational. 
+    In this case, we see that for $y\in(x-\delta,x+\delta)$
+    \[
+        |f(x)-f(y)|=\sum_{q_n\in[x-\delta,x+\delta)}\frac1{2^n}\leq\sum_{n>m}\frac1{2^n}=\frac1{2^{m+1}}
+    \]
+    Thus we have continuity at the irrationals as this can be made arbitrarily small for larger $m$ and small enough $\delta>0.$
 \end{solution}
-
 \begin{problem}\label{prob:3.31}
 Let $F(x)=x^{2}\sin(x^{-1})$ and $G(x)=x^{2}\sin(x^{-2})$ for $x\ne0,$ and $F(0)=G(0)=0$.
 \begin{enumerate}[label=\alph*.]
@@ -434,23 +470,42 @@ Let $F(x)=x^{2}\sin(x^{-1})$ and $G(x)=x^{2}\sin(x^{-2})$ for $x\ne0,$ and $F(0)
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+    The first part is an exercise in calculus and the next follows from $F'$ being bounded ( $|F'|\leq3$ to be a bit more specific) and $T_G(1)-T_G(n^{-1/2})\gg n$ (this is not to be interpreted as $\infty-\infty$ but rather the total variation in the smaller interval $(n^{-1/2},1) )$
 \end{solution}
-
 \begin{problem}\label{prob:3.32}
 If $F_{1},F_{2},...,F\in NBV$ and $F_{j}\rightarrow F$ pointwise, then $T_{F}\le \liminf T_{F_{j}}$.
 \end{problem}
 \begin{solution}
-
+For any $x\in\bR$ and $\epsilon>0$ consider some $x_0<\ldots<x_n=x$ such that,
+\[
+    \sum_{k=1}^n|F(x_k)-F(x_{k-1})|\geq T_F(x)-\epsilon
+\]
+Then, by pointwise convergence we see that for large enough $j$,
+\[
+    -\epsilon+\sum_{k=1}^n|F(x_k)-F(x_{k-1})|\leq\sum_{k=1}^n|F_j(x_k)-F_j(x_{k-1})|\leq T_{F_j}(x)
+\]
+This shows that $T_{F}(x)-2\epsilon\leq T_{F_j}(x)$ for large enough $j$ and thus, $T_F(x)-2\epsilon\leq\liminf T_{F_j}(x)$. 
+As $\epsilon>0$ was arbitrary we are done.
 \end{solution}
-
 \begin{problem}\label{prob:3.33}
 If $F$ is increasing on $\bR$, then $F(b)-F(a)\ge\int_{a}^{b}F^{\prime}(t)dt$.
 \end{problem}
 \begin{solution}
-
+As we only care about things being defined a.e. we define $F_n(x):=n(F(x+1/n)-F(x))\geq 0$ and we see that, $F_n\to F'$ a.e. thus, by fatou's lemma we have
+\[
+    \int_a^bF'\leq\liminf\int_a^b F_n=\liminf_nn\int_a^bF(x+1/n)-F(x)\,\mathrm{d}m(x)
+\]
+If we set $G(x):=\int_a^xF(t)dm(t)$ then we can pass to rieman integrablity (monotone functions are rieman integrable) and see that the last expression above is
+\[
+    \liminf_n\frac{G(b+1/n)-G(a+1/n)-(G(b)-G(a))}{1/n}=G'(b)-G'(a)=F(b)-F(a)
+\]
+As $G'(t)=F(t)$ by the fundamental theorem of calculus, when $F$ is continuous at $a,b.$ 
+Now, as $F$ is continuous a.e. the set of points where it is continuous must be dense and we can thus find sequences $a_n\searrow a<b\nwarrow b_n$ where $F$ is continuous and thus, 
+\[
+    F(b)-F(a)\geq F(b-)-F(a+)=\lim_{n\to\infty} F(b_n)-F(a_n)\geq\lim\int_{[a_n,b_n]}F'=\int_{(a,b)}F'=\int_a^bF'
+\]
+where the last two equalities are due to the fact that $A\mapsto\int_AF'$ is a measure here ($(a_n,b_n)$ increases to $(a,b)$) and $m(\{a,b\})=0$.
 \end{solution}
-
 \begin{problem}\label{prob:3.34}
 Suppose $F, G\in NBV$ and $-\infty<a<b<\infty.$
 \begin{enumerate}[label=\alph*.]
@@ -461,36 +516,92 @@ Suppose $F, G\in NBV$ and $-\infty<a<b<\infty.$
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+    \item Following steps similar to those the proof of theorem 3.36, taking $\Omega=\{(x,y):a\leq x\leq y\leq b\}$ we can see that,
+        \[
+            \int_{[a,b]}FdG-F(a-)[G(b)-G(a-)]=G(b)[F(b)-F(a-)]-\int_{[a,b]}G(x-)dF(x)
+        \]
+        We can also switch $F,G$ and get another equation
+        \[
+            \int_{[a,b]}GdF-G(a-)[F(b)-F(a-)]=F(b)[G(b)-G(a-)]-\int_{[a,b]}F(x-)dG(x)
+        \]
+        rearranging and adding these we get,
+        \[
+            \int_{[a,b]}(F(x)+F(x-))dF(x)+\int_{[a,b]}(G(x)+G(x-))dF(x)=2(F(b)G(b)-F(a-)G(a-))
+        \]
+    \item If $F$ is continuous at $x$ then we see that 
+        \[
+            \mu_F(\{x\})=\lim_n\mu_F((x+1/n,x])=\lim_n F(x)-F(x+1/n)=0
+        \]
+        and similarly for $G$. 
+        As $F,G$ are NBV we can write them as the differnece of two increasing functions which only ever have countably many discontinuities and thus the set of discontinuities here form countable sets which we call $D_F,D_G$ for $F$ and $G$ respectively. 
+        Then we can see that $\mu_F(D_G)=\sum_{x\in D_G}\mu_F(\{x\})=\sum_{x\in D_G}0=0$ because $F$ is continuous on $D_G$ and similarly $\mu_G(D_F)=0$. 
+        Now, in the equation from the previous part we can write the LHS as, 
+        \[
+            \int_{[a,b]\setminus D_F}(F(x)+F(x-))dF(x)+\int_{[a,b]\setminus D_G}(G(x)+G(x-))dF(x)
+        \]
+        as the integrands are continuous over their domain of integration, we see that $F(x)+F(x-)=2F(x)$ and similarly for $G.$ 
+        From this we can conclude that, 
+        \[
+            \int_{[a,b]}2FdG+\int_{[a,b]}2GdF=2(F(b)G(b)-F(a-)G(a-))
+        \]
+        from which we get the desired equality after cancelling the $2$ out.
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:3.35}
 If $F$ and $G$ are absolutely continuous on $[a, b]$, then so is $FG$, and
 \[\int_{a}^{b}(FG^{\prime}+GF^{\prime})(x)dx=F(b)G(b)-F(a)G(a).\]
 \end{problem}
 \begin{solution}
-
+It suffices to show that $F$ being absolutely continuous implies $F^2$ is absolutely continuous. 
+Indeed, if $F$ is absolutely continuous then it is continuous too and thus is bounded on the compact set $[a,b]$, say $|F|\leq M$. 
+If, $\epsilon>0$ is arbitrary, we can find $\delta>0$ with,
+\[
+    \sum_{i=1}^n(b_i-a_i)<\delta\implies\sum_{i=1}^n|F(b_i)-F(a_i)|<\frac{\epsilon}{M+1}\text{ for }a\leq a_1<b_1<\ldots<b_n\leq b
+\]
+Then, 
+\[
+    \sum_{i=1}^n|F(b_i)^2-F(a_i)^2|\leq M\sum_{i=1}^n|F(b_i)-F(a_i)|\leq\frac{\epsilon M}{M+1}<\epsilon
+\]
+so $F^2$ is also absolutely continuous. 
+Now, it is clear that $F,G$ being absolutely continuous makes their product absolutely continuous too. 
+From Theorem 3.35c we see that $(FG)'\in L^1([a,b],m)$ and the same also holds for $F',G'$. 
+As they all exist a.e., they exist together a.e. as well and we can say that $(FG)'=FG'+F'G$ a.e. and again by the cited theorem,
+\[
+    F(b)G(b)-F(a)G(a)=\int_a^b(FG)'(x)dx=\int_a^b(FG'+F'G)(x)dx
+\]
 \end{solution}
-
 \begin{problem}\label{prob:3.36}
-Let $G$ be a continuous increasing function on $[a, b]$ and let $G(a)=c$, $G(b)=d.$
+Let $G$ be a continuous increasing (we need $G$ to be strictly increasing, otherwise consider constant functions.) function on $[a, b]$ and let $G(a)=c$, $G(b)=d.$
 \begin{enumerate}[label=\alph*.]
-    \item If $E\subset[c,d]$ is a Borel set, then $m(E)=\mu_{G}(G^{-1}(E)).$
+    \item If $E\subset[c,d]$ is a Borel set, then $m(E)=\mu_{G}(G^{-1}(E)).$ (First consider the case where $E$ is an interval.)
     \item If $f$ is a Borel measurable and integrable function on $[c, d]$, then $\int_{c}^{d}f(y)dy=\int_{a}^{b}f(G(x))dG(x)$. In particular, $\int_{c}^{d}f(y)dy=\int_{a}^{b}f(G(x))G^{\prime}(x)dx$ if $G$ is absolutely continuous.
     \item The validity of (b) may fail if $G$ is merely right continuous rather than continuous.
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+    \item The case where this is an interval follows as shown, for $c\leq x<y\leq d$ we just have $\mu_G(G^{-1}([x,y]))=\mu_G([G^{-1}(x),G^{-1}(y)])=G\circ G^{-1}(y)-G\circ G^{-1}(x)=y-x=m([x,y])$. 
+        We can easily show that the collection of sets $E$ for which this works is a sigma algebra as the inverse commutes with the complement and unions, we thus have that the borel sigma algebra over $[c,d]$ is contained in this one which suffices.
+    \item If $f=\chi_E$ ($E\in\mathcal B_{[c,d]}$) then, $\int_a^b\chi_E(G(x))dG(x)=\int_a^b\chi_{G^{-1}(E)}dG(x)=\mu_G(G^{-1}(E))=m(E)=\int_c^d\chi_Edm$ and we can conclude by linearity of the integral and MCT as usual. 
+       If $G$ is NBV, we have that $dG=G'dm$ (can be proven from 3.35c) and by \hyperref[prob:2.14]{Problem 2.14} we are done (split the integrable function into its two parts as usual.)
+   \item In that case the range of $f$ needn't be an interval in the first place. 
+       For example, take $f(x):=x\chi_{[0,1/2)}(x)+(x+1)\chi_{[1/2,1]}$ which is right continuous, increasing and maps $[0,1]$ to $[0,1/2)\cup[3/2,2].$
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:3.37}
 Suppose $F:\bR\rightarrow\bC$. There is a constant $M$ such that $|F(x)-F(y)|\le M|x-y|$ for all $x,y\in\bR$ (that is, $F$ is Lipschitz continuous) iff $F$ is absolutely continuous and $|F^{\prime}|\le M$ a.e.
 \end{problem}
 \begin{solution}
-
+    For the only if direction, absolute continuity follows directly from the definition by considering $\epsilon/{M+1}$ instead of $\epsilon$ and for the derivative to exist a.e. (it is trivially bounded as needed when it does exist) we consider intervals $(n,n+1]$ for $n\in\bZ.$ 
+    Clearly $F$ is still absolutely continuous on this small interval and by Theorem 3.35c we again see that $F'$ exists a.e. in $(n,n+1]$ and thus it exists a.e. in $\bR$ too as the union of countably many disjoint null sets is still null.
+    To prove the if part, for $x<y$ consider $F$ on the interval $[x,y].$ 
+    By Theorem 3.35c we can write $F(x)-F(y)=\int_x^yF'(t)dt$ again and by hypothesis we have,
+    \[
+        |F(x)-F(y)|=\left|\int_x^yF'(t)dt\right|\leq\int_x^y|F'(t)|dt\leq M(y-x)=M|x-y|
+    \]
+    The case of $x>y$ is no different.
 \end{solution}
-
 \begin{problem}\label{prob:3.38}
 If $f:[a,b]\rightarrow\bR$, consider the graph of $f$ as a subset of $\bC$, namely, $\{t+if(t): t\in[a,b]\}$. The length $L$ of this graph is by definition the supremum of the lengths of all inscribed polygons.
 \begin{enumerate}[label=\alph*.]
@@ -499,23 +610,42 @@ If $f:[a,b]\rightarrow\bR$, consider the graph of $f$ as a subset of $\bC$, name
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+    \item This is trivial, just remember how $|x+iy|=\sqrt{x^2+y^2}.$
+    \item If $f$ is absolutely continuous then so is $F$ and by problem 3.35c it can be shown that $\mu_F= F'dm$ on this interval and thus, $\mu_{T_F}=|F'|dm$ by \hyperref[prob:3.28]{Problem 3.28}, this shows that
+        \[
+            L=T_F(b)-T_F(a)=\mu_{T_F}((a,b])=\int_{(a,b]}|F'(t)|dm(t)=\int_a^b[1+f'(t)^2]^{1/2}dm(t)
+        \]
+        as $F'(t)=1+i\cdot f'(t)$ (when it exists.)
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:3.39}
-If $\{F_{j}\}$ is a sequence of nonnegative increasing functions on $[a, b]$ such that $F(x)=\sum_{1}^{\infty}F_{j}(x)<\infty$ for all $x\in[a,b]$, then $F^{\prime}(x)=\sum_{1}^{\infty}F_{j}^{\prime}(x)$ for a.e. $x\in[a,b]$.
+    If $\{F_{j}\}$ is a sequence of nonnegative increasing functions on $[a, b]$ such that $F(x)=\sum_{1}^{\infty}F_{j}(x)<\infty$ for all $x\in[a,b]$, then $F^{\prime}(x)=\sum_{1}^{\infty}F_{j}^{\prime}(x)$ for a.e. $x\in[a,b]$. (It suffices to assume $F_j\in NBV$. onsider the meausres $\mu_{F_j}.)$
 \end{problem}
 \begin{solution}
-
+    Keep in mind the following lemma : If $P_1,P_2,\ldots$ hold a.e. then $\land P_i$ does too, the proof is left as an exercsie.
+    We can consider the functions $G_j(x)=F_j(x+)-F_j(a)$ and $G(x)=F(x+)-F(a)$ instead. These have the same properties as $F_j$ and $F$, and we extend them to make them $NBV$ as done before (they were trivially in $BV([a,b])$ already). Note that $G=\sum G_j$ everywhere, which follows from an application of the monotone convergence theorem with respect to the counting measure. 
+    Consider the measures $\mu_G$ and $\mu_{G_j}$, for which it holds that $\mu_G=\sum_j\mu_{G_j}$ since they agree on right-closed rays. Now, consider the Lebesgue-Radon-Nikodym decompositions $dG = g \, dm + d\lambda$ and $dG_j = g_j \, dm + d\lambda_j$. 
+    We have $\lambda_j \perp m$, and thus $\sum \lambda_j \perp m$ too by \hyperref[prob:3.9]{Problem 3.9} (notice that the proof is still valid if $\nu_j$ are complex measures as well.)
+    Since $\mu_G = \sum \mu_{G_j}$, we must have $dG = (\sum_j g_j) \, dm + \sum \lambda_j$. By the uniqueness criterion in the Lebesgue-Radon-Nikodym theorem, this implies $g = \sum g_j$ a.e. and $\lambda = \sum \lambda_j$. 
+    It is clear from the lebesgue differentiation theorem that $g_j = G_j'$ a.e. and $g = G'$ a.e., so the lemma at the beginning implies that $G' = \sum G_j'$ a.e.  
+    If we now show that $F' = G'$ and $F_j' = G_j'$ a.e., then we would be done using the same lemmat. Suppose $p$ and $q$ are such that $p = q$ a.e. and both are differentiable a.e. We want to show that $p' = q'$ a.e. We can find a set $A \subseteq [a,b]$ where $p = q$ and both are differentiable, such that $m([a,b] \setminus A) = 0$ by the lemma. 
+    Notice that $A$ must be dense in this interval, so for any $x \in A$, we can find a sequence $x_n \in A \setminus \{x\}$ that tends to $x$. By the sequential criterion for limits, we have
+    \[
+        p'(x) = \lim_{n \to \infty} \frac{p(x_n) - p(x)}{x_n - x} = \lim_{n \to \infty} \frac{q(x_n) - q(x)}{x_n - x} = q'(x)
+    \]
+    for all $x \in A$, so we are done.
 \end{solution}
-
 \begin{problem}\label{prob:3.40}
-Let $F$ denote the Cantor function on $[0, 1]$ (see §1.5), and set $F(x)=0$ for $x<0$ and $F(x)=1$ for $x>1$. Let $\{[a_{n},b_{n}]\}$ be an enumeration of the closed subintervals of $[0, 1]$ with rational endpoints, and let $F_{n}(x)=F((x-a_{n})/(b_{n}-a_{n}))$. Then $G=\sum_{1}^{\infty}2^{-n}F_{n}$ is continuous and strictly increasing on $[0, 1]$, and $G^{\prime}=0$ a.e.
+Let $F$ denote the Cantor function on $[0, 1]$ (see §1.5), and set $F(x)=0$ for $x<0$ and $F(x)=1$ for $x>1$. Let $\{[a_{n},b_{n}]\}$ be an enumeration of the closed subintervals of $[0, 1]$ with rational endpoints, and let $F_{n}(x)=F((x-a_{n})/(b_{n}-a_{n}))$. Then $G=\sum_{1}^{\infty}2^{-n}F_{n}$ is continuous and strictly increasing on $[0, 1]$, and $G^{\prime}=0$ a.e. (Use exercise 39)
 \end{problem}
 \begin{solution}
-
+$F_n$ are cleary increasing, continuous and nonnegative and we also see that $G=\sum F_n\leq1<\infty$ as $F_n\leq 1$ for all $n$ by definition. 
+$G$ is also continuous by weirstrass' M-test being the limit of an uniformly converging sequence of continuous functions. 
+Given any $0\leq x<y\leq 1$ we can find some interval with rational endpoints $[a_n,b_n]\subset(x,y)$ and we see that $G(y)-G(x)\geq 2^{-n}(F_n(y)-F_n(x))=2^{-n}(1-0)>0$ by definition again, making $G$ strictly increasing. 
+We see that $G$ is constant on intervals outside the cantor set and thus has derivative $0$ here and as the cantor set has lebesgue measure $0$ we can show that $G'=0$ a.e. by standard procedures. 
+Now, by \hyperref[prob:3.39]{Problem 3.39} we see that $G'(x)=\sum 2^{-n}F_n'(x)$ a.e. and as $F_n'=0$ a.e. too (can be easily shown), we must have $G'=0$ a.e.
 \end{solution}
-
 \begin{problem}\label{prob:3.41}
 Let $A\subset[0,1]$ be a Borel set such that $0<m(A\cap I)<m(I)$ for every subinterval $I$ of $[0, 1]$.
 \begin{enumerate}[label=\alph*.]
@@ -524,9 +654,19 @@ Let $A\subset[0,1]$ be a Borel set such that $0<m(A\cap I)<m(I)$ for every subin
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+    \item Clearly $F$ is lipschitz continuous with constant $1$ and thus its absolutely continuous by \hyperref[prob:3.37]{Problem 3.37} and its strictly increasing as $F(y)-F(x)=m((x,y]\cap A)>0$ for any $x<y$ by definition. 
+        As $F$ is absolutely continuous, by theorem 3.35c we see that $F'\geq 0$ exists a.e, is integrable and $F(x)=F(x)-F(0)=\int_0^xF'(t)dm(t)$. 
+       $F$ can be extended to $\bR$ by setting it equal to $0=F(0)$ for $x<0$ and $m(A)=F(1)$ for $x>1$ and this is NBV so we can talk about $\mu_F.$ 
+       We also see that $\mu_F((-\infty,x]))=(F'dm)((-\infty,x])$ for all $x$ and thus, $\mu_F=F'dm$. 
+       If $E$ is a set of positive meausre and we have $\mu_F(E)=\int_EF'dm=0$ then it must be true that $F'=0$ a.e. in $E$ which again furnishes a set of positve meausre (same as $E$) on which $F'=0.$ 
+       Notice that the measure defined by $\nu(E)=m(E\cap A)$ is the same as $\mu_F$ as they agree on right closed rays and hence we just need to find some $E$ such that $m(E)>0$ whereas $\nu(E)=0$ and the perfect (not a topological property!) candidate is $A^c$ for which $m(A^c)=1-m(A)>0$ whereas $\nu(A^c)=m(A^c\cap A)=0$ so we are done.
+   \item We can easily see that $m(A^c\cap I)=m(I)-m(A\cap I)\in(0,m(I))$ as well, if we let $H(x)=m([0,x]\cap A^c)$ then we see that $H$ has the same properties as $F$ from the previous part. 
+       Thus, $G$ is also absolutely continuous being the linear combination of two absolutely continuous functions. 
+       Given any interval $[x,y]\subset[0,1]$ ($x<y$) suppose for the sake of contradiction that WLOG. $G$ is increasing in this interval, this implies that $G'\geq 0$ a.e. here but this can not be true as it implies $\mu_G=\mu_F-\mu_H$ has $[x,y]$ as a positive set. 
+      But we clearly see that for $V=A^c\cap [x,y]\subseteq[x,y]$ we have $\mu_F(V)=m(V\cap A)=0$ whereas $\mu_H(V)=m(V\cap A^c)>0$ and thus, $\mu_G(V)<0$ which is a contradiction and thus we are done.
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:3.42}
 A function $F:(a,b)\rightarrow\bR(-\infty\le a<b\le\infty)$ is called convex if $F(\lambda s+(1-\lambda)t)\le\lambda F(s)+(1-\lambda)F(t)$ for all $s, t\in(a,b)$ and $\lambda\in(0,1)$.
 \begin{enumerate}[label=\alph*.]
@@ -536,10 +676,60 @@ A function $F:(a,b)\rightarrow\bR(-\infty\le a<b\le\infty)$ is called convex if 
     \item If $F$ is convex and $t_{0}\in(a,b)$, there exists $\beta\in\bR$ such that $F(t)-F(t_{0})\ge \beta(t-t_{0})$ for all $t\in(a,b)$.
     \item (Jensen's Inequality) If $(X, \mM, \mu)$ is a measure space with $\mu(X)=1$, $g:X\rightarrow(a,b)$ is in $L^{1}(\mu)$, and $F$ is convex on $(a, b)$, then
     \[F\left(\int g~d\mu\right)\le\int F\circ g~d\mu.\]
+    (let $t_0=\int gd\mu$ and $t=g(x)$ in (c), and integrate.)
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+    \item This is a standard result from introductory real analysis, it can be proved by just manipulating the inequalities.
+    \item If $F$ is convex then we see that on any compact subinterval $[c,d]$, for $x,y\in[c,d]$ if $F'$ exists on $x,y$ ($x<y$) then, for $h>0$ small enough, by part (a)
+        \[
+            \frac{F(x+h)-F(x)}{(x+h)-x}\leq\frac{F(v)-F(u)}{v-u}\leq\frac{F(y+h)-F(y)}{(y+h)-y}
+        \]
+        where $x<x+h<y<y+h$ and as $h\to 0$ from above, as the derivatives exist at $x,y$ we get that $F'(x)\geq F'(y).$ 
+        It is another standard result that convex functions are continuous and we can also see that if, $c=s'<t'$ and $c<t\leq t'$ then,
+        \[
+            \frac{F(t)-F(c)}{t-c}\leq \frac{F(t')-F(c)}{t'-c}
+        \]
+        Thus, $G(x):=(F(x)-F(c))/(x-c)$ is increasing, similarly we can show that $H(x)=(F(d)-F(x))/(d-x)$ is decreasing. 
+        This, implies that $G(c+),H(d-)$ both exist and we can show that these bound all slopes using an arguement similar to the one we used to show that $F'$ is increasing on the set its defined. 
+        We thus have, for all $x,y$ such that $c\leq x<y\leq d$ we have
+        \[
+            G(c+)\leq\frac{F(y)-F(x)}{y-x}\leq H(d-)
+        \]
+        and thus $F$ is lipschitz with constant atmost $\max\{|G(c+)|,|H(d-)|\}$ so it is absolutely continuous by a previous problem. 
+        We now prove the if direction. 
+        By hypothesis, for any such $s,t,s',t'$ as in part (a), we work in the compact subinterval $[s,t]$ where the inequality in part (a) reduces to the following by theorem 3.35c,
+        \[
+            \frac1{t-s}\int_s^tF'(t)dt\leq\frac1{t'-s'}\int_{s'}^{t'}F'(t)dt
+        \]
+        where $s\leq s'<t'$ and $s<t\leq t'.$ 
+        This is trivial if $s'>t$ so we assume otherwise that $s'\leq t$, where this inequality is true as, 
+        \[
+            \frac1{t-s}\int_s^tF'= \frac{s'-s}{t-s}\cdot\underbrace{\frac1{s'-s}\int_s^{s'}F'}_{\leq\frac1{t-s'}\int_{s'}^tF'}+ \frac{t-s'}{t-s}\cdot\frac1{t-s'}\int_{s'}^tF'\leq\frac1{t-s'}\int_{s'}^tF'
+        \]
+        The inequality in the underbrace is true as all the values appearing in the integralin the left are atmost those appearing in the right and we average these. 
+        It can be similarly shown that the expression on the right is atmost $\frac1{t'-s'}\int_{s'}^{t'}F'$ so we are done. 
+    \item Just like we did for $c,d$ in part (b), it can be showed that the left and right derivatives exist at every point and we pick any $\beta\in[F'(t_0-),F'(t_0+)]$ (left and right derivatives and not the one sided limits of our derivative.) 
+        The conclusion follows just as we did in part (b), we show part of it. 
+        \[
+            F'(t_0+)=\lim_{h\searrow 0}\frac{F(t_0+h)-F(t_0)}{h}\leq\frac{F(y)-F(t_0)}{y-t_0}
+        \]
+        for any $y>t_0$ as $t_0+h<y$ eventually. 
+    \item We see that $\int_Xgd\mu\in(a,b)$ so from part (c), we can find some constant $c$ such that,
+        \[
+            F(t)-F\qty(\int gd\mu)\geq c\cdot\qty(t-\int gd\mu)
+        \]
+        for all $t\in(a,b)$ and thus we can substitute $t=g(x)$ to get,
+        \[
+            F\circ g(x)-F\qty(\int gd\mu)\geq c\cdot\qty(g(x)-\int gd\mu)
+        \]
+        for all $x\in X.$ 
+        Now, integratint both sides we see that,
+        \[
+            \int F\circ g\,d\mu-F\qty(\int g\,d\mu)\geq c\cdot\int gd\mu-\int gd\mu=0
+        \]
+        so we are done.
+\end{enumerate}
 \end{solution}
-
 \end{document}
