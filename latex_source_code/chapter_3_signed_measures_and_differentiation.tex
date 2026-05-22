@@ -152,7 +152,7 @@ As $|\nu|(E)\geq|\nu(E)|$ we have that $|\nu|\ll\mu$ implies $\nu\ll\mu$ and hen
 If $\nu^+,\nu^-\ll\mu$ then $\mu(E)=0$ clearly implies $|\nu|(E)=0$ and if we have $|\nu|\ll\mu$ then $\mu(E)=0$ implies $\nu^+(E)+\nu^-(E)=0$ and thus $\nu^+(E)=\nu^-(E)=0$ proving $\nu^+,\nu^-\ll\mu$ and thus all these conditions are equivalent.
 \end{solution}
 \begin{problem}\label{prob:3.9}
-Suppose $\{\nu_{j}\}$ is a sequence of positive measures. If $\nu_{j}\perp\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\perp\mu$; and if $\nu_{j}\ll\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\ll\mu$.
+Suppose $\{\nu_{j}\}$ is a sequence of positive measures. If $\nu_{j}\perp\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\perp\mu$; and if $\nu_{j}\ll\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\ll\mu$. (This is also true for complex measures when $\sum_1^\infty\nu_j$ is a valid complex measure too)
 \end{problem}
 \begin{solution}
 Say $E_j$ is $\nu_j$-null and $E_j^c$ is $\mu$-null for all $j$, then we see that, let $E=\bigcap E_j$, then we clearly see that $E$ is $\sum_1^\infty\nu_j$-null and we claim that, $E^c=\bigcup E_j^c$ is $\mu$-null. 
@@ -640,7 +640,7 @@ If $f:[a,b]\rightarrow\bR$, consider the graph of $f$ as a subset of $\bC$, name
     Keep in mind the following lemma : If $P_1,P_2,\ldots$ hold a.e. then $\land P_i$ does too, the proof is left as an exercsie.
     We can consider the functions $G_j(x)=F_j(x+)-F_j(a)$ and $G(x)=F(x+)-F(a)$ instead. These have the same properties as $F_j$ and $F$, and we extend them to make them $NBV$ as done before (they were trivially in $BV([a,b])$ already). Note that $G=\sum G_j$ everywhere, which follows from an application of the monotone convergence theorem with respect to the counting measure. 
     Consider the measures $\mu_G$ and $\mu_{G_j}$, for which it holds that $\mu_G=\sum_j\mu_{G_j}$ since they agree on right-closed rays. Now, consider the Lebesgue-Radon-Nikodym decompositions $dG = g \, dm + d\lambda$ and $dG_j = g_j \, dm + d\lambda_j$. 
-    We have $\lambda_j \perp m$, and thus $\sum \lambda_j \perp m$ too by \hyperref[prob:3.9]{Problem 3.9} (notice that the proof is still valid if $\nu_j$ are complex measures as well.)
+    We have $\lambda_j \perp m$, and thus $\sum \lambda_j \perp m$ too by \hyperref[prob:3.9]{Problem 3.9} (notice that $\lambda_j,\lambda$ are positive measures as well.)
     Since $\mu_G = \sum \mu_{G_j}$, we must have $dG = (\sum_j g_j) \, dm + \sum \lambda_j$. By the uniqueness criterion in the Lebesgue-Radon-Nikodym theorem, this implies $g = \sum g_j$ a.e. and $\lambda = \sum \lambda_j$. 
     It is clear from the lebesgue differentiation theorem that $g_j = G_j'$ a.e. and $g = G'$ a.e., so the lemma at the beginning implies that $G' = \sum G_j'$ a.e.  
     If we now show that $F' = G'$ and $F_j' = G_j'$ a.e., then we would be done using the same lemmat. Suppose $p$ and $q$ are such that $p = q$ a.e. and both are differentiable a.e. We want to show that $p' = q'$ a.e. We can find a set $A \subseteq [a,b]$ where $p = q$ and both are differentiable, such that $m([a,b] \setminus A) = 0$ by the lemma. 
