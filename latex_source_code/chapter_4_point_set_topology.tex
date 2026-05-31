@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs, graphicx, physics, enumitem, geometry, esint,twemojis}
+\usepackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs, graphicx, physics, enumitem, geometry, esint,twemojis,quiver}
 \geometry{margin=1in}
 \usepackage[dvipsnames]{xcolor}
 \definecolor{EvanPink}{rgb}{0.85, 0.13, 0.55}
@@ -70,7 +70,7 @@ If $\operatorname{card}(X) \ge 2$, there is a topology on $X$ that is $T_0$ but 
 If $X$ is an infinite set, the cofinite topology on $X$ is $T_1$ but not $T_2$, and is first countable iff $X$ is countable.
 \end{problem}
 \begin{solution}
-If $x,y$ are distinct elements of $X$ then as $X\setminus \qty{x}$ is open (it has a finite complenent $ \qty{x}$) we see that this is $T_1$ but this is not $T_2$ as we can not have two nonempty disjoint open sets to begin with, indeed if $U,V$ are open and disjoint then we must have that $V\subseteq U^c$ which is finite ($U\neq\emptyset$ by assumption) and this in turn makes $V^c$ infinite contradicting open it being open in the first place as $V\neq\emptyset$ either. 
+If $x,y$ are distinct elements of $X$ then as $X\setminus \qty{x}$ is open (it has a finite complenent $ \qty{x}$) we see that this is $T_1$ but this is not $T_2$ as we can not have two nonempty disjoint open sets to begin with, indeed if $U,V$ are open and disjoint then we must have that $V\subseteq U^c$ which is finite ($U\neq\emptyset$ by assumption) and this in turn makes $V^c$ infinite contradicting it being open in the first place as $V\neq\emptyset$ either. 
 
 If $X$ is first countable then consider a countable base $B_{x_0}$ of $x_0\in X$. 
 For $y\neq x$, $X\setminus \qty{y}$ is a open neighbourhood of $x$ and thus we can find $U\in B_{x_0}$ such that $x\in U\subset X\setminus \qty{y}$ and thus, $y\in U^c$ with $U^c$ being finite. 
@@ -227,22 +227,31 @@ If $X$ is a topological space, $U$ is open in $X$, and $A$ is dense in $X$, then
 \begin{solution}
     It suffices to show that $U\subseteq\overline{U\cap A}.$ 
     Assume for the sake of contradiction that there exists some $x\in U$ such that $x\in(\overline{U\cap A})^c=H$ which is open. 
-    Thus, $U\cap H$ is a nonempty(they both contain $x$) open set and thus, as $A$ is dense we must have that $A\cap(U\cap H)$ is nonempty which is absurd as $A\cap U\cap H=(A\cap U)\cap(U\setminus\overline{A\cap U})=\emptyset$ so we are done. 
+    Thus, $U\cap H$ is a nonempty (they both contain $x$) open set and thus, as $A$ is dense we must have that $A\cap(U\cap H)$ is nonempty which is absurd as $A\cap U\cap H=(A\cap U)\cap(U\setminus\overline{A\cap U})=\emptyset$ so we are done. 
 \end{solution}
 \begin{problem}\label{prob:4-14}
 If $X$ and $Y$ are topological spaces, $f : X \to Y$ is continuous iff $f(\overline{A}) \subset \overline{f(A)}$ for all $A \subset X$ iff $\overline{f^{-1}(B)} \subset f^{-1}(\overline{B})$ for all $B \subset Y$.
 \end{problem}
 \begin{solution}
-
+    If $f$ is continuous then for all closed $C$ containing $f(A)$ we must have that $A\subseteq f^{-1}(C)$ which is closed and thus $ \overline{A} \subseteq f^{-1}(C)$ and thus, $f( \overline{A} )\subseteq f(f^{-1}(C))\subseteq C$ so we must have that $f( \overline{A}) \subseteq\cap C= \overline{f(A)}$ where the union is over all such closed $C.$ 
+    If the second hypothesis holds, then as
+    \[
+        f^{-1}( \overline{B})=\bigcap_{\substack{B \subseteq C\\ C\text{ closed}}}f^{-1}(C)
+    \]
+    and $\overline{B}\subseteq C\implies f^{-1}( \overline{B}) \subseteq f^{-1}(C)$ for all the $C$ as above, we see that the third hypothesis holds too. 
+    Now, if the third hypothesis holds then for all closed $C$ we must have $ \overline{f^{-1}(C)} \subseteq f^{-1}(C)$ as $C=\overline{C}$ and this implies that $f^{-1}(C)= \overline{f^{-1}(C)}$ so preimages of closed sets are closed, which is equivalent to continuity so we are done. 
 \end{solution}
-
 \begin{problem}\label{prob:4-15}
 If $X$ is a topological space, $A \subset X$ is closed, and $g \in C(A)$ satisfies $g = 0$ on $\partial A$, then the extension of $g$ to $X$ defined by $g(x) = 0$ for $x \in A^c$ is continuous.
 \end{problem}
 \begin{solution}
-
+    We see that $X=A\cup\overline{A^c}$ and as $ \overline{A^c}=A^c\cup\partial A$, it must be the case that $g$ is continuous on both $\overline{A^c}$ (its constant here) and $A$ and hence, for any closed $C$ 
+    \[
+        g^{-1}(C)=(g^{-1}(C)\cap A)\cup(g^{-1}(C)\cap\overline{A^c})=g|_{A}^{-1}(C)\cup g|_{\overline{A^c}}^{-1}(C)
+    \]
+    and as $A$ and $ \overline{A^c}$ are both closed we must have that $g|_{A}^{-1}(C)$ and $g|_{\overline{A^c}}^{-1}(C)$ are both closed. 
+    As finite unions of closed sets are closed, $g^{-1}(C)$ is closed so we are done. 
 \end{solution}
-
 \begin{problem}\label{prob:4-16}
 Let $X$ be a topological space, $Y$ a Hausdorff space, and $f, g$ continuous maps from $X$ to $Y$.
 \begin{enumerate}[label=\alph*.]
@@ -251,72 +260,146 @@ Let $X$ be a topological space, $Y$ a Hausdorff space, and $f, g$ continuous map
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+    \item Consider $E=Y\times Y$ with the product topology and let $h:X\to E$ be defined by $h(x):=(f(x),g(x))$ which is continuous as its components are. 
+        Here, we see that,
+        \[
+            \qty{x\in X : f(x) = g(x)} = h^{-1}( \qty{(y,y):y\in Y})
+        \]
+        and we claim that the diagonal $\Delta$ is closed. 
+        It suffices to prove that its complement is open, indeed if $x\neq y$ and $U_x,U_y$ are disjoint open sets seperating them, we see that $U_x\times U_y$ is open in the product topology and
+        \[
+            \Delta^c=\bigcup_{(x,y)\in\Delta^c}U_x\times U_y
+        \]
+        is open so we are done. 
+    \item This follows from the fact that closed dense sets are always the whole space itself.
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:4-17}
 If $X$ is a set, $\mathfrak{F}$ a collection of real-valued functions on $X$, and $\mathcal{T}$ the weak topology generated by $\mathfrak{F}$, then $\mathcal{T}$ is Hausdorff iff for every $x, y \in X$ with $x \neq y$ there exists $f \in \mathfrak{F}$ with $f(x) \neq f(y)$.
 \end{problem}
 \begin{solution}
-
+    If $x,y$ are distinct and there exists some $f$ that maps them to different values then, as $f$ is continuous over the weak topology, for disjoint open sets $U\ni f(x),V\ni f(y)$ we see that $f^{-1}(U)\ni x,f^{-1}(V)\ni y$ are disjoint open sets so $\mathcal T$ is hausdorff. 
+    Now, suppose this topology is hausdorff and we have $f(x)=f(y)=c$ for all $f$, for some  distinct $x,y$. 
+    Now, for all open $U\in\bR$ we see that $c\in U$ implies $f^{-1}(U)$ contains both $x,y$ for all $f$, and otherwise it contains none of $x,y$ for all $f$. 
+    Thus, all the sets in the generator either have both $x,y$ or none of these and by proposition 4.4 the open sets too have this property and are unable to seperate these distinct points which makes $\mathcal T$ not hausdorff so we are done. 
 \end{solution}
-
 \begin{problem}\label{prob:4-18}
 If $X$ and $Y$ are topological spaces and $y_0 \in Y$, then $X$ is homeomorphic to $X \times \{y_0\}$ where the latter has the relative topology as a subset of $X \times Y$.
 \end{problem}
 \begin{solution}
-
+We can consider the bijection $x\mapsto (x,y_0)$. 
+This is continuous as under the relative topology here, a generator of $X\times\{y_0\}$ is $\{U\times\{y_0\}:U\text{ open in }X\}$ and the preimages of these under this map are exactly the open sets in $X$, so we are done by proposition $4.9$. 
 \end{solution}
-
 \begin{problem}\label{prob:4-19}
 If $\{X_\alpha\}$ is a family of topological spaces, $X = \prod_{\alpha} X_\alpha$ (with the product topology) is uniquely determined up to homeomorphism by the following property: There exist continuous maps $\pi_\alpha : X \to X_\alpha$ such that if $Y$ is any topological space and $f_\alpha \in C(Y,X_\alpha)$ for each $\alpha$, there is a unique $F \in C(Y,X)$ such that $f_\alpha = \pi_\alpha \circ F$. (Thus $X$ is the category-theoretic product of the $X_\alpha$ in the category of topological spaces.)
 \end{problem}
 \begin{solution}
-
+We describe the situation with a commutative diagram below. 
+% https://q.uiver.app/#q=WzAsNCxbMiwwLCJZIl0sWzIsMiwiXFxwcm9kIFhfXFxhbHBoYSJdLFs0LDIsIlhfXFxiZXRhIl0sWzAsMiwiWF9cXGFscGhhIl0sWzAsMSwiXFxleGlzdHMgIUYiXSxbMCwyLCJmX1xcYmV0YSJdLFsxLDIsIlxccGlfXFxiZXRhIiwyXSxbMCwzLCJmX1xcYWxwaGEiLDJdLFsxLDMsIlxccGlfXFxhbHBoYSJdXQ==
+\[\begin{tikzcd}[row sep=2.25em]
+	&& Y && \\
+	\\
+	{X_\alpha} && {\prod X_\alpha} && {X_\beta}
+	\arrow["{f_\alpha}"', from=1-3, to=3-1]
+	\arrow["{\exists !F}", from=1-3, to=3-3]
+	\arrow["{f_\beta}", from=1-3, to=3-5]
+	\arrow["{\pi_\alpha}", from=3-3, to=3-1]
+	\arrow["{\pi_\beta}"', from=3-3, to=3-5]
+\end{tikzcd}\]
+If $f_\alpha\in C(Y,X_\alpha)$ for all $\alpha$ then we see that $f_\alpha^{-1}(U_\alpha)$ is open in $Y$ for all $\alpha$, where $U_\alpha$ is open in $X_\alpha$. 
+If such a $F$ were to exist then for this diagram to commute we must have that $\pi_\alpha\circ F=f_\alpha$ and thus, $F$ is forced to be the map sending $y\mapsto (f_\alpha(y))_{\alpha\in A}$ and is also continiuous as all its components are due to how the product topology is defined and so it is indeed the unique such map in $C(Y,X).$ 
+Now, suppose that $Z$ had the same properties, let $\tau$ take the place of $\pi$ and if $Y=X$ and $f_\alpha=\pi_\alpha\in C(X,X_\alpha)$ (the projections are continuous) then by definition there exists a map $G\in C(X,Z)$ such that $\pi_\alpha=\tau_\alpha\circ G$ i.e this diagram commutes
+% https://q.uiver.app/#q=WzAsNCxbMiwwLCJcXHByb2QgWF9cXGFscGhhIl0sWzQsMiwiWF9cXGJldGEiXSxbMCwyLCJYX1xcYWxwaGEiXSxbMiwyLCJaIl0sWzAsMSwiXFxwaV9cXGJldGEiLDJdLFswLDIsIlxccGlfXFxhbHBoYSJdLFszLDEsIlxcdGF1X1xcYmV0YSIsMl0sWzMsMiwiXFx0YXVfXFxhbHBoYSJdLFswLDMsIkciLDJdXQ==
+\[\begin{tikzcd}[row sep=2.25em]
+	&& {\prod X_\alpha} && \\
+	\\
+	{X_\alpha} && Z && {X_\beta}
+	\arrow["{\pi_\alpha}", from=1-3, to=3-1]
+	\arrow["G"', from=1-3, to=3-3]
+	\arrow["{\pi_\beta}"', from=1-3, to=3-5]
+	\arrow["{\tau_\alpha}", from=3-3, to=3-1]
+	\arrow["{\tau_\beta}"', from=3-3, to=3-5]
+\end{tikzcd}\]
+By definition there exists $H\in C(Z,X)$ such that $\tau_\alpha=\pi_\alpha\circ H$ implying, $\pi_\alpha=\pi_\alpha\circ(H\circ G)$ and similarly, $\tau_\alpha=\tau_\alpha\circ(G\circ H)$. 
+Now, by uniqueness of $F$ in the exercise statemen we must have that $H\circ G=e_X$ and $G\circ H=e_Z$ as $\pi_\alpha=\pi_\alpha\circ e_X$ and $\tau_\alpha=\tau_\alpha\circ e_Z$ which tells us that $H$ is invertible and as composition of continuous maps are continuous, $X$ and $Z$ are homeomorphic through $H$ so we are done. 
 \end{solution}
-
 \begin{problem}\label{prob:4-20}
 If $A$ is a countable set and $X_\alpha$ is a first (resp. second) countable space for each $\alpha \in A$, then $\prod_{\alpha \in A} X_\alpha$ is first (resp. second) countable.
 \end{problem}
 \begin{solution}
-
+    Assume WLOG $A=\bN$. 
+    If $X_k$ are first countable then for some $x\in\prod X_k$ conisder the neighbourhood bases $\mN(x_k)$ of $x_k$ in $X_k.$
+    Looking at the generators of the product topology of form $\cap_{j=1}^n\pi_{k_j}^{-1}(U_{k_j})$ containing $x$ i.e. $U_{k_j}\ni x_{k_j}$ open in $X_{k_j}$ we see that there exists $V_{k_j}\in\mN(x_{k_j})$ such that $x_{k_j}\in V_{k_j} \subseteq U_{k_j}$ and thus,
+    \[
+        x\in\bigcap_{j=1}^n\pi^{-1}_{k_j}(V_{k_j}) \subseteq\bigcap_{j=1}^n\pi_{k_j}^{-1}(U_{k_j})
+    \]
+   so the following is a neighbourhood base for $x$ in the product topology
+   \[
+       \qty{\bigcap_{j\in J}\pi_j^{-1}(N_j):J \subseteq\bN,J\text{ is finite},(\forall j\in J)N_j\in\mN(x_j)}
+   \]
+   We can construct an obvious injection from this to
+   \[
+       \bigsqcup_{J \subseteq\bN:J\text{ finite}}\underbrace{\prod_{j\in J}\bN}_{\text{countable}}
+   \]
+   which is countable, being a countable disjoint union of countable sets. 
+   Now, if they were second countable then the exact same construction gives us a base if we replace the countbale neighbourhood bases with bases.
 \end{solution}
-
 \begin{problem}\label{prob:4-21}
 If $X$ is an infinite set with the cofinite topology, then every $f \in C(X)$ is constant.
 \end{problem}
 \begin{solution}
-
+    By continuity we see that for any closed $C\subseteq\bR$ we must have $f^{-1}(C)$ closed in $X$ and hence finite, unless its all $X.$ 
+    Now, suppose $f$ is not constant and there are distinct $x,y\in f(X).$ 
+    Let, $C_x,C_y$ be closed sets formed from $\bR$ by removing small enough open intervals around $x,y$ respectively such that $C_x\cup C_y=\bR.$ 
+    Then we see that $X=f^{-1}(\bR)=f^{-1}(C_x)\cup f^{-1}(C_y)$ where both the preimages are closed and not the whole space as $x\neq y$ and thus they must be finite which is impossible as $X$ is infinite. 
 \end{solution}
-
 \begin{problem}\label{prob:4-22}
 Let $X$ be a topological space, $(Y,\rho)$ a complete metric space, and $\{f_n\}$ a sequence in $Y^X$ such that $\sup_{x \in X} \rho(f_n(x), f_m(x)) \to 0$ as $m, n \to \infty$. There is a unique $f \in Y^X$ such that $\sup_{x \in X} \rho(f_n(x), f(x)) \to 0$ as $n \to \infty$. If each $f_n$ is continuous, so is $f$.
 \end{problem}
 \begin{solution}
-
+    Clearly for any fixed $x\in X$ the sequence $ \qty{f_n(x)}_{n}$ is cauchy and thus converges to say $f(x).$ 
+    For any $\epsilon>0$ choose $N$ such that $m,n\geq N$ implies $\rho(f_n(x),f_m(y))<\epsilon$ for all $x\in X$ and thus $\rho(f(x),f_n(x))\leq\rho(f_n(x),f_m(x))+\rho(f_m(x),f(x))<\epsilon+\rho(f_m(x),f(x))$ 
+    As, $m\to\infty$ we find that $\rho(f_m(x),f(x))\to 0$ so we must have that $\rho(f_n(x),f(x))\leq\epsilon$ and thus $\sup_{x\in X}\rho(f(x),f_n(x))$ must converge to $0$ as $n\to\infty.$ 
+    Now suppose that $g$ was another such function, then as $\rho(f(x),g(x))\leq\rho(f_n(x),f(x))+\rho(g_n(x),g(x))\to 0$ for all $x\in X$ we must have $f=g$ proving uniqueness. 
+   With the metric topology in mind it suffices to prove that for all $x\in X$ and $\epsilon>0$ there exists a neighbourhood $V$ of $x$ such that $f(V)\subseteq B(f(x),\epsilon)$. 
+   First choose $N$ such that $\rho(f(x),f_N(x))<\epsilon/3$ for all $x$ (we can do this by the previous part), then if $V$ is a neighbournood of $x$ such that $f_N(V)\subseteq B(f_N(x),\epsilon/3)$ then, for all $y\in V$
+   \[
+   \rho(f(x),f(y))\leq\rho(f_N(x),f_N(y))+\rho(f_N(x),f(x))+\rho(f_N(y),f(y))< \frac{\epsilon}{3}+\frac{\epsilon}{3}+\frac{\epsilon}{3}=\epsilon 
+   \]
+   and thus $f(V)\subseteq B(f(x),\epsilon)$ and we are done as the balls around $f(x)$ form a neighbourhood base and this easily shows that $f$ is continuous at all $x\in X$ and thus it is continuous over $X. $ 
 \end{solution}
-
 \begin{problem}\label{prob:4-23}
 Give an elementary proof of the Tietze extension theorem for the case $X = \bR$.
 \end{problem}
 \begin{solution}
-
+    Suppose $f\in C(A)$ with $A$ closed. 
+    As open sets in $\bR$ are disjoint unions of countably many open intervals. 
+    Say we have $A^c=\cup (a_n,b_n)$ where these intervals are disjoint; this might be a finite union and rays are also considered an interval. 
+    If $(a_n,b_n)$ is a bounded interval then define $F$ to be the line joining $f(a_n)$ to $f(b_n)$ on this, if its a ray (suppose left open wlog) $(-\infty,b)$ then set $F$ to be $f(b)$ here and if $a\in A$ then set $F(a)=f(a).$ 
+    This definetly works but going through all the cases to prove this using sequential criterion is something I will postpone for later.   
 \end{solution}
-
 \begin{problem}\label{prob:4-24}
-A Hausdorff space $X$ is normal iff $X$ satisfies the conclusion of Urysohn's lemma iff $X$ satisfies the conclusion of the Tietze extension theorem.
+A Hausdorff (it does not have to be) space $X$ is normal iff $X$ satisfies the conclusion of Urysohn's lemma iff $X$ satisfies the conclusion of the Tietze extension theorem.
 \end{problem}
 \begin{solution}
-
+If $X$ is normal then it satisisfies the conclusion of urysohn's lemma. 
+If $X$ satisfies the conclusion of ursohn's lemma then it satisfies the conclusion of tietze's extension theorem as normality of the space is not used in the proof, only tietze's theorem is used (look at Theorem 4.16) 
+If $X$ satisfies the conclusion of tietze's extension theorem we will prove that it is normal. 
+Suppose $A,B$ are disjoint closed sets and we have $f\in C(A\cup B,[0,1])$ such that $f=1/3$ on $A$ and $f=2/3$ on $B$ and $F$ be an extension then clearly $U=F^{-1}([0,1/2)),V=F^{-1}((1/2,1])$ are open and disjoint such that $A\subseteq U$ and $B\subseteq V.$
 \end{solution}
-
 \begin{problem}\label{prob:4-25}
 If $(X,\mathcal{T})$ is completely regular, then $\mathcal{T}$ is the weak topology generated by $C(X)$.
 \end{problem}
 \begin{solution}
-
+If $A$ is a closed set and $x\in A^c$ then we can find $f_x\in C(X)$ with $f_x(x)=1$ and $f_x=0$ on $A$. 
+Now consider the closed sets $f_x^{-1}( \qty{0})$, these contain $A$ and exclude $x$, thus we see that, 
+\[
+    A=\bigcap_{x\in A^c}f_x^{-1}( \qty{0})\quad\text{and}\quad A^c=\bigcup_{x\in A^c}f_x^{-1}(\bC\setminus \qty{0})
+\]
+hence we see that all open sets (these can be expressed as the complement of a closed set all ways) are in the weak topology generated by $C(X)$ as this contains all sets of form $f^{-1}(\bC\setminus \qty{0})$ with $f\in C(X).$ 
+Thus, $\mathcal T$ is contained in this weak topology (the inclusion in the other direction holds from the definition of weak topologies.)  
 \end{solution}
-
 \begin{problem}\label{prob:4-26}
 Let $X$ and $Y$ be topological spaces.
 \begin{enumerate}[label=\alph*.]
@@ -326,16 +409,37 @@ Let $X$ and $Y$ be topological spaces.
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+    \item If $f(X)=U\cup V$ with $U,V$ nonempty, open and disjoint then we see that $X=f^{-1}(U)\cup f^{-1}(V)$ is also a valid seperation for $X$ so if $X$ is connected $f(X)$ must be connected too. 
+    \item Suppose $U,V$ are open, disjoint, nonempty, their union $X$ and $x_0\in U,x_1\in V$. 
+        If $f\in C([0,1],X)$ is such that $f(0)=x_0$ and $f(1)=x_1$ then $f^{-1}(U),f^{-1}(V)$ are open, nonempty and partition $[0,1]$ which is a contradiction as $[0,1]$ is connected thus, arcwise connected spaces are always connected. 
+    \item Let $G(x)=(x,\sin(1/x))$, then we see that $G(\bR_+)\cup G(\bR_-)\cup \qty{(0,0)}=X$ and each of these are connected by part (a). 
+        It is easily provable that any open $U\ni (0,0)$ in the relative topology of $X$ has nonempty intersection with $G(\bR_+)$ and thus if $V$ is another open set in the relative topology,  disjoint to $U$ such that $U\cup V=X$ then $G(\bR_+)=(U\cap G(\bR_+))\cup(V\cap G(\bR_+))$ is a valid seperation which is absurd as $G(\bR_+)$ is connected so $X$ must be connected. 
+        It is however not arc conected as we can not join $(0,0)$ to $(\pi,0)$ through $X$ with a continuous function. 
+        More rigourously, if $f:C([0,1],X)$ is such that $f(0)=(\pi,0)$ and $f(1)=(0,0)$ then we would need $\norm{f(x)}$ to be small enough, say less than $1/2$ for all $x\in(1-\delta,1]$ for some small $\delta>0$ so we must have that,
+        \[
+            f((1-\delta,1))\subseteq J=\qty{(s,\sin(1/s))\in\bR^2:1-\delta<s<1,|\sin(1/s)|<1/2}
+        \]
+        But $J$ is disconnected set with each connected component bounded away from $(0,0)$, i.e. they dont have this as an accumulation point. 
+        Thus, we see that $f((1-\delta,1))$ must be in one of these components by part (a) and thus it does not have $f(1)$ as an accumulation point which is absurd when $f$ is continuous. 
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:4-27}
 If $X_\alpha$ is connected for each $\alpha \in A$ (see Exercise 10), then $X = \prod_{\alpha \in A} X_\alpha$ is connected. (Fix $x \in X$ and let $Y$ be the connected component of $x$ in $X$. Show that $Y$ includes $\{y \in X : \pi_\alpha(y) = \pi_\alpha(x) \text{ for all but finitely many } \alpha\}$ and that the latter set is dense in $X$. Use Exercises 10 and 18.)
 \end{problem}
 \begin{solution}
-
+Let the set described in the question be $S$, then we find that
+\[
+    S=\bigcup_{\substack{J\subseteq A\\ J\text{ finite}}}\underbrace{\prod_{\alpha\in A}L_{\alpha,J}}_{\text{Let this be }P_J}\quad\text{ where }L_{\alpha,J}=X_\alpha\text{ if }\alpha\in J\text{ and }x_\alpha\text{ otherwise}
+\]
+Now, for any $J= \qty{\alpha_1,\ldots,\alpha_n}$ we can show using similar arguements as in \hyperref[prob:4-18]{Problem 1.18} that $\prod L_{\alpha,J}$ is homeomorphic to $X_{\alpha_1}\times\ldots\times X_{\alpha_n}$ which we show to be connected at the end, so its connectedd itslef. 
+As all of these products contain $x$, thus \hyperref[prob:4-10]{Problem 4.10} implies that $S$ is continuous so $S\subseteq Y$ by definition. 
+If $\cap_1^n\pi_{\alpha_i}^{-1}(U_{\alpha_i})$ is any set in the conventional base for this space then we see that there is a point in this that only differs from $x$ at the index $\alpha_1,ldots,\alpha_n$ so it has nonempty intersection with $S$ and thus all open sets do too making $S$ dense, thus we have $X= \overline{S}\subseteq \overline{Y}=Y$ as connected components are closed and we are done. 
+To show that this is true for finite $A$ as used as a fact earlier we can induct by adding a coordinate on every time in a sense. 
+Say $X,Y$ are connected then, the statement follows for $X\times Y$ directly using the proof above by Problem 18 as these individual spaces are connected. 
+Now, we claim $(X\times Y)\times Z$ is homeomorphic to $X\times Y\times Z$ which will let us induct and prove it for finite $A.$ 
+Let, $f:(X\times Y)\times Z\to X\times Y\times Z$ be defined by $((x,y),z)\mapsto (x,y,z)$ then this is continuous, looking at $\pi_1\circ f$ (the rest are proved to be continuous similarly) as, if $U,V,W$ are open in $X,Y,Z$ respectively then $(\pi_1\circ f)^{-1}(U)=f^{-1}(U\times Y\times Z)=(U\times Y)\times Z$ is open in $(X\times Y)\times Z$ due to $U\times Y$ being open in $X\times Y$ and $Z$ being open in $Z$, which is sufficient as components being continuous are equivalent to the function itself being continuous by the definition of the product topology. 
 \end{solution}
-
 \begin{problem}\label{prob:4-28}
 Let $X$ be a topological space equipped with an equivalence relation, $\tilde{X}$ the set of equivalence classes, $\pi : X \to \tilde{X}$ the map taking each $x \in X$ to its equivalence class, and $\mathcal{T} = \{U \subset \tilde{X} : \pi^{-1}(U) \text{ is open in } X\}$.
 \begin{enumerate}[label=\alph*.]
@@ -345,9 +449,13 @@ Let $X$ be a topological space equipped with an equivalence relation, $\tilde{X}
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+    \item Clearly $\emptyset,\tilde{X}\in\mathcal T$, the rest follows from $\pi^{-1}$ commuting with unions and intersections. 
+    \item Clearly $\pi$ is continuous by definition and thus the only if direction is trivial, for the if direction it suffices to see that if $f\circ\pi$ is continuous then for all open $U \subseteq Y$, $\pi^{-1}(f^{-1}(U))$ is open, which implies that $f^{-1}(U)$ is open by definition so $f$ must be continuous. 
+    \item We use the equivalence that spaces are $T_1$ iff the singletons are closed. 
+        If $\{[x]\}\subseteq\tilde{X}$ were closed then $\pi^{-1}(\{[x]\})=[x]\subseteq X$ is closed too as $\pi$ is continuous and if the equivalence class are closed then for $[x]\neq[y]$ in $\tilde{X}$ we see that $[y]^c=\cup_{z\notin[y]}[z]$ is open in $X$ and omits $y$ while containing $x$ and $\cup_{z\notin[y]} \qty{[z]}$ is open in $\tilde{X}$ (its preimage under $\pi$ is $[y]^c$ which is open in $X$) and omits $[y]$ while containing $[x]$ so the quotient topology for this must be $T_1.$ 
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:4-29}
 If $X$ is a topological space and $G$ is a group of homeomorphisms from $X$ to itself, $G$ induces an equivalence relation on $X$, namely, $x \sim y$ iff $y = g(x)$ for some $g \in G$. Let $X = \bR^2$; describe the quotient space $\tilde{X}$ and the quotient topology on it (as in Exercise 28) for each of the following groups of invertible linear maps. In particular, show that in (a) the quotient space is homeomorphic to $[0,\infty)$; in (b) it is $T_1$ but not Hausdorff; in (c) it is $T_0$ but not $T_1$, and in (d) it is not $T_0$. (In fact, in (d) $X$ is uncountable, but there are only six open sets and there are points $p \in \tilde{X}$ such that $\overline{\{p\}} = \tilde{X}$.)
 \begin{enumerate}[label=\alph*.]
@@ -358,9 +466,27 @@ If $X$ is a topological space and $G$ is a group of homeomorphisms from $X$ to i
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+\item These are rotation matirces, each equivalence class consists of vectors of a specific length. 
+    Let $f:\tilde{X}\to [0,\infty)$ be defined by $[x]\mapsto r$ where $\norm{x}=r\geq 0$, its well defined by the previous line.  
+    Using \hyperref[prob:4-28]{Problem 4.28} we see that this is continuous as $f\circ\pi$ is the norm i.e. $f\circ\pi:x\mapsto\norm{x}$, which is continuous and thus so is $f.$ 
+    It is clearly a bijection, hence $\tilde X$ is homeomorphic to $[0,\infty).$ 
+\item These are shear matrices and if we let the one associated to $a\in\bR$ be $g_a$ then we see that $g_a(x,y)=(x+ay,y)$ from this we see that the equivalence classes are $[(x,0)]=\{(x,0)\}$ and $[(x,y)]=\bR\times\{y\}$ for $y\neq 0$. 
+    By Problem 28, its $T_1$ as the equivalence classes are all closed in $\bR^2$ but its clearly not haussdorff as we can not find any open sets seperating the $[(1,0)]$ and $[(2,0)]$ for example : if $U$ is open and $[(1,0)]\in U$ then $\pi^{-1}(U)$ is also open and contains $(1,0)$ which forces it to contain $(1,y)$ for all $y$ close enough to $0$ (but not $0$) and hence $[(1,y)]\in\pi(\pi^{-1}(U))\subseteq U$ and if $V$ was an open set containing $[(2,0)]$ then it too would contain all the equivalence classes $[(2,y)]=[(1,y)]$ for small enough nonzero $y$ and thus $U\cap V\neq\emptyset$, so $\tilde{X}$ is not hausdorff. 
+\item Here the equivalence classes are $[(0,0)]=\{(0,0)\},[(x,0)]=\bR_+\times\{0\}$ if $x>0$ and $\bR_-\times\{0\}$ if $x<0$, $[(x,y)]=\bR\times\{y\}$ if $y\neq 0$. 
+    Now, consider the points $[(0,0)]$ and $[(1,0)]$, if $U$ is any open set contianing $[(0,0)]$ then by logic similar to before, it always contains $[(1,0)]$ but we the open set $V=\tilde{X}\setminus \qty{[(0,0)]}$ (it is open as $\pi^{-1}(U)=\bR^2\setminus\{(0,0)\}$) does not contain $[(0,0)]$ while containing $[(1,0)]$ so its not $T_1$. 
+    From From the above we see that $[(0,0)]$ can be seperated from any point so now assume that none of the two chosen classes are $[(0,0)].$ 
+    If exactly one of them has points with $y$ coordinates being $0$ then either one of the open sets $U=\tilde{X}\setminus \qty{[(0,0)],[(1,0)]}$ or $V=\tilde{X}\setminus \qty{[(0,0)],[(-1,0)]}$ do the job ($\pi^{-1}(U)=\bR^2\setminus \qty{(x,0):x\leq 0}$ and $\pi^{-1}(V)=\bR^2\setminus \qty{(x,0):x\geq 0}$.) 
+    Now, if both the points are equivalence classes with nonzero $y$ coordinates then they can be seperated by open sets which correspond to open tubes in $\bR^2$ i.e. sets of form $\bR\times(a,b)$ so all together, this is a $T_0$ space. 
+\item Let $Q=\bQ\setminus\{0\}$ for brevity and let $A= \sqrt{2}Q\times\sqrt{2}Q$ and $B=Q\times Q$ be two different equivalence classes, we show that they can not be seperated even in the $T_0$ sense. 
+    If $U$ is open and contains $A\in U$ then as $A\subseteq\pi^{-1}(U)$ we find that there is an open ball in $\bR^2$ around the point $(\sqrt{2},\sqrt{2})$ that is a subset of $\pi^{-1}(U)$ and this clearly contains a point from $B$ so we must have that $B\in\pi(\pi^{-1}(U))$ and the exact same arguement relying on the fact that $aQ$ is dense in $\bR$ for any nonzero $a$, shows that no open set containing $B$ can exclude $A$ so the space is not $T_0.$ 
+    For the extra questions at the end : it is uncountable because each equivalence class is countable whereas the real plane is uncountable, the six open sets are (here $\bR\setminus\{0\}$ is written as $R$) :
+    \[
+        \tilde{X},\emptyset,\pi(\bR^2\setminus\{(0,0)\}),\pi(\bR\times R),\pi(R\times\bR),\pi(R\times R),
+    \]
+    Now, a point $p$ for which $\{p\}$ is dense in $\tilde{X}$ can be found from the above to be $p=Q\times Q$ as it has nonempty intersection with every nonempty open set in $\tilde{X}.$  
+\end{enumerate} 
 \end{solution}
-
 \begin{problem}\label{prob:4-30}
 If $A$ is a directed set, a subset $B$ of $A$ is called cofinal in $A$ if for each $\alpha \in A$ there exists $\beta \in B$ such that $\beta \ge \alpha$.
 \begin{enumerate}[label=\alph*.]
