@@ -472,7 +472,7 @@ If $X$ is a topological space and $G$ is a group of homeomorphisms from $X$ to i
     Using \hyperref[prob:4-28]{Problem 4.28} we see that this is continuous as $f\circ\pi$ is the norm i.e. $f\circ\pi:x\mapsto\norm{x}$, which is continuous and thus so is $f.$ 
     It is clearly a bijection, hence $\tilde X$ is homeomorphic to $[0,\infty).$ 
 \item These are shear matrices and if we let the one associated to $a\in\bR$ be $g_a$ then we see that $g_a(x,y)=(x+ay,y)$ from this we see that the equivalence classes are $[(x,0)]=\{(x,0)\}$ and $[(x,y)]=\bR\times\{y\}$ for $y\neq 0$. 
-    By Problem 28, its $T_1$ as the equivalence classes are all closed in $\bR^2$ but its clearly not haussdorff as we can not find any open sets seperating the $[(1,0)]$ and $[(2,0)]$ for example : if $U$ is open and $[(1,0)]\in U$ then $\pi^{-1}(U)$ is also open and contains $(1,0)$ which forces it to contain $(1,y)$ for all $y$ close enough to $0$ (but not $0$) and hence $[(1,y)]\in\pi(\pi^{-1}(U))\subseteq U$ and if $V$ was an open set containing $[(2,0)]$ then it too would contain all the equivalence classes $[(2,y)]=[(1,y)]$ for small enough nonzero $y$ and thus $U\cap V\neq\emptyset$, so $\tilde{X}$ is not hausdorff. 
+    By Problem 28, its $T_1$ as the equivalence classes are all closed in $\bR^2$ but its clearly not hausdorff as we can not find any open sets seperating the $[(1,0)]$ and $[(2,0)]$ for example : if $U$ is open and $[(1,0)]\in U$ then $\pi^{-1}(U)$ is also open and contains $(1,0)$ which forces it to contain $(1,y)$ for all $y$ close enough to $0$ (but not $0$) and hence $[(1,y)]\in\pi(\pi^{-1}(U))\subseteq U$ and if $V$ was an open set containing $[(2,0)]$ then it too would contain all the equivalence classes $[(2,y)]=[(1,y)]$ for small enough nonzero $y$ and thus $U\cap V\neq\emptyset$, so $\tilde{X}$ is not hausdorff. 
 \item Here the equivalence classes are $[(0,0)]=\{(0,0)\},[(x,0)]=\bR_+\times\{0\}$ if $x>0$ and $\bR_-\times\{0\}$ if $x<0$, $[(x,y)]=\bR\times\{y\}$ if $y\neq 0$. 
     Now, consider the points $[(0,0)]$ and $[(1,0)]$, if $U$ is any open set contianing $[(0,0)]$ then by logic similar to before, it always contains $[(1,0)]$ but we the open set $V=\tilde{X}\setminus \qty{[(0,0)]}$ (it is open as $\pi^{-1}(U)=\bR^2\setminus\{(0,0)\}$) does not contain $[(0,0)]$ while containing $[(1,0)]$ so its not $T_1$. 
     From From the above we see that $[(0,0)]$ can be seperated from any point so now assume that none of the two chosen classes are $[(0,0)].$ 
@@ -564,65 +564,94 @@ Let $0'$ denote a point that is not an element of $(-1,1)$, and let $X = (-1,1) 
 \end{enumerate}
 \end{problem}
 \begin{solution}
-
+\begin{enumerate}[label=\alph*.]
+    \item Both are injective. 
+    This topology agrees with the usual topology on $(-1,1)$ (which is $f$'s range) and thus $f$ being continuous in with respect to the usual topology lends us its continuity in this case as well making it a homeomorphism on its range. 
+    As sets in $\mathcal T$ are unions of finite intersections of the generators we see that any set $U$ containing $0'$ must have an interval around $0$ excluding $0$ i.e. for some $\delta>0$ we have $(-\delta,\delta)\setminus \qty{0} \subseteq U$ so we find that for any neighbourhood $U$ of $g(0)$ we can find some nonempty $(-\delta,\delta)\setminus \qty{0}\subseteq U^\circ$ and we see that $V=(-\delta,\delta)$ is a neighbourhood of $0$ such that $g(V) \subseteq U$ so $g$ is continuous at $0.$ 
+    Continuity at other points is trivial, this makes $g$ a homeomorphism on its range too.
+    \item $X$ is $T_1$ by looking at the singletons which can easily shown to be close and it is not hausdorff as we can not seperate $0,0'$ by open sets, this is clear from the fact that all neighbourhoods of $0'$ must contain a deleted open neighbourhood around $0$. 
+    \item As the ranges of $f,g$ are both open and thus these being continuous when looked at as function onto their range implies their continuity in general and we see that 
+        \[
+            \qty[-\frac{1}{2}, \frac{1}{2}]=f\qty(\qty[ -\frac{1}{2}, \frac{1}{2}])\quad\qty(\qty[-\frac{1}{2}, \frac{1}{2}]\setminus \qty{0})\cup \qty{0'}=g\qty(\qty[ -\frac{1}{2}, \frac{1}{2}])
+        \]
+        proving their continuity as images of compact sets under continuous maps is compact. 
+        Their intersection $[-1/2,1/2]\setminus \qty{0}$ is clearly not compact. 
+\end{enumerate}
 \end{solution}
-
 \begin{problem}\label{prob:4-38}
 Suppose that $(X, \mathcal{T})$ is a compact Hausdorff space and $\mathcal{T}'$ is another topology on $X$. If $\mathcal{T}'$ is strictly stronger than $\mathcal{T}$, then $(X,\mathcal{T}')$ is Hausdorff but not compact. If $\mathcal{T}'$ is strictly weaker than $\mathcal{T}$, then $(X,\mathcal{T}')$ is compact but not Hausdorff.
 \end{problem}
 \begin{solution}
-
+If $\mathcal T'$ is coarser then it is clearly compact as all open covers in it are also open covers in $\mathcal T$ and if its finer then it is hausdorff as all neighbourhoods in $\mathcal T$ are also neighbourhoods in $\mathcal T'$. 
+Now, if $\mathcal T'$ is finer then the identity map from $\mathcal T'$ to $\mathcal T$ is continuous. 
+If $\mathcal T'$ is compact then its closed sets are also compact and thus get mapped to compact sets under the identity map, which are closed in $\mathcal T$ as it is hausdorff hence implying $\mathcal T' \subseteq \mathcal T$ so $\mathcal T'$ can not be strictly finer. 
+Now, if $\mathcal T'$ was strictly coarser then by what we just proved we see that this can not be hausdorff.
 \end{solution}
-
 \begin{problem}\label{prob:4-39}
 Every sequentially compact space is countably compact.
 \end{problem}
 \begin{solution}
-
+    If it isn't countably compact then we can find a countably infinite open subcover $ \qty{U_n}_{n\in\bN}$ with no finite subcover. 
+    Removing $U_k$ for which $U_k\subseteq\cup_{n<k}U_n$ and reindexing we get another countablly infinite (otherwise, a finite subcover existed to begin with) open cover with no finite subcover from which we can pick $x_n\in U_n\setminus\cup_{k<n}U_k.$ 
+   Now, for any $x$ and $U_j\ni x$ we see that $x_n\notin U_j$ for all $n>j$ and thus it can not have $x$ as a cluster point so no convergent subsequences exist either (these are also subnets, treating the main sequence as a net so we can't have these by Proposition 4.20, it is also easy to show that the existence of a convergent subsequence implies the existence of cluster points straight away.)  
 \end{solution}
-
 \begin{problem}\label{prob:4-40}
 If $X$ is countably compact, then every sequence in $X$ has a cluster point. If $X$ is also first countable, then $X$ is sequentially compact.
 \end{problem}
 \begin{solution}
-
+If the space is countably compact then analogous to regular compactness we have another variation of proposition 4.21 : If $ \qty{F_n}$ is a countable collection of closed sets with FIP then $\cap F_n$ is nonempty. 
+Now, if we set $F_n:=\overline{\qty{x_m:m\geq n}}$ then this collection has FIP and thus has nonempty intersection. 
+The conclusion now follows from \hyperref[prob:4-33]{Problem 4.33} treating the sequence as a net in the usual manner. 
+For the second conclusion, first pick a cluster point $x$ and a neighbourhood base $ \qty{U_n}$ that is countable and decreasing (this is described in the book). 
+Inductively pick integers $n_k>n_{k-1}>\ldots n_1$ such that $x_{n_k}\in U_{n_k}$ (we can do this because $x$ is a cluster point) and we clearly have $x_{n_k}\to x.$
 \end{solution}
-
 \begin{problem}\label{prob:4-41}
 A $T_1$ space $X$ is countably compact iff every infinite subset of $X$ has an accumulation point.
 \end{problem}
 \begin{solution}
-
+    We first show that cluster points of a sequence and accumulation points treating the sequence as a set are the same in $T_1$ spaces. 
+    If $x$ is an accumulation point of $(x_n)$ then we can find neighbourhoods $V_j$ containing $x$ but not $x_j$ and thus for any $n$ and neighourhood $U$ of $x$ we see that $U\cap V_1\cap\ldots\cap V_n \subseteq U$ must contain some $x_m$ for $m>n$ making $x$ a cluster point. 
+    The cluster points are clearly accumulation points. 
+From the previous problem we can say that any infinite set has an accumulation point by choosing a distinct sequence of points in it and the converse follows from the fact that if $X$ is not countably compact then we can find a sequence $(x_n)$ as in \hyperref[prob:4-39]{Problem 4.39} that has no cluster points and $ \qty{x_n:n\in\bN}$ is an infinite set with no accumulation points (these are the same as cluster points of this sequence in this case as proved in the start.)
 \end{solution}
-
 \begin{problem}\label{prob:4-42}
-The set of countable ordinals (\S 0.4) with the order topology (Exercise 9) is sequentially compact and first countable but not compact. (To prove sequential compactness, use Proposition 0.19.)
+The set of countable ordinals $\Omega$ (\S 0.4) with the order topology (Exercise 9) is sequentially compact and first countable but not compact. (To prove sequential compactness, use Proposition 0.19.)
 \end{problem}
 \begin{solution}
-
+For any $p\in\Omega$, let $q$ be strictly greater than $q$ (this must exist by the definition of $\Omega$.) 
+Then the sets $S(a,b):=\qty{x:a<x<b}$ for $a\leq p\leq b\leq q$ forms a neighbourhood base as all generator sets containing $p$ contain a set of this form : if $p\in \qty{x:x>t}$ then $p>t$ so $p\in S(t,q) \subseteq \qty{x:x>t}$ and $p\in \qty{x:x<t}$ means $p<t$ so $p\in S(\inf\Omega,\min(t,q)) \subseteq \qty{x:x<t}$. 
+This is a countable because $I_q\cup \qty{q}$ is countable (by the defitnion of $\Omega$.)  
+Now, consider a sequence $(x_n)$ in $\Omega$, we see that $\sup_{n>k}x_n$ exists in $\Omega$ for all $k$ by Proposition 0.19 and as $\Omega$ is well ordered by definition, $s=\inf_{n\in\bN}\sup_{n>k}x_n\in\Omega$. 
+By construction we see that if $s<t$ then $x_n<t$ for all large enough $n$ and if $s>t$ then
+$x_n>t$ infinitely often. 
+If $x_n=s$ infinitely often then we can easily construct the converging subsequence, otherwise we see that $s$ is an accumulation point of $ \qty{x_n:n\in\bN}$. 
+This makes $s$ a cluster point of the sequence by the first part of \hyperref[prob:4-39]{Problem 4.39} as the order topology is normal (and hence $T_1$) by \hyperref[prob:4-9]{Problem 4.9}a. 
+As this is first countable, we can choose a subsequence converging to $s$ as done in the second part of \hyperref[prob:4-40]{Problem 4.40} (all neighbourhoods of $s$ contain some terms from the sequence) and thus $\Omega$ is sequentially compact. 
+The open cover $ \qty{I_x}_{x\in\Omega}$ (this is a cover as $\Omega$ has no maximal elements) does not admit finite subcovers as if it did then $\Omega$ would be countable, being an union of a finite number of countable sets. 
 \end{solution}
-
 \begin{problem}\label{prob:4-43}
 For $x \in [0,1)$, let $\sum a_n(x) 2^{-n}$ ($a_n(x) = 0$ or $1$) be the base-2 decimal expansion of $x$. (If $x$ is a dyadic rational, choose the expansion such that $a_n(x) = 0$ for $n$ large.) Then the sequence $\langle a_n \rangle$ in $\{0,1\}^{[0,1)}$ has no pointwise convergent subsequence. (Hence $\{0,1\}^{[0,1)}$, with the product topology arising from the discrete topology on $\{0,1\}$, is not sequentially compact. It is, however, compact, as we shall show in \S 4.6.)
 \end{problem}
 \begin{solution}
-
+    We know that convergence in the product topology is equivalent to pointwise convergence so for the subsequence $a_{n_k}$ to converge to say $a$ we would need to have $a_{n_k}(x)\to a(x)$ for all $x\in[0,1).$ 
+    We show that for all such $a_{n_k}$ there exists $x\in[0,1)$ such that $a_{n_k}(x)$ does not converge. 
+    For example, take $x=\sum_{k\in\bN}2^{-n_{2k}}$ (this is clearly not dyadic, each $1$ in the binary expansion must be $2$ zeroes apart from another.) and we have $a_{n_k}(x)=1$ for even $k$ and $0$ for odd $k$ so $a_{n_k}(x)$ does not converge and we are done. 
 \end{solution}
-
 \begin{problem}\label{prob:4-44}
 If $X$ is countably compact and $f : X \to Y$ is continuous, then $f(X)$ is countably compact.
 \end{problem}
 \begin{solution}
-
+The proof is the same as the case where we have normal continuity, see Proposition 4.26.
 \end{solution}
-
 \begin{problem}\label{prob:4-45}
 If $X$ is normal, then $X$ is countably compact iff $C(X) = BC(X)$. (Use Exercises 40 and 44. If $\langle x_n \rangle$ is a sequence in $X$ with no cluster point, then $\{x_n : n \in \bN\}$ is closed, and Corollary 4.17 applies.)
 \end{problem}
 \begin{solution}
-
-\end{solution}
-
+    If $X$ is countably compact then we find that $f(X) \subseteq\bC$ is countably compact too by the previous problem and thus we can find a finite cover of the countable open cover $ \qty{B(0,n)}_{n\in\bN}$ proving that $f$ is bounded. 
+    For the other direction, say its not countably compact, then we can find a sequence $(x_n)$ of distinct points with no cluster points as in \hyperref[prob:4-39]{Problem 4.39} and as normal spaces are $T_1$ by definition, by using the first part of \hyperref[prob:4-41]{Problem 4.41} we can say that $A=\qty{x_n:n\in\bN}$ has no accumulation points and it is thus closed. 
+    Further, as this has no accumulation points, there exists open neighbourhoods of $x_m$ that omits all other points in $A$ and thus, in the relative topology of $A$ $ \qty{x_m}\cap A= \qty{x_m}$ is open and thus $A$ inherits a discrete topology as its subset topology (relative topology whatever), this means that $C(A)=\bC^A$. 
+    Let $f\in C(A)$ be such that $f(x_m)=m$, we can extend $f$ to $F\in C(X)$ on $X$ such that $F(x_m)=m$ too by Corollary 4.17 and as $F$ is continuous and unbounded, $C(X)\neq BC(X)$ so we are done. 
+    \end{solution}
 \begin{problem}\label{prob:4-46}
 Prove Theorem 4.34.
 \end{problem}
