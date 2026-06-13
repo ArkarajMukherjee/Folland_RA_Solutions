@@ -859,60 +859,86 @@ An open cover $\mathcal{U}$ of a topological space $X$ is called locally finite 
 If $\{X_\alpha\}_{\alpha \in A}$ is a family of topological spaces of which infinitely many are noncompact, then every closed compact subset of $\prod_{\alpha \in A} X_\alpha$ is nowhere dense.
 \end{problem}
 \begin{solution}
-
+    Let $C$ be a compact closed set that is not nowhere dense, thus it has nonempty interior. ( $C$ is nowhere dense iff $(\overline{C})^\circ$ is nonempty and here, $\overline{C}=C$), we must have some open $U \subseteq C$ of form $U=\prod U_\alpha$ where $U_\alpha=X_\alpha$ for all but finitely many $\alpha.$ 
+    As projections are continuous, $\pi_\alpha(C)$ is compact for all $\alpha$ and as $\pi_\alpha(U)=X_\alpha$ for all but finitely many $\alpha$ we have $X_\alpha=\pi_\alpha(U) \subseteq\pi_\alpha(C) \subseteq X_\alpha$ for all but finitely many $\alpha$ implying that $X_\alpha$ are compact for all but finitely many $\alpha$ which is a contradiction so we are done. 
 \end{solution}
-
 \begin{problem}\label{prob:4-59}
 The product of finitely many locally compact spaces is locally compact.
 \end{problem}
 \begin{solution}
-
+Say $X_1,\ldots,X_n$ are LC, then for any $x\in\prod X_i$ we can find compact neighbourhoods $K_i\ni\pi_i(x)$ and open $U_i$ such that $\pi_i(x)\in U_i \subseteq K_i$, then by tychonoff's theorem $K=\prod K_i$ is compact in its relative topology which means that it is compact as we have proved before. 
+Moreover, $U=\prod U_i$ is an open set and it contains $x$ so we see that $x\in U \subseteq K^\circ$ proving that $K$ is a compact neighbourhood proving LC of the product as $x$ was arbitrary. 
 \end{solution}
-
 \begin{problem}\label{prob:4-60}
 The product of countably many sequentially compact spaces is sequentially compact. (Use the ``diagonal trick'' as in the proof of Theorem 4.44.)
 \end{problem}
 \begin{solution}
-
+    Suppose $ \qty{X_k}_{k\in\bN}$ are the sequentially compact spaces, then for a sequence $(x_n)$ in their product, we see that $\pi_1(x_n)$ must have a converging subsequence, let this be $\pi_1({x_{n,1}})$, then again $\pi_2(x_{n,1})$ must have a converging subsequence too which we call $\pi_2(x_{n,2})$ where $x_{n,2}$ is a subsequence of $x_{n,1}$, we keep doing this to get sequences $ \qty{ (x_{n,k})}_{k}$ where $\pi_k(x_{n,k})$ converges. 
+    Now consider $y_k:=x_{k,k}$ which is also a subsequence of $(x_n)$ (it is easier to see this by writing some of the sequences out, you can also find a similar construction in Rudin's PA) as $y_k$ is clearly a subsequence of $(x_{n,m})$ for $k\geq m$ we have that $\pi_m(y_k)$ converges. 
+    As $(x_n)$ was arbitrary to begin with and we constructed a converging subsequence (allcoordinates converging is equivalent to the sequence converging \hyperref[prob:4-34]{Problem 4.34}, treating the sequence as a net), $\prod X_k$ must be sequentially comapact too.  
 \end{solution}
-
 \begin{problem}\label{prob:4-61}
 Theorem 4.43 remains valid for maps from a compact Hausdorff space $X$ into a complete metric space $Y$ provided the hypothesis of pointwise boundedness is replaced by pointwise total boundedness. (Make this statement precise and then prove it.)
 \end{problem}
 \begin{solution}
-
+The precise statement should be : Let $X$ be a compact Hausdorff space. 
+If $\mathcal F$ is an equicontinuous, pointwise totally bounded (i.e. for all $x\in X$ the set $ \qty{f(x):f\in\mathcal F}$ is totally bounded in $Y$) subset of $C(X,Y)$, then $\mathcal F$ is totally bounded in the uniform metric, and the closure of $\mathcal F$ in $C(X,Y)$ is compact. \\
+This is proved in the exact same way with these minor changes : After picking the $x_j$ as we did in the book, we can pick the $z_k$ as such because a finite union of totally bounded sets $ \qty{f(x_j):f\in\mathcal F,1\leq j\leq n}=\cup_{i=1}^n \qty{f(x_i):f\in\mathcal F}$ is totally bounded and $C(X,Y)$ is complete by \hyperref[prob:4-22]{Problem 4.22}.  
 \end{solution}
-
 \begin{problem}\label{prob:4-62}
 Rephrase Theorem 4.44 in a form similar to Theorem 4.43 by using the metric in Exercise 56d.
 \end{problem}
 \begin{solution}
-
+Let $X$ be a $\sigma$-compact LCH space. 
+If $\mathcal F \subseteq C(X)$ is pointwise bounded and equicontniuous then it has a limit point in $C(X)$ with respect to the metric in \hyperref[prob:4-56]{Problem 4.56}d. 
 \end{solution}
-
 \begin{problem}\label{prob:4-63}
-Let $K \in C([0,1] \times [0,1])$. For $f \in C([0,1])$, let $Tf(x) = \int_0^1 K(x,y)f(y)\,dy$. Then $Tf \in C([0,1])$, and $\{Tf : \|f\|_u \le 1\}$ is precompact in $C([0,1])$.
+Let $K \in C([0,1] \times [0,1])$. For $f \in C([0,1])$, let 
+\[
+    Tf(x) = \int_0^1 K(x,y)f(y)\,\mathrm{d}y
+\] 
+Then $Tf \in C([0,1])$, and $\{Tf : \|f\|_u \le 1\}$ is precompact in $C([0,1])$.
 \end{problem}
 \begin{solution}
-
+    As $K$ is continuous on a compact set it is uniformly continuous, if  $\norm{u-v}_{\bR^2}<\delta$ implies $|K(u)-K(v)|<\epsilon,$ then we see that for $|x-y|<\delta$ 
+\[
+    |Tf(x)-Tf(y)|\leq\norm{f}_u\cdot\qty(\int_0^1|K(x,t)-K(y,t)|dt)\leq\epsilon\norm{f}_u
+\]
+as $\norm{(x,t)-(y,t)}_{\bR^2}<\delta$ too and $f$ is bounded, being continuous on a compact set.  
+This proves that $Tf\in C([0,1]).$ 
+Now, as $[0,1]$ is compact hausdorff, $ \qty{f\in C([0,1]):\norm{f}_u\leq 1}$ equicontinuous as $|Tf(x)-Tf(y)|\leq\epsilon\norm{f}_u\leq\epsilon$ for $|x-y|<\delta$ as shown above and pointwise bounded due to $K$ being bounded (it is continuous on a comapct set) say $|K|\leq M$, then $|Tf(x)|\leq M\norm{f}_u\leq M.$ 
+Thus, by Theorem 4.43 we see that it is precompact. 
 \end{solution}
-
 \begin{problem}\label{prob:4-64}
 Let $(X,\rho)$ be a metric space. A function $f \in C(X)$ is called H\"older continuous of exponent $\alpha$ ($\alpha > 0$) if the quantity
-\[ N_\alpha(f) = \dots \sup_{x \neq y} \frac{|f(x) - f(y)|}{\rho(x,y)^\alpha} \]
+\[ N_\alpha(f) = \sup_{x \neq y} \frac{|f(x) - f(y)|}{\rho(x,y)^\alpha} \]
 is finite. If $X$ is compact, $\{f \in C(X) : \|f\|_u \le 1 \text{ and } N_\alpha(f) \le 1\}$ is compact in $C(X)$.
 \end{problem}
 \begin{solution}
-
+    This set is clearly closed as if we have $N_\alpha(f_n)\leq 1$ where $f_n\in C(X)$ and $\norm{f_n}_u\leq 1$ then $f_n\to f$ implies $\norm{f}\leq 1$ trivially and as $|f_n(x)-f_n(y)|\leq N_\alpha(f_n)\rho(x,y)^\alpha\leq\rho(x,y)^\alpha$ we have $|f(x)-f(y)|\leq\rho(x,y)^\alpha$ so $N_\alpha(f)\leq 1$ by passing to limits. 
+    Now, it is equicontinuous as all functions $f$ in it follow $|f(x)-f(y)|\leq\rho(x,y)^\alpha$ and pointwise bounded due to each member having uniform norm atmost $1.$ 
+    As metric spaces are inherently hausdorff we see that the closure of this set is compact by Theorem 4.43, which is exactly the set itself as it was closed already. 
 \end{solution}
-
 \begin{problem}\label{prob:4-65}
 Let $U$ be an open subset of $\bC$, and let $\{f_n\}$ be a sequence of holomorphic functions on $U$. If $\{f_n\}$ is uniformly bounded on compact subsets of $U$, there is a subsequence that converges uniformly to a holomorphic function on compact subsets of $U$. (Use the Cauchy integral formula to obtain equicontinuity.)
 \end{problem}
 \begin{solution}
+Lemma 2.43 shows $\sigma$-compactness and $\bC$ is clearly LCH. 
+Now we will show equicontinuity of $ \qty{f_n}$ at each $x\in U.$ 
+We can find a nonempty compact disc $D=\qty{y:|y-x|\leq r} \subseteq U$ and cauchy's integral formula tells us that for all $y\in D^\circ$, (the boundary is assumed to be oriented counterclockwise)
+\[
+    f_n(y)=\oint_{\partial D} \frac{f_n(\zeta)}{\zeta-y}d\zeta
+\]
+By hypothesis, $|f_n|\leq M$ on $D$ for some $M.$ 
+Then, we have 
+\[
+    |f_n(y)-f_n(x)|\leq M\oint_{\partial D} \frac{|x-y|}{|(\zeta-x)(\zeta-y)|}d\zeta\leq \frac{2\pi r M|x-y|}{r^2}\leq\frac{2\pi M|x-y|}{r}
+\]
+proving equicontinuity (one can also use cauchy's estimates to do this.) 
+Now we can use Theorem 4.44 to find an uniformly converging (on compact sets) subsequence say $f_{n_k}\to f.$ 
+Holomorphicity of $f$ can be easily shown using morera's theorem and the fact that we can swap the limit and integration by the virtue of uniform convergence. 
 
 \end{solution}
-
 \begin{problem}\label{prob:4-66}
 Let $1 - \sum_{1}^\infty c_n t^n$ be the Maclaurin series for $(1-t)^{1/2}$.
 \begin{enumerate}[label=\alph*.]
