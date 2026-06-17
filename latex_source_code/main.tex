@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs, graphicx, physics, enumitem, geometry, esint,twemojis}
+\usepackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs, graphicx, physics, enumitem, geometry, esint, twemojis, tikz, quiver}
 \geometry{margin=1in}
 \usepackage[dvipsnames]{xcolor}
 \definecolor{EvanPink}{rgb}{0.85, 0.13, 0.55}
@@ -45,6 +45,7 @@
 \def\mA{\mathcal{A}}
 \def\bC{\mathbb{C}}
 \def\oR{\overline{\mathbb{R}}}
+\def\supp{\operatorname{supp}}
 \begin{document}
 \maketitle
 \newpage
@@ -2409,5 +2410,1092 @@ A function $F:(a,b)\rightarrow\bR(-\infty\le a<b\le\infty)$ is called convex if 
         \]
         so we are done.
 \end{enumerate}
+\end{solution}
+\stepcounter{section}
+\section*{Chapter \thesection\ : Point Set Topology}
+\addcontentsline{toc}{section}{Chapter \thesection\ : Point Set Topology}
+\begin{problem}\label{prob:4-1}
+If $\operatorname{card}(X) \ge 2$, there is a topology on $X$ that is $T_0$ but not $T_1$.
+\end{problem}
+\begin{solution}
+    For any distinct $x,y\in X$ consider the topology $\qty{\emptyset,\qty{x},\qty{x,y},X}$, then we see that there is an open set containing $x$ but not $y$ whereas there are none containing $y$ but not $x$ so this is $T_0$ and not $T_1.$
+\end{solution}
+\begin{problem}\label{prob:4-2}
+If $X$ is an infinite set, the cofinite topology on $X$ is $T_1$ but not $T_2$, and is first countable iff $X$ is countable.
+\end{problem}
+\begin{solution}
+If $x,y$ are distinct elements of $X$ then as $X\setminus \qty{x}$ is open (it has a finite complenent $ \qty{x}$) we see that this is $T_1$ but this is not $T_2$ as we can not have two nonempty disjoint open sets to begin with, indeed if $U,V$ are open and disjoint then we must have that $V\subseteq U^c$ which is finite ($U\neq\emptyset$ by assumption) and this in turn makes $V^c$ infinite contradicting it being open in the first place as $V\neq\emptyset$ either. 
+
+If $X$ is first countable then consider a countable base $B_{x_0}$ of $x_0\in X$. 
+For $y\neq x$, $X\setminus \qty{y}$ is a open neighborhood of $x$ and thus we can find $U\in B_{x_0}$ such that $x\in U\subset X\setminus \qty{y}$ and thus, $y\in U^c$ with $U^c$ being finite. 
+From this we can write 
+\[
+    X\setminus \qty{x_0} = \bigcup_{U\in B_{x_0}} U^c
+\]
+which is countable, being a countable union of countable (here, finite) sets so we are done. 
+For the other direction, consider an ennumeration $\{x_n\}_{n\in\bN}$, then we can construct a countable neighborhood base of $x_n$ as
+\[
+    \qty{X\setminus U: U \subseteq X\setminus \qty{x_n},U\text{ is finite}}
+\]
+infact, this contains exactly the open neighborhoods of $x_0$ as these must be subsets of $X$ which contain $x_0$ and have a finite complement, thus their complement has the form of $U$ above and they are of form $X\setminus U$ as described. 
+Its countable because the set of countable subsets of countable sets is countable.  
+ \end{solution}
+\begin{problem}\label{prob:4-3}
+Every metric space is normal. (If $A, B$ are closed sets in the metric space $(X,\rho)$, consider the sets of points where $\rho(x,A) < \rho(x,B)$ or $\rho(x,A) > \rho(x,B)$.)
+\end{problem}
+\begin{solution}
+We first prove that $x\mapsto\rho(x,A)$ is continuous when $A$ is closed. 
+For any $a\in A$ we see that $\rho(x,A)\leq\rho(x,a)\leq\rho(x,y)+\rho(y,a)$ and thus, $\inf_{a\in A}\rho(a,y)\geq\rho(x,A)-\rho(x,y)$, we can switch $x,y$ and get another inequality, using both of these we find that $|\rho(x,A)-\rho(y,A)|\leq\rho(x,y)$ and thus this map is indeed continuous. 
+Notice that for closed sets $G$ we have that $G=\rho_G^{-1}( \qty{0})$, this can be proven easily.
+Let, $\rho_A(x):=\rho(x,A)$, with this notation we see that if $A,B$ are disjoint and closed then, the disjoint open sets $U=(\rho_A-\rho_B)^{-1}((0,\infty))$ and $V=(\rho_B-\rho_A)^{-1}((0,\infty))$ suffice as $x\in A$ implies $\rho_A(x)=0$ while $\rho_B(x)>0$ hence $A\subseteq V$ and similarly $B\subseteq U.$ 
+\end{solution}
+\begin{problem}\label{prob:4-4}
+Let $X = \bR$ and let $\mathfrak{T}$ be the family of all subsets of $\bR$ of the form $U \cup (V \cap \bQ)$ where $U, V$ are open in the usual sense. Then $\mathfrak{T}$ is a topology that is Hausdorff but not regular. (In view of Exercise 3, this shows that a topology stronger than a normal topology need not be normal or even regular.)
+\end{problem}
+\begin{solution}
+This topology is stronger than the usual topology on $\bR$ which is hausdorff and thus this too is hausdorff. 
+Before we prove that it is not regular, it is worth to mention that intuitively speaking, regularity needn't carry on to stronger topologies as new closed sets might be introduced as well. 
+Now, consider the closed set $\bQ^c$ in this topology and let $x\in\bQ$, then we see that if $U_1\cup(V_1\cap\bQ)\supseteq\bQ^c,U_2\cup(V_2\cap\bQ)\ni x$ are open as described then we clearly need to have $U_1\supseteq\bQ^c$ and we claim that $U_1\cap(V_2\cap\bQ)$ is nonempty. 
+We can find $a<b$ such that $x\in(a,b)\cap\bQ\subseteq(V_2\cap\bQ)$ as all the usual open sets in $\bR$ are an union of open intervals. 
+Now, we can cleary see that if $q\in U_1\cap(a,b)$ then there is some $(c,d)\subseteq U_1\cap(a,b)$ containing $q$, but this interval must have nonempty intersection with $\bQ\cap(a,b)$ by the density of rationals, thus we can never find an open set containing $x$ that is disjoint to some open set containing $\bQ^c$ proving that $\mathfrak T$ is not regular and thus not normal either (in this book, normal and regular spaces need to be $T_1$ by definition and thus the singletons are closed, making $T_3\supset T_4)$. 
+\end{solution}
+\begin{problem}\label{prob:4-5}
+Every separable metric space is second countable.
+\end{problem}
+\begin{solution}
+For any countable dense subset $S$ we have the following countable base $ \qty{B(x,r):r\in\bQ,r>0,x\in S}$, the fact that this is a base can be easily proven. 
+\end{solution}
+\begin{problem}\label{prob:4-6}
+Let $\mE = \{(a,b] : -\infty < a < b < \infty\}$.
+\begin{enumerate}[label=\alph*.]
+    \item $\mE$ is a base for a topology $\mathfrak{T}$ on $\bR$ in which the members of $\mE$ are both open and closed.
+    \item $\mathfrak{T}$ is first countable but not second countable. (If $x \in \bR$, every neighborhood base at $x$ contains a set whose supremum is $x$.)
+    \item $\bQ$ is dense in $\bR$ with respect to $\mathfrak{T}$. (Thus the converse of Proposition 4.5 is false.)
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item As $\mathfrak T(\mathcal E)$ contains all unions of elements in $\mathcal E$ we see that $(a,b]^c=(-\infty,a]\cup(b,\infty]$ is open in this topology as the rays can further be written as unions of the bounded h-open intervals from the base as well. 
+        This shows that the complement of each element of the basis is open so they themslves are closed. 
+    \item For any $x\in\bR$ we can consider $(x-1,x]\ni x$. 
+        If $\mN$ is any neighborhood base then there must exist some $U\in\mN$ such that $x\in U\subseteq(x-1,x]$ which trivially implies that $\sup U=x$ and thus $\mN$ must be uncountable as $\bR$ is, so it is not second countable. 
+        To show that it is first countable it suffices to prove that for $x\in\bR $ the following is a neighborhood base :
+        $ \qty{(x-r,x]:r\in\bQ,r>0}$. 
+        Now, gievn any $S\in\mathfrak T(\mathcal E)$ (due to proposition 4.4) is an union of finite intersections over $\mathcal E$ and thus if it contains $x$ then we can find a finite intersection over $\mathcal E$, with $x$, that is a subset of $S$. 
+        Say its of form $\cap_{i=1}^n[x_i,x_i-\delta_i)$ then we see that the set $[x,x-\delta)$ for $\delta\in\bQ$ such that $0<\delta<\min_i\delta_i$ is contained in it and thus this is a neighborhood base. 
+    \item We prove the equivalent statement that $\emptyset=(\overline{\bQ})^c=(\bQ^c)^\circ$ so we have to prove that that there are no open sets in $\bQ^c.$ 
+        With knowledge of structure of open sets generated by some base it suffices to show that no finite intersections over this base are contained in $\bQ^c$. 
+        We can use a fact used in chapter 1 that the intersection of finitely many h-intervals of this form is an union of some disjoint h-intervals so it suffices to show that no  h-intervals are in $\bQ^c$ which is trivially true by the density of $\bQ$ in $\bR$ in the usual sense. 
+        Thus, every seperable space is not second countable.
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-7}
+If $X$ is a topological space, a point $x \in X$ is called a cluster point of the sequence $\{x_j\}$ if for every neighborhood $U$ of $x$, $x_j \in U$ for infinitely many $j$. If $X$ is first countable, $x$ is a cluster point of $\{x_j\}$ iff some subsequence of $\{x_j\}$ converges to $x$.
+\end{problem}
+\begin{solution}
+    If some subsequence converges then the statement clearly holds, for the other direction first consider some neighborhood base $ \qty{ U_n}_{n\geq 0}$ and let $ \qty{\cap_{m\leq n}U_m}_{n\geq 0}$, we see that this is also a neighborhood base and $V_n$ decreases. 
+    As infinitely many terms of the sequence are in any neighborhood we can inductively choose $n_1<n_2<\ldots$ such that $x_{n_k}\in V_k$. 
+    Now, we see that for any neighborhood $N$ of $x$ we can find $V_k\subseteq N$ and thus, $x_{n_j}\in V_j\subseteq V_k\subseteq N$ for all $j\geq k$ so $x_{n_j}\to x$ by definition.
+\end{solution}
+\begin{problem}\label{prob:4-8}
+If $X$ is an infinite set with the cofinite topology and $\{x_j\}$ is a sequence of distinct points in $X$, then $x_j \to x$ for every $x \in X$.
+\end{problem}
+\begin{solution}
+If $N\ni x$ is any neighborhood then by definition $N^c$ is finite and thus for large enough $j$ we have $x_j\in N$ as the terms of the sequence are distinct, thus it must converge to $x$ by definition.
+\end{solution}
+\begin{problem}\label{prob:4-9}
+If $X$ is a linearly ordered set, the topology $\mathfrak{T}$ generated by the sets $\{x : x < a\}$ and $\{x : x > a\}$ ($a \in X$) is called the order topology.
+\begin{enumerate}[label=\alph*.]
+    \item If $a, b \in X$ and $a < b$, there exist $U, V \in \mathfrak{T}$ with $a \in U$, $b \in V$, and $x < y$ for all $x \in U$ and $y \in V$. The order topology is the weakest topology with this property.
+    \item If $Y \subset X$, the order topology on $Y$ is never stronger than, but may be weaker than, the relative topology on $Y$ induced by the order topology on $X$.
+    \item The order topology on $\bR$ is the usual topology.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item If there exists $c$ such that $a<c<b$ then $U= \qty{x:x<c}$ and $V= \qty{x:x>c}$ work, otherwise let $U= \qty{x:x<b}$ and $V= \qty{x:x>a}.$ 
+        If some topology $J$ has this property then fix some $a\in X$, for all $x>a$ there exists $U_x,V_x$ such that $a\in U_x,x\in V_x$ such that $u<v$ for all $u\in U,v\in V$ and thus we must have that $V_x\subseteq \qty{k:k>a}$ and thus,
+        \[
+            \bigcup_{X\ni x>a}V_x= \qty{k:k>a}\in J
+        \]
+        Similarly it can be shown that $ \qty{k:k<a}\in J$ so the order topology must be contained in it. 
+    \item Its clearly never strictly stronger as the rays generating the order topology on $Y$ must be in the base generating that on $X$ as well. 
+        Inclusion can be strictly weaker however, for example consider $X=\bR$ with the usual order and let $Y=[0,1)\cup \qty{2}$, then we see that $ \qty{2}$ is open in the relative topology clearly but not in the order topology as all basis sets containing $2$ must be of form $ \qty{x\in Y:a<x}$ and here $a<1$ so this contains $(1-\delta,1)$ for some small $\delta>0$ too and we fail to isolate $2.$  
+    \item This follows from the fact that open sets in $\bR$ in the usual sense are unions of open intervals and proposition 4.4.
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-10}
+A topological space $X$ is called disconnected if there exist nonempty open sets $U, V$ such that $U \cap V = \emptyset$ and $U \cup V = X$; otherwise $X$ is connected. When we speak of connected or disconnected subsets of $X$, we refer to the relative topology on them.
+\begin{enumerate}[label=\alph*.]
+    \item $X$ is connected iff $\emptyset$ and $X$ are the only subsets of $X$ that are both open and closed.
+    \item If $\{E_\alpha\}_{\alpha \in A}$ is a collection of connected subsets of $X$ such that $\bigcap_{\alpha \in A} E_\alpha \neq \emptyset$, then $\bigcup_{\alpha \in A} E_\alpha$ is connected.
+    \item If $A \subset X$ is connected, then $\overline{A}$ is connected.
+    \item Every point $x \in X$ is contained in a unique maximal connected subset of $X$, and this subset is closed. (It is called the connected component of $x$.)
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+\item This follows directly from the definition. 
+\item For the sake of contradiction assume that $\cup E_\alpha$ is disconnected and the nonempty open sets $U,V$ separate it. 
+    Then, as $E_\alpha$ are all connected we either have $E_\alpha\subseteq U$ or $E_\alpha\subseteq V$ as otherwise $E_\alpha\cap U,E_\alpha\cap V$ is a valid separation for $E_\alpha$ (in the relative topology of $E_\alpha$.) 
+    But, as $U,V$ are both nonempty we must have some $E_\alpha\subseteq U$ and $E_\beta\subseteq V$ which contradicts the fact that $\cap E_\alpha\neq\emptyset.$
+\item Again for the sake of contradiction assume otherwise, let $U,V$ be a separation for $\overline{A}$. 
+    Then, if $A\cap U,A\cap V$ are both nonempty then this serves as a separation in the relative topology for $A$ and would imply that $A$ was disconnected as well so this can't be the case. 
+    We know that $\overline{A}=A\cup acc(A)$ and if wlog $A\cap U$ was empty then we would have $U\subseteq acc(A)$ which implies that $U$ has an accumulation point of $A$ and thus by definition $U\cap A$ is nonempty which is a contradiction so both of these must be nonempty which is a contradiction, thus $\overline{A}$ must be connected to. 
+\item Let $C$ be the union of all connected sets containing $x.$ 
+    By part (b) we must have that $C$ is connected too making $C$ the maximal connected set containing $x$ and as its closure is connected too by part (c) we must have that, $C=\overline{C}$ making it closed. 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-11}
+If $E_1, \dots, E_n$ are subsets of a topological space, the closure of $\bigcup_{1}^n E_j$ is $\bigcup_{1}^n \overline{E}_j$.
+\end{problem}
+\begin{solution}
+    As $\cup E_j\subseteq\cup \overline{E_j}$ and finite unions of closed sets are closed we must have that $\overline{\cup E_j}\subseteq\cup\overline{E_j}$. 
+    Now, if $C$ is a closed set containing $\cup E_j$ then it contains each $E_j$ and thus their closures as well, thus $C\supseteq\cup\overline{E_j}$. 
+    Thus, by definition we have $\overline{\cup E_j}=\cap C\supseteq\cup\overline{E_j}$ where the intersection is over all closed sets containing $\cup E_j.$ 
+    We thus have equality, having shown both sides of the set inclusion. 
+\end{solution}
+\begin{problem}\label{prob:4-12}
+Let $X$ be a set. A Kuratowski closure operator on $X$ is a map $A \mapsto A^*$ from $\mathcal{P}(X)$ to itself satisfying (i) $\emptyset^* = \emptyset$, (ii) $A \subset A^*$ for all $A$, (iii) $(A^*)^* = A^*$ for all $A$, and (iv) $(A \cup B)^* = A^* \cup B^*$ for all $A, B$.
+\begin{enumerate}[label=\alph*.]
+    \item If $X$ is a topological space, the map $A \mapsto \overline{A}$ is a Kuratowski closure operator. (Use Exercise 11.)
+    \item Conversely, given a Kuratowski closure operator, let $\mathcal{F} = \{A \subset X : A = A^*\}$ and $\mathfrak{T} = \{U \subset X : U^c \in \mathcal{F}\}$. Then $\mathfrak{T}$ is a topology, and for any set $A \subset X$, $A^*$ is its closure with respect to $\mathfrak{T}$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item (iv) follows from \hyperref[prob:4-11]{Problem 4.11} and the rest are trivial. 
+    \item As $\emptyset^*=\emptyset$ we see that $X\in\mathfrak T$ and as $X\subseteq X^*$, we have $X=X^*$ so we similarly have $\emptyset\in\mathfrak T$ too. 
+        Now, if $E_\alpha\in\mathfrak T$ then we see that $E_\alpha^c=(E_\alpha^c)^*$ for all $\alpha$ and $\cup E_\alpha\in\mathfrak T$ iff $\cap E_\alpha^c=(\cap E_\alpha^c)^*$. 
+        The $\subseteq$ direction follows from definition and as $\cap (E_\alpha)^c\subseteq E_\alpha^c=(E_\alpha^c)^*$, by (iv, which can be used to deduce monotonicity) we have $(\cap (E_\alpha)^c)^*\subseteq E_\alpha^c$ for all $\alpha$ and hence the other direction $(\cap E_\alpha^c)^*\subseteq\cap E_\alpha^c$ also holds. 
+        Closure under finite intersections is equivalent to closure of $\mathcal F$ under finite unions which follows from (iv) easily and we thus have that $\mathfrak T$ is a topology. 
+        In this topology the closed sets are precisely the fixed points of this map and thus by monotonicty we see that,
+        \[
+            A^*\subseteq\bigcap_{\substack{A\subseteq K\\ K\in\mathcal F}}K\subseteq A^*
+        \]
+        as $A^*\in\mathcal F$ too, hence $^*$ is the closure operator with respect to $\mathfrak T.$ 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-13}
+If $X$ is a topological space, $U$ is open in $X$, and $A$ is dense in $X$, then $\overline{U} = \overline{U \cap A}$.
+\end{problem}
+\begin{solution}
+    It suffices to show that $U\subseteq\overline{U\cap A}.$ 
+    Assume for the sake of contradiction that there exists some $x\in U$ such that $x\in(\overline{U\cap A})^c=H$ which is open. 
+    Thus, $U\cap H$ is a nonempty (they both contain $x$) open set and as $A$ is dense, we must have that $A\cap(U\cap H)$ is nonempty which is absurd as $A\cap U\cap H=(A\cap U)\cap(U\setminus\overline{A\cap U})=\emptyset$ so we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-14}
+If $X$ and $Y$ are topological spaces, $f : X \to Y$ is continuous iff $f(\overline{A}) \subset \overline{f(A)}$ for all $A \subset X$ iff $\overline{f^{-1}(B)} \subset f^{-1}(\overline{B})$ for all $B \subset Y$.
+\end{problem}
+\begin{solution}
+    If $f$ is continuous then for all closed $C$ containing $f(A)$ we must have that $A\subseteq f^{-1}(C)$ which is closed and thus $ \overline{A} \subseteq f^{-1}(C)$ and thus, $f( \overline{A} )\subseteq f(f^{-1}(C))\subseteq C$ so we must have that $f( \overline{A}) \subseteq\cap C= \overline{f(A)}$ where the union is over all such closed $C.$ 
+    If the second hypothesis holds, then as
+    \[
+        f^{-1}( \overline{B})=\bigcap_{\substack{B \subseteq C\\ C\text{ closed}}}f^{-1}(C)
+    \]
+    and for all the $C$ above, $\overline{B}\subseteq C\implies \overline{f(B)} \subseteq f( \overline{B}) \subseteq f(C)$ so we see that the third hypothesis holds too. 
+    Now, if the third hypothesis holds then for all closed $C$ we must have $ \overline{f^{-1}(C)} \subseteq f^{-1}(C)$ as $C=\overline{C}$ and this implies that $f^{-1}(C)= \overline{f^{-1}(C)}$ so preimages of closed sets are closed, which is equivalent to continuity so we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-15}
+If $X$ is a topological space, $A \subset X$ is closed, and $g \in C(A)$ satisfies $g = 0$ on $\partial A$, then the extension of $g$ to $X$ defined by $g(x) = 0$ for $x \in A^c$ is continuous.
+\end{problem}
+\begin{solution}
+    We see that $X=A\cup\overline{A^c}$ and as $ \overline{A^c}=A^c\cup\partial A$, it must be the case that $g$ is continuous on both $\overline{A^c}$ (its constant here) and $A$ and hence, for any closed $C$ 
+    \[
+        g^{-1}(C)=(g^{-1}(C)\cap A)\cup(g^{-1}(C)\cap\overline{A^c})=g|_{A}^{-1}(C)\cup g|_{\overline{A^c}}^{-1}(C)
+    \]
+    and as $A$ and $ \overline{A^c}$ are both closed we must have that $g|_{A}^{-1}(C)$ and $g|_{\overline{A^c}}^{-1}(C)$ are both closed. 
+    As finite unions of closed sets are closed, $g^{-1}(C)$ is closed so we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-16}
+Let $X$ be a topological space, $Y$ a Hausdorff space, and $f, g$ continuous maps from $X$ to $Y$.
+\begin{enumerate}[label=\alph*.]
+    \item $\{x : f(x) = g(x)\}$ is closed.
+    \item If $f = g$ on a dense subset of $X$, then $f = g$ on all of $X$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item Consider $E=Y\times Y$ with the product topology and let $h:X\to E$ be defined by $h(x):=(f(x),g(x))$ which is continuous as its components are. 
+        Here, we see that,
+        \[
+            \qty{x\in X : f(x) = g(x)} = h^{-1}( \qty{(y,y):y\in Y})
+        \]
+        and we claim that the diagonal $\Delta$ is closed. 
+        It suffices to prove that its complement is open, indeed if $x\neq y$ and $U_x,U_y$ are disjoint open sets separating them, we see that $U_x\times U_y$ is open in the product topology and
+        \[
+            \Delta^c=\bigcup_{(x,y)\in\Delta^c}U_x\times U_y
+        \]
+        is open so we are done. 
+    \item This follows from the fact that closed dense sets are always the whole space itself.
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-17}
+If $X$ is a set, $\mathfrak{F}$ a collection of real-valued functions on $X$, and $\mathfrak{T}$ the weak topology generated by $\mathfrak{F}$, then $\mathfrak{T}$ is Hausdorff iff for every $x, y \in X$ with $x \neq y$ there exists $f \in \mathfrak{F}$ with $f(x) \neq f(y)$.
+\end{problem}
+\begin{solution}
+    If $x,y$ are distinct and there exists some $f$ that maps them to different values then, as $f$ is continuous over the weak topology, for disjoint open sets $U\ni f(x),V\ni f(y)$ we see that $f^{-1}(U)\ni x,f^{-1}(V)\ni y$ are disjoint open sets so $\mathfrak T$ is hausdorff. 
+    Now, suppose $f(x)=f(y)=c$ for all $f$, for some  distinct $x,y$. 
+    Then for all open $U\in\bR$ we see that $c\in U$ implies $f^{-1}(U)$ contains both $x,y$ for all $f$, and otherwise it contains none of $x,y$ for all $f$. 
+    Thus, all the sets in the generator either have both $x,y$ or none of these and by proposition 4.4 the open sets too have this property and are unable to separate these distinct points which makes $\mathfrak T$ not hausdorff so we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-18}
+If $X$ and $Y$ are topological spaces and $y_0 \in Y$, then $X$ is homeomorphic to $X \times \{y_0\}$ where the latter has the relative topology as a subset of $X \times Y$.
+\end{problem}
+\begin{solution}
+We can consider the bijection $x\mapsto (x,y_0)$. 
+This is continuous as under the relative topology here, a generator of $X\times\{y_0\}$ is $\{U\times\{y_0\}:U\text{ open in }X\}$ and the preimages of these under this map are exactly the open sets in $X$, so we are done by proposition $4.9$. 
+\end{solution}
+\begin{problem}\label{prob:4-19}
+If $\{X_\alpha\}$ is a family of topological spaces, $X = \prod_{\alpha} X_\alpha$ (with the product topology) is uniquely determined up to homeomorphism by the following property: There exist continuous maps $\pi_\alpha : X \to X_\alpha$ such that if $Y$ is any topological space and $f_\alpha \in C(Y,X_\alpha)$ for each $\alpha$, there is a unique $F \in C(Y,X)$ such that $f_\alpha = \pi_\alpha \circ F$. (Thus $X$ is the category-theoretic product of the $X_\alpha$ in the category of topological spaces.)
+\end{problem}
+\begin{solution}
+We describe the situation with a commutative diagram below. 
+% https://q.uiver.app/#q=WzAsNCxbMiwwLCJZIl0sWzIsMiwiXFxwcm9kIFhfXFxhbHBoYSJdLFs0LDIsIlhfXFxiZXRhIl0sWzAsMiwiWF9cXGFscGhhIl0sWzAsMSwiXFxleGlzdHMgIUYiXSxbMCwyLCJmX1xcYmV0YSJdLFsxLDIsIlxccGlfXFxiZXRhIiwyXSxbMCwzLCJmX1xcYWxwaGEiLDJdLFsxLDMsIlxccGlfXFxhbHBoYSJdXQ==
+\[\begin{tikzcd}[row sep=2.25em]
+	&& Y && \\
+	\\
+	{X_\alpha} && {\prod X_\alpha} && {X_\beta}
+	\arrow["{f_\alpha}"', from=1-3, to=3-1]
+	\arrow["{\exists !F}", from=1-3, to=3-3]
+	\arrow["{f_\beta}", from=1-3, to=3-5]
+	\arrow["{\pi_\alpha}", from=3-3, to=3-1]
+	\arrow["{\pi_\beta}"', from=3-3, to=3-5]
+\end{tikzcd}\]
+If $f_\alpha\in C(Y,X_\alpha)$ for all $\alpha$ then we see that $f_\alpha^{-1}(U_\alpha)$ is open in $Y$ for all $\alpha$, where $U_\alpha$ is open in $X_\alpha$. 
+If such a $F$ were to exist then for this diagram to commute we must have that $\pi_\alpha\circ F=f_\alpha$ and thus, $F$ is forced to be the map sending $y\mapsto (f_\alpha(y))_{\alpha\in A}$ and is also continuous as all its components are due to how the product topology is defined and so it is indeed the unique such map in $C(Y,X).$ 
+Now, suppose that $Z$ had the same properties, let $\tau$ take the place of $\pi$ and if $Y=X$ and $f_\alpha=\pi_\alpha\in C(X,X_\alpha)$ (the projections are continuous) then by definition there exists a map $G\in C(X,Z)$ such that $\pi_\alpha=\tau_\alpha\circ G$ i.e this diagram commutes
+% https://q.uiver.app/#q=WzAsNCxbMiwwLCJcXHByb2QgWF9cXGFscGhhIl0sWzQsMiwiWF9cXGJldGEiXSxbMCwyLCJYX1xcYWxwaGEiXSxbMiwyLCJaIl0sWzAsMSwiXFxwaV9cXGJldGEiLDJdLFswLDIsIlxccGlfXFxhbHBoYSJdLFszLDEsIlxcdGF1X1xcYmV0YSIsMl0sWzMsMiwiXFx0YXVfXFxhbHBoYSJdLFswLDMsIkciLDJdXQ==
+\[\begin{tikzcd}[row sep=2.25em]
+	&& {\prod X_\alpha} && \\
+	\\
+	{X_\alpha} && Z && {X_\beta}
+	\arrow["{\pi_\alpha}", from=1-3, to=3-1]
+	\arrow["G"', from=1-3, to=3-3]
+	\arrow["{\pi_\beta}"', from=1-3, to=3-5]
+	\arrow["{\tau_\alpha}", from=3-3, to=3-1]
+	\arrow["{\tau_\beta}"', from=3-3, to=3-5]
+\end{tikzcd}\]
+By definition there exists $H\in C(Z,X)$ such that $\tau_\alpha=\pi_\alpha\circ H$ implying, $\pi_\alpha=\pi_\alpha\circ(H\circ G)$ and similarly, $\tau_\alpha=\tau_\alpha\circ(G\circ H)$. 
+Now, by uniqueness of $F$ in the exercise statement we must have that $H\circ G=e_X$ and $G\circ H=e_Z$ as $\pi_\alpha=\pi_\alpha\circ e_X$ and $\tau_\alpha=\tau_\alpha\circ e_Z$ which tells us that $H$ is invertible and as composition of continuous maps are continuous, $X$ and $Z$ are homeomorphic through $H$ so we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-20}
+If $A$ is a countable set and $X_\alpha$ is a first (resp. second) countable space for each $\alpha \in A$, then $\prod_{\alpha \in A} X_\alpha$ is first (resp. second) countable.
+\end{problem}
+\begin{solution}
+    Assume WLOG $A=\bN$. 
+    If $X_k$ are first countable then for some $x\in\prod X_k$ consider the neighborhood bases $\mN(x_k)$ of $x_k$ in $X_k.$
+    Looking at the generators of the product topology of form $\cap_{j=1}^n\pi_{k_j}^{-1}(U_{k_j})$ containing $x$ i.e. $U_{k_j}\ni x_{k_j}$ open in $X_{k_j}$ we see that there exists $V_{k_j}\in\mN(x_{k_j})$ such that $x_{k_j}\in V_{k_j} \subseteq U_{k_j}$ and thus,
+    \[
+        x\in\bigcap_{j=1}^n\pi^{-1}_{k_j}(V_{k_j}) \subseteq\bigcap_{j=1}^n\pi_{k_j}^{-1}(U_{k_j})
+    \]
+   so the following is a neighborhood base for $x$ in the product topology
+   \[
+       \qty{\bigcap_{j\in J}\pi_j^{-1}(N_j):J \subseteq\bN,J\text{ is finite},(\forall j\in J)N_j\in\mN(x_j)}
+   \]
+   We can construct an obvious injection from this to
+   \[
+       \bigsqcup_{J \subseteq\bN:J\text{ finite}}\underbrace{\prod_{j\in J}\bN}_{\text{countable}}
+   \]
+   which is countable, being a countable disjoint union of countable sets. 
+   Now, if they were second countable then the exact same construction gives us a base if we replace the countable neighborhood bases with bases.
+\end{solution}
+\begin{problem}\label{prob:4-21}
+If $X$ is an infinite set with the cofinite topology, then every $f \in C(X)$ is constant.
+\end{problem}
+\begin{solution}
+    By continuity we see that for any closed $C\subseteq\bR$ we must have $f^{-1}(C)$ closed in $X$ and hence finite, unless its all $X.$ 
+    Now, suppose $f$ is not constant and there are distinct $x,y\in f(X).$ 
+    Let, $C_x,C_y$ be closed sets formed from $\bR$ by removing small enough open intervals around $x,y$ respectively such that $C_x\cup C_y=\bR.$ 
+    Then we see that $X=f^{-1}(\bR)=f^{-1}(C_x)\cup f^{-1}(C_y)$ where both the preimages are closed and not the whole space as $x\neq y$ and thus they must be finite which is impossible as $X$ is infinite. 
+\end{solution}
+\begin{problem}\label{prob:4-22}
+Let $X$ be a topological space, $(Y,\rho)$ a complete metric space, and $\{f_n\}$ a sequence in $Y^X$ such that $\sup_{x \in X} \rho(f_n(x), f_m(x)) \to 0$ as $m, n \to \infty$. There is a unique $f \in Y^X$ such that $\sup_{x \in X} \rho(f_n(x), f(x)) \to 0$ as $n \to \infty$. If each $f_n$ is continuous, so is $f$.
+\end{problem}
+\begin{solution}
+    Clearly for any fixed $x\in X$ the sequence $ \qty{f_n(x)}_{n}$ is cauchy and thus converges to say $f(x).$ 
+    For any $\epsilon>0$ choose $N$ such that $m,n\geq N$ implies $\rho(f_n(x),f_m(y))<\epsilon$ for all $x\in X$ and thus $\rho(f(x),f_n(x))\leq\rho(f_n(x),f_m(x))+\rho(f_m(x),f(x))<\epsilon+\rho(f_m(x),f(x))$ 
+    As, $m\to\infty$ we find that $\rho(f_m(x),f(x))\to 0$ so we must have that $\rho(f_n(x),f(x))\leq\epsilon$ and thus $\sup_{x\in X}\rho(f(x),f_n(x))$ must converge to $0$ as $n\to\infty.$ 
+    Now suppose that $g$ was another such function, then as $\rho(f(x),g(x))\leq\rho(f_n(x),f(x))+\rho(f_n(x),g(x))\to 0$ for all $x\in X$ we must have $f=g$ proving uniqueness. 
+   With the metric topology in mind it suffices to prove that for all $x\in X$ and $\epsilon>0$ there exists a neighborhood $V$ of $x$ such that $f(V)\subseteq B(f(x),\epsilon)$. 
+   First choose $N$ such that $\rho(f(x),f_N(x))<\epsilon/3$ for all $x$ (we can do this by the previous part), then if $V$ is a neighbornood of $x$ such that $f_N(V)\subseteq B(f_N(x),\epsilon/3)$ then, for all $y\in V$
+   \[
+   \rho(f(x),f(y))\leq\rho(f_N(x),f_N(y))+\rho(f_N(x),f(x))+\rho(f_N(y),f(y))< \frac{\epsilon}{3}+\frac{\epsilon}{3}+\frac{\epsilon}{3}=\epsilon 
+   \]
+   and thus $f(V)\subseteq B(f(x),\epsilon)$ and we are done as the balls around $f(x)$ form a neighborhood base and this easily shows that $f$ is continuous at all $x\in X$ and thus it is continuous over $X. $ 
+\end{solution}
+\begin{problem}\label{prob:4-23}
+Give an elementary proof of the Tietze extension theorem for the case $X = \bR$.
+\end{problem}
+\begin{solution}
+    Suppose $f\in C(A)$ with $A$ closed. 
+    As open sets in $\bR$ are disjoint unions of countably many open intervals. 
+    Say we have $A^c=\cup (a_n,b_n)$ where these intervals are disjoint; this might be a finite union and rays are also considered an interval. 
+    If $(a_n,b_n)$ is a bounded interval then define $F$ to be the line joining $f(a_n)$ to $f(b_n)$ on this, if its a ray (suppose left open wlog) $(-\infty,b)$ then set $F$ to be $f(b)$ here and if $a\in A$ then set $F(a)=f(a).$ 
+    This definetly works but going through all the cases to prove this using sequential criterion is something I will postpone for later.   
+\end{solution}
+\begin{problem}\label{prob:4-24}
+A Hausdorff (it does not have to be) space $X$ is normal iff $X$ satisfies the conclusion of Urysohn's lemma iff $X$ satisfies the conclusion of the Tietze extension theorem.
+\end{problem}
+\begin{solution}
+If $X$ is normal then it satisfies the conclusion of urysohn's lemma. 
+If $X$ satisfies the conclusion of urysohn's lemma then it satisfies the conclusion of tietze's extension theorem as normality of the space is not used in the proof, only tietze's theorem is used (look at Theorem 4.16) 
+If $X$ satisfies the conclusion of tietze's extension theorem we will prove that it is normal. 
+Suppose $A,B$ are disjoint closed sets and we have $f\in C(A\cup B,[0,1])$ such that $f=1/3$ on $A$ and $f=2/3$ on $B$ and $F$ be an extension then clearly $U=F^{-1}([0,1/2)),V=F^{-1}((1/2,1])$ are open and disjoint such that $A\subseteq U$ and $B\subseteq V.$
+\end{solution}
+\begin{problem}\label{prob:4-25}
+If $(X,\mathfrak{T})$ is completely regular, then $\mathfrak{T}$ is the weak topology generated by $C(X)$.
+\end{problem}
+\begin{solution}
+If $A$ is a closed set and $x\in A^c$ then we can find $f_x\in C(X)$ with $f_x(x)=1$ and $f_x=0$ on $A$. 
+Now consider the closed sets $f_x^{-1}( \qty{0})$, these contain $A$ and exclude $x$, thus we see that, 
+\[
+    A=\bigcap_{x\in A^c}f_x^{-1}( \qty{0})\quad\text{and}\quad A^c=\bigcup_{x\in A^c}f_x^{-1}(\bC\setminus \qty{0})
+\]
+hence we see that all open sets (these can be expressed as the complement of a closed set all ways) are in the weak topology generated by $C(X)$ as this contains all sets of form $f^{-1}(\bC\setminus \qty{0})$ with $f\in C(X).$ 
+Thus, $\mathfrak T$ is contained in this weak topology (the inclusion in the other direction holds from the definition of weak topologies.)  
+\end{solution}
+\begin{problem}\label{prob:4-26}
+Let $X$ and $Y$ be topological spaces.
+\begin{enumerate}[label=\alph*.]
+    \item If $X$ is connected (see Exercise 10) and $f \in C(X,Y)$, then $f(X)$ is connected.
+    \item $X$ is called arcwise connected if for all $x_0, x_1 \in X$ there exists $f \in C([0,1],X)$ with $f(0) = x_0$ and $f(1) = x_1$. Every arcwise connected space is connected.
+    \item Let $X = \{(s,t) \in \bR^2 : t = \sin(s^{-1})\} \cup \{(0,0)\}$, with the relative topology induced from $\bR^2$. Then $X$ is connected but not arcwise connected.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item If $f(X)=U\cup V$ with $U,V$ nonempty, open and disjoint then we see that $X=f^{-1}(U)\cup f^{-1}(V)$ is also a valid separation for $X$ so if $X$ is connected $f(X)$ must be connected too. 
+    \item Suppose $U,V$ are open, disjoint, nonempty, their union $X$ and $x_0\in U,x_1\in V$. 
+        If $f\in C([0,1],X)$ is such that $f(0)=x_0$ and $f(1)=x_1$ then $f^{-1}(U),f^{-1}(V)$ are open, nonempty and partition $[0,1]$ which is a contradiction as $[0,1]$ is connected thus, arcwise connected spaces are always connected. 
+    \item Let $G(x)=(x,\sin(1/x))$, then we see that $G(\bR_+)\cup G(\bR_-)\cup \qty{(0,0)}=X$ and each of these are connected by part (a). 
+        It is easily provable that any open $U\ni (0,0)$ in the relative topology of $X$ has nonempty intersection with $G(\bR_+)$ and thus if $V$ is another open set in the relative topology,  disjoint to $U$ such that $U\cup V=X$ then $G(\bR_+)=(U\cap G(\bR_+))\cup(V\cap G(\bR_+))$ is a valid separation which is absurd as $G(\bR_+)$ is connected so $X$ must be connected. 
+        It is however not arc conected as we can not join $(0,0)$ to $(\pi,0)$ through $X$ with a continuous function. 
+        More rigourously, if $f:C([0,1],X)$ is such that $f(0)=(\pi,0)$ and $f(1)=(0,0)$ then we would need $\norm{f(x)}$ to be small enough, say less than $1/2$ for all $x\in(1-\delta,1]$ for some small $\delta>0$ so we must have that,
+        \[
+            f((1-\delta,1))\subseteq J=\qty{(s,\sin(1/s))\in\bR^2:1-\delta<s<1,|\sin(1/s)|<1/2}
+        \]
+        But $J$ is disconnected set with each connected component bounded away from $(0,0)$, i.e. they dont have this as an accumulation point. 
+        Thus, we see that $f((1-\delta,1))$ must be in one of these components by part (a) and thus it does not have $f(1)$ as an accumulation point which is absurd when $f$ is continuous. 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-27}
+If $X_\alpha$ is connected for each $\alpha \in A$ (see Exercise 10), then $X = \prod_{\alpha \in A} X_\alpha$ is connected. (Fix $x \in X$ and let $Y$ be the connected component of $x$ in $X$. Show that $Y$ includes $\{y \in X : \pi_\alpha(y) = \pi_\alpha(x) \text{ for all but finitely many } \alpha\}$ and that the latter set is dense in $X$. Use Exercises 10 and 18.)
+\end{problem}
+\begin{solution}
+Let the set described in the question be $S$, then we find that
+\[
+    S=\bigcup_{\substack{J\subseteq A\\ J\text{ finite}}}\underbrace{\prod_{\alpha\in A}L_{\alpha,J}}_{\text{Let this be }P_J}\quad\text{ where }L_{\alpha,J}=X_\alpha\text{ if }\alpha\in J\text{ and }x_\alpha\text{ otherwise}
+\]
+Now, for any $J= \qty{\alpha_1,\ldots,\alpha_n}$ we can show using similar arguments as in \hyperref[prob:4-18]{Problem 1.18} that $\prod L_{\alpha,J}$ is homeomorphic to $X_{\alpha_1}\times\ldots\times X_{\alpha_n}$ which we show to be connected at the end, so its connectedd itslef. 
+As all of these products contain $x$, thus \hyperref[prob:4-10]{Problem 4.10} implies that $S$ is continuous so $S\subseteq Y$ by definition. 
+If $\cap_1^n\pi_{\alpha_i}^{-1}(U_{\alpha_i})$ is any set in the conventional base for this space then we see that there is a point in this that only differs from $x$ at the index $\alpha_1,ldots,\alpha_n$ so it has nonempty intersection with $S$ and thus all open sets do too making $S$ dense, thus we have $X= \overline{S}\subseteq \overline{Y}=Y$ as connected components are closed and we are done. 
+To show that this is true for finite $A$ as used as a fact earlier we can induct by adding a coordinate on every time in a sense. 
+Say $X,Y$ are connected then, the statement follows for $X\times Y$ directly using the proof above by Problem 18 as these individual spaces are connected. 
+Now, we claim $(X\times Y)\times Z$ is homeomorphic to $X\times Y\times Z$ which will let us induct and prove it for finite $A.$ 
+Let, $f:(X\times Y)\times Z\to X\times Y\times Z$ be defined by $((x,y),z)\mapsto (x,y,z)$ then this is continuous, looking at $\pi_1\circ f$ (the rest are proved to be continuous similarly) as, if $U,V,W$ are open in $X,Y,Z$ respectively then $(\pi_1\circ f)^{-1}(U)=f^{-1}(U\times Y\times Z)=(U\times Y)\times Z$ is open in $(X\times Y)\times Z$ due to $U\times Y$ being open in $X\times Y$ and $Z$ being open in $Z$, which is sufficient as components being continuous are equivalent to the function itself being continuous by the definition of the product topology. 
+\end{solution}
+\begin{problem}\label{prob:4-28}
+Let $X$ be a topological space equipped with an equivalence relation, $\tilde{X}$ the set of equivalence classes, $\pi : X \to \tilde{X}$ the map taking each $x \in X$ to its equivalence class, and $\mathfrak{T} = \{U \subset \tilde{X} : \pi^{-1}(U) \text{ is open in } X\}$.
+\begin{enumerate}[label=\alph*.]
+    \item $\mathfrak{T}$ is a topology on $\tilde{X}$. (It is called the quotient topology.)
+    \item If $Y$ is a topological space, $f : \tilde{X} \to Y$ is continuous iff $f \circ \pi$ is continuous.
+    \item $\tilde{X}$ is $T_1$ iff every equivalence class is closed.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item Clearly $\emptyset,\tilde{X}\in\mathfrak T$, the rest follows from $\pi^{-1}$ commuting with unions and intersections. 
+    \item Clearly $\pi$ is continuous by definition and thus the only if direction is trivial, for the if direction it suffices to see that if $f\circ\pi$ is continuous then for all open $U \subseteq Y$, $\pi^{-1}(f^{-1}(U))$ is open, which implies that $f^{-1}(U)$ is open by definition so $f$ must be continuous. 
+    \item We use the equivalence that spaces are $T_1$ iff the singletons are closed. 
+        If $\{[x]\}\subseteq\tilde{X}$ were closed then $\pi^{-1}(\{[x]\})=[x]\subseteq X$ is closed too as $\pi$ is continuous and if the equivalence class are closed then for $[x]\neq[y]$ in $\tilde{X}$ we see that $[y]^c=\cup_{z\notin[y]}[z]$ is open in $X$ and omits $y$ while containing $x$ and $\cup_{z\notin[y]} \qty{[z]}$ is open in $\tilde{X}$ (its preimage under $\pi$ is $[y]^c$ which is open in $X$) and omits $[y]$ while containing $[x]$ so the quotient topology for this must be $T_1.$ 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-29}
+If $X$ is a topological space and $G$ is a group of homeomorphisms from $X$ to itself, $G$ induces an equivalence relation on $X$, namely, $x \sim y$ iff $y = g(x)$ for some $g \in G$. Let $X = \bR^2$; describe the quotient space $\tilde{X}$ and the quotient topology on it (as in Exercise 28) for each of the following groups of invertible linear maps. In particular, show that in (a) the quotient space is homeomorphic to $[0,\infty)$; in (b) it is $T_1$ but not Hausdorff; in (c) it is $T_0$ but not $T_1$, and in (d) it is not $T_0$. (In fact, in (d) $X$ is uncountable, but there are only six open sets and there are points $p \in \tilde{X}$ such that $\overline{\{p\}} = \tilde{X}$.)
+\begin{enumerate}[label=\alph*.]
+    \item $\left\{ \begin{pmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{pmatrix} : \theta \in \bR \right\}$
+    \item $\left\{ \begin{pmatrix} 1 & a \\ 0 & 1 \end{pmatrix} : a \in \bR \right\}$
+    \item $\left\{ \begin{pmatrix} a & b \\ 0 & 1 \end{pmatrix} : a > 0, b \in \bR \right\}$
+    \item $\left\{ \begin{pmatrix} a & 0 \\ 0 & b \end{pmatrix} : a, b \in \bQ \setminus \{0\} \right\}$
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+\item These are rotation matrices, each equivalence class consists of vectors of a specific length. 
+    Let $f:\tilde{X}\to [0,\infty)$ be defined by $[x]\mapsto r$ where $\norm{x}=r\geq 0$, its well defined by the previous line.  
+    Using \hyperref[prob:4-28]{Problem 4.28} we see that this is continuous as $f\circ\pi$ is the norm i.e. $f\circ\pi:x\mapsto\norm{x}$, which is continuous and thus so is $f.$ 
+    It is clearly a bijection, hence $\tilde X$ is homeomorphic to $[0,\infty).$ 
+\item These are shear matrices and if we let the one associated to $a\in\bR$ be $g_a$ then we see that $g_a(x,y)=(x+ay,y)$ from this we see that the equivalence classes are $[(x,0)]=\{(x,0)\}$ and $[(x,y)]=\bR\times\{y\}$ for $y\neq 0$. 
+    By Problem 28, its $T_1$ as the equivalence classes are all closed in $\bR^2$ but its clearly not hausdorff as we can not find any open sets separating the $[(1,0)]$ and $[(2,0)]$ for example : if $U$ is open and $[(1,0)]\in U$ then $\pi^{-1}(U)$ is also open and contains $(1,0)$ which forces it to contain $(1,y)$ for all $y$ close enough to $0$ (but not $0$) and hence $[(1,y)]\in\pi(\pi^{-1}(U))\subseteq U$ and if $V$ was an open set containing $[(2,0)]$ then it too would contain all the equivalence classes $[(2,y)]=[(1,y)]$ for small enough nonzero $y$ and thus $U\cap V\neq\emptyset$, so $\tilde{X}$ is not hausdorff. 
+\item Here the equivalence classes are $[(0,0)]=\{(0,0)\},[(x,0)]=\bR_+\times\{0\}$ if $x>0$ and $\bR_-\times\{0\}$ if $x<0$, $[(x,y)]=\bR\times\{y\}$ if $y\neq 0$. 
+    Now, consider the points $[(0,0)]$ and $[(1,0)]$, if $U$ is any open set containing $[(0,0)]$ then by logic similar to before, it always contains $[(1,0)]$ but we the open set $V=\tilde{X}\setminus \qty{[(0,0)]}$ (it is open as $\pi^{-1}(U)=\bR^2\setminus\{(0,0)\}$) does not contain $[(0,0)]$ while containing $[(1,0)]$ so its not $T_1$. 
+    From From the above we see that $[(0,0)]$ can be separated from any point so now assume that none of the two chosen classes are $[(0,0)].$ 
+    If exactly one of them has points with $y$ coordinates being $0$ then either one of the open sets $U=\tilde{X}\setminus \qty{[(0,0)],[(1,0)]}$ or $V=\tilde{X}\setminus \qty{[(0,0)],[(-1,0)]}$ do the job ($\pi^{-1}(U)=\bR^2\setminus \qty{(x,0):x\leq 0}$ and $\pi^{-1}(V)=\bR^2\setminus \qty{(x,0):x\geq 0}$.) 
+    Now, if both the points are equivalence classes with nonzero $y$ coordinates then they can be separated by open sets which correspond to open tubes in $\bR^2$ i.e. sets of form $\bR\times(a,b)$ so all together, this is a $T_0$ space. 
+\item Let $Q=\bQ\setminus\{0\}$ for brevity and let $A= \sqrt{2}Q\times\sqrt{2}Q$ and $B=Q\times Q$ be two different equivalence classes, we show that they can not be separated even in the $T_0$ sense. 
+    If $U$ is open and contains $A\in U$ then as $A\subseteq\pi^{-1}(U)$ we find that there is an open ball in $\bR^2$ around the point $(\sqrt{2},\sqrt{2})$ that is a subset of $\pi^{-1}(U)$ and this clearly contains a point from $B$ so we must have that $B\in\pi(\pi^{-1}(U))$ and the exact same argument relying on the fact that $aQ$ is dense in $\bR$ for any nonzero $a$, shows that no open set containing $B$ can exclude $A$ so the space is not $T_0.$ 
+    For the extra questions at the end : it is uncountable because each equivalence class is countable whereas the real plane is uncountable, the six open sets are (here $\bR\setminus\{0\}$ is written as $R$) :
+    \[
+        \tilde{X},\emptyset,\pi(\bR^2\setminus\{(0,0)\}),\pi(\bR\times R),\pi(R\times\bR),\pi(R\times R),
+    \]
+    Now, a point $p$ for which $\overline{\{p\}}=\tilde{X}$ can be found from the above to be $p=Q\times Q$ as it has nonempty intersection with every nonempty open set in $\tilde{X}.$  
+\end{enumerate} 
+\end{solution}
+\begin{problem}\label{prob:4-30}
+If $A$ is a directed set, a subset $B$ of $A$ is called cofinal in $A$ if for each $\alpha \in A$ there exists $\beta \in B$ such that $\beta \ge \alpha$.
+\begin{enumerate}[label=\alph*.]
+    \item If $B$ is cofinal in $A$ and $\langle x_\alpha \rangle_{\alpha \in A}$ is a net, the inclusion map $B \to A$ makes $\langle x_\beta \rangle_{\beta \in B}$ a subnet of $\langle x_\alpha \rangle_{\alpha \in A}$.
+    \item If $\langle x_\alpha \rangle_{\alpha \in A}$ is a net in a topological space, then $\langle x_\alpha \rangle$ converges to $x$ iff for every cofinal $B \subset A$ there is a cofinal $C \subset B$ such that $\langle x_\gamma \rangle_{\gamma \in C}$ converges to $x$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item This follows from the definition. 
+    \item If $x_\alpha\to x$ then we show that all subnets (say $\langle y_\beta\rangle_{\beta\in B}$) converge to $x$ too, this clearly proves the forward direction using the previous part. 
+        If $U$ is any neighborhood of $x$ then there exists $\gamma\in A$ such that $\alpha\gtrsim\gamma$ implies $x_\alpha\in U$ and by definition there is $\beta_0\in B$ such that $\beta\geq\beta_0$ implies $\alpha_\beta\geq\gamma$ and thus, $y_\beta=x_{\alpha_\beta}\in U$ for all $\beta\geq\beta_0$ proving that every subnet converges. 
+        To prove the backward direction, assume that it does not converge, thus there is a neighborhood $U$ of $x$ such that $x_\alpha\in U^c$ frequently and thus by definition $B= \qty{\gamma\in A:x_\gamma\in U^c}$ is cofinal. 
+        Now, for any $C$ cofinal in $B$ we find that $\langle x_\zeta\rangle_{\zeta\in C}\subseteq U^c$ so this does not converge to $x$. 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-31}
+Let $\langle x_n \rangle_{n \in \bN}$ be a sequence.
+\begin{enumerate}[label=\alph*.]
+    \item If $k \mapsto n_k$ is a map from $\bN$ to itself, then $\langle x_{n_k} \rangle_{k \in \bN}$ is a subnet of $\langle x_n \rangle$ iff $n_k \to \infty$ as $k \to \infty$, and it is a subsequence (as defined in \S 0.1) iff $n_k$ is strictly increasing in $k$.
+    \item There is a natural one-to-one correspondence between the subsequences of $\langle x_n \rangle$ and the subnets of $\langle x_n \rangle$ defined by cofinal sets as in Exercise 30.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item This follows from definition.
+    \item The subsequence $(x_{n_k})$ corresponds to to the cofinal set $\{n_j:j\in\bN\}$ and thus the subnet defined by it. 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-32}
+A topological space $X$ is Hausdorff iff every net in $X$ converges to at most one point. (If $X$ is not Hausdorff, let $x$ and $y$ be distinct points with no disjoint neighborhoods, and consider the directed set $\mN_x \times \mN_y$ where $\mN_x, \mN_y$ are the families of neighborhoods of $x, y$.)
+\end{problem}
+\begin{solution}
+If $x,y$ are distinct points and $x_\alpha\to x$ then for some neighborhoods $U\ni x,V\ni y_1$ that are disjoint we find that $x_\alpha\in U,x_\alpha\in V^c$ eventually so $x_\alpha$ is clearly not in $V^c$ eventually and thus can not converge to $y.$ 
+Now, if $X$ is not hausdorff then consider $x,y$ distinct whose neighborhoods always intersect. 
+Consider $\mN_x,\mN_y$ the collection of neighborhoods of $x,y$ respectively, ordered by reverse inclusion and thus consider the directed set $\mN_x\times\mN_y$ with order induced by its coordinates. 
+Choose $x_{(U,V)}\in U\cap V$ which we can do for these are nonempty by hypothesis. 
+Then, for any $(J,K)\in\mN_x\times\mN_y$ we see that $(U,V)\gtrsim(J,K)\implies U\subseteq J,V\subseteq K\implies U\cap V\subseteq J\cap K$ and $x_{(U,V)}\in J\cap K\subseteq J,K$ proving that the net $\langle x_{(U,V)}\rangle_{(U,V)\in \mN_x\times\mN_y}$ converges to both $x,y.$  
+\end{solution}
+\begin{problem}\label{prob:4-33}
+Let $\langle x_\alpha \rangle_{\alpha \in A}$ be a net in a topological space, and for each $\alpha \in A$ let $E_\alpha = \{x_\beta : \beta \gtrsim \alpha\}$. Then $x$ is a cluster point of $\langle x_\alpha \rangle$ iff $x \in \bigcap_{\alpha \in A} \overline{E}_\alpha$.
+\end{problem}
+\begin{solution}
+The only if direction follows from definition and for the if direction notice how the inclusion implies that for all neighborhoods $U$ of $x$ and $\alpha\in A$ there exists $\beta\gtrsim\alpha$ with $x_\beta\in U$, as $x\in \overline{E_\beta}$ which, by the definition of a cluster point for nets implies that $x$ is a cluster point of our net.  
+\end{solution}
+\begin{problem}\label{prob:4-34}
+If $X$ has the weak topology generated by a family $\mathfrak{F}$ of functions, then $\langle x_\alpha \rangle$ converges to $x \in X$ iff $\langle f(x_\alpha) \rangle$ converges to $f(x)$ for all $f \in \mathfrak{F}$. (In particular, if $X = \prod_{i \in I} X_i$, then $x_\alpha \to x$ iff $\pi_i(x_\alpha) \to \pi_i(x)$ for all $i \in I$..)
+\end{problem}
+\begin{solution}
+    If $X$ has the weak topology generated by $\mathfrak F$ then $f\in\mathfrak F$ are continuous and the conclusion follows, for the other direction notice that for any neighborhood $U$ of $x$ there exists $f_1,\ldots,f_n\in\mathfrak F$ and neighborhoods $U_j$ of $f_j(x)$ such that $x\in\cap_1^nf_j^{-1}(U_j)\subseteq U$ and as $f_j(x_\alpha)\to f_j(x)$ for these $j$ we see that there exists $\alpha_j$ such that $f_j(x_\alpha)\in U_j$ for all $\alpha\gtrsim\alpha_j$ and by definition of directed sets, we can inductively find $\beta\gtrsim\alpha_1,\ldots,\alpha_n$ and thus $f_j(x_\alpha)\in U_j$ for all $j$ when $\alpha\gtrsim\beta.$ 
+    Thus, $x_\alpha\in\cap_1^nf_j^{-1}(U_j) \subseteq U$ for all $\alpha\gtrsim\beta$ so $x_\alpha\to x$ by definition. 
+\end{solution}
+\begin{problem}\label{prob:4-35}
+Let $X$ be a set and $\mA$ the collection of all finite subsets of $X$, directed by inclusion. Let $f : X \to \bR$ be an arbitrary function, and for $A \in \mA$, let $z_A = \sum_{x \in A} f(x)$. Then the net $\langle z_A \rangle$ converges in $\bR$ iff $\{x : f(x) \neq 0\}$ is a countable set $\{x_n\}_{n \in \bN}$ and $\sum_{1}^\infty |f(x_n)| < \infty$, in which case $z_A \to \sum_{1}^\infty f(x_n)$. (Cf. Proposition 0.20.)
+\end{problem}
+\begin{solution}
+    It suffices to assume that $f\geq 0,$ to define the sum over possibly uncountable sets we must split it into positive and negative parts anyways. 
+    We prove the if direction first, let $S= \qty{f\neq 0}= \qty{x_n}_{n\in\bN}$ and $L=\sum_1^\infty f(x_n)$, then we find that for all elements in the neighborhood base $U=(L-\epsilon,L+\epsilon)$ ($\epsilon>0)$ of $L$ there exists $N$ such that $z_ \qty{x_1,\ldots,x_k}\in U$ for all $k\geq N$ and thus, if $\beta\gtrsim \qty{x_1,\ldots,x_N}$ then $L-\epsilon<z_\beta<L$ and thus $z_\beta\in U$ so the net converges to $L.$ 
+    If $ \qty{f\neq 0}$ is not countable then we can easily find arbitrarily large $A$ such that $z_A=|A|/n$ where $n\in\bN$ is fixed and thus we can not have convergence in $\bR$ as, for any $B$ we have $A\cup B\gtrsim B$ and $z_{A\cup B}\geq z_A>|A|/n$ meaning that the partial sums are unbounded.  
+    Now, let $S=\qty{x_n}_{n\in\bN}= \qty{f\neq 0}$ (this might be a finite set too) and, if $z_A\to L$ we see that, for any $\epsilon>0$ there exists $B$ such that $A\gtrsim B\implies z_A\in(L-\epsilon,L+\epsilon)$ and thus $\sum_1^\infty f(x_n)=z_{B\cup S}\in(L-\epsilon,L+\epsilon)$ which implies $L=\sum_1^\infty f(x_n)$ as $\epsilon$ was arbitrary. 
+\end{solution}
+\begin{problem}\label{prob:4-36}
+Let $X$ be the set of Lebesgue measurable complex-valued functions on $[0,1]$. There is no topology $\mathfrak{T}$ on $X$ such that a sequence $\langle f_n \rangle$ converges to $f$ with respect to $\mathfrak{T}$ iff $f_n \to f$ a.e. (Use Corollary 2.32 and Exercises 30b and 31b.)
+\end{problem}
+\begin{solution}
+    If such a topology did exist, then using the problems mentioned in the statement, we know that $\langle f_n\rangle$ converges iff for all subsequences $f_{n_k}$ of $f_n$ there is a subsequence of $f_{n_{k_j}}$ that converges. 
+    There are lebesgue measurable functions $f_n,f$ such that $f_n$ converges to $f$ in $L^1$ but not pointwise a.e. and by the mentioned corollary, given any subsequence $f_{n_k}$, we can find a subsequence in the previous subsequence, say $f_{n_{k_j}}$ for which $f_{n_{k_j}}\to f$ a.e. and thus $\langle f_n\rangle$ converges to $f$ which is a contradiction as $f_n$ does not converge to $f$ a.e. (An example of such a $f_n,f$ is the jumping interval function in chapter 2's section on convergence in measure.)
+\end{solution}
+\begin{problem}\label{prob:4-37}
+Let $0'$ denote a point that is not an element of $(-1,1)$, and let $X = (-1,1) \cup \{0'\}$. Let $\mathfrak{T}$ be the topology on $X$ generated by the sets $(-1, a)$, $(a, 1)$, $[(-1,b) \setminus \{0\}] \cup \{0'\}$, and $[(c,1) \setminus \{0\}] \cup \{0'\}$ where $-1 < a < 1$, $0 < b < 1$, and $-1 < c < 0$. (One should picture $X$ as $(-1,1)$ with the point $0$ split in two.)
+\begin{enumerate}[label=\alph*.]
+    \item Define $f,g : (-1,1) \to X$ by $f(x) = x$ for all $x$, $g(x) = x$ for $x \neq 0$, and $g(0) = 0'$. Then $f$ and $g$ are homeomorphisms onto their ranges.
+    \item $X$ is $T_1$ but not Hausdorff, although each point of $X$ has a neighborhood that is homeomorphic to $(-1,1)$ (and hence is Hausdorff).
+    \item The sets $[-\frac{1}{2}, \frac{1}{2}]$ and $([-\frac{1}{2}, \frac{1}{2}] \setminus \{0\}) \cup \{0'\}$ are compact but not closed in $X$, and their intersection is not compact.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item Both are injective. 
+    This topology agrees with the usual topology on $(-1,1)$ (which is $f$'s range) and thus $f$ being continuous in with respect to the usual topology lends us its continuity in this case as well making it a homeomorphism on its range. 
+    As sets in $\mathfrak T$ are unions of finite intersections of the generators we see that any set $U$ containing $0'$ must have an interval around $0$ excluding $0$ i.e. for some $\delta>0$ we have $(-\delta,\delta)\setminus \qty{0} \subseteq U$ so we find that for any neighborhood $U$ of $g(0)$ we can find some nonempty $(-\delta,\delta)\setminus \qty{0}\subseteq U^\circ$ and we see that $V=(-\delta,\delta)$ is a neighborhood of $0$ such that $g(V) \subseteq U$ so $g$ is continuous at $0.$ 
+    Continuity at other points is trivial, this makes $g$ a homeomorphism on its range too.
+    \item $X$ is $T_1$ by looking at the singletons which can easily shown to be close and it is not hausdorff as we can not separate $0,0'$ by open sets, this is clear from the fact that all neighborhoods of $0'$ must contain a deleted open neighborhood around $0$. 
+    \item As the ranges of $f,g$ are both open and thus these being continuous when looked at as function onto their range implies their continuity in general and we see that 
+        \[
+            \qty[-\frac{1}{2}, \frac{1}{2}]=f\qty(\qty[ -\frac{1}{2}, \frac{1}{2}])\quad\qty(\qty[-\frac{1}{2}, \frac{1}{2}]\setminus \qty{0})\cup \qty{0'}=g\qty(\qty[ -\frac{1}{2}, \frac{1}{2}])
+        \]
+        proving their continuity as images of compact sets under continuous maps is compact. 
+        Their intersection $[-1/2,1/2]\setminus \qty{0}$ is clearly not compact. 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-38}
+Suppose that $(X, \mathfrak{T})$ is a compact Hausdorff space and $\mathfrak{T}'$ is another topology on $X$. If $\mathfrak{T}'$ is strictly stronger than $\mathfrak{T}$, then $(X,\mathfrak{T}')$ is Hausdorff but not compact. If $\mathfrak{T}'$ is strictly weaker than $\mathfrak{T}$, then $(X,\mathfrak{T}')$ is compact but not Hausdorff.
+\end{problem}
+\begin{solution}
+If $\mathfrak T'$ is coarser then it is clearly compact as all open covers in it are also open covers in $\mathfrak T$ and if its finer then it is hausdorff as all neighborhoods in $\mathfrak T$ are also neighborhoods in $\mathfrak T'$. 
+Now, if $\mathfrak T'$ is finer then the identity map from $\mathfrak T'$ to $\mathfrak T$ is continuous. 
+If $\mathfrak T'$ is compact then its closed sets are also compact and thus get mapped to compact sets under the identity map, which are closed in $\mathfrak T$ as it is hausdorff hence implying $\mathfrak T' \subseteq \mathfrak T$ so $\mathfrak T'$ can not be strictly finer. 
+Now, if $\mathfrak T'$ was strictly coarser then by what we just proved we see that this can not be hausdorff.
+\end{solution}
+\begin{problem}\label{prob:4-39}
+Every sequentially compact space is countably compact.
+\end{problem}
+\begin{solution}
+    If it isn't countably compact then we can find a countably infinite open subcover $ \qty{U_n}_{n\in\bN}$ with no finite subcover. 
+    Removing $U_k$ for which $U_k\subseteq\cup_{n<k}U_n$ and reindexing we get another countablly infinite (otherwise, a finite subcover existed to begin with) open cover with no finite subcover from which we can pick $x_n\in U_n\setminus\cup_{k<n}U_k.$ 
+   Now, for any $x$ and $U_j\ni x$ we see that $x_n\notin U_j$ for all $n>j$ and thus it can not have $x$ as a cluster point so no convergent subsequences exist either (these are also subnets, treating the main sequence as a net so we can't have these by Proposition 4.20, it is also easy to show that the existence of a convergent subsequence implies the existence of cluster points straight away.)  
+\end{solution}
+\begin{problem}\label{prob:4-40}
+If $X$ is countably compact, then every sequence in $X$ has a cluster point. If $X$ is also first countable, then $X$ is sequentially compact.
+\end{problem}
+\begin{solution}
+If the space is countably compact then analogous to general compactness we have another variation of proposition 4.21 : If $ \qty{F_n}$ is a countable collection of closed sets with FIP then $\cap F_n$ is nonempty. 
+Now, if we set $F_n:=\overline{\qty{x_m:m\geq n}}$ then this collection has FIP and thus has nonempty intersection. 
+The conclusion now follows from \hyperref[prob:4-33]{Problem 4.33} treating the sequence as a net in the usual manner. 
+For the second conclusion, first pick a cluster point $x$ and a neighborhood base $ \qty{U_n}$ that is countable and decreasing (this is described in the book). 
+Inductively pick integers $n_k>n_{k-1}>\ldots n_1$ such that $x_{n_k}\in U_{n_k}$ (we can do this because $x$ is a cluster point) and we clearly have $x_{n_k}\to x.$
+\end{solution}
+\begin{problem}\label{prob:4-41}
+A $T_1$ space $X$ is countably compact iff every infinite subset of $X$ has an accumulation point.
+\end{problem}
+\begin{solution}
+    We first show that cluster points of a sequence and accumulation points treating the sequence as a set are the same in $T_1$ spaces. 
+    If $x$ is an accumulation point of $(x_n)$ then we can find neighborhoods $V_j$ containing $x$ but not $x_j$ and thus for any $n$ and neighourhood $U$ of $x$ we see that $U\cap V_1\cap\ldots\cap V_n \subseteq U$ must contain some $x_m$ for $m>n$ making $x$ a cluster point. 
+    The cluster points are clearly accumulation points. 
+From the previous problem we can say that any infinite set has an accumulation point by choosing a distinct sequence of points in it and the converse follows from the fact that if $X$ is not countably compact then we can find a sequence $(x_n)$ as in \hyperref[prob:4-39]{Problem 4.39} that has no cluster points and $ \qty{x_n:n\in\bN}$ is an infinite set with no accumulation points (these are the same as cluster points of this sequence in this case as proved in the start.)
+\end{solution}
+\begin{problem}\label{prob:4-42}
+The set of countable ordinals $\Omega$ (\S 0.4) with the order topology (Exercise 9) is sequentially compact and first countable but not compact. (To prove sequential compactness, use Proposition 0.19.)
+\end{problem}
+\begin{solution}
+For any $p\in\Omega$, let $q$ be strictly greater than $p$ (this must exist by the definition of $\Omega$.) 
+Then the sets $S(a,b):=\qty{x:a<x<b}$ for $a\leq p\leq b\leq q$ forms a neighborhood base as all generator sets containing $p$ contain a set of this form : if $p\in \qty{x:x>t}$ then $p>t$ so $p\in S(t,q) \subseteq \qty{x:x>t}$ and $p\in \qty{x:x<t}$ means $p<t$ so $p\in S(\inf\Omega,\min(t,q)) \subseteq \qty{x:x<t}$. 
+This is a countable because $I_q\cup \qty{q}$ is countable (by the definition of $\Omega$.)  
+Now, consider a sequence $(x_n)$ in $\Omega$, we see that $\sup_{n>k}x_n$ exists in $\Omega$ for all $k$ by Proposition 0.19 and as $\Omega$ is well ordered by definition, $s=\inf_{n\in\bN}\sup_{n>k}x_n\in\Omega$. 
+By construction we see that if $s<t$ then $x_n<t$ for all large enough $n$ and if $s>t$ then
+$x_n>t$ infinitely often. 
+If $x_n=s$ infinitely often then we can easily construct the converging subsequence, otherwise we see that $s$ is an accumulation point of $ \qty{x_n:n\in\bN}$. 
+This makes $s$ a cluster point of the sequence by the first part of \hyperref[prob:4-39]{Problem 4.39} as the order topology is normal (and hence $T_1$) by \hyperref[prob:4-9]{Problem 4.9}a. 
+As this is first countable, we can choose a subsequence converging to $s$ as done in the second part of \hyperref[prob:4-40]{Problem 4.40} (all neighborhoods of $s$ contain some terms from the sequence) and thus $\Omega$ is sequentially compact. 
+The open cover $ \qty{I_x}_{x\in\Omega}$ (this is a cover as $\Omega$ has no maximal elements) does not admit finite subcovers as if it did then $\Omega$ would be countable, being a union of a finite number of countable sets. 
+\end{solution}
+\begin{problem}\label{prob:4-43}
+For $x \in [0,1)$, let $\sum a_n(x) 2^{-n}$ ($a_n(x) = 0$ or $1$) be the base-2 decimal expansion of $x$. (If $x$ is a dyadic rational, choose the expansion such that $a_n(x) = 0$ for $n$ large.) Then the sequence $\langle a_n \rangle$ in $\{0,1\}^{[0,1)}$ has no pointwise convergent subsequence. (Hence $\{0,1\}^{[0,1)}$, with the product topology arising from the discrete topology on $\{0,1\}$, is not sequentially compact. It is, however, compact, as we shall show in \S 4.6.)
+\end{problem}
+\begin{solution}
+    We know that convergence in the product topology is equivalent to pointwise convergence so for the subsequence $a_{n_k}$ to converge to say $a$ we would need to have $a_{n_k}(x)\to a(x)$ for all $x\in[0,1).$ 
+    We show that for all such $a_{n_k}$ there exists $x\in[0,1)$ such that $a_{n_k}(x)$ does not converge. 
+    For example, take $x=\sum_{k\in\bN}2^{-n_{2k}}$ (this is clearly not dyadic, each $1$ in the binary expansion must be $2$ zeroes apart from another.) and we have $a_{n_k}(x)=1$ for even $k$ and $0$ for odd $k$ so $a_{n_k}(x)$ does not converge and we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-44}
+If $X$ is countably compact and $f : X \to Y$ is continuous, then $f(X)$ is countably compact.
+\end{problem}
+\begin{solution}
+The proof is the same as the case where we have normal continuity, see Proposition 4.26.
+\end{solution}
+\begin{problem}\label{prob:4-45}
+If $X$ is normal, then $X$ is countably compact iff $C(X) = BC(X)$. (Use Exercises 40 and 44. If $\langle x_n \rangle$ is a sequence in $X$ with no cluster point, then $\{x_n : n \in \bN\}$ is closed, and Corollary 4.17 applies.)
+\end{problem}
+\begin{solution}
+    If $X$ is countably compact then we find that $f(X) \subseteq\bC$ is countably compact too by the previous problem and thus we can find a finite cover of the countable open cover $ \qty{B(0,n)}_{n\in\bN}$ proving that $f$ is bounded. 
+    For the other direction, say its not countably compact, then we can find a sequence $(x_n)$ of distinct points with no cluster points as in \hyperref[prob:4-39]{Problem 4.39} and as normal spaces are $T_1$ by definition, by using the first part of \hyperref[prob:4-41]{Problem 4.41} we can say that $A=\qty{x_n:n\in\bN}$ has no accumulation points and it is thus closed. 
+    Further, as this has no accumulation points, there exists open neighborhoods of $x_m$ that omits all other points in $A$ and thus, in the relative topology of $A$ we find that $ \qty{x_m}\cap A= \qty{x_m}$ is open and thus $A$ inherits a discrete topology as its relative topology, this means that $C(A)=\bC^A$. 
+    Let $f\in C(A)$ be such that $f(x_m)=m$, we can extend $f$ to $F\in C(X)$ on $X$ such that $F(x_m)=m$ too by Corollary 4.17 and as $F$ is continuous and unbounded, $C(X)\neq BC(X)$ so we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-46}
+Prove Theorem 4.34.
+\end{problem}
+\begin{solution}
+    We first prove this for $f\in C(K,[0,1])$. 
+    We can find some $U$ is precompact and $K \subseteq U \subseteq \overline{U} \subseteq X$ by Proposition 4.31. 
+    The sets $f^{-1}([2/3,1])=F,f^{-1}([0,1/3])=G$ are closed in $K$ and thus compact (we work in a hausdorff space). 
+    As $K$ is closed too, $G$ is closed in $X$ making $U\cap G^c$ a open set containing the compact set  $F$ and thus we can find $g_1\in C(X,[0,1])$ such that $g_1=1$ on $F$ and $\supp(g) \subseteq U\cap G^c \subseteq U$ by Theorem 4.32 so $0\leq f-g_1/3\leq 2/3$. 
+    Now replacing $f$ with $(3/2)\cdot(f-g_1/3)\in C(K,[0,1])$ we can find $g_2\in C(X,[0,1])$ such that $\supp(g_2) \subseteq U$ and $0\leq (3/2)\cdot(f-g_1/3)-g_2/3\leq 2/3\implies 0\leq f-g_1/3-2g_2/3^2\leq (2/3)^2$. 
+    We can continue like this and have a sequence $ \qty{g_n}_{n\in\bN} \subseteq C(X,[0,1])$ with $\supp(g_n) \subseteq U$ such that for all $m\in\bN$, $0\leq f-F_m\leq (2/3)^m$ on $K.$ where $F_m=(1/2)\cdot\sum_{k=1}^m (2/3)^kg_k$. 
+    By the weierstrass M-test and proposition 4.13 we see that $F=\lim F_m$ is continuous and extends $f$ and as $\supp(g_n) \subseteq U$ we see that $ \qty{F\neq 0} \subseteq\cup \qty{g_n\neq 0}\implies \qty{F\neq 0} \subseteq U$ and thus $\supp(F) \subseteq \overline{U}$ so $F$ vanishes outside a compact set.  
+    Now we prove this for $f\in C(K)$ (it can be easily proved from the previous result that it works on $C(K,[a,b])$ for real $a<b$.)  
+    Let $g=f/(1+|f|)\in C(K,[-1,1])$ and choose $F\in C_c(X,[-1,1]))$ that extends $g$ and vanishes outside a compact set, say $L$. 
+    Now, we define $h$ on the compact (it is a closed subset of the compact set $L\cup K$) set $F^{-1}( \qty{1,-1})\cup K$ to be $1$ on $K$ and $0$ on $F^{-1}( \qty{-1,1})$ (we can do this because $L,K$ are disjoint as $|g|=|G|<1$ on $K$ and $h$ is continuous on their union as its continuous on each of them and they are closed by the gluing lemma used previously) and extend to $H\in C_c(X,[0,1]).$ 
+    Then we see that $|HG|<1$ and $\Phi=HG/(1-|HG|)\in C_c(X)$ (this inclusion is true as $HG\in C_c(X)$ already.) 
+    It can be easily proven that $\Phi|_K=f.$
+\end{solution}
+\begin{problem}\label{prob:4-47}
+Prove Proposition 4.36. Also, show that if $X$ is Hausdorff but not locally compact, Proposition 4.36 remains valid except that $X^*$ is not Hausdorff.
+\end{problem}
+\begin{solution}
+Let the topology on $X$ be $\mathfrak T$ and that on $X^*$ be $\mathfrak T^*.$ 
+If we have an open cover of $X^*$ then some of these sets must contain $\infty$ and thus are of form $K^c\cup \qty{\infty}$ for some compact $K$ in $(X,\mathfrak T)$, thus the rest of the sets  must cover $K$. 
+These open sets in $\mathfrak T^*$ that cover $K$ are of either open in $\mathfrak T$ or the union of an open set in $\mathfrak T$ with $\infty$, so we can extract a finite subcover easily by ignoring $\infty$ as $\infty\not\in K$ giving us a finite subcover. 
+If $p,q$ are distinct points in $X^*$ which are not $\infty$ then we can find open neighborhoods separating them as $\mathfrak T \subseteq \mathfrak T^*$ and if exactly one of them is $\infty$, say $q$ then as $X$ is LC we can find compact $N \subseteq X$ with respect to $\mathfrak T$ such that $p\in N^\circ$ which is open in $\mathfrak T$ and thus $\mathfrak T^*$, then $N^c\cup \qty{\infty}\in \mathfrak T^*$ is an open set containing $\infty$ and as $N^\circ\cap(N^c\cup\infty)=\emptyset$ as $\infty\notin N$ proving hausdorffness. 
+The inclusion map is an embedding as the relative topology of $X$ in $X^*$ is that of $X$ (for compact (and hence closed) $K$ in $X$ we have  $X\cap(K^c\cup \qty{\infty})=K^c$ which is open in $X.)$ 
+Now, if $C(X)\ni f=g+c$ for a constant $c$ and some $g\in C_0(X)$ then we show that $f$ can be extended to $C(X^*)$ by defining $f(\infty)=c.$ 
+We first show continuity at $\infty.$ 
+For any $\epsilon$ we see that $U=\qty{x\in X:|g(x)|\geq\epsilon}^c\cup\infty$ is such that $f(U) \subseteq B_{\bC}(f(\infty),\epsilon)$ and as $U$ is open in $\mathfrak \mathfrak T^*$ (as $g\in C_0(X)$) we have continuity at $\infty$ as the balls generate the topology on $\bC.$ 
+Now, for any $x\in X$, as $f\in C(X)$ we readily have continuity at $x$ as $\mathfrak T \subseteq \mathfrak T^*$so $f$ is continuous on every point in $X^*$ and thus $f\in C(X^*).$ 
+For the converse, suppose that $f$ can be extended continuously to $C(X^*)$ and we have $f(\infty)=c$, then we claim that $f-c\in C_0(X).$ 
+For any $\epsilon>0$ we must have a neighborhood $B(f(\infty),\epsilon)$, we must have $f^{-1}(B(c,\epsilon))= \qty{\infty}\cup \qty{x\in X:|f(x)-c|\geq\epsilon}^c\in \mathfrak T^*$ which, by definition means that $ \qty{|f-c|\geq\epsilon}$ is compact in $X$ so, on $X$ we can write $f=(f-c)+c$ where $f-c\in C_0(X)$ and $c$ is some constant. 
+Now, if $X$ was not locally compact then choose some point $p\in X$ without any compact neighborhoods and try to separate it from $\infty.$ 
+If $p\in K^c\cup \qty{\infty}\in\mathfrak T^*$ for $K$ compact in $K$ then if $p\in U\in\mathfrak T$ we must have that $U\subseteq K$ which makes $K$ a compact neighborhood of $p$ and if otherwise $p\in N^c\cup \qty{\infty}$ in the same notation then this would mean that $N^c \subseteq K$ which again makes $K$ a compact neighborhood as $N^c$ is open (compact sets are closed in hausdorff spaces.) 
+This proves that $X^*$ can't be hausdorff, but the rest of the proposition remains valid as we did not use local comapctness anywhere else in the proof. 
+\end{solution}
+\begin{problem}\label{prob:4-48}
+Complete the proof of Proposition 4.40.
+\end{problem}
+\begin{solution}
+    Given any compact $K$ as we have $K \subseteq\cup U_n$ and thus we can find a finite subcover $U_{n_1},\ldots,U_{n_k}$ and as $ \overline{ U_n} \subseteq U_{n+1}$ we see that $K \subseteq \overline{U_{\max n_k}}$, this shows that 
+    \[
+        \qty{g\in\bC^X:\sup_{x\in \overline{U_{n+1}}}|f(x)-g(x)|< \frac{1}{m}}\subseteq\qty{g\in\bC^X:\sup_{x\in K}|f(x)-g(x)|< \frac{1}{m}}
+    \]
+    so we have that its a neighborhood base for $f$ as claimed. 
+    Now as this is a countable neighborhood base, we can get a decreasing neighborhood base from this as usual, the rest directly follows using this new base.  
+\end{solution}
+\begin{problem}\label{prob:4-49}
+Let $X$ be a compact Hausdorff space and $E \subset X$.
+\begin{enumerate}[label=\alph*.]
+    \item If $E$ is open, then $E$ is locally compact in the relative topology.
+    \item If $E$ is dense in $X$ and locally compact in the relative topology, then $E$ is open. (Use Exercise 13.)
+    \item $E$ is locally compact in the relative topology iff $E$ is relatively open in $\overline{E}$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    If $A \subseteq E$ is compact then for an open (relative to $E$) cover $ \qty{U_\alpha\cap E}$ of $A\cap E=A$, where $U_\alpha$ are open in $X$, we see that $\qty{U_\alpha}$ forms an open cover of $A$ in $X$ and we can extract a finite subcover $U_{\alpha_1},\ldots,U_{\alpha_n}$ and further get a finite open cover $ \qty{E\cap U_{\alpha_{k}}}$ for $A$ relative to $E$ too. 
+    If it was the case $A \subseteq E$ is relatively compact in $E$ instead then for any open cover $ \qty{U_\alpha}$ of $A$ in $X$ we see that $ \qty{U_\alpha\cap E} $ is a open cover of $A$ in $E$ and thus we can find a finite subcover $ \qty{U_{\alpha_k}\cap E}$ which implies that $A \subseteq\cup U_{\alpha_k}$ which proves compactness in $X.$ 
+    We have proved that for any $E$, $Y \subseteq E \subseteq X$ is compact relative to $X$ iff its compact relative to $E.$
+\begin{enumerate}[label=\alph*.]
+    \item 
+    By normality of CH spaces, for $p\in E$ we can find open $U,V$ which are disjoint such that $p\in U$ and $V \subseteq E^c$ implying $p\in U \subseteq V^c \subseteq E$ and as $V^c$ is a closed subset of a compact space, its compact too so we can conclude that its a compact neighborhood of $p$ in $E$ as $p\in A\cap E \subseteq V^c$ using the proof at the start.
+    \item
+    For any $p\in E$ we can by hypothesis find a compact $K \subseteq E$ and open $U$ such that $p\in E\cap U \subseteq K$. 
+    Using the mentioned exercise and the proof in the beginning we see that $ \overline{E\cap U}= \overline{U} \subseteq K$ as $K$ is compact (we work in a hausdorff space.) 
+    This proves that $p\in U \subseteq K \subseteq E$ so $E$ must be open. 
+    \item
+    $ \overline{E}$ is compact being a closed subset of a compact space and if $E$ is relatively open in $ \overline{E}$ then $E$ is locally compact in the relative topology by part (a). 
+    If $E$ is locally compact in the relative topology, then as $E$ is dense in $ \overline{E}$ in the relative topology of $ \overline{E}$ then by part (b) we see that it is relatively open in $ \overline{E}.$
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-50}
+Let $U$ be an open subset of a compact Hausdorff space $X$ and $U^*$ its one-point compactification (see Exercise 49a). If $\phi : X \to U^*$ is defined by $\phi(x) = x$ if $x \in U$ and $\phi(x) = \infty$ if $x \in U^c$, then $\phi$ is continuous.
+\end{problem}
+\begin{solution}
+By the previous problem's part (a) we have that $U$ is locally compact in the relative topology and thus $U^*$ is compact and hausdorff ($U$ is hausdorff as well clearly.) 
+$\phi$ is clearly continuous on $U$ and for $x\in U^c$, for any neighborhood $K^c\cup \qty{\infty}$ of $\phi(x)$ for $K$ compact in $U$ we see that $\phi^{-1}(K^c\cup \qty{\infty})=\phi^{-1}(K^c)\cup U^c=(U\cap K^c)\cup U^c=K^c$ is a neighborhood containing $x$ as its open in $X$ (this is because $K$ being compact in $U$ implies that it is compact in $X$ and thus closed too as $X$ is hausdorff, making its complement open.) 
+So we have that $\phi$ is continuous everywhere making it continuous on $X.$ 
+\end{solution}
+\begin{problem}\label{prob:4-51}
+If $X$ and $Y$ are topological spaces, $\phi \in C(X,Y)$ is called proper if $\phi^{-1}(K)$ is compact in $X$ for every compact $K \subset Y$. Suppose that $X$ and $Y$ are LCH spaces and $X^*$ and $Y^*$ are their one-point compactifications. If $\phi \in C(X,Y)$, then $\phi$ is proper iff $\phi$ extends continuously to a map from $X^*$ to $Y^*$ by setting $\phi(\infty_X) = \infty_Y$.
+\end{problem}
+\begin{solution}
+    Suppose it is extensible as such, then for any open neighborhood $K^c\cup \qty{\infty}$ containing $\infty_Y$ ($K$ is an arbitrary compact set in $Y$), by continuity $\phi^{-1}(K^c\cup\infty_Y)=\phi^{-1}(K)^c\cup \qty{\infty_X}$ must be open in $X^*$ which forces $\phi^{-1}(K)$ to be compact in $X$ so $\phi$ is proper. 
+    Now, if $\phi$ is proper and continuous, to prove that setting $\phi(\infty_X)=\infty_Y$ is a valid continuous extension it suffices to prove continuity at $\infty_X$ and we indeed see that for all open neighborhoods $K^c\cup \qty{\infty_Y}$ ($K$ is some arbitrary compact set in $Y$) of $\phi(\infty_X)$ we have $\phi^{-1}(K^c\cup \qty{\infty})=\phi^{-1}(K)^c\cup \qty{\infty_X}$ which is open in $X^*$ when $\phi$ is proper so we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-52}
+The one-point compactification of $\bR^n$ is homeomorphic to the $n$-sphere $\{x \in \bR^{n+1} : |x| = 1\}$.
+\end{problem}
+\begin{solution}
+It can be shown using the stereographic projection $j$ that $\bR^n$ is homeomorphic to $S^n\setminus \qty{p}$ for some $p\in S^n$. 
+Also, its clear that all homeomorphisms are proper so by the previous problem it suffices to show that $(S^n\setminus \qty{p})^*\cong S^n$ which follows directly from \hyperref[prob:4-50]{Problem 4.50} as the $\phi$ there is a homeomorphism in this case (we set $X=S^n,U=S^n\setminus \qty{p}$) as it maps $p$ to $\infty$ in the compactification. 
+\end{solution}
+\begin{problem}\label{prob:4-53}
+Lemma 4.37 remains true if the assumption that $X$ is locally compact is replaced by the assumption that $X$ is first countable.
+\end{problem}
+\begin{solution}
+    The forward direction works the same but for the if direction, if we have $x\in \overline{E}\setminus E$ then we can choose $(x_n) \subseteq E$ such that $x_n\to x$ by Proposition 4.6. Now, we claim that $K:= \qty{x_n:n\in\bN}\cup \qty{x}$ is compact, indeed from any open cover, the open set containing $x$ contains all but finitely many terms of the sequence so an open cover can be extracted. 
+    Now consider $E\cap K= \qty{x_n:n\in\bN}$, this is not closed as it does not contain one of its accumulation points $x$ so we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-54}
+Let $\bQ$ have the relative topology induced from $\bR$.
+\begin{enumerate}[label=\alph*.]
+    \item $\bQ$ is not locally compact.
+    \item $\bQ$ is $\sigma$-compact (it is a countable union of singleton sets), but uniform convergence on singletons (i.e., pointwise convergence) does not imply uniform convergence on compact subsets of $\bQ$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item
+    We know from the beginning of \hyperref[prob:4-49]{Problem 4.49} that $K \subseteq Q$ is compact in the relative topology iff $K$ is compact in $\bR.$ 
+    No such compact sets $K$ can contain any open sets $\bQ\cap U$ in $\bQ$ ($U$ is open in $\bR$)as by the density of rationals and hausdorffness (making compact sets closed), it would imply that $K\supseteq \overline{\bQ\cap U}=U$ and no nonempty open sets in $\bR$ can be subsets of $\bR$ as the irrationals are also dense in the reals. 
+    If there are no such compact sets containing open sets in $\bQ$ to begin with, it can not be LC. 
+    \item
+        Its $\sigma$-compact by the hint already and a counterexample to prove the other claim is: $f_m(r):=\chi_{ \qty{1/n:n\in\bN,n\geq m}}(r)$, this does not converge uniformly to its limit, the constant zero function uniformly on the compact set $[0,1]$.
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-55}
+Every open set in a second countable LCH space is $\sigma$-compact.
+\end{problem}
+\begin{solution}
+Suppose $ \qty{U_n}$ is a countable base. 
+Given any open $U$, for $p$ suppose $K_p$ is a compact neighborhood of $p$ in $U$, we can choose such a set by Proposition 4.30.  
+We can find some function $f:U\to\bN$ such that $p\in U_{f(p)} \subseteq K_p.$ 
+Now, we see that $U \subseteq\cup_{n\in f(U)} U_n$ by construction and this is also a countable union as $f$ maps into the naturals. 
+For $n\in f(U)$ let $x_n$ be such that $f(x_n)=n$ and thus, $U_n \subseteq K_{x_n}$ hence proving $U \subseteq\cup_{n\in f(U)}K_{x_n}$ proving that $U$ is sigma compact.
+\end{solution}
+\begin{problem}\label{prob:4-56}
+Define $\Phi : [0,\infty] \to [0,1]$ by $\Phi(t) = \frac{t}{t+1}$ for $t \in [0,\infty)$ and $\Phi(\infty) = 1$.
+\begin{enumerate}[label=\alph*.]
+    \item $\Phi$ is strictly increasing and $\Phi(t+s) \le \Phi(t) + \Phi(s)$.
+    \item If $(Y,\rho)$ is a metric space, then $\Phi \circ \rho$ is a bounded metric on $Y$ that defines the same topology as $\rho$.
+    \item If $X$ is a topological space, the function $\rho(f,g) = \Phi(\sup_{x \in X} |f(x) - g(x)|)$ is a metric on $\bC^X$ whose associated topology is the topology of uniform convergence.
+    \item If $X$ is a $\sigma$-compact LCH space and $\{U_n\}_{1}^\infty$ is as in Proposition 4.39, the function
+        \[ \rho(f,g) = \sum_{1}^\infty 2^{-n} \Phi\qty(\sup_{x \in \overline{U_n}} |f(x) - g(x)|) \]
+    is a metric on $\bC^X$ whose associated topology is the topology of uniform convergence on compact sets.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    We use the following lemma throughout the problem: If $A,B \subseteq \mathcal P(X)$ generate the topologies $P,Q$ respectively and if for all $U\in A$ and $x\in U$ we can find $E\in Q$ such that $x\in E \subseteq U$ then $A \subseteq Q$ and hence $P \subseteq Q$. 
+    If this works both ways then $P=Q$. 
+    The proof is simple. 
+\begin{enumerate}[label=\alph*.]
+    \item It is clearly strictly increasing, the inequality holds trivially if at least one of $t,s$ is infinity, so assume they aren't. 
+        Then, 
+        \[
+            \Phi(t+s) = \frac{t+s}{t+s+1} = \frac{t}{t+s+1} + \frac{s}{t+s+1} \leq \frac{t}{t+1} + \frac{s}{s+1} = \Phi(t) + \Phi(s)
+        \]
+    \item As $\Phi(x)=0$ iff $x=0$, using part (a) and the triangle inequality for $\rho$, we can easily verify that $\Phi\circ\rho$ is a metric, and it is bounded as $\Phi \leq 1$. 
+        Since $\Phi(t) \le t$, we immediately have $\Phi\circ\rho \leq \rho$, so $B_\rho(f, \epsilon) \subseteq B_{\Phi \circ \rho}(f, \epsilon)$. 
+        For the other direction, since $\Phi$ is strictly increasing, $B_{\Phi \circ \rho}(f, \Phi(\epsilon)) \subseteq B_\rho(f, \epsilon)$. 
+        As the metric balls generate the metric topology, this proves that they generate the same topology (we can employ the lemma as for any element in a ball, we can find another ball centered at this element that is contained in the larger one.) 
+    \item For brevity we write $\rho_S(f,g)$ for $\Phi(\sup_{x\in S}|f(x)-g(x)|)$ and let $d_u$ be the standard uniform metric (we call it a metric because it assuming infinity is not an issue here). 
+        By the exact same ball logic from part (b), $B_{d_u}(f, \epsilon) \subseteq B_{\rho}(f, \epsilon)$ and $B_{\rho}(f, \Phi(\epsilon)) \subseteq B_{d_u}(f, \epsilon)$.
+        Thus, the topology associated with $\rho$ is clearly the topology of uniform convergence.
+    \item For any compact $K$ and $m\in\bN$, we want to find $\epsilon>0$ such that (keep in mind that the inequality towards the right is equivalent to $d_u(f,g)<1/m$) 
+        \[
+            f\in B_\rho(f,\epsilon) \subseteq\qty{g\in\bC^X:\rho_K(f,g)< \Phi\qty(\frac{1}{m})}
+        \]
+        Notice that $\rho_{ \overline{U_n}}$ is increasing in $n$ as $\Phi$ is strictly increasing and $ \overline{U_n} \subseteq \overline{U_{n+1}}$. 
+        We also have $K \subseteq \overline{U_n}$ and thus $\rho_K\leq\rho_{ \overline{U_n}}$ for large enough $n$ as proved in \hyperref[prob:4-48]{Problem 4.48}. 
+        Thus,
+        \[
+            2^{-n}\rho_K(f,g)\leq 2^{-n}\rho_{ \overline{U_n}}(f,g)\leq\rho(f,g)
+        \]
+        implying that $\epsilon=2^{-n}\Phi(m^{-1})$ works. 
+        Now, for any $\epsilon>0$ we want to find $K$ compact and $m\in\bN$ such that
+        \[
+            f\in\qty{g\in\bC^X:\rho_K(f,g)<\Phi(1/m)} \subseteq B_\rho(f,\epsilon)
+        \]
+        If $K= \overline{U_n}$, then we see that 
+        \[
+            \rho(f,g)\leq\sum_{k\leq n}2^{-k}\rho_{ \overline{U_k}}(f,g)+\sum_{k>n}2^{-k}\leq\rho_{ K}(f,g)+2^{-n}
+        \]
+        If $m,n$ are large enough such that $2^{-n}<\epsilon/2$ and $1/m<\Phi^{-1}(\epsilon/2)$, then $\rho_{K}(f,g) < \Phi(1/m)$ implies $\rho(f,g) < \epsilon$. 
+        Thus, the topology defined by $\rho$ is exactly the topology of uniform convergence on compact sets, this can be proved using the same ball logic we have been using (fix the compact sets we take supremum over when necessary.)  
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-57}
+An open cover $\mathcal{U}$ of a topological space $X$ is called locally finite if each $x \in X$ has a neighborhood that intersects only finitely many members of $\mathcal{U}$. If $\mathcal{U}, \mathcal{V}$ are open covers of $X$, $\mathcal{V}$ is a refinement of $\mathcal{U}$ if for each $V \in \mathcal{V}$ there exists $U \in \mathcal{U}$ with $V \subset U$. $X$ is called paracompact if every open cover of $X$ has a locally finite refinement.
+\begin{enumerate}[label=\alph*.]
+    \item If $X$ is a $\sigma$-compact LCH space, then $X$ is paracompact. In fact, every open cover $\mathcal{U}$ has locally finite refinements $\{V_{\alpha}\}$, $\{W_{\alpha}\}$ such that $\overline{V}_{\alpha}$ is compact and $\overline{W_{\alpha}} \subset V_{\alpha}$ for all $\alpha$. (Let $\{U_n\}_{1}^\infty$ be as in Proposition 4.39. For each $n$, $\{E \cap (U_{n+2} \setminus \overline{U_{n-1}}) : E \in \mathcal{U}\}$ is an open cover of $\overline{U}_{n+1} \setminus U_n$. Choose a finite subcover to obtain $\{V_{\alpha}\}$ and mimic the beginning of the proof of Proposition 4.41 to obtain $\{W_{\alpha}\}$.)
+    \item If $X$ is a $\sigma$-compact LCH space, for any open cover $\mathcal{U}$ of $X$ there is a partition of unity on $X$ subordinate to $\mathcal{U}$ and consisting of compactly supported functions.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item As $U_{n+2}\setminus \overline{U_{n-1}} \supseteq \overline{U_{n+1}}\setminus U_n$ and $U_{n+2}\setminus \overline{U_{n-1}}$ is open (compact sets are closed here due to hausdorff property) we see that the cover mentioned in the statement is indeed open and as $ \overline{U_{n+1}}\setminus U_n$ is a closed subset of a compact set $ \overline{U_{n+1}}$ we see that its compact as well. 
+        Thus we can extract a finite open cover for each $n$ and get a new open cover $ \qty{V_\alpha}$ (this is also countable) as $X=\cup_{n\geq 2}(U_{n+2}\setminus \overline{U_{n-1}})$ clearly. 
+        $ \overline{V_\alpha}$ is compact, being a closed subset of the compact set $ \overline{U_{n+2}}$
+        Now, for any $x\in X$ we see that its in atmost a finite number of sets of form $U_{n+2}\setminus\overline{U_{n-1}}$ and as each of these is covered by a finite number of $V_\alpha$'s, this must be a locally finite cover, thus proving paracompactness. 
+        Now, for each $x\in X$ we can find a $V_\alpha$ containing it and then choose a compact neighborhood of $x$ contained in it by proposition 4.30 and as their interiors form a open cover of $U_{n+2}\setminus \overline{U_{n-1}}$ for each $n$ we can choose finite covers for these, say $N_1^\circ,\ldots,N_m^\circ$ (thus, the sets themselves also form a cover) and then let $W_\alpha$ be the union of all these $N_i^\circ$ where $N_i \subseteq V_\alpha$ (keep in mind that $n$ was fixed here) then we see that $ \overline{W_\alpha} = \cup N_i^\circ \subseteq\cup \overline{N_i}=\cup N_i \subseteq V_\alpha$ as $N_i$ are closed too. 
+        $ \qty{W_\alpha}$ is clearly a refinement too and it is locally finite by the same logic we used for $ \qty{V_\alpha}$. 
+    \item For each $\alpha$ let $g_\alpha\in C(X,[0,1])$ such that $g_\alpha=1$ on $ \overline{W_\alpha}$ and $\supp(g_\alpha) \subseteq V_\alpha$ by Urysohn's lemma as $ \overline{W_\alpha}$ is compact being a closed subset of the compact set $ \overline{V_\alpha}$. 
+        We also see that as $\qty{ \overline{W_\alpha}}$ forms a locally finite cover (follows from local finiteness (only finitely many nonzero terms exist due to this) of $ \qty{V_\alpha}$), that $\sum_\alpha g_\alpha(x)$ is both always positive and always finite. 
+        Let, $h_\alpha:=g_\alpha\cdot(\sum_\alpha g_\alpha)^{-1}$, this is well defined and $\supp(h_\alpha)=\supp(g_\alpha) \subseteq V_\alpha \subseteq \overline{V_\alpha}$ which is compact so $h_\alpha\in C_c(X)$ and for any $x\in X$ if $g_{\alpha_1},\ldots,g_{\alpha_k}$ are exactly the $g_\alpha$ that are nonzero at $x$ then, 
+        \[
+            \sum_\alpha h_\alpha(x)=\sum_{j=1}^kh_{\alpha_j}(x)=\sum_{j=1}^k \frac{g_{\alpha_j}(x)}{\sum_{i=1}^kg_{\alpha_i}(x)}=1
+        \]
+        as $\sum_\alpha g_\alpha(x)=\sum_{i=1}^kg_{\alpha_i}(x)$ here. 
+        $ \qty{h_\alpha}$ is thus a partition of unity subordinate to $\mathcal U$ as $\qty{V_\alpha}$ was a refinement and it consists of compactly supported functions so we are done. 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-58}
+If $\{X_\alpha\}_{\alpha \in A}$ is a family of topological spaces of which infinitely many are noncompact, then every closed compact subset of $\prod_{\alpha \in A} X_\alpha$ is nowhere dense.
+\end{problem}
+\begin{solution}
+    Let $C$ be a compact closed set that is not nowhere dense, thus it has nonempty interior. ( $C$ is nowhere dense iff $(\overline{C})^\circ$ is empty and here, $\overline{C}=C$), we must have some open $U \subseteq C$ of form $U=\prod U_\alpha$ where $U_\alpha=X_\alpha$ for all but finitely many $\alpha.$ 
+    As projections are continuous, $\pi_\alpha(C)$ is compact for all $\alpha$ and as $\pi_\alpha(U)=X_\alpha$ for all but finitely many $\alpha$ we have $X_\alpha=\pi_\alpha(U) \subseteq\pi_\alpha(C) \subseteq X_\alpha$ for all but finitely many $\alpha$ implying that $X_\alpha$ are compact for all but finitely many $\alpha$ which is a contradiction so we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-59}
+The product of finitely many locally compact spaces is locally compact.
+\end{problem}
+\begin{solution}
+Say $X_1,\ldots,X_n$ are LC, then for any $x\in\prod X_i$ we can find compact neighborhoods $K_i\ni\pi_i(x)$ and open $U_i$ such that $\pi_i(x)\in U_i \subseteq K_i$, then by tychonoff's theorem $K=\prod K_i$ is compact in its relative topology which means that it is compact as we have proved before. 
+Moreover, $U=\prod U_i$ is an open set and it contains $x$ so we see that $x\in U \subseteq K^\circ$ proving that $K$ is a compact neighborhood proving LC of the product as $x$ was arbitrary. 
+\end{solution}
+\begin{problem}\label{prob:4-60}
+The product of countably many sequentially compact spaces is sequentially compact. (Use the ``diagonal trick'' as in the proof of Theorem 4.44.)
+\end{problem}
+\begin{solution}
+    Suppose $ \qty{X_k}_{k\in\bN}$ are the sequentially compact spaces, then for a sequence $(x_n)$ in their product, we see that $\pi_1(x_n)$ must have a converging subsequence, let this be $\pi_1({x_{n,1}})$, then again $\pi_2(x_{n,1})$ must have a converging subsequence too which we call $\pi_2(x_{n,2})$ where $x_{n,2}$ is a subsequence of $x_{n,1}$, we keep doing this to get sequences $ \qty{ (x_{n,k})}_{k}$ where $\pi_k(x_{n,k})$ converges. 
+    Now consider $y_k:=x_{k,k}$ which is also a subsequence of $(x_n)$ (it is easier to see this by writing some of the sequences out, you can also find a similar construction in Rudin's PMA) as $y_k$ is clearly a subsequence of $(x_{n,m})$ for $k\geq m$ we have that $\pi_m(y_k)$ converges. 
+    As $(x_n)$ was arbitrary to begin with and we constructed a converging subsequence (all coordinates converging is equivalent to the sequence converging \hyperref[prob:4-34]{Problem 4.34}, treating the sequence as a net), $\prod X_k$ must be sequentially compact too.  
+\end{solution}
+\begin{problem}\label{prob:4-61}
+Theorem 4.43 remains valid for maps from a compact Hausdorff space $X$ into a complete metric space $Y$ provided the hypothesis of pointwise boundedness is replaced by pointwise total boundedness. (Make this statement precise and then prove it.)
+\end{problem}
+\begin{solution}
+The precise statement should be : Let $X$ be a compact Hausdorff space. 
+If $\mathcal F$ is an equicontinuous, pointwise totally bounded (i.e. for all $x\in X$ the set $ \qty{f(x):f\in\mathcal F}$ is totally bounded in $Y$) subset of $C(X,Y)$, then $\mathcal F$ is totally bounded in the uniform metric, and the closure of $\mathcal F$ in $C(X,Y)$ is compact. \\
+This is proved in the exact same way with these minor changes : After picking the $x_j$ as we did in the book, we can pick the $z_k$ as such because a finite union of totally bounded sets $ \qty{f(x_j):f\in\mathcal F,1\leq j\leq n}=\cup_{i=1}^n \qty{f(x_i):f\in\mathcal F}$ is totally bounded and $C(X,Y)$ is complete by \hyperref[prob:4-22]{Problem 4.22}.  
+\end{solution}
+\begin{problem}\label{prob:4-62}
+Rephrase Theorem 4.44 in a form similar to Theorem 4.43 by using the metric in Exercise 56d.
+\end{problem}
+\begin{solution}
+Let $X$ be a $\sigma$-compact LCH space. 
+If $\mathcal F \subseteq C(X)$ is pointwise bounded and equicontniuous then it is precompact with respect to the metric in \hyperref[prob:4-56]{Problem 4.56}d. 
+\end{solution}
+\begin{problem}\label{prob:4-63}
+Let $K \in C([0,1] \times [0,1])$. For $f \in C([0,1])$, let 
+\[
+    Tf(x) = \int_0^1 K(x,y)f(y)\,\mathrm{d}y
+\] 
+Then $Tf \in C([0,1])$, and $\{Tf : \|f\|_u \le 1\}$ is precompact in $C([0,1])$.
+\end{problem}
+\begin{solution}
+    As $K$ is continuous on a compact set it is uniformly continuous, if  $\norm{u-v}_{\bR^2}<\delta$ implies $|K(u)-K(v)|<\epsilon,$ then we see that for $|x-y|<\delta$ 
+\[
+    |Tf(x)-Tf(y)|\leq\norm{f}_u\cdot\qty(\int_0^1|K(x,t)-K(y,t)|dt)\leq\epsilon\norm{f}_u
+\]
+as $\norm{(x,t)-(y,t)}_{\bR^2}<\delta$ too and $f$ is bounded, being continuous on a compact set.  
+This proves that $Tf\in C([0,1]).$ 
+Now, as $[0,1]$ is compact hausdorff, $ \qty{f\in C([0,1]):\norm{f}_u\leq 1}$ is equicontinuous as $|Tf(x)-Tf(y)|\leq\epsilon\norm{f}_u\leq\epsilon$ for $|x-y|<\delta$ as shown above and pointwise bounded due to $K$ being bounded (it is continuous on a compact set) say $|K|\leq M$, then $|Tf(x)|\leq M\norm{f}_u\leq M.$ 
+Thus, by Theorem 4.43 we see that it is precompact. 
+\end{solution}
+\begin{problem}\label{prob:4-64}
+Let $(X,\rho)$ be a metric space. A function $f \in C(X)$ is called H\"older continuous of exponent $\alpha$ ($\alpha > 0$) if the quantity
+\[ N_\alpha(f) = \sup_{x \neq y} \frac{|f(x) - f(y)|}{\rho(x,y)^\alpha} \]
+is finite. If $X$ is compact, $\{f \in C(X) : \|f\|_u \le 1 \text{ and } N_\alpha(f) \le 1\}$ is compact in $C(X)$.
+\end{problem}
+\begin{solution}
+    This set is clearly closed as if we have $N_\alpha(f_n)\leq 1$ where $f_n\in C(X)$ and $\norm{f_n}_u\leq 1$ then $f_n\to f$ implies $\norm{f}\leq 1$ trivially and as $|f_n(x)-f_n(y)|\leq N_\alpha(f_n)\rho(x,y)^\alpha\leq\rho(x,y)^\alpha$ we have $|f(x)-f(y)|\leq\rho(x,y)^\alpha$ so $N_\alpha(f)\leq 1$ by passing to limits. 
+    Now, it is equicontinuous as all functions $f$ in it follow $|f(x)-f(y)|\leq\rho(x,y)^\alpha$ and pointwise bounded due to each member having uniform norm atmost $1.$ 
+    As metric spaces are inherently hausdorff we see that the closure of this set is compact by Theorem 4.43, which is exactly the set itself as it was closed already. 
+\end{solution}
+\begin{problem}\label{prob:4-65}
+Let $U$ be an open subset of $\bC$, and let $\{f_n\}$ be a sequence of holomorphic functions on $U$. If $\{f_n\}$ is uniformly bounded on compact subsets of $U$, there is a subsequence that converges uniformly to a holomorphic function on compact subsets of $U$. (Use the Cauchy integral formula to obtain equicontinuity.)
+\end{problem}
+\begin{solution}
+Lemma 2.43 shows $\sigma$-compactness and $\bC$ is clearly LCH. 
+Now we will show equicontinuity of $ \qty{f_n}$ at each $x\in U.$ 
+We can find a nonempty compact disc $D=\qty{y:|y-x|\leq r} \subseteq U$ and cauchy's integral formula tells us that for all $y\in D^\circ$, (the boundary is assumed to be oriented counterclockwise)
+\[
+    f_n(y)=\oint_{\partial D} \frac{f_n(\zeta)}{\zeta-y}d\zeta
+\]
+By hypothesis, $|f_n|\leq M$ on $D$ for some $M.$ 
+Then, we have 
+\[
+    |f_n(y)-f_n(x)|\leq M\oint_{\partial D} \frac{|x-y|}{|(\zeta-x)(\zeta-y)|}d\zeta\leq\frac{2\pi r M|x-y|}{r(r-|x-y|)}
+\]
+proving equicontinuity (one can also use cauchy's estimates to do this.) 
+Now we can use Theorem 4.44 to find a uniformly converging (on compact sets) subsequence say $f_{n_k}\to f.$ 
+Holomorphicity of $f$ can be easily shown using morera's theorem and the fact that we can swap the limit and integration by the virtue of uniform convergence. 
+
+\end{solution}
+\begin{problem}\label{prob:4-66}
+Let $1 - \sum_{1}^\infty c_n t^n$ be the Maclaurin series for $(1-t)^{1/2}$.
+\begin{enumerate}[label=\alph*.]
+    \item The series converges absolutely and uniformly on compact subsets of $(-1,1)$, as does the termwise differentiated series $-\sum_{1}^\infty n c_n t^{n-1}$. Thus, if $f(t) = 1 - \sum_{1}^\infty c_n t^n$ then $f'(t) = -\sum_{1}^\infty n c_n t^{n-1}$.
+    \item By explicit calculation, $f(t) = -2(1-t)f'(t)$, from which it follows that $(1-t)^{-1/2}f(t)$ is constant. Since $f(0) = 1$, $f(t) = (1-t)^{1/2}$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item $c_n=(-1/n!)\cdot\prod_{k=1}^n(2k-3)/2$ and thus $|c_{n+1}/c_n|=(2n-1)/2(n+1)<1$ so the series converges absolutely and uniformly on compact subsets by the weierstrass M-test (the compact subsets $K$ are contained in $[-R,R]$ for some $|R|<1$, on which we have absolute and uniform convergence.) 
+        It is a standard theorem in analysis that the same holds for the termwise differentiated series and this is actually the derivative. 
+    \item The calculation is easily done, and if this is true then we see that $(1-t)^{-1/2}f(t)$ has derivative $(1-t)^{-1/2}f'(t)+(1-t)^{-3/2}f(t)/2=0$ from the equality in the statement, this shows that $f(t)=C\cdot(1-t)^{-1/2}$ for some $C$ and as $f(0)=1$ we must have that $C=1$ proving the claim. 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-67}
+Prove Theorem 4.52. (If there exists $x_0 \in X$ such that $f(x_0) = 0$ for all $f \in \mA$, let $Y$ be the one-point compactification of $X \setminus \{x_0\}$; otherwise let $Y$ be the one-point compactification of $X$. Apply Proposition 4.36 and the Stone-Weierstrass theorem on $Y$.)
+\end{problem}
+\begin{solution}
+We first prove a lemma: If $f\in C_0(X,\bR)$ then $f|_{X\setminus \qty{x}}\in C_0(X\setminus \qty{x},\bR)$ iff $f(x)=0.$ 
+If $f$ is continuous and $|f(x)|>0$, say $|f(x)|>\epsilon>0$ then in any neighborhood of $x$ in $X$ we can find a point where $|f|>\epsilon/2$ using continuity, so $x$ is a cluster point of $ \qty{y\in X\setminus \qty{x}:|f|>\epsilon/2}$ that is not in it and thus it is not closed in $X$ and thus not compact as $X$ is hausdorff and thus it can not be compact in the open set $X\setminus \qty{x}$ as well proving one direction. 
+The other direction is trivial. \\
+If there exists a $x_0\in X$ such that $f(x_0)=0$ for all $f\in\mA$, as $X\setminus \qty{x_0}$ (this is open) is still LCH, let $Y$ be as in the hint. 
+Proposition 4.36 tells us that we can extend all $f|_{X\setminus \qty{x_0}}\in\mA|_{X\setminus \qty{x_0}} \subseteq C_0(X\setminus \qty{x_0},\bR)$ (we can do this by the lemma) continuously to functions in $C(Y,\bR)$ by setting them to be $0$ at $\infty$ and the new algebra, call it $\mA|_{X\setminus \qty{x_0}}^*$ we get still separates points, is closed under the uniform norm (can be checked easily) and by stone weierstrass we see that $\mA|_{X\setminus x_0}^* = \qty{f\in C(Y,\bR):f(\infty)=0}$ so before the extension we must have had $\mA|_{X\setminus \qty{x_0}} = C_0(X\setminus \qty{x_0},\bR)$. 
+Again by the lemma we must have that $\mA = \qty{f\in C_0(X,\bR):f(x_0)=0}$ so we are done. 
+Now if otherwise $\mA$ did not vanish at any point then again after extending like we did here we would get that $\mA^*=C(X\cup \qty{\infty},\bR)$ which implies that $\mA= C_0(X,\bR)$ proving the theorem. 
+\end{solution}
+\begin{problem}\label{prob:4-68}
+Let $X$ and $Y$ be compact Hausdorff spaces. The algebra generated by functions of the form $f(x,y) = g(x)h(y)$, where $g \in C(X)$ and $h \in C(Y)$, is dense in $C(X \times Y)$.
+\end{problem}
+\begin{solution}
+    First, to see that $f(x,y)=h(x)g(y)\in C(X\times Y)$ for $h\in C(X),g\in C(Y)$ it suffices to see that $f=\Psi\circ\lambda$ where $\Psi:\bC\times\bC\to\bC$ is the continuous map $(x,y)\mapsto xy$ and $\lambda:X\times Y\to\bC\times\bC$ is continuous the map $(x,y)\mapsto(f(x),g(y))$, this is continuous because its components $i:(x,y)\mapsto f(x)$ and $j:(x,y)\mapsto g(y)$ are too (for open $U,$ $g^{-1}(U)$ is open and $i^{-1}(U)=g^{-1}(U)\times Y$ is open in the product topology so this is continuous and so is the other component.) 
+This is clearly an algebra and for any distinct $(a,b),(c,d)$ in $X\times Y$, some coordinate must differ, say wlog $a\neq c$, then by Urysohn's lemma we can find $g\in C(X)$ such that $0=g(a)\neq g(c)=1$ and the function $f(x,y)=g(x)h(y)$ where $h$ is any constant non zero function separates these two points. 
+Clearly this also contains the constant function so we must have it being dense in $C(X\times Y)$ by stone weierstrass. 
+\end{solution}
+\begin{problem}\label{prob:4-69}
+Let $A$ be a nonempty set, and let $X = [0,1]^A$. The algebra generated by the coordinate maps $\pi_\alpha : X \to [0,1]$ ($\alpha \in A$) and the constant function 1 is dense in $C(X)$.
+\end{problem}
+\begin{solution}
+This separates points as for any unique $f,g\in X$ there is some $a\in A$ such that $f(a)\neq g(a)$ and then $\pi_a(f)\neq\pi_a(g)$, as it already contains the constant function, the algebra generated by it must also have these properties, making it dense in $C(X)$ by the stone weierstrass theorem. 
+\end{solution}
+\begin{problem}\label{prob:4-70}
+Let $X$ be a compact Hausdorff space. An ideal in $C(X,\bR)$ is a subalgebra $I$ of $C(X,\bR)$ such that if $f \in I$ and $g \in C(X,\bR)$ then $fg \in I$.
+\begin{enumerate}[label=\alph*.]
+    \item If $I$ is an ideal in $C(X,\bR)$, let $h(I) = \{x \in X : f(x) = 0 \text{ for all } f \in I\}$. Then $h(I)$ is a closed subset of $X$, called the hull of $I$.
+    \item If $E \subset X$, let $k(E) = \{f \in C(X,\bR) : f(x) = 0 \text{ for all } x \in E\}$. Then $k(E)$ is a closed ideal in $C(X,\bR)$, called the kernel of $E$.
+    \item If $E \subset X$, then $h(k(E)) = \overline{E}$.
+    \item If $I$ is an ideal in $C(X,\bR)$, then $k(h(I)) = \overline{I}$. (Hint: $k(h(I))$ may be identified with a subalgebra of $C_0(U,\bR)$ where $U = X \setminus h(I)$.)
+    \item The closed subsets of $X$ are in one-to-one correspondence with the closed ideals of $C(X,\bR)$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item As $I \subseteq C(X,\bR)$ we know that $f^{-1}( \qty{0})$ is closed for all $f\in I$ and thus, 
+    \[
+        h(I)=\bigcap_{f\in I} f^{-1}( \qty{0})
+    \]
+    is closed too as arbitrary intersections of closed sets are closed too. 
+    \item This is clearly an ideal and its closed because if $f_n(x)=0$ for all $n$ and $f_n$ converge to $f$ in the uniform metric then $f(x)=0$ too (this now works for all $x\in E$.) 
+    \item If $f\in k(E)$ then $f(E)= \qty{0}$ is dense in $f( \overline{E})$ by continuity, implying $f( \overline{E})= \qty{0}$ too so $k(E) \subseteq k( \overline{E})$ and we have inclusion clearly so $h(k(E))=h(k( \overline{E}))$ and it suffices to assume that $E$ is closed. 
+    Now, if $E$ is closed and $x\notin E$ then by normality of CH spaces and urysohn's lemma we can find $f\in C(X,\bR)$ such that $f\in k(E)$ but $f(x)\neq 0$ so $x\notin h( \qty{f})$ and as $h(k(E)) \subseteq h( \qty{f})$ we have $x\notin h(k(E))$ so $h(k(E)) \subseteq E$. 
+    Clearly $E \subseteq h(k(E))$ and we are done. 
+    \item Clearly $h(I)\supseteq h( \overline{I})$ and if $x\in h(I)$ then, for $f_n\in I$ that converge to $f$ in the uniform metric, we have $f(x)=0$ too so $h( \overline{I}) \subseteq h(I)$ as well, thus it similarly suffices to assume $I$ to be closed. 
+    By part (a) we know that $h(I)$ is closed and thus $U$ as in the hint, is open and LCH in the relative topology. 
+    It can be proved that if $f\in C(X,\bR)$ then $f|_{U}\in C_0(U,\bR)$ if $f(h(I))= \qty{0}$ i.e. $f\in k(h(I)).$ by just checking the definition. 
+    Thus we see that $k(h(I))$ can be identified with a subalgebra (a closed one infact) of $C_0(U,\bR)$. 
+    We clearly have $I \subseteq k(h(I))$ so, as $I|_{U} \subseteq k(h(I))|_U \subseteq C_0(U,\bR)$ proving $k(h(I))=I$ is equivalent to proving $C_0(U,\bR) = I|_U$. 
+    $I$ was a closed subalgebra and thus $I|_U$ is one too. 
+    Given any distinct $x,y\in U$, by construction we can find $f\in I$ such that $f(x)\neq 0$ and we can find $g\in C(X,[0,1])$ such that $g(x)=1,g(y)=0,g(h(I))= \qty{0}$ by tietze's lemma and as $I$ was an ideal, $fg\in I$ and $fg$ separates $x,y$ as well as being $0$ on $h(I)$ as $g\in h(I)$ so $I|_U$ clearly separates points and from the above we also see that it vanishes at no points in $U$ so by Theorem 4.52 (\hyperref[prob:4-67]{Problem 4.67}) we have $I|_U=C_0(U,\bR)$ and we have $I=k(h(I))$ so we are done. 
+    \item The map $E\mapsto k(E)$ from the closed sets in $X$ to the closed ideals in $C(X,\bR)$ has $h$ as an inverse by part (c,d) so it must be a bijection.  
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-71}
+(This is a variation on the theme of Exercise 70; it does not use the Stone-Weierstrass theorem.) Let $X$ be a compact Hausdorff space, and let $M$ be the set of all nonzero algebra homomorphisms from $C(X,\bR)$ to $\bR$. Each $x \in X$ defines an element $\hat{x}$ of $M$ by $\hat{x}(f) = f(x)$.
+\begin{enumerate}[label=\alph*.]
+    \item If $\phi \in M$ then $\{f \in C(X,\bR) : \phi(f) = 0\}$ is a maximal proper ideal in $C(X,\bR)$.
+    \item If $I$ is a proper ideal in $C(X,\bR)$, there exists $x_0 \in X$ such that $f(x_0) = 0$ for all $f \in I$. (Suppose not; construct an $f \in I$ with $f > 0$ everywhere and conclude that $1 \in I$. This requires no deep theorems.)
+    \item The map $x \to \hat{x}$ is a bijection from $X$ to $M$.
+    \item If $M$ is equipped with the topology of pointwise convergence, then the map $x \to \hat{x}$ is a homeomorphism from $X$ to $M$. (Since $M$ is defined purely algebraically, it follows that the topological structure of $X$ is completely determined by the algebraic structure of $C(X,\bR)$.)
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item This is clearly a proper ideal as $\phi$ is a nonzero algebra homomorphism. 
+        Suppose $J$ is an ideal containing $\ker\phi$ strictly, then we can find $f\in J$ with $\phi(f)\neq 0$ and defining $g=f/\phi(f)^2\in J$ we have $1-fg\in\ker\phi \subseteq J$ so $(1-fg)+fg=1\in J$ implying that $J$ is the full ring, here $J=C(X,\bR)$ proving maximality of $\ker\phi.$ 
+    \item If that wasn't the case then we can find $f_x\in I$ such that $f_x^2\ni f_x(x)^2>0$ for all $x\in X$ and by continuity, there are open neighborhoods $U_x$ of $x$ such that $f_x^2>0$ on $U_x.$ 
+        The $U_x$ form an open cover so by compactness we can find a subcover $U_{x_1},\ldots,U_{x_m}$ which implies that $f:=\sum_{i=1}^mf_{x_i}^2\in I$ is a continuous function that is never $0$ and thus $1/f\in C(X,\bR)$ so as $I$ is an ideal we have $f\cdot(1/f)=1\in I$ implying $I= C(X,\bR)$ (for all $f\in C(X,\bR),1\cdot f=f\in I$.) 
+    \item This is clearly an injection as for unique $x,y$ we can find $f\in C(X,\bR)$ such that $\hat{x}(f)=f(x)\neq f(y)=\hat{y}(f)$, by tietze's extension theorem due to normality of CH spaces. 
+        Now, given any $\phi\in M$ as $\ker\phi$ is a maximal proper ideal by part (a), and by part (b) there exists some point $x_0$ where it $\ker\phi$ vanishes, but to preserve maximality we must have $\ker\phi= \qty{f\in C(X,\bR):f(x_0)=0}$ and thus as $(x\mapsto f(x)-f(x_0))\in\ker\phi$ we see that $\phi(f-f(x_0)+f(x_0))=\phi(f(x_0))=f(x_0)\phi(1)=\hat{x_0}(f)$ as $\phi(1)=1$ (otherwise it would be zero everywhere.) so we see that $x\mapsto\hat{x}$ is also a surjection, proving that it is indeed a bijection.  
+    \item Call this map $e$. 
+        Then we see that the open sets in $M$ are generated from the base
+        \[
+            \qty{\hat{x}\in M:\hat{x}(f_j)=f_j(x)\in U_j\text{ for }j=1,\ldots,n}\text{ where } n\in\bN,f_j\in C(X,\bR),U_j\text{ open}
+        \]
+        After moving some symbols around we can see that $M$ has a topology generated by sets of form $ \qty{\hat{x}\in M:x\in f^{-1}(U)}=\widehat{f^{-1}(U)}$ where $f\in C(X,\bR)$ and $U$ is open in $X$ so $M$ is homeomorphic to $(X,w)$ where $w$ is the weak topology on $X$ generated by $C(X,\bR)$ (this is determined by the previous topology, not this one, we are not making any cyclic argument.) 
+        Now, for any such $\widehat{f^{-1}(U)}$ we see that $e^{-1}(\widehat{f^{-1}(U)})=f^{-1}(U)$ is open in $X$ and as those sets generated $M$ we can say that $e$ is continuous. 
+        As $X$ is compact and $M$ hausdorff and $e$ a continuous bijection we must have it being a homeomorphism as for all open $U$ in $X$, $e(U)=e(U^c)^c$ which is open as $U^c$ is closed and thus compact in $X$ implying that $e(U^c)$ is compact in $M$ and thus closed as it was hausdorff, making its complement open and thus proving continuity of $e^{-1}$ so we can say that $e$ is a homeomorphism. 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-72}
+Every subset of a completely regular space is completely regular in the relative topology.
+\end{problem}
+\begin{solution}
+    If $X$ is completely regular and $Y \subseteq X$ then for any closed $K=A\cap Y$ in the relative topology ($A$ is closed in $X$) and $p\in Y\cap K^c$, we see that $p\notin A$ so by hypothesis we can find $f\in C(X,[0,1])$ such that $f(p)=1$ and $f=0$ on $A$ and we see that the continuous restriction $f|_{A}$ separates $p$ and $A\cap Y$ in $Y$ so $Y$ is completely regular in the relative topology too. \\
+    This proves the if direcition as $I^{C(X,I)}$ is compact hausdorff and thus it is normal so its completely regular and so is any subset with the relatitve topology and if $X$ is homeomorphic to say $Y \subseteq I^{C(X,I)}$ via $\phi\in C(X,Y)$ (also write $h=\phi^{-1}\in C(Y,X)$) then for any closed $A \subseteq Y$ and $p\notin Y$, we can find $f\in C(Y,I)$ such that $f=0$ on the closed set $h^{-1}(A)=\phi(A)$ and $f(h^{-1}(p))=f(\phi(p))=1$ and thus, $f\circ\phi\in C(X,I)$ separates $p$ and $A$ proving $X$ to be completely regular too as $p,A$ were arbitrary. 
+\end{solution}
+\begin{problem}\label{prob:4-73}
+If $X$ is a completely regular space, a subalgebra $\mA$ of $BC(X)$ is called completely regular if (i) it is closed and contains the constant functions, and (ii) $\mA \cap C(X,I)$ separates points and closed sets.
+\begin{enumerate}[label=\alph*.]
+    \item If $(Y, e)$ is a Hausdorff compactification of $X$, $\mA_Y = \{f \circ e : f \in C(Y)\}$ is a completely regular subalgebra of $BC(X)$.
+    \item If $(Y, e)$ and $(Y',e')$ are Hausdorff compactifications of $X$ such that $\mA_Y = \mA_{Y'}$, there is a homeomorphism $\phi : Y \to Y'$ such that $\phi \circ e = e'$. (Adapt the proof of Theorem 4.57, which deals with the case $Y = \beta X$.)
+    \item If $(Y, e)$ is the compactification of $X$ associated to $\mathfrak{F} \subset C(X,I)$, then $\mA_Y$ is the smallest closed subalgebra (it should be completely regular subalgebra) of $BC(X)$ that contains $\mathfrak{F}$. (Use Exercise 69.)
+    \item The Hausdorff compactifications of $X$ (upto homeomorphism) are in one-to-one correspondence with the completely regular subalgebras of $BC(X)$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item The constant functions are always continuous so they are clearly in $\mA_Y$ and by the previous problem we see that $e(X)$ is completely regular due to $Y$ being completely regular (it is normal, being CH) so $\mA_Y$ is clearly a completely regular subalgebra of $BC(X)$ (all the maps are bounded because $Y$ is compact.) 
+    \item Let $F=C(Y,I),F'=C(Y',I)$, consider the usual embeddings (these embed as $Y,Y'$ are CH) $i,i'$ of $Y,Y'$ into the cubes $I^F,I^{F'}$ respectively.
+        For all $g\in F'$ there exists $f_g\in F$ such that $g\circ e'=f_g\circ e$ and this $f_g$ is unique as for any similar $f_g'$ we see that $f_g'=f_g$ on $e(X)$ which is dense in $Y$ and thus $f_g'=f_g$, thus $g\mapsto f_g$ is actually a bijection.  
+        Now, we define a continuous map $\Phi:I^F\to I^{F'}$ by $\pi_g(\Phi(p))=\pi_{f_g}(p)$ for $g\in F'$, with this we see that for all $x\in X$, 
+        \[
+            \pi_g(\Phi(i(e(x))))=\pi_{f_g}(i(e(x))=f_g(e(x))=g(e'(x))=\pi_g(i'(e'(x))
+        \]
+        and thus $\Phi\circ i\circ e=i'\circ e'.$ 
+        As $\Phi(i(e(X))=i'(e'(X)) \subseteq\beta Y'$ and $\Phi(\beta Y)\supseteq i'(e'(X))$ we see that 
+        \[
+        \Phi(\beta Y) \supseteq \overline{i'(e'(X))}\supseteq i(\overline{e'(X)})=i'(Y')=\beta Y'
+        \] 
+        as $\Phi(\beta Y)$ is compact and hence closed in $Y'$ as $Y'$ is hausdorff. 
+        W thus see that $\Phi$ maps $\beta Y$ surjectively on $\beta Y'$. 
+        This can be summarised in the following commutative diagram, 
+       \[
+        \begin{tikzcd}
+	    & Y && {\beta Y} && {I^F} \\
+	    X \\
+	    & {Y'} && {\beta Y'} && {I^{F'}}
+	    \arrow["i", from=1-2, to=1-4]
+	    \arrow[hook, from=1-4, to=1-6]
+	    \arrow["{\Phi|_{\beta Y}}"', from=1-4, to=3-4]
+	    \arrow["\Phi"', from=1-6, to=3-6]
+    	\arrow["e", from=2-1, to=1-2]
+    	\arrow["{e'}"', from=2-1, to=3-2]
+    	\arrow["{i'}"', from=3-2, to=3-4]
+    	\arrow[hook, from=3-4, to=3-6]
+        \end{tikzcd}
+        \]
+        Now, if we define $\Psi:I^{F'}\to I^F$ by $\pi_{f_g}(\Psi(q))=\pi_g(q)$ for $g\in F'$ (this is well defined as $g\mapsto f_g$ is a bijection.) then symmetrically we see that $\Psi\circ i'\circ e'=i\circ e$ and $\Psi(\beta Y') \subseteq Y$. 
+        We also see that $\pi_g(\Phi(\Psi(q)))=\pi_{f_g}(\Psi(q))=\pi_g(q)$ and thus $\Phi\circ\Psi=Id_{I^{F'}}$, similarly we have $\Psi\circ\Phi=Id_{I^{F}}$ so $\Psi$ is the continuous inverse of $\Phi,$ making $\Phi$ a homeomorphism. 
+        Thus, $\Phi|_{\beta Y}$ is also a homeomorphism into $\beta Y'$ and we can define a homeomorphism $\phi=i'^{-1}\circ\Phi|_{\beta Y}\circ i$ from $Y$ to $Y'$ for which $\phi\circ e=i'^{-1}\circ\Phi|_{\beta Y}\circ i\circ e=i^{-1}\circ i'\circ e'=e'$ and we are done.
+    \item By the mentioned problem, the algebra generated by the maps $\pi_f:I^{\mathfrak F}\to I$ for $f\in\mathfrak F$ and constant $1$ is dense in $C(I^{\mathfrak F})$ and we can restrict this to $Y$. 
+        Thus, the algebra generated by $\pi_f\circ e=f$ and $1|_Y\circ e=1|_X$ ( $\mathfrak F$ needn't contain a constant function but as completely regular algebras always do, its safe to assume we have the constants) is dense in $\mA_Y$ as right composition by continuous functions (here it is $e$) preserves uniform convergence and thus the smallest completely regular subalgebra of $BC(X)$ containing $\mathfrak F$ is $A_Y$ itself. 
+    \item Consider the map sending a hausdorff compactification $(Y,e)$ to $\mA_Y$, this is injective upto homeomorphism by part (b) and surjective because for any such subalgebra $\mA$ we can consider the compactification $Y$ associated to $\mA$ and by part (c), we see that $\mA_Y \subseteq A$ by minimality and $A \subseteq \mA_Y$ by definition so we have equality, this proves the existence of an one-to-one correspondence. 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-74}
+Consider $\bN$ (with the discrete topology) as a subset of its Stone-\v{C}ech compactification $\beta\bN$.
+\begin{enumerate}[label=\alph*.]
+    \item If $A$ and $B$ are disjoint subsets of $\bN$, their closures in $\beta\bN$ are disjoint. (Hint: $\chi_A \in C(\bN,I)$.)
+    \item No sequence in $\bN$ converges in $\beta\bN$ unless it is eventually constant (so $\beta\bN$ is emphatically not sequentially compact).
+\end{enumerate}
+\end{problem}
+\begin{solution}
+ We identify $\bN$ with $e(\bN)$ here. 
+\begin{enumerate}[label=\alph*.]
+    \item Following the hint, we see that $\pi_{\chi_A}:I^{C(\bN,I)}\to I$ is a continuous map and thus so is the restriction $\pi_{\chi_A}|_{\beta\bN}$, making $\pi_{\chi_A}|_{\beta\bN}^{-1}( \qty{1})$ is a closed set that contains $e(A)$ as $\pi_{\chi_A}(e(x))=\chi_A(x)=1$ if $x\in A$ and $0$ otherwise. 
+        This also implies that $e(B) \subseteq \pi_{\chi_A}|_{\beta\bN}^{-1}( \qty{0})$, so as $A,B$ are in disjoint closed sets, they have disjoint closure. 
+    \item If $(x_n)$ is a sequence that is not eventually constant but converges to say $x$, then every subsequence also converges to $x$. 
+    Now, as it is not eventually constant, there two cases: either there are finitely many distinct terms and thus there are atleast two $a,b\in\bN$ such that $x_n=a$ for infinitely many $n$ and $x_n=b$ for infinitely many $n$ so we can choose two subsequences $(x_{n_k}),(x_{m_k})$ of $(x_n)$ which are all $a$'s and all $b$'s and by part (a), $ \overline{ \qty{a}}$ and $ \overline{ \qty{b}}$ are disjoint, but by hypothesis they contain a common point $x$ which is a contradiction, and in the other case there are infinitely many terms so we can again partition this infinite set into two infinite sets and get disjoint subsequences and by the same arguement we see that no sequence in $\bN$ that is not eventually constant can converge in $\beta\bN.$ 
+\end{enumerate}
+\end{solution}
+\begin{problem}\label{prob:4-75}
+Suppose $X$ is a completely regular space. The set $M$ of nonzero algebra homomorphisms from $BC(X,\bR)$ to $\bR$, equipped with the topology of pointwise convergence, is homeomorphic to $\beta X$. (See Exercise 71. This realization of $\beta X$ is the natural one from the point of view of Banach algebra theory.)
+\end{problem}
+\begin{solution}
+    By the mentione problem we see that $\beta X$ is homeomorphic to $M_\beta$, the set of nonzero algebra homomorphisms from $C(\beta X,\bR)=BC(\beta X,\bR)$ (due to compactness) to $\bR$ under the topology of pointwise convergence. 
+    It thus suffices to prove that $M_\beta$ is homeomorphic to $M,$ the same but with $BC(X,\bR).$ 
+    First of all, by the universal property of stone cech compactification, the map $\phi:f\mapsto f\circ e$ is an algebra isomorphism from $BC(\beta X,\bR)$ to $BC(X,\bR).$ 
+    Now, define $\Phi:M\to M_\beta$ by $u\mapsto u\circ \phi$ and $\Psi:M_\beta\to M$ by $v\to\phi^{-1}\circ v$, then we see that $\Psi$ is the inverse of $\Phi$ and thus both are bijections. 
+    To prove continuity of $\Phi$, consider any net $\langle h_\alpha\rangle_{\alpha\in A}$ converging to $h$ in $M$, equivalently by \hyperref[prob:4-34]{Problem 4.34} $\pi_f(h_\alpha)=h_\alpha(f)\to h(f)=\pi_f(h)$ for all $f\in BC(X,\bR)$ and thus for any $g\in BC(\beta X,\bR)$ we have $\Phi(h_\alpha)(g)=h_\alpha(g\circ e)\to h(g\circ e)=\Phi(h)(g)$ as $g\circ e\in BC(X,\bR)$ proving that $\Phi$ is continuous and similarly if $k_\alpha\to k$ in $M_\beta$ then for all $g\in M_\beta$ we must have $k_\alpha(g)\to k(g)$ and thus for all $f\in BC(X,\bR)$ we have $\Psi(k_\alpha)(f)=k_\alpha(\phi^{-1}(f))\to\phi^{-1}(f)=\Psi(k)(f)$ as $\phi^{-1}(f)\in BC(\beta X,\bR)$ proving continuity if $\Psi=\Phi^{-1}$ hence proving that $M_{\beta X}\cong M$ so we are done. 
+\end{solution}
+\begin{problem}\label{prob:4-76}
+If $X$ is normal and second countable, there is a countable family $\mathfrak{F} \subset C(X,I)$ that separates points and closed sets. (Let $\mathcal{B}$ be a countable base for the topology. Consider the set of pairs $(U,V) \in \mathcal{B} \times \mathcal{B}$ such that $\overline{U} \subset V$ and use Urysohn's lemma.)
+\end{problem}
+\begin{solution}
+    Following the hint, we can find a family of functions $f_{U,V}\in C(X,[0,1])$ such that $f=1$ on $ \overline{U}$ and $0$ on $V^c$. 
+    Now, if $A$ is some closed set and $p\notin A$ then we can find some $U\in\mathcal B$ such that $p\in U \subseteq A^c$ and as the space is normal we can find disjoint open sets $P,Q$ such that $p\in P$ and $U^c \subseteq Q$ so we can again find $V\in\mathcal B$ such that $p\in V \subseteq P$ and thus $V \subseteq\overline{V} \subseteq Q^c \subseteq U$ and we see that $f_{V,U}$ separates $p,A$ as $f(p)=1$ and $f(A)=0$ from the fact that $p\in V, A \subseteq U^c$ by construction. 
+\end{solution}
+\begin{problem}\label{prob:4-77}
+Let $\{(X_n,\rho_n)\}_{1}^\infty$ be a countable family of metric spaces whose metrics take values in $[0,1]$. (The latter restriction can always be satisfied; see Exercise 56b.) Let $X = \prod_{n=1}^\infty X_n$. If $x, y \in X$, say $x = (x_1, x_2, \dots)$ and $y = (y_1, y_2, \dots)$, define $\rho(x,y) = \sum_{1}^\infty 2^{-n} \rho_n(x_n, y_n)$. Then $\rho$ is a metric that defines the product topology on $X$.
+\end{problem}
+\begin{solution}
+    It is easy to see that $\rho$ is a valid metric as symmetry and the triangle inequality follow term-wise from $\rho_n$, and $\rho(x,y)=0$ iff $\rho_n(x_n,y_n)=0$ for all $n$ iff $x=y$.
+    The series converges as $\rho_n\leq 1$ means it is bounded by $\sum_1^\infty 2^{-n}=1$.
+    We use the same ball logic as in \hyperref[prob:4-56]{Problem 4.56} to show the topologies are equivalent.
+    If $U$ is a basic open set in the product topology containing $x$, it restricts only finitely many coordinates, say $n_1,\ldots,n_k$, so there is some $\epsilon>0$ such that $y\in U$ if $\rho_{n_i}(x_{n_i},y_{n_i})<\epsilon$ for all $1\leq i\leq k$.
+    If we choose $\delta=2^{-\max n_i}\epsilon$, then for any $y\in B_\rho(x,\delta)$ we see that $2^{-n_i}\rho_{n_i}(x_{n_i},y_{n_i})\leq\rho(x,y)<\delta$ which implies $\rho_{n_i}(x_{n_i},y_{n_i})<\epsilon$ for all the restricting coordinates, thus $y\in U$ proving $B_\rho(x,\delta) \subseteq U$.
+    For the other direction, given any metric ball $B_\rho(x,\epsilon)$, choose $N$ large enough such that $2^{-N}<\epsilon/2$ (since $\sum_{n>N}2^{-n}=2^{-N}$).
+    Consider the basic open set $V=\qty{y\in X:\rho_n(x_n,y_n)<\epsilon/2\text{ for }1\leq n\leq N}$, which clearly contains $x$.
+    For any $y\in V$ we see that
+    \[
+        \rho(x,y)=\sum_{n=1}^N 2^{-n}\rho_n(x_n,y_n)+\sum_{n=N+1}^\infty 2^{-n}\rho_n(x_n,y_n)< \frac{\epsilon}{2}\sum_{n=1}^N 2^{-n} + 2^{-N} < \frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon
+    \]
+    so $V \subseteq B_\rho(x,\epsilon)$ and we are done.
 \end{solution}
 \end{document}
