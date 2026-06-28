@@ -6,13 +6,29 @@ I do not guarantee that these are all correct, however they have been reviewed a
 
 
 Current Progress: 
+
+
 Chapter 1. Measures [Finished]
+
+
 Chapter 2. Integration [Finished]
+
+
 Chapter 3. Signed Measures and Differentiation [Finished]
+
+
 Chapter 4. Point Set Topology [Finished]
+
+
 Chapter 5. Elements of Functional Analysis [Ongoing]
+
+
 Chapter 6. L^p spaces [Starting soon]
+
+
 Chapter 7. Radon Measures [Starting soon]
+
+
 Chapter 8. Elements of Fourier Analysis [Might Start soon]
 
 
