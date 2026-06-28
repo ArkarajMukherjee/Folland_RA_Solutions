@@ -1,49 +1,9 @@
 \documentclass[12pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{amsmath, amssymb, amsthm, amsfonts, graphicx, physics}
-\usepackage{enumitem}
-\usepackage{geometry}
-\geometry{margin=1in}
-\usepackage[dvipsnames]{xcolor}
-\definecolor{EvanPink}{rgb}{0.85, 0.13, 0.55}
-\usepackage[colorlinks=true,
-            linkcolor=OliveGreen,
-            urlcolor=EvanPink,
-            citecolor=OliveGreen]{hyperref}
-\usepackage{cleveref}
-\usepackage{etoolbox}
-\newenvironment{solution}{%
-  \par\noindent\textit{Solution.}\ }{\qed}
-\newtheoremstyle{problemstyle}
-  {1em}   
-  {1em}   
-  {}      
-  {}      
-  {\bfseries} 
-  {.}     
-  {0.5em} 
-  {}      
-\theoremstyle{problemstyle}
-\newtheorem{problem}{Problem}[section]
-\apptocmd{\problem}{%
-  \addcontentsline{toc}{subsection}{Problem~\thesection.\arabic{problem}}%
-}{}{}
-\crefname{problem}{Problem}{Problems}
-\Crefname{problem}{Problem}{Problems}
-\setcounter{tocdepth}{2}
+\usepackage{mypreamble, folland_sol}
+
 \title{\textbf{Chapter 1 : Measures}}
 \author{Arkaraj Mukherjee}
-\def\bN{\mathbb{N}}
-\def\bR{\mathbb{R}}
-\def\bZ{\mathbb{Z}}
-\def\bQ{\mathbb{Q}}
-\def\mM{\mathcal{M}}
-\def\mR{\mathcal{R}}
-\def\mN{\mathcal{N}}
-\def\mE{\mathcal{E}}
-\def\mA{\mathcal{A}}
+
 \begin{document}
 \maketitle
 \newpage

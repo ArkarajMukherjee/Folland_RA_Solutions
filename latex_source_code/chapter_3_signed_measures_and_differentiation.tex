@@ -1,56 +1,9 @@
 \documentclass[12pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs, graphicx, physics, enumitem, geometry, esint,twemojis}
-\geometry{margin=1in}
-\usepackage[dvipsnames]{xcolor}
-\definecolor{EvanPink}{rgb}{0.85, 0.13, 0.55}
-\usepackage[colorlinks=true,
-            linkcolor=OliveGreen,
-            urlcolor=EvanPink,
-            citecolor=OliveGreen]{hyperref}
-\usepackage{cleveref}
-\usepackage{etoolbox}
 
-\newenvironment{solution}{%
-  \par\noindent\textit{Solution.}\ }{\qed}
-
-\newtheoremstyle{problemstyle}
-  {1em}   
-  {1em}   
-  {}      
-  {}      
-  {\bfseries} 
-  {.}     
-  {0.5em} 
-  {}      
-\theoremstyle{problemstyle}
-\newtheorem{problem}{Problem}[section]
-
-\apptocmd{\problem}{%
-  \addcontentsline{toc}{subsection}{Problem~\thesection.\arabic{problem}}%
-}{}{}
-
-\crefname{problem}{Problem}{Problems}
-\Crefname{problem}{Problem}{Problems}
-
-\setcounter{tocdepth}{2}
+\usepackage{mypreamble, folland_sol}
 
 \title{\textbf{Chapter 3 : Signed Measures and Differentiation}}
 \author{Arkaraj Mukherjee}
-
-\def\bN{\mathbb{N}}
-\def\bR{\mathbb{R}}
-\def\bZ{\mathbb{Z}}
-\def\bQ{\mathbb{Q}}
-\def\bC{\mathbb{C}}
-\def\mM{\mathcal{M}}
-\def\mR{\mathcal{R}}
-\def\mN{\mathcal{N}}
-\def\mE{\mathcal{E}}
-\def\mA{\mathcal{A}}
-\def\oR{\overline{\mathbb{R}}}
 
 \begin{document}
 \maketitle
@@ -81,7 +34,7 @@ If $\nu$ is a signed measure, $E$ is $\nu$-null iff $|\nu|(E)=0$. Also, if $\nu$
 \end{problem}
 \begin{solution}
 If $|\nu|(E)=0$ then $\nu^+(E)=\nu^-(E)=0$ and as these are positive measures, by monotonicity see that $\nu^+(F)=\nu^-(F)=0$ for any measurable $F\subseteq E$ making $E$ $\nu$-null. 
-Now, if $E$ was $\nu$-null then $|\nu|(E)>0$ would imply that $\nu^+(E)$ or $\nu^-(E)$ is strictly greater than $0$ and if we assume the first to be as described then $\nu(E\cap P)=\nu^+(E\cap P)>0$ which contradicts nullity of $E$ w.r.t $\nu$ as $E\cap P \subseteq E$. 
+Now, if $E$ was $\nu$-null then $|\nu|(E)>0$ would imply that $\nu^+(E)$ or $\nu^-(E)$ is strictly greater than $0$ and if we assume the first to be as described then $\nu(E\cap N)=\nu^+(E\cap N)>0$ which contradicts nullity of $E$ w.r.t $\nu$ as $E\cap N \subseteq E$. 
 The other case leads to a contradiction similarly, thus we must have $|\nu|(E)=0$. 
 
 As a measurable set $E$ is $|\nu|$-null iff $|\nu|(E)=0$ stemming from positivity we see that $\nu\perp\mu$ iff $|\nu|\perp\mu$ by the previous claim. 
@@ -100,12 +53,7 @@ Let $\nu$ be a signed measure on $(X, \mM)$.
 \item As $L^1(\nu):=L^1(\nu^+)\cap L^1(\nu^-)$ we find that, $f\in L^1(\nu)$ implies $ \int_{}^{}|f|,\mathrm{d}\nu^+, \int_{}^{}|f|\,\mathrm{d}\nu^-<\infty$ and thus, $ \int_{}^{}|f|\,\mathrm{d}|\nu|= \int_{}^{}|f|\,\mathrm{d}\nu^++ \int_{}^{}|f|\,\mathrm{d}\nu^-<\infty$ where we have used the following lemma: If $\mu_1,\mu_2$ are positive measures on the same sigma algebra then so is their sum and if $f\in L^+$ then $ \int_{}^{}f\,\mathrm{d}(\mu_1+\mu_2)= \int_{}^{}f\,\mathrm{d}\mu_1+ \int_{}^{}f\,\mathrm{d}\mu_2$. 
 For a proof, one can look at simple functions first where its trivial and then routinely extend to $L^+$ by MCT and approximations using simple functions. 
 Now, if we had $f\in L^1(|\nu|)$ then as $ \int_{}^{}f\,\mathrm{d}|\nu|=\int_{}^{}|f|\,\mathrm{d}\nu^++ \int_{}^{}|f|\,\mathrm{d}\nu^-<\infty$, both of these terms are individually finite which puts $f$ in $L^1(\nu^+)$ and $L^1(\nu^-)$ proving the claim.
-\item \[
-    \qty|\int fd\nu|=\qty|\int fd\nu^+-\int fd\nu^-|
-\]
-\[\leq\qty|\int fd\nu^+|+\qty|\int fd\nu^-|\leq\int|f|d\nu^++\int|f|d\nu^-=\int|f|d|\nu|
-\]
- 
+\item This follows from the inequality $ \int_{}^{}|f|\,\mathrm{d}\nu= \int_{}^{}|f|\,\mathrm{d}\nu^+- \int_{}^{}|f|\,\mathrm{d}\nu^-\leq\int_{}^{}|f|\,\mathrm{d}\nu^++ \int_{}^{}|f|\,\mathrm{d}\nu^-= \int_{}^{}|f|\,\mathrm{d}|\nu|$.
 \item Consider the hahn decomposition $P\cup N$ is usual notation leading upto the jordan decomposition, then letting $f=\chi_P-\chi_N$ we see that $ \int_{}^{}f\,\mathrm{d}\nu=\nu(P\cap E)-\nu(N\cap E)=\nu^+(E)+\nu^-(E)=|\nu|(E)$ so we have one direction of the inequality ($\leq$) and for the other direction, by part (b) we can say that $|f|\leq 1$ implies $|\int_{}^{}f\,\mathrm{d}\nu|\leq \int_{}^{}1\,\mathrm{d}|\nu|=|\nu|(E).$ so we are done.
 \end{enumerate}
 \end{solution}
@@ -127,7 +75,7 @@ As all $\nu_1,\nu_2$ are finite, we can rearrange to get $\nu_1+\nu_2=\nu_1^+-\n
 Suppose $\nu(E)=\int f~d\mu$ where $\mu$ is a positive measure and $f$ is an extended $\mu$-integrable function. Describe the Hahn decompositions of $\nu$ and the positive, negative, and total variations of $\nu$ in terms of $f$ and $\mu$.
 \end{problem}
 \begin{solution}
-	Let $P= \qty{f>0}$ and $N= \qty{f\leq 0}$, then $P\cup N$ is clearly a hahn decomposition and we see that $\nu^+(E)= \int_{E\cap P}^{}f\,\mathrm{d}\mu= \int_{E}^{}f^+\,\mathrm{d}\mu$ and similarly $\nu^-(E)= \int_{E}^{}f^-\,\mathrm{d}\mu$ and thus, $|\nu|(E)= \int_{E}^{}|f|\,\mathrm{d}\mu$.
+	Let $P= \qty{f>0}$ and $N= \qty{f\leq 0}$, then $P\cup N$ is clearly a hahn decomposition and we see that $\nu_+(E)= \int_{E\cap P}^{}f\,\mathrm{d}\mu= \int_{E}^{}f^+\,\mathrm{d}\mu$ and similarly $\nu_-(E)= \int_{E}^{}f^-\,\mathrm{d}\mu$ and thus, $|\nu|(E)= \int_{E}^{}|f|\,\mathrm{d}\mu$.
 \end{solution}
 \begin{problem}\label{prob:3.7}
 Suppose that $\nu$ is a signed measure on $(X, \mM)$ and $E\in\mM$.
@@ -149,10 +97,10 @@ $\nu\ll\mu$ iff $|\nu|\ll\mu$ iff $\nu^{+}\ll\mu$ and $\nu^{-}\ll\mu$.
 \begin{solution}
 If $\nu\ll\mu$ then $\mu(E)=0\implies\nu(E)=0$ and as $\mu$ is taken positive we must have that $\mu(E\cap P),\mu(E\cap N)=0$ where $P\cup N$ is the hahn decomposition for $\nu$, this implies that $\nu(E\cap P),\nu(E\cap N)=0$ so $\nu^\pm(E)=0$ and we have that $|\nu|(E)=0$ as well proving $|\nu|\ll\mu$. 
 As $|\nu|(E)\geq|\nu(E)|$ we have that $|\nu|\ll\mu$ implies $\nu\ll\mu$ and hence $\nu\ll\mu$ iff $|\nu|\ll\mu$. 
-If $\nu^+,\nu^-\ll\mu$ then $\mu(E)=0$ clearly implies $|\nu|(E)=0$ and if we have $|\nu|\ll\mu$ then $\mu(E)=0$ implies $\nu^+(E)+\nu^-(E)=0$ and thus $\nu^+(E)=\nu^-(E)=0$ proving $\nu^+,\nu^-\ll\mu$ and thus all these conditions are equivalent.
+If $\nu^+\nu^-\ll\mu$ then $\mu(E)=0$ clearly implies $|\nu|(E)=0$ and if we have $|\nu|\ll\mu$ then $\mu(E)=0$ implies $\nu^+(E)+\nu^-(E)=0$ and thus $\nu^+(E)=\nu^-(E)=0$ proving $\nu^+,\nu^-\ll\mu$ and thus all these conditions are equivalent.
 \end{solution}
 \begin{problem}\label{prob:3.9}
-Suppose $\{\nu_{j}\}$ is a sequence of positive measures. If $\nu_{j}\perp\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\perp\mu$; and if $\nu_{j}\ll\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\ll\mu$. (This is also true for complex measures when $\sum_1^\infty\nu_j$ is a valid complex measure too)
+Suppose $\{\nu_{j}\}$ is a sequence of positive measures. If $\nu_{j}\perp\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\perp\mu$; and if $\nu_{j}\ll\mu$ for all $j$, then $\sum_{1}^{\infty}\nu_{j}\ll\mu$.
 \end{problem}
 \begin{solution}
 Say $E_j$ is $\nu_j$-null and $E_j^c$ is $\mu$-null for all $j$, then we see that, let $E=\bigcap E_j$, then we clearly see that $E$ is $\sum_1^\infty\nu_j$-null and we claim that, $E^c=\bigcup E_j^c$ is $\mu$-null. 
@@ -160,8 +108,7 @@ For any measurable $F\subseteq E^c$, we can write $F=\bigcup_{j=1}^\infty(F\cap(
 \[
     \mu(F)= \sum_{j=1}^{\infty}\mu(F\cap(E_j^c\setminus\cup_{i\neq j}^\infty E_i^c))=0
 \]
-as $(F\cap(E_j^c\setminus\cup_{i\neq j}^\infty E_i^c)) \subseteq E_j^c$. 
-The absolute continuity result is trivial. 
+as $(F\cap(E_j^c\setminus\cup_{i\neq j}^\infty E_i^c)) \subseteq E_j^c$.
 \end{solution}
 \begin{problem}\label{prob:3.10}
 Theorem 3.5 may fail when $\nu$ is not finite. (Consider $d\nu(x)=dx/x$ and $d\mu(x)=dx$ on $(0, 1)$, or $\nu = \text{counting measure}$ and $\mu(E)=\sum_{n\in E}2^{-n}$ on $\bN$.)
@@ -193,7 +140,7 @@ For $j=1,2,$ let $\mu_{j}$, $\nu_{j}$ be $\sigma$-finite measures on $(X_{j},\mM
 \end{problem}
 \begin{solution}
 Suppose $\mu_1\times\mu_2(E)=0$ then we see that $0=\int\mu_1(E_x)d\mu_2(x)$ implying $\mu_1(E_x)=0$ (this in turn implies $\nu_1(E_x)=0$ here) for $\mu_2$-a.e. $x$ so suppose its true for all $x$ outside $N$ with $\mu_2(N)=0$ which implies $\nu_2(N)=0$ so we have that $\nu_1\times\nu_2(E)=\int\nu_1(E_x)d\nu_2(x)=0$ as $\nu_1(E_x)=0$ for $\nu_2$-a.e. $x$ thus proving $\nu_1\times\nu_2\ll\mu_1\times\mu_2.$ 
-CLearly these product measures are sigma finite too, so we can find a radon nikodym derivative $f$ i.e. $d(\nu_1\times\nu_2)=fd(\mu_1\times\mu_2)$ and also $f_1,f_2$ such that $f_jd\mu_j=\nu_j$ for $j=1,2$ and by fubini's we see that,
+CLearly these product measures are sigma finite too, so we can find a radon nikodyn derivative $f$ i.e. $d(\nu_1\times\nu_2)=fd(\mu_1\times\mu_2)$ and also $f_1,f_2$ such that $f_jd\mu_j=\nu_j$ for $j=1,2$ and by fubini's we see that,
 \[
 	\int\chi_E(x,y)f_1(x)f_2(y)d(\mu_1\times\mu_2(x,y))=\int\int f_1(x)\chi_{E_x}(y)f_2(y)d\mu_2(y)d\mu_1(x)
 \]
@@ -211,11 +158,9 @@ Let $X=[0,1]$, $\mM=\mathcal{B}_{[0,1]}$, $m=$ Lebesgue measure, and $\mu=$ coun
 \end{problem}
 \begin{solution}
 \begin{enumerate}[label=\alph*.]
-	\item As $\mu(E)=0\implies E=\emptyset$, $m\ll\mu$ holds. 
+	\item As $\mu(E)=0\implies E=\emptyset$, $m\ll\nu$ holds. 
 		If we had $dm=fd\mu$ then we would have $m( \qty{x})=f(x)=0$ for all $x$ which is absurd as it implies $dm=0$. 
-    \item If we had $\mu=\rho+\lambda$ where $\lambda\perp m$ and $\rho\ll m$, notice how for all singletons we have $m(\{x\})=0\implies\rho(\{x\})=0$ and thus $1=\mu(\{x\})=0+\lambda(\{x\})=\lambda(\{x\})$ and we can find a partition $L\cup M$ where $\lambda(M)=m(L)=0$. 
-        Now, we see that for any $E$ we have $\lambda(E)=\lambda(E\cap L)=\lambda(E\cap L)+m(E\cap L)=\mu(E\cap L)\geq 0$ as $m(E\cap L)\leq m(L)=0$ proving that $\lambda$ is positive.        Then, we must have that $\lambda(M)=0\implies\lambda(C)=0$ where $C\subseteq M$ is countably infinite, we can choose such a $C$ because $M$ is required to be uncountable ($m(M)=1$.) 
-        From this we see that $\infty=\mu(C)=\rho(C)+\lambda(C)=0+0$ as $m(C)=0$ forces $\rho(C)=0$ so we have a contradiction and the hypothesis was false to begin with. 
+	\item If we had $\mu=\rho+\lambda$ where $\lambda\perp m$ and $\rho\ll m$ then if $[0,1]=M\cup L$ where $L,M$ are $m,\lambda$-null repsectively then as $m(L)=0$ we have that $m(M)=1$ and thus, $\infty=\mu(M)=\rho(M)+\mu(M)=0+1=1$ which is not possible.
 \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:3.14}
@@ -235,7 +180,7 @@ Consider the set $ \qty{\mu(H):H\in\mM,H\text{ is }\nu\,\sigma\text{-finite}}$, 
 Setting $E=\cup F_n$ gives us a set as described in hint (b).
 The radon nikodym theorem applies on $E$ clearly. 
 If $F\cap E=\emptyset$ then if we have $\nu(F)>0$ we must have $\mu(F)>0$ as $\nu\ll\mu$which forces $\nu(F)=\infty$ as otherwise the existence of $E\cup F$ contradicts the maximality of $E$ and if we have $\mu(F)>0$ then again we similarly have $\nu(F)=\infty$ such as to not contradict the maximality of $E$ so we have proved the claim in hint (c). 
-There are now two cases, first one being when $\nu(E^c)=\mu(E^c)=0$, in this case we can apply radon-nikodym to get a derivative $f$ on $E$ and extend it to the rest of the set by setting it to be zero outside this, then we see that,
+There are now two cases, first one being whem $\nu(E^c)=\mu(E^c)=0$, in this case we can apply radon-nikodym to get a derivative $f$ on $E$ and extend it to the rest of the set by setting it to be zero outside this, then we see that,
 \[
 	\nu(K)=\nu(K\cap E)+\underbrace{\nu(K\cap E^c)}_{\leq\nu(E^c)=0}=\int_{K\cap E}f\,\mathrm{d}\mu=\int_K f\,\mathrm{d}\mu
 \]
@@ -257,17 +202,17 @@ A measure $\mu$ on $(X, \mM)$ is called decomposable if there is a family $\math
 \begin{enumerate}[label=\alph*.]
 	\item It can be easily shown that $\mathfrak F=\{E_n:n\in\bN\}$ works where $E_n$ partition $X$ while being $\mu$-finite.
 	\item Let $\mathfrak F$ be as described in the problem. 
-	As $\mu(F)<\infty$ for any $F\in\mathfrak F$ we can find a measurable $f_F$ on  $F$ such that $\nu(E\cap F)=\int_{E\cap F}f_Fd\mu$ for all $E\in\mM$ by the previous problem and if $F$ is $\sigma$-finite for $\nu$ we can clearly force $|f_F|<\infty$ (in the proof presente in the book we can take all $f_j$'s which are zero outside $A_j$ to be real valued everywhere as shown in case I which makes their sum real valued too as the $A_j$ are disjoint.) as in the proof of the radon-nikodym theorem. 
+	As $\mu(F)<\infty$ for any $F\in\mathfrak F$ we can find a measurable $f_F$ on  $F$ such that $\nu(E\cap F)=\int_{E\cap F}fd\mu$ for all $E\in\mM$ by the previous problem and if $F$ is $\sigma$-finite for $\nu$ we can clearly force $|f_F|<\infty$ (in the proof presente in the book we can take all $f_j$'s which are zero outside $A_j$ to be real valued everywhere as shown in case I which makes their sum real valued too as the $A_j$ are disjoint.) as in the proof of the radon-nikodym theorem. 
 	We claim that $f:=f_F$ on $F\in\mathfrak F$ is measurable and it has the properties needed. 
 	For any $E\in\mathcal B_{\overline{\bR}}$ we see that $f^{-1}(E)=\bigcup_{F\in\mathfrak F}f^{-1}(E)\cap F$ and each $f^{-1}(E)\cap F=f|_{F}^{-1}(E)\cap F=f_F^{-1}(E)\cap F\in\mM$ as $f_F$ is measurable which implies that $f^{-1}(E)$ by property (iv). 
-	Now, for any $E$ that is $\sigma$-finite for $\mu$, suppose $E=\cup E_n$ (disjoint union) with $\mu(E_n)<\infty$, then we see that $\mu(E_n)=\sum_{\mathfrak F}\mu(E_n\cap F)<\infty$ and it is well known that only atmost countably many $\mu(E_n\cap F)$ are nonzero, so we can find $\{F_m\}\subseteq\mathfrak F$ such that $\mu(E_n)=\sum_{m=1}^\infty\mu(E_n\cap F_m)$ and thus we also see that $\mu(E_n\setminus(\cup_m(E_n\cap F_m)))=0$ which, by absolute continuity implies $\nu(E_n)=\nu(\cup_m(F_m\cap E_n))=\sum_{m=1}^\infty\mu(E_n\cap F_m)=\sum_{m=1}^\infty\int_{E_n\cap F_m}fd\mu=\int_{E_n}fd\mu$ and thus, $\nu(E)=\sum_1^\infty\nu(E_n)=\sum_1^\infty\int_{E_n}fd\mu=\int_Efd\mu$. 
+	Now, for any $E$ that is $\sigma$-finite for $\mu$, suppose $E=\cup E_n$ (disjoint union) with $\mu(E_n)<\infty$, then we see that $\mu(E_n)=\sum_{\mathfrak F}\mu(E_n\cap F)<\infty$ and it is well known that only atmost countably many $\mu(E_n\cap F)$ are nonzero, so we can find $\{F_m\}\subseteq\mathfrak F$ such that $\mu(E_n)=\sum_{m=1}^\infty\mu(E_n\cap F_m)$ and thus we also see that $\mu(E_n\setminus(\cup_m(E_n\cap F_m)))=0$ which, by absolute continuity implies $\nu(E_n)=\nu(\cup_m(F_m\cap E_n)=\sum_{m=1}^\infty\mu(E_n\cap F_m)=\sum_{m=1}^\infty\int_{E_n\cap F_m}fd\mu=\int_{E_n}fd\mu$ and thus, $\nu(E)=\sum_1^\infty\nu(E_n)=\sum_1^\infty\int_{E_n}fd\mu=\int_Efd\mu$. 
 \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:3.16}
 Suppose that $\mu, \nu$ are measures on $(X, \mM)$ with $\nu\ll\mu$, and let $\lambda=\mu+\nu$. If $f=d\nu/d\lambda$, then $0\le f<1$ $\lambda$-a.e. and $d\nu/d\mu=f/(1-f)$.
 \end{problem}
 \begin{solution}
-(note: we treat the derivatives as equivalence classes here.) Firstly, it is obvious that $f\geq 0$ $\lambda$-a.e We have $\int_Ed\nu=\nu(E)=\int_Efd(\mu+\nu)\leq\int_Ed\nu+\int_Ed\mu=\int_E d(\mu+\nu)$, it can then be easily shown that $f\leq 1$ $\lambda$-a.e. 
+(note: we treat the derivatives as equivalence classes here.) Firstly, it is obvious that $f\geq 0$ $\lambda$-a.e We have $\int_Ed\nu=\nu(E)=\int_Efd(\mu+\nu)\leq\int_Ed\nu+\int_Ed\mu=\int d(\mu+\nu)$, it can then be easily shown that $f\leq 1$ $\lambda$-a.e. 
 If we had $f=1$ over $E$ with $\lambda(E)=\nu(E)+\mu(E)>0$ then we see that, $\nu(E)=\int_Efd\lambda=\lambda(E)$ which implies that $\mu(E)=0$ but then as $\nu\ll\mu$ we have $\nu(E)=0$ too contradicting non-nullity, this proves that $f<1$ $\lambda$-a.e. too so we have proven the first claim. 
 We clearly have $\nu\ll\mu\ll\lambda$ and $\lambda\ll\mu$.
 Thus, $g=d\mu/d\lambda$ exists and by Proposition $3.9$ we see that $f=d\nu/d\lambda=(d\nu/d\mu)(d\mu/d\lambda)=g(d\nu/d\mu)$ and substituting these in we get $d\nu/d\mu=f/g=f/(1-f)$ as $f+g=d\nu/d\lambda+d\mu/d\lambda=d(\mu+\nu)/d\lambda=d\lambda/d\lambda=1.$
@@ -277,16 +222,13 @@ Thus, $g=d\mu/d\lambda$ exists and by Proposition $3.9$ we see that $f=d\nu/d\la
 (In probability theory, $g$ is called the conditional expectation of $f$ on $\mN$.)
 \end{problem}
 \begin{solution}
-	As $f\in L^1$ we have that $fd\mu$ is a signed measure and it is clearly still a measure restricted to $\mN$ where we see that $(fd\mu)|_{\mN}\ll\nu=\mu|_{\mN}$ and as $\mN$ is sigma finite for $\nu$ we can apply \hyperref[prob:3.14]{Problem 3.14} to deduce existence of some $g$ such that $(fd\mu)|_{\mN}=gd\nu$ which implies $\int_Efd\mu=\int_Egd\nu$ for all $E\in\mN.$ 
-    Here, $g$ is extended $\nu$ integrable by construction. 
-    To show that $g\in L^1(\nu)$ consider the fact that $(|f|d\mu)|_{\mN}=|(fd\mu)|_{\mN}|=|gd\nu|=|g|d\nu$ and thus, $\int_X|g|d\nu=\int_X|f|d\mu<\infty\implies g\in L^1(\nu)$. 
-    The uniqueness follows from the fact that $\int_Egd\nu=\int_Eg'd\nu$ for all $E\in\mN$ implies $g=g'$ $\nu$-a.e.
+	As $f\in L^1$ we have that $fd\mu$ is a signed measure and it is clearly still a measure restricted to $\mN$ where we see that $(fd\mu)|_{\mN}\ll\nu=\mu|_{\mN}$ and as $\mN$ is sigma finite for $\nu$ we can apply \hyperref[prob:3.14]{Problem 3.14} to deduce existence of some $g$ such that $(fd\mu)|_{\mN}=gd\nu$ which implies $\int_Efd\mu=\int_Egd\nu$ for all $E\in\mN.$
 \end{solution}
 \begin{problem}\label{prob:3.18}
 Prove Proposition 3.13c.
 \end{problem}
 \begin{solution}
-Let $g$ be as in the definition ($d\nu=gd\mu$ with $\mu$ being positive) of $|\nu|$ then we see that $|f|d|\nu|=|f||g|d\mu$ and we also have $fd\nu=fgd\mu$ and we have that,
+Let $g$ be as in the definition ($d\nu=gd\mu$ with $\mu$ being positive) of $|\nu|$ then we see that $|f|d|\nu|=|f||g|d\mu$ and we also have $|f|d\nu=|f|gd\mu$ and we have that,
 \[
     \qty| \int_{}^{}f\,\mathrm{d}\nu|=\qty| \int_{}^{}fg\,\mathrm{d}\mu|\leq\int|fg|d\mu=\int|f|d|\nu|
 \]
@@ -295,13 +237,10 @@ Let $g$ be as in the definition ($d\nu=gd\mu$ with $\mu$ being positive) of $|\n
 If $\nu, \lambda$ are complex measures and $\mu$ is a positive measure, then $\nu\perp\mu$ iff $|\nu|\perp|\mu|$, and $\nu\ll\lambda$ iff $|\nu|\ll\lambda$.
 \end{problem}
 \begin{solution}
-    First, we prove $\nu\perp\mu \iff |\nu|\perp\mu$. 
-    If $\nu\perp\mu$, then by definition $\nu_r\perp\mu$ and $\nu_i\perp\mu$. By \hyperref[prob:3.2]{Problem 3.2}, this implies $|\nu_r|\perp\mu$ and $|\nu_i|\perp\mu$. Using \hyperref[prob:3.9]{Problem 3.9}, their sum is also mutually singular to $\mu$, meaning $(|\nu_r|+|\nu_i|)\perp\mu$. Since total variation satisfies $|\nu| \leq |\nu_r|+|\nu_i|$, any set that is null for $|\nu_r|+|\nu_i|$ is also null for $|\nu|$. Therefore, $|\nu|\perp\mu$.
-    Conversely, if $|\nu|\perp\mu$, since $|\nu_r| \leq |\nu|$ and $|\nu_i| \leq |\nu|$, we have $|\nu_r|\perp\mu$ and $|\nu_i|\perp\mu$. By \hyperref[prob:3.2]{Problem 3.2}, this implies $\nu_r\perp\mu$ and $\nu_i\perp\mu$, meaning $\nu\perp\mu$. 
-    Now, we prove $\nu\ll\lambda \iff |\nu|\ll\lambda$. 
-    By definition, absolute continuity with respect to a complex measure means absolute continuity with respect to its total variation, so $\nu\ll\lambda$ means $|\lambda|(E)=0 \implies \nu(E)=0$.
-    If $|\nu|\ll\lambda$, then $|\lambda|(E)=0 \implies |\nu|(E)=0$. Since $|\nu(E)| \leq |\nu|(E)$, this immediately implies $\nu(E)=0$, proving $\nu\ll\lambda$.
-    Conversely, suppose $\nu\ll\lambda$ and let $|\lambda|(E)=0$. Since $|\lambda|$ is a positive measure, for any measurable subset $F \subseteq E$, we also have $|\lambda|(F)=0$, which implies $\nu(F)=0$. The total variation can be equivalently defined as $|\nu|(E) = \sup \sum_{j=1}^n |\nu(E_j)|$ over all finite measurable partitions $\{E_j\}$ of $E$ by \hyperref[prob:3.21]{Problem 3.21}. Since each $E_j \subseteq E$, we have $\nu(E_j)=0$ for all $j$. Thus, the supremum is exactly $0$, giving $|\nu|(E)=0$. This proves $|\nu|\ll\lambda$.
+If $\nu\perp\mu$ then by definition $\nu_a\perp\mu_b$ where $a,b=i,r$ following the notation in the book. 
+By \hyperref[prob:3.2]{Problem 3.2} this implies that $|\nu_a|\perp|\mu_b|$ where $a,b=i,r$ and using \hyperref[prob:3.9]{Problem 3.9} twice we see that $|\nu_i|+|\nu_r|\perp|\mu_r|+|\mu_i|$. 
+We see that $\nu\ll|\nu_i|+|\nu_r|$ as $\nu_a\ll|\nu_i|+|\nu_r|$ where $a=i,r$ and similarly for $\mu$ which implies that $\nu\perp|\mu_i|+|\mu_r|$ and by a similar arguement, $\nu\perp\mu.$
+Now if $|\nu|\perp|\mu|$ then, as $\nu\ll|\nu|$ and $\mu\ll|\mu|$ we have that $\nu\perp\mu$. 
 \end{solution}
 \begin{problem}\label{prob:3.20}
 If $\nu$ is a complex measure on $(X,\mM)$ and $\nu(X)=|\nu|(X)$, then $\nu=|\nu|$.
@@ -315,7 +254,7 @@ Let $\nu$ be a complex measure on $(X, \mM)$. If $E\in\mM$ define
 \[\mu_{1}(E)=\sup\qty{\sum_{1}^{n}|\nu(E_{j})|:n\in\bN,E_{1},...,E_{n} \text{ disjoint}, E=\bigcup_{1}^{n}E_{j}},\]
 \[\mu_{2}(E)=\sup\qty{\sum_{1}^{\infty}|\nu(E_{j})|:E_{1},E_{2},... \text{ disjoint}, E=\bigcup_{1}^{\infty}E_{j}},\]
 \[\mu_{3}(E)=\sup\qty{\qty|\int_{E}f~d\nu|:|f|\leq 1}.\]
-Then $\mu_{1}=\mu_{2}=\mu_{3}=|\nu|$. (First show that $\mu_1\leq\mu_2\leq\mu_3$· To see that $\mu_3 = |\nu|$, let $f=\overline{d\nu/d|\nu|}$ and apply Proposition $3.13.$ To see that $\nu_3\leq\nu_1$, approximate $f$ by simple functions.)
+Then $\mu_{1}=\mu_{2}=\mu_{3}=|\nu|$. (First show that $\mu_1\leq\mu_2\leq\mu_3$· To see that $\mu_3 = |\nu|$, let $f=\overline{d\nu/d|v|}$ and apply Proposition $3.13.$ To see that $\nu_3\leq\nu_1$, approximate $f$ by simple functions.)
 \end{problem}
 \begin{solution}
 $\mu_1\leq\mu_2$ is obvious and $\mu_2\leq\mu_3$ holds as for any given $E$ and any partition $\qty{E_n}$ of $E$ we can define
@@ -325,7 +264,7 @@ $\mu_1\leq\mu_2$ is obvious and $\mu_2\leq\mu_3$ holds as for any given $E$ and 
 where the sum is over all $n$ for which $\nu(E_n)\neq 0$, then we clearly see that $|f|\leq 1$ and $\int_Ef\,d\nu=\sum_1^\infty\int_{E_n}f\,d\nu=\sum_1^\infty|\nu(E_n)|$ as $|z|=\overline{z}z/|z|$ for nonzero $z.$ 
 Clearly $\mu_3(E)\leq\int_E d|\nu|=|\nu|(E)$ by Proposition $3.13c$ and with $f$ as in the hint (this can be made to have absolute value atmost $1$ everywhere after changing it on a null set, not affecting any of the integrals below) we see that, 
 \[
-	\int_E\overline{ \frac{d\nu}{d|\nu|}}d\nu=\int_E\overline{ \frac{d\nu}{d|\nu|}} \frac{d\nu}{d|\nu|}d|\nu|=\int_E|f|^2d|\nu|=\int_Ed|\nu|=|\nu|(E)
+	\int_E\overline{ \frac{d\nu}{d|\nu|}}d\nu=\int_E\overline{ \frac{d\nu}{d\nu|}} \frac{d\nu}{d|\nu|}d|\nu|=\int_E|f|^2d\|\nu|=\int_Ed|\nu|=|\nu|(E)
 \]
 as $|f|=1$ $|\nu|$-a.e. so we must have $\mu_3=|\nu|$. 
 Now, we can  find a sequence of simple functions $\phi_n$ converging $f$ with $|\phi_n|\leq |f|\leq 1$ and convergence can be made uniform here as $f$ is bounded on $E$, this clearly implies that $\lim|\int_E\phi_n\,d\nu|=|\int_E f\,d\nu|$ and thus, as $|\int_E\phi_n\,d\nu|\leq\mu_1(E)$ due to linearity and the triangle inequality we must have $\lim_n|\int_E f\,d\nu|\leq\mu_1(E)$ too so we are done.
@@ -352,7 +291,7 @@ If $x\in B(p,r)=B$ then we must have that $B(p,r)\subseteq B(x,|x-p|+r)$, thus
 \[
 	\frac{1}{m(B)}\int_B|f|\,dm\leq \frac{c\cdot(|x-p|+r)^n}{c\cdot r^n}Hf(x)\leq 2^nHf(x)
 \]
-where $c=m(B(0,1))$, as $|x-p|<r$ so we must have $H^*f\leq 2^nHf$ and $H^*f\geq Hf$ is trivially true. 
+where $c=m(B(0,1))$, as $|x-p|<r$ so we must have $H^*f\leq 2^nHf$.
 \end{solution}
 \begin{problem}\label{prob:3.24}
 If $f\in L_{loc}^{1}$ and $f$ is continuous at $x$, then $x$ is in the Lebesgue set of $f$.
@@ -369,7 +308,7 @@ If $E$ is a Borel set in $\bR^{n}$, the density $D_{E}(x)$ of $E$ at $x$ is defi
 \end{problem}
 \begin{solution}
 \begin{enumerate}[label=\alph*.]
-\item Consider the borel measure $\nu(F):=\mu(E\cap F)$, then we have a lebesgue decomposition $\nu=0+\chi_Edm$ and Theorem $3.22.$ we have that $D_E(x)=\chi_E(x)$ for $m$-a.e. $x.$ from which the conclusion follows.
+\item Consider the borel measure $\nu(F):=\mu(E\cap F)$, then we have a lebesgue decomposition $\nu=0+\chi_Edm$ and Theorem $3.22.$ we have that $D_E(x)=\chi_E(x)$ for $\mu$-a.e. $x.$ from which the conclusion follows.
 \item Consider $E=\bigcup_{k=1}^{\infty}(B(0,2^{-2k+1})\setminus B(0,2^{-2k}))$ and $x=0$. Let $c = m(B(0,1))$. Then we see that for $m\in\bN$ we have 
     \[ m(E\cap B(0,2^{-2m+1})) = c\sum_{k=m}^{\infty}\left(2^{n(-2k+1)}-2^{-2kn}\right) = c(2^n-1)\frac{2^{-2mn}}{1-2^{-2n}}. \]
     Dividing by $m(B(0, 2^{-2m+1})) = c 2^{n(-2m+1)}$, the density along this sequence of radii is:
@@ -378,7 +317,7 @@ If $E$ is a Borel set in $\bR^{n}$, the density $D_{E}(x)$ of $E$ at $x$ is defi
     \[ m(E\cap B(0,2^{-2m})) = c\sum_{k=m+1}^{\infty}\left(2^{n(-2k+1)}-2^{-2kn}\right) = c(2^n-1)\frac{2^{-2n(m+1)}}{1-2^{-2n}}. \]
     Dividing by $m(B(0, 2^{-2m})) = c 2^{-2mn}$ yields:
     \[ \frac{m(E\cap B(0,2^{-2m}))}{m(B(0,2^{-2m}))} = \frac{c(2^n-1)2^{-2mn}2^{-2n}/(1-2^{-2n})}{c 2^{-2mn}} = \frac{1}{2^n+1}. \]
-    Since $\frac{2^n}{2^n+1}\neq\frac{1}{2^n+1}$ for all $n \geq 1$, two subsequences tend to two different limits, hence $D_E(0)$ does not exist. 
+    Since $\frac{2^n}{2^n+1}\to 2$ and $ \frac{1}{2^n+1}\to 0$ for all $n \geq 1$, the limit depends on the sequence of radii chosen, hence $D_E(0)$ does not exist.
     To find an example where $D_E(x) = \alpha \in (0,1)$, choose $x=0$. 
 	If $n \geq 2$, define $E$ as a sector of $\bR^n$ originating at $0$. Let $A \subset S^{n-1}$ be a measurable set on the unit sphere such that its surface measure is $\alpha \sigma(S^{n-1})$ which we can do by considering the function $f:[-1,1]\to\bR$ defined by $f(t):=\sigma( \qty{x\in S^{n-1}:x_1\leq t})$ which can be showed to be continuous via lower and upper continuity, after which we can use the intermediate value theorem. Define $E = \{ y \in \bR^n \setminus \{0\} : y/|y| \in A \}$. For any $r > 0$, $m(E \cap B(0,r)) = \alpha m(B(0,r))$, meaning $D_E(0) = \alpha$ identically for all $r>0$.
     If $n = 1$, define $E = \bigcup_{k=1}^\infty \left( \left[ \frac{1}{k} - \frac{\alpha}{k(k+1)}, \frac{1}{k} \right] \cup \left[ -\frac{1}{k}, -\frac{1}{k} + \frac{\alpha}{k(k+1)} \right] \right)$. For $r = 1/k$, $m(E \cap (-r, r)) = 2 \sum_{j=k}^\infty \frac{\alpha}{j(j+1)} = \frac{2\alpha}{k} = \alpha (2r)$. Bounding the measure for $r \in (\frac{1}{k+1}, \frac{1}{k})$ shows the ratio to $\alpha$, hence $D_E(0) = \alpha$. 
@@ -484,7 +423,7 @@ Let $F(x)=x^{2}\sin(x^{-1})$ and $G(x)=x^{2}\sin(x^{-2})$ for $x\ne0,$ and $F(0)
 \end{enumerate}
 \end{problem}
 \begin{solution}
-    The first part is an exercise in calculus and the next follows from $F'$ being bounded ( $|F'|\leq3$ to be a bit more specific) and $T_G(1)-T_G(n^{-1/2})\gg\log n$ (this is not to be interpreted as $\infty-\infty$ but rather the total variation in the smaller interval $(n^{-1/2},1) )$
+    The first part is an exercise in calculus and the next follows from $F'$ being bounded ( $|F'|\leq3$ to be a bit more specific) and $T_G(1)-T_G(n^{-1/2})\gg n$ (this is not to be interpreted as $\infty-\infty$ but rather the total variation in the smaller interval $(n^{-1/2},1) )$
 \end{solution}
 \begin{problem}\label{prob:3.32}
 If $F_{1},F_{2},...,F\in NBV$ and $F_{j}\rightarrow F$ pointwise, then $T_{F}\le \liminf T_{F_{j}}$.
@@ -530,37 +469,7 @@ Suppose $F, G\in NBV$ and $-\infty<a<b<\infty.$
 \end{enumerate}
 \end{problem}
 \begin{solution}
-\begin{enumerate}[label=\alph*.]
-    \item Following steps similar to those the proof of theorem 3.36, taking $\Omega=\{(x,y):a\leq x\leq y\leq b\}$ we can see that,
-        \[
-            \int_{[a,b]}FdG-F(a-)[G(b)-G(a-)]=G(b)[F(b)-F(a-)]-\int_{[a,b]}G(x-)dF(x)
-        \]
-        We can also switch $F,G$ and get another equation
-        \[
-            \int_{[a,b]}GdF-G(a-)[F(b)-F(a-)]=F(b)[G(b)-G(a-)]-\int_{[a,b]}F(x-)dG(x)
-        \]
-        rearranging and adding these we get,
-        \[
-            \int_{[a,b]}(F(x)+F(x-))dG(x)+\int_{[a,b]}(G(x)+G(x-))dF(x)=2(F(b)G(b)-F(a-)G(a-))
-        \]
-    \item If $F$ is continuous at $x$ then we see that 
-        \[
-            \mu_F(\{x\})=\lim_n\mu_F((x+1/n,x])=\lim_n F(x)-F(x+1/n)=0
-        \]
-        and similarly for $G$. 
-        As $F,G$ are NBV we can write them as the differnece of two increasing functions which only ever have countably many discontinuities and thus the set of discontinuities here form countable sets which we call $D_F,D_G$ for $F$ and $G$ respectively. 
-        Then we can see that $\mu_F(D_G)=\sum_{x\in D_G}\mu_F(\{x\})=\sum_{x\in D_G}0=0$ because $F$ is continuous on $D_G$ and similarly $\mu_G(D_F)=0$. 
-        Now, in the equation from the previous part we can write the LHS as, 
-        \[
-            \int_{[a,b]\setminus D_F}(F(x)+F(x-))dF(x)+\int_{[a,b]\setminus D_G}(G(x)+G(x-))dF(x)
-        \]
-        as the integrands are continuous over their domain of integration, we see that $F(x)+F(x-)=2F(x)$ and similarly for $G.$ 
-        From this we can conclude that, 
-        \[
-            \int_{[a,b]}2FdG+\int_{[a,b]}2GdF=2(F(b)G(b)-F(a-)G(a-))
-        \]
-        from which we get the desired equality after cancelling the $2$ out.
-\end{enumerate}
+gonna do this later
 \end{solution}
 \begin{problem}\label{prob:3.35}
 If $F$ and $G$ are absolutely continuous on $[a, b]$, then so is $FG$, and
@@ -640,10 +549,10 @@ If $f:[a,b]\rightarrow\bR$, consider the graph of $f$ as a subset of $\bC$, name
     Keep in mind the following lemma : If $P_1,P_2,\ldots$ hold a.e. then $\land P_i$ does too, the proof is left as an exercsie.
     We can consider the functions $G_j(x)=F_j(x+)-F_j(a)$ and $G(x)=F(x+)-F(a)$ instead. These have the same properties as $F_j$ and $F$, and we extend them to make them $NBV$ as done before (they were trivially in $BV([a,b])$ already). Note that $G=\sum G_j$ everywhere, which follows from an application of the monotone convergence theorem with respect to the counting measure. 
     Consider the measures $\mu_G$ and $\mu_{G_j}$, for which it holds that $\mu_G=\sum_j\mu_{G_j}$ since they agree on right-closed rays. Now, consider the Lebesgue-Radon-Nikodym decompositions $dG = g \, dm + d\lambda$ and $dG_j = g_j \, dm + d\lambda_j$. 
-    We have $\lambda_j \perp m$, and thus $\sum \lambda_j \perp m$ too by \hyperref[prob:3.9]{Problem 3.9} (notice that $\lambda_j,\lambda$ are positive measures as well.)
+    We have $\lambda_j \perp m$, and thus $\sum \lambda_j \perp m$ too by \hyperref[prob:3.9]{Problem 3.9} (notice that the proof is still valid if $\nu_j$ are complex measures as well.)
     Since $\mu_G = \sum \mu_{G_j}$, we must have $dG = (\sum_j g_j) \, dm + \sum \lambda_j$. By the uniqueness criterion in the Lebesgue-Radon-Nikodym theorem, this implies $g = \sum g_j$ a.e. and $\lambda = \sum \lambda_j$. 
     It is clear from the lebesgue differentiation theorem that $g_j = G_j'$ a.e. and $g = G'$ a.e., so the lemma at the beginning implies that $G' = \sum G_j'$ a.e.  
-    If we now show that $F' = G'$ and $F_j' = G_j'$ a.e., then we would be done using the same lemmat. Suppose $p$ and $q$ are such that $p = q$ a.e. and both are differentiable a.e. We want to show that $p' = q'$ a.e. We can find a set $A \subseteq [a,b]$ where $p = q$ and both are differentiable, such that $m([a,b] \setminus A) = 0$ by the lemma. 
+    If we now show that $F' = G'$ and $F_j' = G_j'$ a.e., then we would be done using the same lemma. Suppose $p$ and $q$ are such that $p = q$ a.e. and both are differentiable a.e. We want to show that $p' = q'$ a.e. We can easily find a set $A \subseteq [a,b]$ where $p = q$ and both are differentiable, such that $m([a,b] \setminus A) = 0$. 
     Notice that $A$ must be dense in this interval, so for any $x \in A$, we can find a sequence $x_n \in A \setminus \{x\}$ that tends to $x$. By the sequential criterion for limits, we have
     \[
         p'(x) = \lim_{n \to \infty} \frac{p(x_n) - p(x)}{x_n - x} = \lim_{n \to \infty} \frac{q(x_n) - q(x)}{x_n - x} = q'(x)
@@ -651,15 +560,12 @@ If $f:[a,b]\rightarrow\bR$, consider the graph of $f$ as a subset of $\bC$, name
     for all $x \in A$, so we are done.
 \end{solution}
 \begin{problem}\label{prob:3.40}
-Let $F$ denote the Cantor function on $[0, 1]$ (see §1.5), and set $F(x)=0$ for $x<0$ and $F(x)=1$ for $x>1$. Let $\{[a_{n},b_{n}]\}$ be an enumeration of the closed subintervals of $[0, 1]$ with rational endpoints, and let $F_{n}(x)=F((x-a_{n})/(b_{n}-a_{n}))$. Then $G=\sum_{1}^{\infty}2^{-n}F_{n}$ is continuous and strictly increasing on $[0, 1]$, and $G^{\prime}=0$ a.e. (Use exercise 39)
+Let $F$ denote the Cantor function on $[0, 1]$ (see §1.5), and set $F(x)=0$ for $x<0$ and $F(x)=1$ for $x>1$. Let $\{[a_{n},b_{n}]\}$ be an enumeration of the closed subintervals of $[0, 1]$ with rational endpoints, and let $F_{n}(x)=F((x-a_{n})/(b_{n}-a_{n}))$. Then $G=\sum_{1}^{\infty}2^{-n}F_{n}$ is continuous and strictly increasing on $[0, 1]$, and $G^{\prime}=0$ a.e.
 \end{problem}
 \begin{solution}
-$F_n$ are cleary increasing, continuous and nonnegative and we also see that $G=\sum F_n\leq1<\infty$ as $F_n\leq 1$ for all $n$ by definition. 
-$G$ is also continuous by weierstrass' M-test being the limit of an uniformly converging sequence of continuous functions. 
-Given any $0\leq x<y\leq 1$ we can find some interval with rational endpoints $[a_n,b_n]\subset(x,y)$ and we see that $G(y)-G(x)\geq 2^{-n}(F_n(y)-F_n(x))=2^{-n}(1-0)>0$ by definition again, making $G$ strictly increasing. 
-We see that $F$ is constant on intervals outside the cantor set and thus has derivative $0$ here and as the cantor set has lebesgue measure $0$ we can show that $F'=0$ a.e. by standard procedures. 
-Now, by \hyperref[prob:3.39]{Problem 3.39} we see that $G'(x)=\sum 2^{-n}F_n'(x)$ a.e. and as $F_n'=0$ a.e. too (can be easily shown), we must have $G'=0$ a.e.
+
 \end{solution}
+
 \begin{problem}\label{prob:3.41}
 Let $A\subset[0,1]$ be a Borel set such that $0<m(A\cap I)<m(I)$ for every subinterval $I$ of $[0, 1]$.
 \begin{enumerate}[label=\alph*.]
@@ -668,19 +574,9 @@ Let $A\subset[0,1]$ be a Borel set such that $0<m(A\cap I)<m(I)$ for every subin
 \end{enumerate}
 \end{problem}
 \begin{solution}
-\begin{enumerate}[label=\alph*.]
-    \item Clearly $F$ is lipschitz continuous with constant $1$ and thus its absolutely continuous by \hyperref[prob:3.37]{Problem 3.37} and its strictly increasing as $F(y)-F(x)=m((x,y]\cap A)>0$ for any $x<y$ by definition. 
-        As $F$ is absolutely continuous, by theorem 3.35c we see that $F'\geq 0$ exists a.e, is integrable and $F(x)=F(x)-F(0)=\int_0^xF'(t)dm(t)$. 
-       $F$ can be extended to $\bR$ by setting it equal to $0=F(0)$ for $x<0$ and $m(A)=F(1)$ for $x>1$ and this is NBV so we can talk about $\mu_F.$ 
-       We also see that $\mu_F((-\infty,x]))=(F'dm)((-\infty,x])$ for all $x$ and thus, $\mu_F=F'dm$. 
-       If $E$ is a set of positive meausre and we have $\mu_F(E)=\int_EF'dm=0$ then it must be true that $F'=0$ a.e. in $E$ which again furnishes a set of positve meausre (same as $E$) on which $F'=0.$ 
-       Notice that the measure defined by $\nu(E)=m(E\cap A)$ is the same as $\mu_F$ as they agree on right closed rays and hence we just need to find some $E$ such that $m(E)>0$ whereas $\nu(E)=0$ and the perfect (not a topological property!) candidate is $A^c$ for which $m(A^c)=1-m(A)>0$ whereas $\nu(A^c)=m(A^c\cap A)=0$ so we are done.
-   \item We can easily see that $m(A^c\cap I)=m(I)-m(A\cap I)\in(0,m(I))$ as well, if we let $H(x)=m([0,x]\cap A^c)$ then we see that $H$ has the same properties as $F$ from the previous part. 
-       Thus, $G$ is also absolutely continuous being the linear combination of two absolutely continuous functions. 
-       Given any interval $[x,y]\subset[0,1]$ ($x<y$) suppose for the sake of contradiction that WLOG. $G$ is increasing in this interval, this implies that $G'\geq 0$ a.e. here but this can not be true as it implies $\mu_G=\mu_F-\mu_H$ has $[x,y]$ as a positive set. 
-      But we clearly see that for $V=A^c\cap [x,y]\subseteq[x,y]$ we have $\mu_F(V)=m(V\cap A)=0$ whereas $\mu_H(V)=m(V\cap A^c)>0$ and thus, $\mu_G(V)<0$ which is a contradiction and thus we are done.
-\end{enumerate}
+
 \end{solution}
+
 \begin{problem}\label{prob:3.42}
 A function $F:(a,b)\rightarrow\bR(-\infty\le a<b\le\infty)$ is called convex if $F(\lambda s+(1-\lambda)t)\le\lambda F(s)+(1-\lambda)F(t)$ for all $s, t\in(a,b)$ and $\lambda\in(0,1)$.
 \begin{enumerate}[label=\alph*.]
@@ -690,60 +586,10 @@ A function $F:(a,b)\rightarrow\bR(-\infty\le a<b\le\infty)$ is called convex if 
     \item If $F$ is convex and $t_{0}\in(a,b)$, there exists $\beta\in\bR$ such that $F(t)-F(t_{0})\ge \beta(t-t_{0})$ for all $t\in(a,b)$.
     \item (Jensen's Inequality) If $(X, \mM, \mu)$ is a measure space with $\mu(X)=1$, $g:X\rightarrow(a,b)$ is in $L^{1}(\mu)$, and $F$ is convex on $(a, b)$, then
     \[F\left(\int g~d\mu\right)\le\int F\circ g~d\mu.\]
-    (let $t_0=\int gd\mu$ and $t=g(x)$ in (c), and integrate.)
 \end{enumerate}
 \end{problem}
 \begin{solution}
-\begin{enumerate}[label=\alph*.]
-    \item This is a standard result from introductory real analysis, it can be proved by just manipulating the inequalities.
-    \item If $F$ is convex then we see that on any compact subinterval $[c,d]$, for $x,y\in[c,d]$ if $F'$ exists on $x,y$ ($x<y$) then, for $h>0$ small enough, by part (a)
-        \[
-            \frac{F(x+h)-F(x)}{(x+h)-x}\leq\frac{F(v)-F(u)}{v-u}\leq\frac{F(y+h)-F(y)}{(y+h)-y}
-        \]
-        where $x<x+h<y<y+h$ and as $h\to 0$ from above, as the derivatives exist at $x,y$ we get that $F'(x)\geq F'(y).$ 
-        It is another standard result that convex functions are continuous and we can also see that if, $c=s'<t'$ and $c<t\leq t'$ then,
-        \[
-            \frac{F(t)-F(c)}{t-c}\leq \frac{F(t')-F(c)}{t'-c}
-        \]
-        Thus, $G(x):=(F(x)-F(c))/(x-c)$ is increasing, similarly we can show that $H(x)=(F(d)-F(x))/(d-x)$ is decreasing. 
-        This, implies that $G(c+),H(d-)$ both exist and we can show that these bound all slopes using an arguement similar to the one we used to show that $F'$ is increasing on the set its defined. 
-        We thus have, for all $x,y$ such that $c\leq x<y\leq d$ we have
-        \[
-            G(c+)\leq\frac{F(y)-F(x)}{y-x}\leq H(d-)
-        \]
-        and thus $F$ is lipschitz with constant atmost $\max\{|G(c+)|,|H(d-)|\}$ so it is absolutely continuous by a previous problem. 
-        We now prove the if direction. 
-        By hypothesis, for any such $s,t,s',t'$ as in part (a), we work in the compact subinterval $[s,t]$ where the inequality in part (a) reduces to the following by theorem 3.35c,
-        \[
-            \frac1{t-s}\int_s^tF'(t)dt\leq\frac1{t'-s'}\int_{s'}^{t'}F'(t)dt
-        \]
-        where $s\leq s'<t'$ and $s<t\leq t'.$ 
-        This is trivial if $s'>t$ so we assume otherwise that $s'\leq t$, where this inequality is true as, 
-        \[
-            \frac1{t-s}\int_s^tF'= \frac{s'-s}{t-s}\cdot\underbrace{\frac1{s'-s}\int_s^{s'}F'}_{\leq\frac1{t-s'}\int_{s'}^tF'}+ \frac{t-s'}{t-s}\cdot\frac1{t-s'}\int_{s'}^tF'\leq\frac1{t-s'}\int_{s'}^tF'
-        \]
-        The inequality in the underbrace is true as all the values appearing in the integralin the left are atmost those appearing in the right and we average these. 
-        It can be similarly shown that the expression on the right is atmost $\frac1{t'-s'}\int_{s'}^{t'}F'$ so we are done. 
-    \item Just like we did for $c,d$ in part (b), it can be showed that the left and right derivatives exist at every point and we pick any $\beta\in[F'(t_0-),F'(t_0+)]$ (left and right derivatives and not the one sided limits of our derivative.) 
-        The conclusion follows just as we did in part (b), we show part of it. 
-        \[
-            F'(t_0+)=\lim_{h\searrow 0}\frac{F(t_0+h)-F(t_0)}{h}\leq\frac{F(y)-F(t_0)}{y-t_0}
-        \]
-        for any $y>t_0$ as $t_0+h<y$ eventually. 
-    \item We see that $\int_Xgd\mu\in(a,b)$ so from part (c), we can find some constant $c$ such that,
-        \[
-            F(t)-F\qty(\int gd\mu)\geq c\cdot\qty(t-\int gd\mu)
-        \]
-        for all $t\in(a,b)$ and thus we can substitute $t=g(x)$ to get,
-        \[
-            F\circ g(x)-F\qty(\int gd\mu)\geq c\cdot\qty(g(x)-\int gd\mu)
-        \]
-        for all $x\in X.$ 
-        Now, integratint both sides we see that,
-        \[
-            \int F\circ g\,d\mu-F\qty(\int g\,d\mu)\geq c\cdot\int gd\mu-\int gd\mu=0
-        \]
-        so we are done.
-\end{enumerate}
+
 \end{solution}
+
 \end{document}

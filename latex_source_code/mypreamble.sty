@@ -1,0 +1,43 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{general-math}[2026/06/28 General Math and Linking Setup]
+
+% Main packages
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\RequirePackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs}
+\RequirePackage{graphicx, physics, enumitem, geometry, esint}
+\RequirePackage{twemojis, tikz, quiver}
+
+\geometry{margin=1in}
+
+% Colored links
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage[colorlinks=true,
+            linkcolor=OliveGreen,
+            citecolor=OliveGreen]{hyperref}
+
+% Math Macros
+\def\bN{\mathbb{N}}
+\def\bZ{\mathbb{Z}}
+\def\bQ{\mathbb{Q}}
+\def\bR{\mathbb{R}}
+\def\bC{\mathbb{C}}
+\def\bE{\mathbb{E}}
+\def\bF{\mathbb{F}}
+\def\bK{\mathbb{K}}
+
+\def\mB{\mathcal{B}}
+\def\mM{\mathcal{M}}
+\def\mR{\mathcal{R}}
+\def\mN{\mathcal{N}}
+\def\mE{\mathcal{E}}
+\def\mA{\mathcal{A}}
+\def\mL{\mathcal{L}}
+
+% Operators
+\def\d{\,\mathrm{d}}
+\def\supp{\operatorname{supp}}
+\def\sgn{\operatorname{sgn}}
+\def\argmax{\mathop{\mathrm{argmax}}\limits}
+\def\argmin{\mathop{\mathrm{argmin}}\limits}

@@ -1,49 +1,10 @@
 \documentclass[12pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs, graphicx, physics, enumitem, geometry, esint,twemojis}
-\geometry{margin=1in}
-\usepackage[dvipsnames]{xcolor}
-\definecolor{EvanPink}{rgb}{0.85, 0.13, 0.55}
-\usepackage[colorlinks=true,
-            linkcolor=OliveGreen,
-            urlcolor=EvanPink,
-            citecolor=OliveGreen]{hyperref}
-\usepackage{cleveref}
-\usepackage{etoolbox}
-\newenvironment{solution}{%
-  \par\noindent\textit{Solution.}\ }{\qed}
-\newtheoremstyle{problemstyle}
-  {1em}   
-  {1em}   
-  {}      
-  {}      
-  {\bfseries} 
-  {.}     
-  {0.5em} 
-  {}      
-\theoremstyle{problemstyle}
-\newtheorem{problem}{Problem}[section]
-\apptocmd{\problem}{%
-  \addcontentsline{toc}{subsection}{Problem~\thesection.\arabic{problem}}%
-}{}{}
-\crefname{problem}{Problem}{Problems}
-\Crefname{problem}{Problem}{Problems}
-\setcounter{tocdepth}{2}
+
+\usepackage{mypreamble, folland_sol}
+
 \title{\textbf{Chapter 2 : Integration}}
 \author{Arkaraj Mukherjee}
-\def\bN{\mathbb{N}}
-\def\bR{\mathbb{R}}
-\def\bZ{\mathbb{Z}}
-\def\bQ{\mathbb{Q}}
-\def\bC{\mathbb{C}}
-\def\mM{\mathcal{M}}
-\def\mR{\mathcal{R}}
-\def\mN{\mathcal{N}}
-\def\mE{\mathcal{E}}
-\def\mA{\mathcal{A}}
-\def\oR{\overline{\mathbb{R}}}
+
 \begin{document}
 \maketitle
 \newpage
@@ -57,26 +18,26 @@
 Let $f: X \to \overline{\bR}$ and $Y = f^{-1}(\bR)$. Then $f$ is measurable iff $f^{-1}(\{-\infty\}) \in \mM$, $f^{-1}(\{\infty\}) \in \mM$, and $f|_Y$ is measurable on $Y$.
 \end{problem}
 \begin{solution}
-    For the only if direction, $\{\infty\},\{-\infty\},\bR=Y\in\mathcal B_{\oR}$ making $f^{-1}$ map them into $\mM$ as $f$ is measurable and as $\mM$ is a sigma algebra we see that $f\vert_Y:Y\to\oR$ is $\mM_Y$-measurable as $f^{-1}(E)\cap Y\in\mM_Y$ for all $E\in\mathcal B_{\oR}$. 
-    Now for the if direction, as $\mathcal B_{\oR}=\{E\cup I:E\in\mathcal B_{\bR}, I\subseteq\{\infty,-\infty\}\}$ we see that for any such $E\cup I\in\mathcal B_{\oR}$ we have $f^{-1}(E\cup I)=f^{-1}(E)\cup f^{-1}(I)$ and as $f^{-1}(E)\cap Y=f^{-1}(E)\in\mM_Y\subseteq\mM$ and $f^{-1}(I)\in\mM$ so $f$ is measurable on $\mM$.
+    For the only if direction, $\{\infty\},\{-\infty\},\bR=Y\in\mathcal B_{\overline{\bR}}$ making $f^{-1}$ map them into $\mM$ as $f$ is measurable and as $\mM$ is a sigma algebra we see that $f\vert_Y:Y\to\overline{\bR}$ is $\mM_Y$-measurable as $f^{-1}(E)\cap Y\in\mM_Y$ for all $E\in\mathcal B_{\overline{\bR}}$. 
+    Now for the if direction, as $\mathcal B_{\overline{\bR}}=\{E\cup I:E\in\mathcal B_{\bR}, I\subseteq\{\infty,-\infty\}\}$ we see that for any such $E\cup I\in\mathcal B_{\overline{\bR}}$ we have $f^{-1}(E\cup I)=f^{-1}(E)\cup f^{-1}(I)$ and as $f^{-1}(E)\cap Y=f^{-1}(E)\in\mM_Y\subseteq\mM$ and $f^{-1}(I)\in\mM$ so $f$ is measurable on $\mM$.
 \end{solution}
 \begin{problem}\label{prob:2.2}
-Suppose $f, g: X \to \oR$ are measurable.
+Suppose $f, g: X \to \overline{\bR}$ are measurable.
 \begin{enumerate}[label=\alph*.]
     \item $fg$ is measurable (where $0 \cdot (\pm\infty) = 0$).
-    \item Fix $\alpha \in \oR$ and define $h(x) = \alpha$ if $f(x) = -g(x) = \pm\infty$ and $h(x) = f(x) + g(x)$ otherwise. Then $h$ is measurable.
+    \item Fix $\alpha \in \overline{\bR}$ and define $h(x) = \alpha$ if $f(x) = -g(x) = \pm\infty$ and $h(x) = f(x) + g(x)$ otherwise. Then $h$ is measurable.
 \end{enumerate}
 \end{problem}
 \begin{solution}
     \begin{enumerate}[label=\alph*.]
         \item Consider the two maps,
-        $$X\ni x\longrightarrow (f(x),g(x))\text{ and }\oR^2\ni(x,y)\mapsto xy$$
-        the first is a measurable map from $X$ (with sigma algebra $\mM$) to $R\times R$ (with sigma algebra $\otimes^2_1 \mathcal B_{\oR}$) and the second from this to $\oR$ (with sigma algebra $\mathcal B_{\oR}$) and as the composition of measurable maps are measurable we are done.
-        Here, the measurability of $(x,y)\to xy$ follows from its continuity (note: the metric on $\oR$ considered throughout the chapter is usually $d(x,y):=|\arctan(x)-\arctan(y)|$ with $\arctan(\pm\infty)=\pm\pi/2$).
+        $$X\ni x\longrightarrow (f(x),g(x))\text{ and }\overline{\bR}^2\ni(x,y)\mapsto xy$$
+        the first is a measurable map from $X$ (with sigma algebra $\mM$) to $R\times R$ (with sigma algebra $\otimes^2_1 \mathcal B_{\overline{\bR}}$) and the second from this to $\overline{\bR}$ (with sigma algebra $\mathcal B_{\overline{\bR}}$) and as the composition of measurable maps are measurable we are done.
+        Here, the measurability of $(x,y)\to xy$ follows from its continuity (note: the metric on $\overline{\bR}$ considered throughout the chapter is usually $d(x,y):=|\arctan(x)-\arctan(y)|$ with $\arctan(\pm\infty)=\pm\pi/2$).
         \item Similarly again consider $x\mapsto(f(x),g(x))$ but this time with $(x,y)\to J(x,y)$ where,
         $$J(x,y):=\begin{cases}\alpha\text{ if }x=-y=\pm\infty\\ x+y\text{ otherwise}\end{cases}$$
         We will use \hyperref[prob:2.5]{Problem 1.5} here. 
-        Let $A=\{(+\infty,-\infty),(-\infty,+\infty)\}$ and $B=\oR^2\setminus A$, it is clear that $J$ is continuous on $B$ and hence measurable on it and as it is constant on $A$ it is trivially measurable on it so we are done.
+        Let $A=\{(+\infty,-\infty),(-\infty,+\infty)\}$ and $B=\overline{\bR}^2\setminus A$, it is clear that $J$ is continuous on $B$ and hence measurable on it and as it is constant on $A$ it is trivially measurable on it so we are done.
         As compositions of measurable functions are measurable we are done.
     \end{enumerate}
 \end{solution}
@@ -94,7 +55,7 @@ If $\{f_n\}$ is a sequence of measurable functions on $X$, then $\{x : \lim f_n(
 If $f: X \to \overline{\bR}$ and $f^{-1}((r, \infty]) \in \mM$ for each $r \in \bQ$, then $f$ is measurable.
 \end{problem}
 \begin{solution}
-    It can easily be shown that these sets being in $\mM$ implies that $f^{-1}((k,\infty])\in\mM$ for any $k\in\oR$ easily so we are done.
+    It can easily be shown that these sets being in $\mM$ implies that $f^{-1}((k,\infty])\in\mM$ for any $k\in\overline{\bR}$ easily so we are done.
 \end{solution}
 \begin{problem}\label{prob:2.5}
 If $X = A \cup B$ where $A, B \in \mM$, a function $f$ on $X$ is measurable iff $f|_A$ is measurable on $A$ and $f|_B$ is measurable on $B$.

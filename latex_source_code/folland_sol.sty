@@ -1,0 +1,32 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{folland-sol}[2026/06/28 Folland solutions' Environments]
+
+% Required packages
+\RequirePackage{cleveref}
+\RequirePackage{etoolbox}
+
+% Environments
+\newenvironment{solution}{%
+  \par\noindent\textit{Solution.}\ }{\qed}
+
+\newtheoremstyle{problemstyle}
+  {1em}   % Space above
+  {1em}   % Space below
+  {}      % Body font
+  {}      % Indent amount
+  {\bfseries} % Theorem head font
+  {.}     % Punctuation after theorem head
+  {0.5em} % Space after theorem head
+  {}      % Theorem head spec
+
+\theoremstyle{problemstyle}
+\newtheorem{problem}{Problem}[section]
+
+% TOC and Referencing
+\apptocmd{\problem}{%
+  \addcontentsline{toc}{subsection}{Problem~\thesection.\arabic{problem}}%
+}{}{}
+
+\crefname{problem}{Problem}{Problems}
+\Crefname{problem}{Problem}{Problems}
+\setcounter{tocdepth}{2}

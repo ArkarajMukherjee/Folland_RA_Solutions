@@ -1,49 +1,10 @@
 \documentclass[12pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{amsmath, amssymb, amsthm, amsfonts, mathrsfs, graphicx, physics, enumitem, geometry, esint, twemojis, quiver}
-\geometry{margin=1in}
-\usepackage[dvipsnames]{xcolor}
-\definecolor{EvanPink}{rgb}{0.85, 0.13, 0.55}
-\usepackage[colorlinks=true,
-            linkcolor=OliveGreen,
-            urlcolor=EvanPink,
-            citecolor=OliveGreen]{hyperref}
-\usepackage{cleveref}
-\usepackage{etoolbox}
 
-\newenvironment{solution}{%
-  \par\noindent\textit{Solution.}\ }{\qed}
-
-\newtheoremstyle{problemstyle}
-  {1em}   
-  {1em}   
-  {}      
-  {}      
-  {\bfseries} 
-  {.}     
-  {0.5em} 
-  {}      
-\theoremstyle{problemstyle}
-\newtheorem{problem}{Problem}[section]
-
-\apptocmd{\problem}{%
-  \addcontentsline{toc}{subsection}{Problem~\thesection.\arabic{problem}}%
-}{}{}
-
-\crefname{problem}{Problem}{Problems}
-\Crefname{problem}{Problem}{Problems}
-
-\setcounter{tocdepth}{2}
+\usepackage{mypreamble, folland_sol}
 
 \title{\textbf{Chapter 5 : Elements of Functional Analysis}}
 \author{Arkaraj Mukherjee}
 
-\def\b#1{\mathbf{#1}}
-\def\m#1{\mathcal{#1}}
-\def\o#1{\overline{#1}}
-\def\supp{\operatorname{supp}}
 \begin{document}
 \maketitle
 \newpage
@@ -53,7 +14,7 @@
 \section*{Chapter \thesection\ : Elements of Functional Analysis}
 \addcontentsline{toc}{section}{Chapter \thesection\ :  Elements of Functional Analysis}
 \begin{problem}\label{prob:5-1}
-    If $X$ is a normed vector space over $\mathbf{K}(=\mathbf{R} \text{ or } \mathbf{C})$, then addition and scalar multiplication are continuous from $X \times X$ and $\b K \times X$ to $X$. Moreover, the norm is continuous from $X$ to $[0,\infty)$; in fact, $\left| \|x\| - \|y\| \right| \le \|x-y\|$.
+    If $X$ is a normed vector space over $\mathbf{K}(=\mathbf{R} \text{ or } \mathbf{C})$, then addition and scalar multiplication are continuous from $X \times X$ and $\bK \times X$ to $X$. Moreover, the norm is continuous from $X$ to $[0,\infty)$; in fact, $\left| \|x\| - \|y\| \right| \le \|x-y\|$.
 \end{problem}
 \begin{solution}
 We will consider the product norm on the product spaces. 
@@ -61,7 +22,7 @@ To prove continuity of addition notice that if, $\norm{(a,b)-(c,d)}_{X\times Y}=
 \[
     \norm{(a+b)-(c+d)}_{X} \leq \norm{a-c}_X+\norm{b-d}_X \leq 2\cdot\norm{(a,b)-(c,d)}_{X\times X}<2\epsilon
 \]
-Similary to see the continuity of scalar multiplication, say $\norm{(\alpha,x)-(\beta,y)}_{\b K\times X}<\epsilon$ then, 
+Similary to see the continuity of scalar multiplication, say $\norm{(\alpha,x)-(\beta,y)}_{\bK\times X}<\epsilon$ then, 
 \[
     \norm{\alpha x-\beta y}_{X}=\norm{\alpha(x-y)+(\alpha -\beta)y}_X\leq|\alpha|\norm{x-y}_X+|\alpha-\beta|\norm{y}_X<\epsilon(|\alpha|+\norm{y}_X)
 \]
@@ -113,12 +74,12 @@ proving $T_nx_n\to Tx$ as $\norm{T_n}$ is bounded, being a convergent sequence (
 \begin{problem}\label{prob:5-5}
 If $X$ is a normed vector space, the closure of any subspace of $X$ is a subspace.
 \end{problem}
-If $x_n\to x,y_n\to y$ in $X$ then $x_n+y_n\to x+y$ by continuity of addition and for $\alpha\in\b K$, $\alpha x_n\to\alpha x$ by continuity of scalar multiplication so the subspace axioms are sufficed for the closure as $x_n+y_n,\alpha x_n$ are sequences in the original subspace. 
+If $x_n\to x,y_n\to y$ in $X$ then $x_n+y_n\to x+y$ by continuity of addition and for $\alpha\in\bK$, $\alpha x_n\to\alpha x$ by continuity of scalar multiplication so the subspace axioms are sufficed for the closure as $x_n+y_n,\alpha x_n$ are sequences in the original subspace. 
 \begin{problem}\label{prob:5-6}
 Suppose that $X$ is a finite-dimensional vector space. Let $e_1,\dots,e_n$ be a basis for $X$, and define $\|\sum_{1}^{n} a_j e_j\|_1 = \sum_{1}^{n} |a_j|$.
 \begin{enumerate}[label=\alph*.]
 \item $\|\cdot\|_1$ is a norm on $X$.
-\item The map $(a_1,\dots,a_n) \mapsto \sum_{1}^{n} a_j e_j$ is continuous from $\b K^n$ with the usual Euclidean topology to $X$ with the topology defined by $\|\cdot\|_1$.
+\item The map $(a_1,\dots,a_n) \mapsto \sum_{1}^{n} a_j e_j$ is continuous from $\bK^n$ with the usual Euclidean topology to $X$ with the topology defined by $\|\cdot\|_1$.
 \item $\{x \in X : \|x\|_1 = 1\}$ is compact in the topology defined by $\|\cdot\|_1$.
 \item All norms on $X$ are equivalent. (Compare any norm to $\|\cdot\|_1$.)
 \end{enumerate}
@@ -131,7 +92,7 @@ Suppose that $X$ is a finite-dimensional vector space. Let $e_1,\dots,e_n$ be a 
         \[
             \norm{\sum_{j=1}^na_je_j}_1=\sum_{j=1}^n|a_j|\leq n^{1/2}\cdot\sqrt{\sum_{j=1}^n|a_j|^2}\quad\text{(by Cauchy Schwarz)}
         \] 
-    \item As $ \qty{(a_1,\ldots,a_n)\in\b K^n :\sum_1^\infty|a_j|=1}$ is compact in $\b K^n$ (being closed and bounded) and mapping in part (b) is continuous, this too must be compact.  
+    \item As $ \qty{(a_1,\ldots,a_n)\in\bK^n :\sum_1^\infty|a_j|=1}$ is compact in $\bK^n$ (being closed and bounded) and mapping in part (b) is continuous, this too must be compact.  
     \item Let the compact set in part (b) be $B.$ 
         Let $\norm{\cdot}$ be any norm on $X$, then as continuous functions attain their extremums on compact sets, we can find $p,q\in B$ such that $\sup_{x\in B}\norm{x}=\norm{p}$ and $\inf_{x\in B} \norm{x}= \norm{q}$, both of these are strictly positive and finite by the definition of a norm. 
         Let this supremum be $C$ and infimum $c$, then as $x/ \norm{x}_1\in B$ for all $x\in X\setminus \qty{0}$ we see that
@@ -161,11 +122,11 @@ Let $X$ be a Banach space.
 Let $(X,\mathcal{M})$ be a measurable space, and let $M(X)$ be the space of complex measures on $(X,\mathcal{M})$. Then $\|\mu\| = |\mu|(X)$ is a norm on $M(X)$ that makes $M(X)$ into a Banach space. (Use Theorem 5.1.)
 \end{problem}
 \begin{solution}
-If $ \left\|\mu\right\|=|\mu|(X)=0$ then we see that for all $E\in\m M$ we have $|\mu(E)|\leq|\mu|(E)\leq|\mu|(X)=0$ making $\mu$ the $0$ measure. 
-It can be easily shown that $|\mu_1+\mu_2|\leq|\mu_1|+|\mu_2|$, which proves the triangle inequality and for scalars $\alpha\in \b K$ we clearly see that $|\alpha\cdot\mu|=|\alpha|\cdot|\mu|$ so this is indeed a norm. 
+If $ \left\|\mu\right\|=|\mu|(X)=0$ then we see that for all $E\in\mM$ we have $|\mu(E)|\leq|\mu|(E)\leq|\mu|(X)=0$ making $\mu$ the $0$ measure. 
+It can be easily shown that $|\mu_1+\mu_2|\leq|\mu_1|+|\mu_2|$, which proves the triangle inequality and for scalars $\alpha\in \bK$ we clearly see that $|\alpha\cdot\mu|=|\alpha|\cdot|\mu|$ so this is indeed a norm. 
 To show completeness we use the theorem mentioned in the theorem which shows us that it suffices to prove that $\sum_1^\infty\mu_j$ converges if $\sum_1^\infty \left\|\mu_j\right\|<\infty$ (this is clearly a positive measure.) 
 If this was the case then we first show that $\sum_1^\infty\mu_j$ is a complex measure. 
-Clearly $\mu_j\ll\sum_1^\infty \left\|\mu_i\right\|=\text{say, }\nu$ and we can find radon nikodym derivatives $f_j$ such that $d\mu_j=f_jd\nu$ and by hypothesis $\sum_1^\infty|f_j|\in L^1(\nu)$ and by DCT, for all $E\in\m M$ 
+Clearly $\mu_j\ll\sum_1^\infty \left\|\mu_i\right\|=\text{say, }\nu$ and we can find radon nikodym derivatives $f_j$ such that $d\mu_j=f_jd\nu$ and by hypothesis $\sum_1^\infty|f_j|\in L^1(\nu)$ and by DCT, for all $E\in\mM$ 
 \[
     \int_E\sum_{j=1}^\infty f_jd\nu=\sum_{j=1}^\infty\int_Ef_jd\nu= \qty(\sum_{j=1}^\infty\mu_j)(E)
 \]
@@ -208,7 +169,7 @@ Let $L_k^1([0,1])$ be the space of all $f \in C^{k-1}([0,1])$ such that $f^{(k-1
         \sum|f_n(x)|=\sum\qty|f_n(p)+\int_p^xf'_n|\leq\sum|f_n(p)|+\sum\int_p^x|f_n'|<\infty
     \]
     proving that $\sum|f_n|$ converges everywhere and thus $\sum f_n$ does too, to say $f$. 
-    Then, for all $x\in[0,1]$, as $\sum |f'_n|$ is finite a.e. we see that $\sum f'_n$ converges a.e. to say $h$ (if the absolute value sum converges at some point, then this converges too by completness of $\b C$) and is integrable (it is defined where it converges and is thus measurable on this set) by the triangle inequality, so
+    Then, for all $x\in[0,1]$, as $\sum |f'_n|$ is finite a.e. we see that $\sum f'_n$ converges a.e. to say $h$ (if the absolute value sum converges at some point, then this converges too by completness of $\bC$) and is integrable (it is defined where it converges and is thus measurable on this set) by the triangle inequality, so
     \[
         f(x)-f(0)=\sum f_n(x)-f_n(0)=\sum\int_0^x f'_n=\int_0^xh
     \]
@@ -283,40 +244,40 @@ Let $X$ be a normed vector space and $\mathcal{M}$ a proper closed subspace of $
 \end{problem}
 \begin{solution}
     \begin{enumerate}[label=\alph*.]
-        \item This is clearly well defined as if $x-y=z\in\m M$ then 
+        \item This is clearly well defined as if $x-y=z\in\mM$ then 
             \[
-                \left\|x+\m M\right\|=\inf \qty{ \left\|y+z+v\right\|:v\in\m M}=\inf \qty{ \left\|y+u\right\|:u\in\m M}= \left\|y+\m M\right\|
+                \left\|x+\mM\right\|=\inf \qty{ \left\|y+z+v\right\|:v\in\mM}=\inf \qty{ \left\|y+u\right\|:u\in\mM}= \left\|y+\mM\right\|
             \]
-            as $ \qty{z+v:v\in\m M}=\m M$ due to it being a subspace. 
-            Now, if $y\in\m M$ iff $-y\in\m M$ we find that $ \left\|x+\m M\right\|=d(x,\m M)$ in previously used notation where $d$ is the metric induced by $ \left\|\cdot\right\|$ and we have proved in \hyperref[prob:4-3]{Problem 4.3} that $d(x,\m M)=0$ iff $x\in\m M$ so we have definiteness. 
-            If $\alpha\in\b K$ and $\alpha=0$ then clearly $ \left\|\alpha x+\m M\right\|=|\alpha|\left\|x+\m M\right\|=0$ and otherwise as $y\in\m M$ iff $\alpha y\in\m M$ we have $\left\|\alpha x+\m M\right\|=\inf \qty{ |\alpha|\cdot\left\|x+\alpha^{-1}y\right\|:y\in\m M}=|\alpha|\cdot\inf \qty{ \left\|x+y\right\|:y\in\m M}=|\alpha|\cdot \left\|x+\m M\right\|$. 
-            Now, say $x_n,y_n\in\m M$ are such that $ \left\|x+x_n\right\|\to \left\|x+\m M\right\|$ and $ \left\|y+y_n\right\|\to \left\|y+\m M\right\|$. 
-            Then, as $x_n+y_n\in\m M$ too we have that, $ \left\|x+y+\m M\right\|\leq \left\|x+y+x_n+y_n\right\|\leq \left\|x+x_n\right\|+ \left\|y+y_n\right\|\to \left\|x+\m M\right\|+ \left\|y+\m M\right\|$ and thus 
+            as $ \qty{z+v:v\in\mM}=\mM$ due to it being a subspace. 
+            Now, if $y\in\mM$ iff $-y\in\mM$ we find that $ \left\|x+\mM\right\|=d(x,\mM)$ in previously used notation where $d$ is the metric induced by $ \left\|\cdot\right\|$ and we have proved in \hyperref[prob:4-3]{Problem 4.3} that $d(x,\mM)=0$ iff $x\in\mM$ so we have definiteness. 
+            If $\alpha\in\bK$ and $\alpha=0$ then clearly $ \left\|\alpha x+\mM\right\|=|\alpha|\left\|x+\mM\right\|=0$ and otherwise as $y\in\mM$ iff $\alpha y\in\mM$ we have $\left\|\alpha x+\mM\right\|=\inf \qty{ |\alpha|\cdot\left\|x+\alpha^{-1}y\right\|:y\in\mM}=|\alpha|\cdot\inf \qty{ \left\|x+y\right\|:y\in\mM}=|\alpha|\cdot \left\|x+\mM\right\|$. 
+            Now, say $x_n,y_n\in\mM$ are such that $ \left\|x+x_n\right\|\to \left\|x+\mM\right\|$ and $ \left\|y+y_n\right\|\to \left\|y+\mM\right\|$. 
+            Then, as $x_n+y_n\in\mM$ too we have that, $ \left\|x+y+\mM\right\|\leq \left\|x+y+x_n+y_n\right\|\leq \left\|x+x_n\right\|+ \left\|y+y_n\right\|\to \left\|x+\mM\right\|+ \left\|y+\mM\right\|$ and thus 
             \[
-                \left\|x+y+\m M\right\|\leq \left\|x+\m M\right\| + \left\|y+\m M\right\|
+                \left\|x+y+\mM\right\|\leq \left\|x+\mM\right\| + \left\|y+\mM\right\|
             \]
             proving the triangle inequality.
-        \item Consider $v\notin\m M$ and then for all $\epsilon>0$ we can find $y\in\m M$ such that $ \left\|v+\m M\right\|> \left\|v+y\right\|-\epsilon$. 
+        \item Consider $v\notin\mM$ and then for all $\epsilon>0$ we can find $y\in\mM$ such that $ \left\|v+\mM\right\|> \left\|v+y\right\|-\epsilon$. 
             Thus, 
             \[
-                \left\| \frac{v+y}{ \left\|v+y\right\|}+\m M\right\|= \frac{1}{ \left\|v+y\right\|}\cdot \left\|v+\m M\right\|>1- \frac{\epsilon}{ \left\|v+y\right\|}\geq 1- \frac{\epsilon}{ \left\|v+\m M\right\|}
+                \left\| \frac{v+y}{ \left\|v+y\right\|}+\mM\right\|= \frac{1}{ \left\|v+y\right\|}\cdot \left\|v+\mM\right\|>1- \frac{\epsilon}{ \left\|v+y\right\|}\geq 1- \frac{\epsilon}{ \left\|v+\mM\right\|}
             \]
             and as $\epsilon>0$ was arbitrary we are done. 
-        \item As $0\in\m M$ we clearly have $ \left\|x\right\|\geq \left\|x+\m M\right\|$, using part (b) we see that 
+        \item As $0\in\mM$ we clearly have $ \left\|x\right\|\geq \left\|x+\mM\right\|$, using part (b) we see that 
             \[
-                \left\|\pi\right\|=\sup_{ \left\|x\right\|=1} \left\|x+\m M\right\|=1
+                \left\|\pi\right\|=\sup_{ \left\|x\right\|=1} \left\|x+\mM\right\|=1
             \]
-        \item Suppose we have $\sum_1^\infty \left\|x_n+\m M\right\|<\infty$, then we can find $y_n\in\m M$ such that $ \left\|x_n+\m M\right\|\geq \left\|x_n+y_n\right\|-2^{-n}$ and thus $\sum_1^\infty \left\|x_n+y_n\right\|<\infty$ so $\sum_1^\infty (x_n+y_n)$ converges. 
-            By part (c), we have that $\pi\in L(X,X/\m M)$ and thus 
+        \item Suppose we have $\sum_1^\infty \left\|x_n+\mM\right\|<\infty$, then we can find $y_n\in\mM$ such that $ \left\|x_n+\mM\right\|\geq \left\|x_n+y_n\right\|-2^{-n}$ and thus $\sum_1^\infty \left\|x_n+y_n\right\|<\infty$ so $\sum_1^\infty (x_n+y_n)$ converges. 
+            By part (c), we have that $\pi\in L(X,X/\mM)$ and thus 
             \[
-                \sum_{j=1}^n(x_j+\m M)=\pi\qty(\sum_{j=1}^n(x_j+y_j))\to\pi \qty( \sum_{j=1}^{\infty}(x_j+y_j))
+                \sum_{j=1}^n(x_j+\mM)=\pi\qty(\sum_{j=1}^n(x_j+y_j))\to\pi \qty( \sum_{j=1}^{\infty}(x_j+y_j))
             \]
             proving convergence, and thus by Theorem 5.1 we are done. 
-        \item As $\pi$ is continuous when $X/\m M$ has its topology generated by the quotient norm, we see that $\pi^{-1}(U)$ is open in $X$ for all open $U \subseteq X/M$ and if $\pi^{-1}(U) \subseteq X$ is open then we want to show that $U$ is open in $X/\m M$ with the quotient norm topology.  
-            Say $u+\m M\in U$, then we can find $x\in X$ such that $\pi(x)=u+\m M$, now we can find some $\delta>0$ such that $B_X(x,\delta) \subseteq\pi^{-1}(U)$ and if $ \left\|x-y\right\|<\delta$ then $ \left\|\pi(x-y)\right\|\leq \left\|\pi\right\| \left\|x-y\right\|= \left\|x-y\right\|<\delta$ so $ \left\|(x+\m M)-(y+\m M)\right\|<\delta$. 
-            If $ \left\|x-y+\m M\right\|<\delta/2$ then we can find $z\in\m M$ with $ \left\|x-y+z\right\|<\delta$ and thus $(y-z)\in B_X(x,\delta)$ implying $\pi(y-z)=y+\m M\in\pi(B_X(x,\delta))$
+        \item As $\pi$ is continuous when $X/\mM$ has its topology generated by the quotient norm, we see that $\pi^{-1}(U)$ is open in $X$ for all open $U \subseteq X/M$ and if $\pi^{-1}(U) \subseteq X$ is open then we want to show that $U$ is open in $X/\mM$ with the quotient norm topology.  
+            Say $u+\mM\in U$, then we can find $x\in X$ such that $\pi(x)=u+\mM$, now we can find some $\delta>0$ such that $B_X(x,\delta) \subseteq\pi^{-1}(U)$ and if $ \left\|x-y\right\|<\delta$ then $ \left\|\pi(x-y)\right\|\leq \left\|\pi\right\| \left\|x-y\right\|= \left\|x-y\right\|<\delta$ so $ \left\|(x+\mM)-(y+\mM)\right\|<\delta$. 
+            If $ \left\|x-y+\mM\right\|<\delta/2$ then we can find $z\in\mM$ with $ \left\|x-y+z\right\|<\delta$ and thus $(y-z)\in B_X(x,\delta)$ implying $\pi(y-z)=y+\mM\in\pi(B_X(x,\delta))$
             \[
-                \qty{y\in\m M: \left\|x-y+\m M\right\|< \frac{\delta}{2}} \subseteq \pi \qty( B_X(x,\delta)) \subseteq\pi \qty(\pi^{-1}(U)) \subseteq U
+                \qty{y\in\mM: \left\|x-y+\mM\right\|< \frac{\delta}{2}} \subseteq \pi \qty( B_X(x,\delta)) \subseteq\pi \qty(\pi^{-1}(U)) \subseteq U
             \]
             proving that it is open in the quotient norm topology. 
             Infact, instead of $\delta/2$ any positive real strictly less than $\delta$ works too so $\delta$ itself works here. 
@@ -327,29 +288,29 @@ Let $X$ be a normed vector space and $\mathcal{M}$ a proper closed subspace of $
 If $\|\cdot\|$ is a seminorm on the vector space $X$, let $\mathcal{M} = \{x \in X : \|x\| = 0\}$. Then $\mathcal{M}$ is a subspace, and the map $x+\mathcal{M} \mapsto \|x\|$ is a norm on $X/\mathcal{M}$.
 \end{problem}
 \begin{solution}
-    We claim that this map is the same as $x+\m M\mapsto\left\|x+\m M\right\|$ in the notation of \hyperref[prob:5-12]{Problem 5.12}(part (a) specifically). 
-    If $\left\|z\right\|=0$ then $\left\|x\right\|=| \left\|x\right\|- \left\|z\right\||\leq\left\|x+z\right\|\leq \left\|x\right\|+ \left\|z\right\|= \left\|x\right\|$ and thus $\inf_{z\in\m M} \left\|x+z\right\|= \left\|x\right\|$ so this the quotient norm induced by $\m M$ and we are done. 
+    We claim that this map is the same as $x+\mM\mapsto\left\|x+\mM\right\|$ in the notation of \hyperref[prob:5-12]{Problem 5.12}(part (a) specifically). 
+    If $\left\|z\right\|=0$ then $\left\|x\right\|=| \left\|x\right\|- \left\|z\right\||\leq\left\|x+z\right\|\leq \left\|x\right\|+ \left\|z\right\|= \left\|x\right\|$ and thus $\inf_{z\in\mM} \left\|x+z\right\|= \left\|x\right\|$ so this the quotient norm induced by $\mM$ and we are done. 
 \end{solution}
 \begin{problem}\label{prob:5-14}
 If $X$ is a normed vector space and $\mathcal{M}$ is a nonclosed subspace, then $\|x+\mathcal{M}\|$, as defined in Exercise 12, is a seminorm on $X/\mathcal{M}$. If one divides by its nullspace as in Exercise 13, the resulting quotient space is isometrically isomorphic to $X/\overline{\mathcal{M}}$. (Cf. Exercise 5.)
 \end{problem}
 \begin{solution}
-    Let $\m N:= \qty{x+\m M\in X/\m M: \|x+\m M\|=0}$, we want to prove that $(X/\m M)/\m N$ is isometrically isomorphic to $X/\o {\m M}$. 
+    Let $\mN:= \qty{x+\mM\in X/\mM: \|x+\mM\|=0}$, we want to prove that $(X/\mM)/\mN$ is isometrically isomorphic to $X/\overline{\mM}$. 
     By \hyperref[prob:5-13]{Problem 5.13} we see that 
     \[
-        (x+\m M)+\m N\mapsto\|x+\m M\| 
+        (x+\mM)+\mN\mapsto\|x+\mM\| 
     \]
-    is a norm on $(X/\m M)/\m N$. 
-    Now, $x+\o {\m M}\mapsto \|x+\o {\m M}\|$ is the induced norm on $X/\o {\m M}$ and we claim that the map 
+    is a norm on $(X/\mM)/\mN$. 
+    Now, $x+\overline{\mM}\mapsto \|x+\overline{\mM}\|$ is the induced norm on $X/\overline{\mM}$ and we claim that the map 
     \[
-        (x+\m M)+\m N\mapsto x+\o {\m M}
+        (x+\mM)+\mN\mapsto x+\overline{\mM}
     \]
     is well defined and an isometric isomorphism. 
-    To prove well definedness, we first pick two representatives $x,y$ with $(x+\m M)+\m N=(y+\m M)+\m N$, then we must have that $(x+\m M)-(y +\m M)=x-y+\m M=z+\m M$ for some $z+\m M\in\m N$ and thus, $\|x-y+\m M\|=0=\inf_{v\in\m M} \|x-y-v\|$ which implies that $x-y\in\o {\m M}$ and hence $x+\o {\m M}=y+\o {\m M}$ proving well definedness. 
+    To prove well definedness, we first pick two representatives $x,y$ with $(x+\mM)+\mN=(y+\mM)+\mN$, then we must have that $(x+\mM)-(y +\mM)=x-y+\mM=z+\mM$ for some $z+\mM\in\mN$ and thus, $\|x-y+\mM\|=0=\inf_{v\in\mM} \|x-y-v\|$ which implies that $x-y\in\overline{\mM}$ and hence $x+\overline{\mM}=y+\overline{\mM}$ proving well definedness. 
     This map is clearly linear, surjective by construction. 
-    We now prove that $ \|x+\m M\|= \|x+\o {\m M}\|$. 
-    As $\m M \subseteq\o {\m M}$, the left side is clearly atleast as large and the right. 
-    Now, for any $\epsilon>0$ we can find $y\in\o {\m M}$ such that $ \|x+y\|-\epsilon< \|x+\o {\m M}\|$ and we can also find $v\in\ m M$ such that $ \|y-v\|<\epsilon$ and by the triangle inequality, $ \|x+v\|-2\epsilon< \|x+\o {\m M}\|$ implying that $ \|x+\m M\|-2\epsilon\leq \|x+\o {\m M}\|$ and as $\epsilon$ was arbitrary we have $ \|x+\m M\|\leq \|x+\o {\m M}\|$ so its an isometry, which also proves injectivity and continuity making it an isomorphism too.  
+    We now prove that $ \|x+\mM\|= \|x+\overline{\mM}\|$. 
+    As $\mM \subseteq\overline{\mM}$, the left side is clearly atleast as large and the right. 
+    Now, for any $\epsilon>0$ we can find $y\in\overline{\mM}$ such that $ \|x+y\|-\epsilon< \|x+\overline{\mM}\|$ and we can also find $v\in\ m M$ such that $ \|y-v\|<\epsilon$ and by the triangle inequality, $ \|x+v\|-2\epsilon< \|x+\overline{\mM}\|$ implying that $ \|x+\mM\|-2\epsilon\leq \|x+\overline{\mM}\|$ and as $\epsilon$ was arbitrary we have $ \|x+\mM\|\leq \|x+\overline{\mM}\|$ so its an isometry, which also proves injectivity and continuity making it an isomorphism too.  
 \end{solution}
 \begin{problem}\label{prob:5-15}
 Suppose that $X$ and $Y$ are normed vector spaces and $T \in L(X,Y)$. Let $\mathcal{N}(T) = \{x \in X : Tx = 0\}$.
@@ -360,13 +321,13 @@ Suppose that $X$ and $Y$ are normed vector spaces and $T \in L(X,Y)$. Let $\math
 \end{problem}
 \begin{solution}
 \begin{enumerate}[label=\alph*.]
-\item $\m N(T)= T^{-1}( \qty{0})$ is closed as $ \qty{0}$ is closed (metric spaces are clearly $T_1$) and $T$ continuous. 
-\item As $\pi$ is a surjection such a map must be unique and if it exists it is given by $x+\m N(T)\mapsto T(x).$ 
-    This is well defined as $x-y\in\m N(T)\implies T(x)=T(y)$ so $S(x+\m M)=S(y+\m M)$. 
-    It is clearly linear and by \hyperref[prob:4-28]{Problem 4.28} it is continuous as $T=S\circ\pi$ is continuous so $S\in L(X/\m N(T),Y).$ 
-Now, if $T$ is not $0$ we see that $\m N(T)$ is a proper closed subspace and thus, $\|T\|=\|S\circ\pi\|\leq\|S\|$ as $\|\pi\|=1$ by \hyperref[prob:5-12]{Problem 5.12}c. 
-    Now, for any $\epsilon>0$ we can find $x+\m N(T)$ of unit norm such that $\|S(x+\m N(T))\|=\|Tx\|+\epsilon>\|S\|$ and we can also find $v\in\m N(T)$ such that $\|x+v\|<1-\epsilon$. 
-    Thus, as $x+v\neq 0$ clearly (if we had $\|S\|=0$ then the claim is true already, otherwise for small enough $\epsilon$ we have $\|Tx\|>0$ so $x\notin\m N(T)$ and thus $x+v\neq 0$)
+\item $\mN(T)= T^{-1}( \qty{0})$ is closed as $ \qty{0}$ is closed (metric spaces are clearly $T_1$) and $T$ continuous. 
+\item As $\pi$ is a surjection such a map must be unique and if it exists it is given by $x+\mN(T)\mapsto T(x).$ 
+    This is well defined as $x-y\in\mN(T)\implies T(x)=T(y)$ so $S(x+\mM)=S(y+\mM)$. 
+    It is clearly linear and by \hyperref[prob:4-28]{Problem 4.28} it is continuous as $T=S\circ\pi$ is continuous so $S\in L(X/\mN(T),Y).$ 
+Now, if $T$ is not $0$ we see that $\mN(T)$ is a proper closed subspace and thus, $\|T\|=\|S\circ\pi\|\leq\|S\|$ as $\|\pi\|=1$ by \hyperref[prob:5-12]{Problem 5.12}c. 
+    Now, for any $\epsilon>0$ we can find $x+\mN(T)$ of unit norm such that $\|S(x+\mN(T))\|=\|Tx\|+\epsilon>\|S\|$ and we can also find $v\in\mN(T)$ such that $\|x+v\|<1-\epsilon$. 
+    Thus, as $x+v\neq 0$ clearly (if we had $\|S\|=0$ then the claim is true already, otherwise for small enough $\epsilon$ we have $\|Tx\|>0$ so $x\notin\mN(T)$ and thus $x+v\neq 0$)
     \[
     \|T\|\geq\frac{\|T(x+v)\|}{\|x+v\|}> \frac{\|S\|-\epsilon}{1-\epsilon}
     \]
@@ -387,9 +348,9 @@ The purpose of this exercise is to develop a theory of integration for functions
 \begin{solution}
 \begin{enumerate}[label=\alph*.]
 \item For $f,g\in L_Y$ let $\Phi:X\to Y\times Y$ be given by $x\mapsto (f(x),g(x))$ and let $\Psi:Y\times Y\to Y$ be the continuous map $(x,y)\mapsto x+y.$ 
-    As $Y$ is seperable we have that $\m B_Y\otimes\m B_Y=\m B_{Y\times Y}$ (here $Y\times Y$ is given the product norm) by proposition 1.5, thus $\Psi$ is $(\m B_Y\otimes \m B_Y,\m B_Y)$-measurable and as the components of $\Phi$ are measurable, it is $(\m B_X,\m B_Y\otimes\m B_Y)$-measurable and hence so is $\Psi\circ\Phi$ which is given by $x\mapsto f(x)+g(x)$ proving closure under addition. 
-    For $\alpha\in\b K$, as $x\mapsto\alpha x$ is continuous, composing any $f\in L_Y$ presereves measurablity and thus $\alpha f\in L_Y$ too and thus it is a vectorspace (it is a subspace of the vectorspace $Y^X$ with pointwise addition and scalar multiplication, over $\b K$ so we don't have to check all the axioms, this is sufficient.) 
-    If $f,g\in L_Y^1$ and $\alpha\in\b K$ then, 
+    As $Y$ is seperable we have that $\mB_Y\otimes\mB_Y=\mB_{Y\times Y}$ (here $Y\times Y$ is given the product norm) by proposition 1.5, thus $\Psi$ is $(\mB_Y\otimes \mB_Y,\mB_Y)$-measurable and as the components of $\Phi$ are measurable, it is $(\mB_X,\mB_Y\otimes\mB_Y)$-measurable and hence so is $\Psi\circ\Phi$ which is given by $x\mapsto f(x)+g(x)$ proving closure under addition. 
+    For $\alpha\in\bK$, as $x\mapsto\alpha x$ is continuous, composing any $f\in L_Y$ presereves measurablity and thus $\alpha f\in L_Y$ too and thus it is a vectorspace (it is a subspace of the vectorspace $Y^X$ with pointwise addition and scalar multiplication, over $\bK$ so we don't have to check all the axioms, this is sufficient.) 
+    If $f,g\in L_Y^1$ and $\alpha\in\bK$ then, 
     \[
         \|f+g\|_1=\int\|f(x)+g(x)\|d\mu(x)\leq\int\|f(x)\|d\mu(x)+\int\|g(x)\|d\mu(x)=\|f\|_1+\|g\|_1
     \]
@@ -399,7 +360,7 @@ The purpose of this exercise is to develop a theory of integration for functions
         \|\alpha f\|=\int\|\alpha f(x)\|d\mu(x)=|\alpha|\cdot\int\|f(x)\|d\mu(x)=|\alpha|\|f\|_1
     \]
     so $\|\alpha f\|_1<\infty$ too and we thus have that $L_Y^1$ is a subspace and $\|\cdot\|_1$ is a seminorm on it. 
-    For any $\sum_1^ny_j\chi_{E_j}\in F_Y$, define $K=\cup E_j^c\in\m M$, then this is constant and hence measurable when restricted to $E_j,K$ and as $K\cup(\cup E_j)=X$ it must be measurable on $X$ by simple induction on \hyperref[prob:2-5]{Problem 2.5}. 
+    For any $\sum_1^ny_j\chi_{E_j}\in F_Y$, define $K=\cup E_j^c\in\mM$, then this is constant and hence measurable when restricted to $E_j,K$ and as $K\cup(\cup E_j)=X$ it must be measurable on $X$ by simple induction on \hyperref[prob:2-5]{Problem 2.5}. 
     $F_Y$ is trivially closed under addition and scalar multiplication making it a subspace of $L_Y$ and the fact that $F_Y \subseteq L_Y^1$ follows directly from the triangle inequality. 
     If we idetify functions a.e. then clearly $\|f\|_1=0$ implies $\|f\|=0$ a.e. i.e. $f=0$ a.e. so $\|\cdot\|_1$ is a norm in this case. 
 \item It suffices to prove this for small enough $\epsilon>0$ so assume $\epsilon<1$. 
@@ -421,7 +382,7 @@ The purpose of this exercise is to develop a theory of integration for functions
     \[
         \int f+g=\lim\int f_n+g_n=\lim \qty(\int f_n+\int g_n)=\lim\int f_n+\lim\int g_n=\int f+\int g
     \]
-    and it can be trivially shown that $\int\alpha f=\alpha\int f$ for $\alpha\in\b K$ so this linear. 
+    and it can be trivially shown that $\int\alpha f=\alpha\int f$ for $\alpha\in\bK$ so this linear. 
     We also see that if $h_n\to f$ similarly then by continuity of the norm(s), 
     \[
         \left\|\int f\right\|= \left\|\lim_{n\to\infty}\int h_n\right\|= \lim_{n\to\infty} \left\|\int h_n\right\|\leq\lim_{n\to\infty}\|h_n\|_1= \left\|\lim_{n\to\infty}h_n\right\|_1=\|f\|_1
@@ -433,7 +394,7 @@ The purpose of this exercise is to develop a theory of integration for functions
     and thus $\int f=\lim\int h_n=\int^* f$ implying $\int=\int^*$ proving uniqueness. 
 \item Taking the limits we see that $\|f(x)\|\leq g(x)$ a.e. too and thus $f\in L_Y^1$ as well. 
     Now, $\|\int f-\int f_n\|\leq\|f-f_n\|_1\to 0$ by the usual DCT as $f-f_n\to 0$ a.e. and $\|f-f_n\|\leq 2g$ a.e. so we have $\int f=\lim\int f_n.$ 
-\item If $T\in L(Y,Z)$ then for $E\in\m M$ with $\mu(E)<\infty$ and $y\in Y$, let $f=\chi_Ey$ and then $T(f(x))=\chi_E(x)T(y)$ so $T\circ f\in F_Z$ and we have $\int T\circ f=\int T(y)\chi_E=\chi(E)T(y)=T(\chi(E)y)=T(\int f)$ and we can extend by linearity to $F_Y$. 
+\item If $T\in L(Y,Z)$ then for $E\in\mM$ with $\mu(E)<\infty$ and $y\in Y$, let $f=\chi_Ey$ and then $T(f(x))=\chi_E(x)T(y)$ so $T\circ f\in F_Z$ and we have $\int T\circ f=\int T(y)\chi_E=\chi(E)T(y)=T(\chi(E)y)=T(\int f)$ and we can extend by linearity to $F_Y$. 
     Now, say $f\in L^1_Y$ and $\{h_n\} \subseteq F_Y$ such that $h_n\to f$ a.e. as in part (c), then we see that $T\circ h_n\to T\circ f$ a.e. too and $\|T(h_n(x))\|\leq\|T\|\|h_n(x)\|$. 
     As $T$ is continuous, composition by it preserves measurablity and $\|T(f(x))\|\leq\|T\|\|f(x)|$ so $T\circ f\in L_Z^1$. 
     Now using the generalized DCT in \hyperref[prob:2-20]{Problem 2.20} we see that $\int T\circ h_n\to\int T\circ f$ and as $T$ is continuous we have $\int T\circ f=\lim\int T\circ h_n=\lim T (\int h_n)=T (\lim\int h_n)=T(\int f)$ so we are done. 
@@ -707,7 +668,7 @@ Let $\mathcal{M}$ be a closed subspace of the Hilbert space $\mathcal{H}$, and f
 \end{problem}
 
 \begin{problem}\label{prob:5-59}
-Every closed convex set $\b K$ in a Hilbert space has a unique element of minimal norm. (If $0 \in K$ the result is trivial; otherwise, adapt the proof of Theorem 5.24.)
+Every closed convex set $\bK$ in a Hilbert space has a unique element of minimal norm. (If $0 \in K$ the result is trivial; otherwise, adapt the proof of Theorem 5.24.)
 \end{problem}
 
 \begin{problem}\label{prob:5-60}
