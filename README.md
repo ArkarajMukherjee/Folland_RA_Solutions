@@ -17,7 +17,7 @@ Chapter 2. Integration [Finished]
 Chapter 3. Signed Measures and Differentiation [Finished]
 
 
-Chapter 4. Point Set Topology [Finished]
+Chapter 4. Point Set Topology [Finished, except problem 23]
 
 
 Chapter 5. Elements of Functional Analysis [Ongoing]
