@@ -403,70 +403,171 @@ The purpose of this exercise is to develop a theory of integration for functions
 \begin{problem}\label{prob:5-17}
 A linear functional $f$ on a normed vector space $X$ is bounded iff $f^{-1}(\{0\})$ is closed. (Use Exercise 12b.)
 \end{problem}
-
+If $f$ is bounded then its continuous $f^{-1}( \qty{0})$ is closed being the preimage of a closed set. 
+Conversely, using \hyperref[prob:5-12]{Problem 5.12b} (here the kernel is a closed subspace which we may assume to be proper as otherwise its trivial) we can find $x\in X\setminus\ker(T)$ of norm $1$ such that $\|x+\ker(T)\|\geq 1/2$. 
+Consider $Tx\neq 0$, let this be $C$, then we see for all $y$ we have $Ty=T(T(y)C^{-1}x)$ and as $\|T(y)C^{-1}x+\ker(T)\|=\|y+\ker(T)\|$, we have 
+\[
+    \|y\|\geq\|y+\ker(T)\|\geq(1/2)|T(y)C^{-1}|\implies \frac{|Ty|}{\|y\|}\leq 2C\quad(\text{if }y\neq 0)
+\]
+and we are done. 
 \begin{problem}\label{prob:5-18}
 Let $X$ be a normed vector space.
-\begin{enumerate}
-\item[(a)] If $\mathcal{M}$ is a closed subspace and $x \in X \backslash \mathcal{M}$ then $\mathcal{M} + \mathbf{C}x$ is closed. (Use Theorem 5.8a.)
-\item[(b)] Every finite-dimensional subspace of $X$ is closed.
+\begin{enumerate}[label=\alph*.]
+\item If $\mathcal{M}$ is a closed subspace and $x \in X \backslash \mathcal{M}$ then $\mathcal{M} + \mathbf{C}x$ is closed. (Use Theorem 5.8a.)
+\item Every finite-dimensional subspace of $X$ is closed.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item Let $f$ be as in the proof of Theorem 5.8a. 
+            If $x_n+\alpha_n x$ is convergent in $\mM+\bC x$ with $x_n\in\mM$ then $f(x_n+\alpha_n x)=\alpha_n$ also converges by continuity so by alebra of limits we see that $x_n$ converges as well. 
+            Now, as $\mM$ is closed, $\lim x_n\in X$ and thus $\lim(x_n+\alpha_n x)=\lim x_n+(\lim\alpha_n)x\in\mM+\bC x$ by continuity of multiplication by scalars as seen in \hyperref[prob:5-1]{Problem 5.1} proving that this is closed. 
+        \item We can find linearly independant $x_1,\ldots,x_n$ spanning this subspace. 
+            Using the previous part and induction we see that for linearly independant $x_1,\ldots x_n$, the subspaces $\{0\}+\bC x_1=\bC x_1,\bC x_1+\bC x_2,\ldots,\bC x_1+\ldots+\bC x_n$ are all closed so we are done (by linear indepdance we have that $x_k\notin\sum_1^{k-1}\bC x_j$ and we could use the previous part.).  
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-19}
 Let $X$ be an infinite-dimensional normed vector space.
-\begin{enumerate}
-\item[(a)] There is a sequence $\{x_j\}$ in $X$ such that $\|x_j\| = 1$ for all $j$ and $\|x_j - x_k\| \ge \frac{1}{2}$ for $j \ne k$. (Construct $x_j$ inductively, using Exercises 12b and 18.)
-\item[(b)] $X$ is not locally compact.
+\begin{enumerate}[label=\alph*.]
+\item There is a sequence $\{x_j\}$ in $X$ such that $\|x_j\| = 1$ for all $j$ and $\|x_j - x_k\| \ge \frac{1}{2}$ for $j \ne k$. (Construct $x_j$ inductively, using Exercises 12b and 18.)
+\item $X$ is not locally compact.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item Following the hint, by the previous problem and \hyperref[prob:5-12]{Problem 5.12b} we can inductively choose $x_{n+1}\in X\setminus\sum_1^n\bC x_j$ such that $\|x_{n+1}-x_k\|\geq\|x_{n+1}-\sum_1^n\bC x_j\|\geq 1-1/2$ for all $k=1,\ldots,n$. 
+    \item If it was locally compact then we see that we can find some $\delta>0$ and compact $K$ such that $B(0,\delta) \subseteq K$ but then this would imply that the sequence $ \qty{\delta x_j} \subseteq K$ has a converging subsequence (compactness is equivalent to relative compactness) which is absurd as $\|\delta x_i-\delta x_j\|\geq\delta/2$ for $i\neq j$ and hence we have  a contradiction. 
+\end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-20}
 If $\mathcal{M}$ is a finite-dimensional subspace of a normed vector space $X$, there is a closed subspace $\mathcal{N}$ such that $\mathcal{M} \cap \mathcal{N} = \{0\}$ and $\mathcal{M} + \mathcal{N} = X$.
 \end{problem}
-
+\begin{solution}
+    By zorn's lemma we can find a basis $B$ of $X$ that includes a basis $B'$ of $\mM$ and set $\mN:=\span_{\bK}(B\setminus B')$, we will now prove that all such complements are closed. 
+    Assume that $\mM$ is nonempty throughout, otherwise it is trivial. 
+    Every $x\in X$ has an unique decomposition in the form $m+n$ where $m\in\mM,n\in\mN$ and we define a linear map $T(m+n):=m$. 
+    The induced linear map $\tilde{T}:X/\ker(T)\to X$ has a finite dimensional domain as $X/\ker(T)$ is linearly isomorphic to $T(X)=\mM$ and is thus continuous. 
+    As the projection $\pi:X\to X/\ker(T)$ is continuous too by \hyperref[prob:5-12]{Problem 5.12c}, their composition $\tilde{T}\circ\pi=T$ is also continuous proving and thus we must have $\ker(T)=\mN$ be closed. 
+\end{solution}
 \begin{problem}\label{prob:5-21}
 If $X$ and $Y$ are normed vector spaces, define $\alpha : X^* \times Y^* \rightarrow (X \times Y)^*$ by $\alpha(f,g)(x,y) = f(x) + g(y)$. Then $\alpha$ is an isomorphism which is isometric if we use the norm $\|(x,y)\| = \max(\|x\|, \|y\|)$ on $X \times Y$, the corresponding operator norm on $(X \times Y)^*$, and the norm $\|(f,g)\| = \|f\| + \|g\|$ on $X^* \times Y^*$.
 \end{problem}
-
+\begin{solution}
+    If $\phi\in(X\times Y)^*$ then we see that $\phi(x,y)=\phi(x,0)+\phi(0,y)$ and clearly $x\mapsto\phi(x,0)$ is a linear functional on $X$ (proof of continuity is easy) and similarly in the other coordinate.
+    Let these be $\phi_X,\phi_Y$ respectively, then we see that $\alpha(\phi_X,\phi_Y)=\phi$ making it surjective. 
+    If $\alpha(f,g)(x,y)=0$ for all $x,y$ then $\alpha(f,g)(x,0)=f(x)=0$ for all $x$ and thus $f=0$, similarly $g$ is also zero (punctuation!) making it injective. 
+    We clearly see that if $\|(x,y)\| = 1$ then $\|\alpha(f,g)(x,y)\|\leq\|f(x)\|+\|g(y)\|\leq\|f\|+\|g\|$ so $\|\alpha(f,g)\|\leq\|(f,g)\|$ proving it to be an isomorphism. 
+    Say $\epsilon>0$, we can find unit $x,y$ with $|f(x)|\geq(1-\epsilon)\|f\|$ and similarly for $g$ and $y$. 
+    If $\alpha:= \overline{\sgn f(x)},\beta=\overline{\sgn g(y)}$ then 
+    \[
+        |\alpha(f,g)(\alpha x,\beta y)|=|f(\alpha x)+g(\beta y)|=||f(x)|+|g(x)||\geq(1-\epsilon)(\|f\|+\|g\|)
+    \]
+    with $\|(\alpha x,\beta y)\|=1$ as $\|\alpha x\|=|\alpha|\|x\|=\|x\|=1$ and similarly for $y$. 
+    As $\epsilon>0$ was arbitrary we can say that $\|\alpha(f,g)\|\geq\|(f,g)\|$ proving that it is an isometry too. 
+\end{solution}
 \begin{problem}\label{prob:5-22}
 Suppose that $X$ and $Y$ are normed vector spaces and $T \in L(X,Y)$.
-\begin{enumerate}
-\item[(a)] Define $T^\dagger : Y^* \rightarrow X^*$ by $T^\dagger f = f \circ T$. Then $T^\dagger \in L(Y^*,X^*)$ and $\|T^\dagger\| = \|T\|$. $T^\dagger$ is called the adjoint or transpose of $T$.
-\item[(b)] Applying the construction in (a) twice, one obtains $T^{\dagger\dagger} \in L(X^{},Y^{})$. If $X$ and $Y$ are identified with their natural images $\hat{X}$ and $\hat{Y}$ in $X^{}$ and $Y^{}$, then $T^{\dagger\dagger}|_X = T$.
-\item[(c)] $T^\dagger$ is injective iff the range of $T$ is dense in $Y$.
-\item[(d)] If the range of $T^\dagger$ is dense in $X^*$, then $T$ is injective; the converse is true if $X$ is reflexive.
+\begin{enumerate}[label=\alph*.]
+\item Define $T^\dagger : Y^* \rightarrow X^*$ by $T^\dagger f = f \circ T$. Then $T^\dagger \in L(Y^*,X^*)$ and $\|T^\dagger\| = \|T\|$. $T^\dagger$ is called the adjoint or transpose of $T$.
+\item Applying the construction in (a) twice, one obtains $T^{\dagger\dagger} \in L(X^{**},Y^{**})$. If $X$ and $Y$ are identified with their natural images $\hh{X}$ and $\hh{Y}$ in $X^{**}$ and $Y^{**}$, then $T^{\dagger\dagger}|_X = T$.
+\item $T^\dagger$ is injective iff the range of $T$ is dense in $Y$.
+\item If the range of $T^\dagger$ is dense in $X^*$, then $T$ is injective; the converse is true if $X$ is reflexive.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item For all $x$ we have $|T^\da(f)(x)|=|f(T(x))|\leq\|T\|\|f\|\|x\|$ so $\|T^\da(f)\|\leq\|T\|\|f\|$ and thus $\|T^\da\|\leq\|T\|$ proving $T^\da\in L(Y^*,X^*)$.  
+        For small enough $\ep>0$ we can find unit norm $x$ such that $\|Tx\|\geq(1-\ep)\|T\|\|x\|$ (Assume $\|Tx\|\neq 0$, otherwise its trivial as $T=0$) and by Theorem 5.8b we can find unit norm $f$ such that $f(Tx)=\|Tx\|$ so $\|T^\da(f)(x)\|=\|Tx\|\geq(1-\ep)\|T\|$ proving that $\|T^\da(f)\|\geq(1-\ep)\|T\|$ (remember how $x$ was unit norm) and thus $\|T^\da\|\geq(1-\ep)\|T\|$ proving the claim via arbitrage of $\ep.$ 
+    \item This asks us to show that for $x\in X$ we have $T^{\da\da}(\hh{x})=\widehat{Tx}$. 
+        Say $f\in Y^*$ then we have $T^{\da\da}(\hh{x})(f)=\hh{x}(T^\da(f))=f(Tx)=\widehat{Tx}(f)$ so we are done. 
+    \item Theorem 5.8a holds even when $\mM$ is not closed given that we only have $\|f\|\leq 1$. 
+        For any $y\in Y\setminus T(X)$, let $\delta=\inf_{x\in X}\|y-Tx\|$ and we can find $f\in Y^*$ such that $f=0$ on $T(X)$ and $f(y)=\delta$. 
+        If $\delta>0$ (otherwise $y\in \overline{T(X)}$) then $f\neq 0$ and from injectivity $T^\da(f)\neq 0$ so we can find $x$ with $f(Tx)\neq 0$ which is a contradiction so we must have $\delta=0$ proving $Y\setminus T(X) \subseteq \overline{T(X)}$ and we are done.  
+        Conversely, if $T(X)$ is dense in $Y$ and $f\in Y^*$ is nonzero, say $f(y)\neq 0$ then we show that $T^\dag(f)\neq 0$. 
+        For $x\in X$ we have $T^\dag(f)(x)=f(Tx)$ and if $Tx$ is close enough to $y$ then $f(Tx)\neq 0$ by continuity of $f$ and we can get arbitrarily close by the density assumption making $T^\dag(f)\neq 0$ proving injectivity. 
+    \item By the previous part, if the range of $T^\dag$ is dense in $X^*$ then $T^{\dag\dag}$ is injective and if we restrict it to $\widehat{X} \subseteq X^{**}$ it retains injectivity. As $X,\hh{X}$ are isometric under the natural map $x\neq 0$ implies $\|x\|=\|\hh{x}\|>0$ and thus $\|T^{\dag\dag}(\hh{x})\|=\|\hh{Tx}\|=\|Tx\|>0$ so  $Tx\neq 0$ proving injectivity. 
+        If $X$ is reflexive then we can identify $X$ with $X^{**}$ via the natural isometry and thus $T$ being injective makes $T^{\dag\dag}$ injective, which by the previous part makes $T^\dag$'s range dense in $X^*$ proving the converse in this case.   
+\end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-23}
-Suppose that $X$ is a Banach space. If $\mathcal{M}$ is a closed subspace of $X$ and $\mathcal{N}$ is a closed subspace of $X^*$, let $\mathcal{M}^0 = \{f \in X^* : f|_\mathcal{M} = 0\}$ and $\mathcal{N}^\perp = \{x \in X : f(x) = 0 \text{ for all } f \in \mathcal{N}\}$. (Thus, if we identify $X$ with its image in $X^{}$, $\mathcal{N}^\perp = \mathcal{N}^0 \cap X$.)
-\begin{enumerate}
-\item[(a)] $\mathcal{M}^0$ and $\mathcal{N}^\perp$ are closed subspaces of $X^*$ and $X$, respectively.
-\item[(b)] $(\mathcal{M}^0)^\perp = \mathcal{M}$ and $(\mathcal{N}^\perp)^0 \supset \mathcal{N}$. If $X$ is reflexive, $(\mathcal{N}^\perp)^0 = \mathcal{N}$.
-\item[(c)] Let $\pi : X \rightarrow X/\mathcal{M}$ be the natural projection, and define $\alpha : (X/\mathcal{M})^* \rightarrow X^*$ by $\alpha(f) = f \circ \pi$. Then $\alpha$ is an isometric isomorphism from $(X/\mathcal{M})^*$ onto $\mathcal{M}^0$, where $X/\mathcal{M}$ has the quotient norm.
-\item[(d)] Define $\beta : X^* \rightarrow \mathcal{M}^*$ by $\beta(f) = f|_\mathcal{M}$; then $\beta$ induces a map $\overline{\beta} : X^*/\mathcal{M}^0 \rightarrow \mathcal{M}^*$ as in Exercise 15, and $\overline{\beta}$ is an isometric isomorphism.
+Suppose that $X$ is a Banach space. If $\mathcal{M}$ is a closed subspace of $X$ and $\mathcal{N}$ is a closed subspace of $X^*$, let $\mathcal{M}^0 = \{f \in X^* : f|_\mathcal{M} = 0\}$ and $\mathcal{N}^\perp = \{x \in X : f(x) = 0 \text{ for all } f \in \mathcal{N}\}$. (Thus, if we identify $X$ with its image in $X^{**}$, $\mathcal{N}^\perp = \mathcal{N}^0 \cap X$.)
+\begin{enumerate}[label=\alph*.]
+\item $\mathcal{M}^0$ and $\mathcal{N}^\perp$ are closed subspaces of $X^*$ and $X$, respectively.
+\item $(\mathcal{M}^0)^\perp = \mathcal{M}$ and $(\mathcal{N}^\perp)^0 \supset \mathcal{N}$. If $X$ is reflexive, $(\mathcal{N}^\perp)^0 = \mathcal{N}$.
+\item Let $\pi : X \rightarrow X/\mathcal{M}$ be the natural projection, and define $\alpha : (X/\mathcal{M})^* \rightarrow X^*$ by $\alpha(f) = f \circ \pi$. Then $\alpha$ is an isometric isomorphism from $(X/\mathcal{M})^*$ onto $\mathcal{M}^0$, where $X/\mathcal{M}$ has the quotient norm.
+\item Define $\beta : X^* \rightarrow \mathcal{M}^*$ by $\beta(f) = f|_\mathcal{M}$; then $\beta$ induces a map $\overline{\beta} : X^*/\mathcal{M}^0 \rightarrow \mathcal{M}^*$ as in Exercise 15, and $\overline{\beta}$ is an isometric isomorphism.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item These are trivially subspacess. 
+            If $f_n\in\mM^0$ converge to $f$ then by \hyperref[prob:5-4]{Problem 5.4}, for any $x\in\mM$ we have $f(x)=\lim_nf_n(x)=0$ proving this to be closed. 
+            Now, as $f^{-1}( \qty{0})$ is always closed for $f\in X^*$ we see that
+            \[
+                \mN^\perp=\bigcap_{f\in\mN}f^{-1}( \qty{0})
+            \]
+            is also closed being an arbitrary intersection of closed sets. 
+        \item If $x\in\mM$ and $f\in\mM^0$ then $f(x)=0$ so $x\in(\mM^0)^\perp$ so $\mM \subseteq(\mM^0)^\perp$. 
+            If $x\in(\mM^0)^\perp$ then $f\in X^*$ being zero on $\mM$ makes it zero at $x.$ 
+            Now, by Theorem 5.8a we can find, for $x\in X\setminus\mM$, linear functionals $f\in\mM^0$ such that $f(x)\neq 0$ so $\mM^c \subseteq((\mM^0)^\perp)^c\implies\mM \supseteq(\mM^0)^\perp$ so we have set equality. 
+            If $f\in\mN$ then as $\mN^\perp \subseteq\ker(f)$ we have $f\in(\mN^\perp)^0$ so $\mN \subseteq(\mN^\perp)^0.$ 
+        \item We see that by definition $\alpha=\pi^\da\in L((X/\mM)^*,X^*)$ and it is injective as $\pi$ is surjective (and hence has its range is obviously dense in $X/\mM$) so its an isomorphism on its range. 
+            If $x\in\mM$ then $\alpha(f)(x)=f(\pi(x))=f(0+\mM)=0$ so $\alpha$'s range is a subset of $\mM^0$ and if $f\in\mM^0$ then just as in \hyperref[prob:5-15]{Problem 5.15} it induces an unique $S\in(X/\mM)^*$ as $S(x+\mM)=f(x)$ and thus $S\circ\pi=f$ (continuity follows with the same arguement as in the linked problem) showing surjectivity. 
+            So we have proved that this is an isomorphism onto $\mM^0.$ 
+            To show that this is an isometry it suffices to notice that we can follow the exact steps (the closed subspace $\mM$ replaces  $\mN(T)$ there) as in the linked problem to show that $\|f\circ\pi\|=\|f\|$ for all such $f\in(X/\mM)^*$. 
+        \item As $\ker\beta=\mM^0$ we have an induced continuous linear map $ \overline{\beta}:X^*/\mM^0\to\mM^*$ as in \hyperref[prob:5-15]{Problem 5.15}. 
+            Given any $g\in\mM^*$ we can use hahn banach with the seminorm $x\mapsto\|g\|\|x\|$ to get $f\in X^*$ such that $f|_{\mM}=g$ and thus, $\beta(f)=g$ so $\beta$ is surjective and thus so is $ \overline{\beta}$ by construction. 
+            Here, $\| \overline{\beta}(f+\mM^0)\|=\|f|_{\mM}\|$ and we claim that $\|f|_{\mM}\|=\|f+\mM^0\|.$ 
+            If $g\in\mM^0$ then $\|f|_\mM\|=\|(f+g)|_{\mM}\|\leq\|f+g\|$ where the second inequality holds as in the last term the supremum is taken over a larger set and thus $\|f|_{\mM}\|\leq\|f+\mM^0\|.$ 
+            Now, as we did to show surjectivity we can construct $F\in X^*$ with $F|_\mM=f|_\mM$ such that $|F(x)|\leq\|f_\mM|\|x\|$ so $\|F\|\leq\|f_\mM|$ and as $F-f\in\mM^0$ by construction, we have $\|f+\mM^0\|\leq\|f+(F-f)\|\leq\|f|_\mM\|$ so it is indeed an isometry. 
+            As its an isometry, its injective and thus its a bijection all in all as well as being an isomorphism due to isometry again. 
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-24}
 Suppose that $X$ is a Banach space.
-\begin{enumerate}
-\item[(a)] Let $\hat{X}$, $\widehat{(X^*)}$ be the natural images of $X$, $X^*$ in $X^{}$, $X^{***}$, and let $\hat{X}^0 = \{F \in X^{***} : F|_{\hat{X}} = 0\}$. Then $\widehat{(X^*)} \cap \hat{X}^0 = \{0\}$ and $\widehat{(X^*)} + \hat{X}^0 = X^{***}$.
-\item[(b)] $X$ is reflexive iff $X^*$ is reflexive.
+\begin{enumerate}[label=\alph*.]
+\item Let $\hh{X}$, $\widehat{(X^*)}$ be the natural images of $X$, $X^*$ in $X^{**}$, $X^{***}$, and let $\hh{X}^0 = \{F \in X^{***} : F|_{\hh{X}} = 0\}$. Then $\widehat{(X^*)} \cap \hh{X}^0 = \{0\}$ and $\widehat{(X^*)} + \hh{X}^0 = X^{***}$.
+\item $X$ is reflexive iff $X^*$ is reflexive.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item If $F\in\hh{X}^0\cap\hh{(X^*)}$, say $F=\hh{f}$ for $f\in X^*$, then for all $\hh{x}\in\hh{X},\hh{f}(\hh{x})=\hh{x}(f)=f(x)=0$ so $f=0$ and we have $\hat{f}=F=0$ so $\hh{(X^*)}\cap\hh{X}^0= \qty{0}.$ 
+            Now, for $\psi\in X^{***}$ consider $\phi=\psi|_{\hh{X}}$, here we see that $\hh{x}\mapsto\phi(\hh{x})$ corresponds to $\phi_*\in X^*$ defined by $\phi_*(x):=\phi(\hh{x})$ and we find that $\phi=\hh{\phi_*}|_{\hh{X}}$ as $\hh{\phi_*}(\hh{x})=\hh{x}(\phi_*)=\phi_*(x)=\phi(\hh{x})$. 
+            It is clear that $\psi-\hh{\phi_*}\in\hh{X}^0$ so we are done. 
+        \item If $X$ is reflexive then $\hh{X}=X^{**}$ so $\hh{X}^0=(X^{**})^0= \qty{0}$ and by part (a), $\hh{(X^*)}=X^{***}$ so $X^*$ is reflexive. 
+            Conversely if $X^*$ is reflexive then $\hh{(X^*)}=X^{***}$ and by part (a) this forcrs $\hh{X}^0= \qty{0}$. 
+            As $X$ is a banach space, $\hh{X}$ is a closed subset of $X^{**}$ and if it was a strict subset then by Theorem 5.8a we could find a nonzero functional that was zero on it, but this is not the case as $\hh{X}^0=\qty{0}$ so it must be all of $X^{**}$ proving reflexivity for $X$ and we are done. 
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-25}
 If $X$ is a Banach space and $X^*$ is separable, then $X$ is separable. (Let $\{f_n\}_{1}^{\infty}$ be a countable dense subset of $X^*$. For each $n$ choose $x_n \in X$ with $\|x_n\| = 1$ and $|f_n(x_n)| \ge \frac{1}{2}\|f_n\|$. Then the linear combinations of $\{x_n\}_{1}^{\infty}$ are dense in $X$.) Note: Separability of $X$ does not imply separability of $X^*$.
 \end{problem}
+\begin{solution}
+    $\bK$ always has a seperable subfield ($\bQ$ or $\bQ+i\bQ$) and it can be easily shown that the closure of the linear combinations of $ \qty{x_n}_1^\infty$ over $\bK$ is the same as that over this seperable subfield and as the span of countably many vectors over a countable field is countable (this follows via basic set theoretic arguements) we would be done if we prove the claim in the hint. 
+    If the closure of the span was a strict subspace (it is a subspace by \hyperref[prob:5-5]{Problem 5.5}) then we could find $f\in X^*$ such that $f\neq 0$ but $f$ is zero on the closure. 
+    If $\|f-f_n\|\leq\epsilon$ then $\ep>|(f_n-f)(x_n)|=|f_n(x_n)|\geq\|f_n\|/2$ and thus, $\|f\|\leq\|f_n\|+\|f-f_n\|\leq 2\epsilon+\epsilon$. 
+    By density, this contraidcts the fact that $f\neq 0$ so we get a contradiction and hence the span was dense to begin with. 
+\end{solution}
 
 \begin{problem}\label{prob:5-26}
 Let $X$ be a real vector space and let $P$ be a subset of $X$ such that (i) if $x,y \in P$, then $x+y \in P$, (ii) if $x \in P$ and $\lambda \ge 0$, then $\lambda x \in P$ (iii) if $x \in P$ and $-x \in P$, then $x=0$. (Example: If $X$ is a space of real-valued functions, $P$ can be the set of nonnegative functions in $X$.)
-\begin{enumerate}
-\item[(a)] The relation $\le$ defined by $x \le y$ iff $y-x \in P$ is a partial ordering on $X$.
-\item[(b)] (The Krein Extension Theorem) Suppose that $\mathcal{M}$ is a subspace of $X$ such that for each $x \in X$ there exists $y \in \mathcal{M}$ with $x \le y$. If $f$ is a linear functional on $\mathcal{M}$ such that $f(x) \ge 0$ for $x \in \mathcal{M} \cap P$, there is a linear functional $F$ on $X$ such that $F(x) \ge 0$ for $x \in P$ and $F|_\mathcal{M} = f$. (Consider $p(x) = \inf\{f(y) : y \in \mathcal{M} \text{ and } x \le y\}$.)
+\begin{enumerate}[label=\alph*.]
+\item The relation $\le$ defined by $x \le y$ iff $y-x \in P$ is a partial ordering on $X$.
+\item (The Krein Extension Theorem) Suppose that $\mathcal{M}$ is a subspace of $X$ such that for each $x \in X$ there exists $y \in \mathcal{M}$ with $x \le y$. If $f$ is a linear functional on $\mathcal{M}$ such that $f(x) \ge 0$ for $x \in \mathcal{M} \cap P$, there is a linear functional $F$ on $X$ such that $F(x) \ge 0$ for $x \in P$ and $F|_\mathcal{M} = f$. (Consider $p(x) = \inf\{f(y) : y \in \mathcal{M} \text{ and } x \le y\}$.)
 \end{enumerate}
 \end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item $P$ is what we usually call a \textit{cone}, this is trivially a partial order. 
+        \item For $x,y\in X$ suppose $x_n,y_n\in\mM$ such that $x_n\geq x,y_n\geq y$ and $f(x_n)\to p(x),f(y_n)\to p(y)$ then $x_n+y_n\geq x+y$ as $(x_n-x),(y_n-y)\in P$ and $x_n+y_n\in\mM$ thus $p(x+y)\leq f(x_n+y_n)=f(x_n)+f(y_n)\to p(x)+p(y)$ and clearly $p(\lambda x)=\lambda p(x)$ for $\lambda\geq 0$ stemming from the fact that $x\in P\iff\lambda x\in P$ for $\lambda>0$. 
+            This shows $p$ to be a sublinear functional. 
+            For $x\in\mM$ and $y\in\mM$ such that $x\leq y$ we have $f(x)=f(y)-f(y-x)$ where $y-x\in P\cap\mM$ so $f(x)\leq f(y)$ as $f(y-x)\geq 0$ proving $f(x)\leq p(x)$. 
+            Now, we can use hanh banach to extend $f$ to $F$ such that $F|_{\mM}=f$ and $F\leq p$. 
+            If $x\in P$ then we have $F(x)=-F(-x)\geq-p(-x)$ so it suffices to show that $p(-x)\leq 0$. 
+            As $0-(-x)=x\in P$ we have $-x\leq 0$ and as $0\in\mM$, by definition $p(-x)\leq f(0)=0$ so we are done. 
+    \end{enumerate}    
+\end{solution}
 
 \begin{problem}\label{prob:5-27}
 There exist meager subsets of $\mathbf{R}$ whose complements have Lebesgue measure zero.
@@ -611,9 +712,9 @@ A vector subspace of a normed vector space $X$ is norm-closed iff it is weakly c
 Let $X$ be a Banach space and let $f_1,\dots,f_n$ be linearly independent elements of $X^*$.
 \begin{enumerate}
 \item[(a)] Define $T : X \rightarrow \mathbf{C}^n$ by $Tx = (f_1(x),\dots,f_n(x))$. If $\mathcal{N} = \{x : Tx = 0\}$ and $\mathcal{M}$ is the linear span of $f_1,\dots,f_n$, then $\mathcal{M} = \mathcal{N}^0$ in the notation of Exercise 23 and hence $\mathcal{M}^*$ is isomorphic to $(X/\mathcal{N})^*$.
-\item[(b)] If $F \in X^{}$, for any $\epsilon > 0$ there exists $x \in X$ such that $F(f_j) = f_j(x)$ for $j=1,\dots,n$ and $\|x\| \le (1+\epsilon)\|F\|$. ($F|_\mathcal{M}$ can be identified with an element of $(X/\mathcal{N})^{}$ and hence with an element of $X/\mathcal{N}$ since the latter is finite-dimensional.)
-\item[(c)] If $X$ is considered as a subspace of $X^{}$, the relative topology on $X$ induced by the weak* topology on $X^{}$ is the weak topology on $X$.
-\item[(d)] In the weak* topology on $X^{}$, $X$ is dense in $X^{}$ and the closed unit ball in $X$ is dense in the closed unit ball in $X^{}$.
+\item[(b)] If $F \in X^{**}$, for any $\epsilon > 0$ there exists $x \in X$ such that $F(f_j) = f_j(x)$ for $j=1,\dots,n$ and $\|x\| \le (1+\epsilon)\|F\|$. ($F|_\mathcal{M}$ can be identified with an element of $(X/\mathcal{N})^{**}$ and hence with an element of $X/\mathcal{N}$ since the latter is finite-dimensional.)
+\item[(c)] If $X$ is considered as a subspace of $X^{**}$, the relative topology on $X$ induced by the weak* topology on $X^{**}$ is the weak topology on $X$.
+\item[(d)] In the weak* topology on $X^{**}$, $X$ is dense in $X^{**}$ and the closed unit ball in $X$ is dense in the closed unit ball in $X^{**}$.
 \item[(e)] $X$ is reflexive iff its closed unit ball is weakly compact.
 \end{enumerate}
 \end{problem}
@@ -652,7 +753,7 @@ If $E$ is a subset of a Hilbert space $\mathcal{H}$, $(E^\perp)^\perp$ is the sm
 Suppose that $\mathcal{H}$ is a Hilbert space and $T \in L(\mathcal{H},\mathcal{H})$.
 \begin{enumerate}
 \item[(a)] There is a unique $T^* \in L(\mathcal{H},\mathcal{H})$, called the adjoint of $T$, such that $\langle Tx,y \rangle = \langle x,T^*y \rangle$ for all $x,y \in \mathcal{H}$. (Cf. Exercise 22. We have $T^* = V^{-1}T^\dagger V$ where $V$ is the conjugate-linear isomorphism from $\mathcal{H}$ to $\mathcal{H}^*$ in Theorem 5.25, $(Vy)(x) = \langle x,y \rangle$.)
-\item[(b)] $\|T^*\| = \|T\|$, $\|T^*T\| = \|T\|^2$, $(aS+bT)^* = \overline{a}S^* + \overline{b}T^*$, $(ST)^* = T^*S^*$, and $T^{} = T$.
+\item[(b)] $\|T^*\| = \|T\|$, $\|T^*T\| = \|T\|^2$, $(aS+bT)^* = \overline{a}S^* + \overline{b}T^*$, $(ST)^* = T^*S^*$, and $T^{**} = T$.
 \item[(c)] Let $\mathcal{R}$ and $\mathcal{N}$ denote range and nullspace; then $\mathcal{R}(T)^\perp = \mathcal{N}(T^*)$ and $\mathcal{N}(T)^\perp = \mathcal{R}(T^*)$.
 \item[(d)] $T$ is unitary iff $T$ is invertible and $T^{-1} = T^*$.
 \end{enumerate}
