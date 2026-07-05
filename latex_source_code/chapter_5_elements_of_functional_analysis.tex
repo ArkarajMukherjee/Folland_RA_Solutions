@@ -572,90 +572,221 @@ Let $X$ be a real vector space and let $P$ be a subset of $X$ such that (i) if $
 \begin{problem}\label{prob:5-27}
 There exist meager subsets of $\mathbf{R}$ whose complements have Lebesgue measure zero.
 \end{problem}
-
+\begin{solution}
+We can find fat cantor sets $K_n \subseteq[0,1]$ that are dense nowhere but have lebesgue measure atleast $1-1/n$, then consider 
+\[
+    K=\bigcup_{n\in\bZ}\qty(n+\bigcup_{m\in\bN}K_m)
+\]
+This is clearly meager and for all $[n,n+1]$ we have $\mu(K\cap[n,n+1])\geq\mu(\cup_{m\in\bN} K_m)\geq1-1/m$ for all $m$ implying $\mu(K\cap[n,n+1])=1$ so, $\mu(K^c\cap[n,n+1])=0$ and $\mu(K^c)=\sum_1^\infty\mu(K^c\cap[n,n+1])=0$ provivng the claim. 
+\end{solution}
 \begin{problem}\label{prob:5-28}
 The Baire category theorem remains true if $X$ is assumed to be an LCH space rather than a complete metric space. (The proof is similar; the substitute for completeness is Proposition 4.21.)
 \end{problem}
-
+\begin{solution}
+For any $x\in X$, any open nbhd $W$ of $x$ will have nonempty intersection with $U_1$ and by proposition 4.30 we can choose a compact neighbourhood $K_1$ of $x$ such that $K_1 \subseteq W\cap U_1.$ 
+As $K_1$ is a nbhd we can find an open nbhd $H$ of $x$ in $K_1$ and repeating the above arguement with $H$ replacing $W$ and $U_2$ replacing $U_1$ we can find a compact nbhd $K_2$ of $x$ such that $K_2 \subseteq H\cap U_2 \subseteq K_1 \subseteq U_1$ and we keep doing this to inductively construct a decreasing sequence of nonempty compact sets $ \qty{K_n}$ such that $K_n \subseteq U_n$. 
+Now, by proposition 4.21 (finite intersection property), as $K_1$ is compact and contains $K_n$ for all $n$, which in turn are also relatively compact in $K_1$ (this has been proved in the beginning of \hyperref[prob:4-49]{Problem 4.49}), we can say that $\cap_nK_n$ is nonempty and for any $p$ as such, it is contained in all $U_n$ and $p\in W$ and as $W$ was arbitrary we can say that $\cap U_n$ is dense. 
+For the other part it suffices to notice that if $F_n$ are nowhere dense sets then $( \overline{F_n})^c$ is dense and open so $\cap ( \overline{F_n})^c$ is nonempty by the previous proof, so $\cup F_n \subseteq\cup \overline{F_n} =(\cap (\overline{F_n})^c)^c$ is not all of $X.$ 
+\end{solution}
 \begin{problem}\label{prob:5-29}
-Let $Y = L^1(\mu)$ where $\mu$ is counting measure on $\mathbf{N}$, and let $X = \{f \in Y : \sum_{1}^{\infty} n|f(n)| < \infty\}$, equipped with the $L^1$ norm.
-\begin{enumerate}
-\item[(a)] $X$ is a proper dense subspace of $Y$; hence $X$ is not complete.
-\item[(b)] Define $T : X \rightarrow Y$ by $Tf(n) = n f(n)$. Then $T$ is closed but not bounded.
-\item[(c)] Let $S = T^{-1}$. Then $S : Y \rightarrow X$ is bounded and surjective but not open.
+Let $Y = L^1(\mu)$ where $\mu$ is counting measure on $\mathbb{N}$, and let $X = \{f \in Y : \sum_{1}^{\infty} n|f(n)| < \infty\}$, equipped with the $L^1$ norm.
+\begin{enumerate}[label=\alph*.]
+\item $X$ is a proper dense subspace of $Y$; hence $X$ is not complete.
+\item Define $T : X \rightarrow Y$ by $Tf(n) = n f(n)$. Then $T$ is closed but not bounded.
+\item Let $S = T^{-1}$. Then $S : Y \rightarrow X$ is bounded and surjective but not open.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item $f(n)=n^{-2}$ is in $Y$ but not $X$ so its indeed a proper subspace (the fact that it is a subspace is trivially shown.) 
+            If $f\in Y$, for any $\ep>0$ we can find $N$ such that $\|f\chi_{(N,\infty)}\|<\ep$, thus $f\chi_{[0,N]}\in X$ and $\|f-f\chi_{[0,N]}\|=\|f\chi_{(N,\infty)}\|<\ep$ proving density. 
+            As complete sets are also closed we see that this can't be complete as otherwise it would be all of $Y$ due to density, which we showed to be false at the start. 
+        \item Say $(f_m,Tf_m)\in\Gamma(T)$ converges in $X\times Y$ to say $(f,g)$, then as $f_m\to f$ in $L^1$ we have pointwise convergence as for all $n,|f_m(n)-f(n)|\leq\|f_m-f\|\to 0$ and similary for $Tf_m$, which converging pointwise implies $Tf_m\to Tf=g$. 
+            We also see that as $Tf_m\to Tf$ in $L^1$ with $Tf_m$ being $L^1, Tf$ is also $L^1$ so $f\in X$ (notice that $X=\{f\in Y:Tf\in Y\}) $and thus $(f,g)=(f,Tf)\in\Gamma(T)$ proving that it is closed. 
+            This is however not bounded because $\|T\chi_{\{n\}}\|=n=n\cdot\|\chi_{\{n\}}\|$ for all $n.$ 
+        \item Firstly, $T$ is clearly invertible (injectivity is clear and surjectivity follows from the definition of $Y$ easily.) 
+            $S$ being open would make $T$ continuous (equivalently, bounded) so it can't be, by the previous part. 
+            $S$ maps $f$ to $f\cdot(\text{Id})^{-1}$ and thus $|Sf|\leq|f|$ implying $\|Sf\|\leq\|f\|$ so its bounded. 
+            We have surjectivity as its a bijection already. 
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-30}
 Let $Y = C([0,1])$ and $X = C^1([0,1])$, both equipped with the uniform norm.
-\begin{enumerate}
-\item[(a)] $X$ is not complete.
-\item[(b)] The map $(d/dx) : X \rightarrow Y$ is closed (see Exercise 9) but not bounded.
+\begin{enumerate}[label=\alph*.]
+\item $X$ is not complete.
+\item The map $(d/dx) : X \rightarrow Y$ is closed (see Exercise 9) but not bounded.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item Non differentiable functions that are continuous on $[0,1]$ exist so $X$ is not complete by the stone-weirstrass approximation theorem (polynomials are differentiable.) 
+        \item It is not bounded as $(d/dx)\exp(nx)=n\cdot\exp(nx)$. 
+            This being closed follows directly from \hyperref[prob:5-9]{Problem 5.9} as $(f_n,f_n')$ converging in the product norm to $(f,g)$ implies pointwise convergence in the uniform norm too. 
+    \end{enumerate}
+    
+\end{solution}
 \begin{problem}\label{prob:5-31}
 Let $X, Y$ be Banach spaces and let $S : X \rightarrow Y$ be an unbounded linear map (for the existence of which, see \S5.6). Let $\Gamma(S)$ be the graph of $S$, a subspace of $X \times Y$.
-\begin{enumerate}
-\item[(a)] $\Gamma(S)$ is not complete.
-\item[(b)] Define $T : X \rightarrow \Gamma(S)$ by $Tx = (x,Sx)$. Then $T$ is closed but not bounded.
-\item[(c)] $T^{-1} : \Gamma(S) \rightarrow X$ is bounded and surjective but not open.
+\begin{enumerate}[label=\alph*.]
+\item $\Gamma(S)$ is not complete.
+\item Define $T : X \rightarrow \Gamma(S)$ by $Tx = (x,Sx)$. Then $T$ is closed but not bounded.
+\item $T^{-1} : \Gamma(S) \rightarrow X$ is bounded and surjective but not open.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+\begin{enumerate}[label=\alph*.]
+    \item Complete sets are closed and thus if this was complete then $T$ would be bounded by the closed graph theorem, thus is not complete. 
+    \item If $\|Sx\|\geq n\|x\|$ for $n\in\bN$ then $\|(Sx,x)\|=\|Sx\|\geq n\|x\|$ as $\|Sx\|\geq\|x\|$ so this is unbounded too. 
+        The maps $\pi_1:X\times\Gamma(S)\to X$ defined by $(x,(t,S(t))\mapsto x$ and $\pi_2$with the same domain and codomain mapping $(x,(t,S(t))$ to $t$ are both clearly continuous and as $X$ is hausdorff (being a metric space), by \hyperref[prob:4-16]{Problem 4.16} we see that $\Gamma(T)=\{p\in X\times\Gamma(S):\pi_1(p)=\pi_2(p)\}$ is closed (this can also be done by considering $\ker(\pi_1-\pi_2)$ with a bit more justification.) 
+    \item This maps $(x,Sx)$ to $x$ and as $\|(x,Sx)\|\geq\|x\|$, it is bounded. 
+        It is clearly surjective and if it was open then the open mapping theorem would imply boundedness of $T$ which is false. 
+\end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-32}
 Let $\|\cdot\|_1$ and $\|\cdot\|_2$ be norms on the vector space $X$ such that $\|\cdot\|_1 \le \|\cdot\|_2$. If $X$ is complete with respect to both norms, then the norms are equivalent.
 \end{problem}
-
+\begin{solution}
+    Consider the identity linear map from $X$ with norm $\|\cdot\|_1$ to $X$ with norm $\|\cdot\|_2$, this is clearly bounded by hypothesis (infact $\|\cdot\|_1\leq C\|\cdot\|_2$ would do as well) and by open mapping theorem, it is an isomorphism so we can find $K>0$ with $\|\cdot\|_1\geq K\|\cdot\|_2$ and we are done. 
+\end{solution}
 \begin{problem}\label{prob:5-33}
-There is no slowest rate of decay of the terms of an absolutely convergent series; that is, there is no sequence $\{a_n\}$ of positive numbers such that $\sum a_n |c_n| < \infty$ iff $\{c_n\}$ is bounded. (The set of bounded sequences is the space $B(\mathbf{N})$ of bounded functions on $\mathbf{N}$, and the set of absolutely summable sequences is $L^1(\mu)$ where $\mu$ is counting measure on $\mathbf{N}$. If such an $\{a_n\}$ exists, consider $T : B(\mathbf{N}) \rightarrow L^1(\mu)$ defined by $Tf(n) = a_n f(n)$. The set of $f$ such that $f(n)=0$ for all but finitely many $n$ is dense in $L^1(\mu)$ but not in $B(\mathbf{N})$.)
+There is no slowest rate of decay of the terms of an absolutely convergent series; that is, there is no sequence $\{a_n\}$ of positive numbers such that $\sum a_n |c_n| < \infty$ iff $\{c_n\}$ is bounded. (The set of bounded sequences is the space $B(\mathbb{N})$ of bounded functions on $\mathbb{N}$, and the set of absolutely summable sequences is $L^1(\mu)$ where $\mu$ is counting measure on $\mathbb{N}$. If such an $\{a_n\}$ exists, consider $T : B(\mathbb{N}) \rightarrow L^1(\mu)$ defined by $Tf(n) = a_n f(n)$. The set of $f$ such that $f(n)=0$ for all but finitely many $n$ is dense in $L^1(\mu)$ but not in $B(\mathbb{N})$.)
 \end{problem}
-
+\begin{solution}
+    Consider $B(\bN)$ with the uniform norm. 
+    If such a sequence did exist, then following the hint, $T$ is well defined. 
+    We also clearly see that $\|Tf\|\leq\|f\|\|T\mathbf{1}\|$ where $\mathbf{1}\in B(\bN)$ is identically $1$, proving continuity. 
+    As $a_n\neq 0$ this is an injection and for the same reason this is also a surjection (it follows from the fact that $L^1(\bN,\mu) \subseteq B(\bN)$) so by the open mapping theorem(Corollary 5.11 to be precise) we must have $T^{-1}$ be bounded. 
+    Let $C_0(\bN)$ be the set of functions that are zero on all but finitely many values. 
+    From the hint, with the norms in mind we see that $C_0(\bN)$ is dense in $L^1(\mu)$ but not in $B(\bN)$ but as $T^{-1}$ is a is a continuous bijectiion we must have $T^{-1}(C_0(\bN))$ dense in $B(\bN)$ but this is false as $T^{-1}$ only changes functions at each number by a fixed nonzero multiple so $T^{-1}(C_0(\bN))=C_0(\bN)$ and we have a contradiction. 
+\end{solution}
 \begin{problem}\label{prob:5-34}
 With reference to Exercises 9 and 10, show that the inclusion map of $L_k^1([0,1])$ into $C^{k-1}([0,1])$ is continuous (a) by using the closed graph theorem, and (b) by direct calculation. (This is to illustrate the use of the closed graph theorem as a labor-saving device.)
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item If $(f_n,f_n)$ converges to $(f,g)$ in $L_k^1\times C^{k-1}$ then we want to show that $f=g,$ after which closed graph theorem implies continuity. 
+            The components must converge too so we always have, by the definition of these norms, $f_n\to f$ in $L^1$ and $f_n\to g$ uniformly so $f_n\to g$ in $L^1$ too and thus $f=g$ a.e but as $f,g$ are continuous by inclusion in $C^{k-1} \supseteq L_k^1$, we have $f=g.$ 
+        \item This time we want to show that $\|f\|_{C^{k-1}}\leq C\|f\|_{L_k^1}$ for some $C>0.$
+            Infact $C=1$ works because for all $t,\int_0^1|f^{(j)}(x)\d x\geq\int_0^t|f^{(j)}(x)|\d x\geq|\int_0^tf^{(j)}(x)\d x|=|f^{(j-1)}(t)|$ where we use the fundamental theorem of calculus for $j=1,\ldots,k-1$ and absolute continuity for $j=k$. 
+            As this works for all $t,\sup_{x\in[0,1]}|f^{(j-1)}(x)|\leq\int_0^1|f^{(j)}(x)|\d x$ and thus, 
+            \[
+                \|f\|_{C^{k-1}}=\sum_{j=1}^k\sup_{x\in[0,1]}|f^{(j-1)}(x)|\leq\sum_{j=1}^k\int_0^1|f^{(j)}(x)|\d x\leq\sum_{j=0}^k\int_0^1|f^{(j)}(x)|\d x=\|f\|_{L_k^1}
+            \]
+            So we are done. 
+            We can confidently say that the closed graph theorem makes life easier. 
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-35}
 Let $X$ and $Y$ be Banach spaces, $T \in L(X,Y)$, $\mathcal{N}(T) = \{x : Tx = 0\}$, and $\mathcal{M} = \operatorname{range}(T)$. Then $X/\mathcal{N}(T)$ is isomorphic to $\mathcal{M}$ iff $\mathcal{M}$ is closed. (See Exercise 15.)
 \end{problem}
-
+\begin{solution}
+    If $\mM$ is closed then it is complete as $Y$ is complete and by \hyperref[prob:5-12]{Problem 5.12d} $X/\mN(T)$ is complete as the kernel is closed. 
+    Following the notation of \hyperref[prob:5-15]{Problem 5.15} we see that $T$ induces a map $S\in L(X/\mN(T),Y)$, if we look at this as a continuous linear map into $\mM$ then this is clearly bijective and by Corollary 5.11 it is an isomorphism. 
+    For the converse it suffices to prove that if $H$ is a banach space isomorphic to a normed vector space $K$ then $K$ is also a banach space. 
+    Indeed if these are isomorphic through $\phi$, for $k_n\in K$ such that $\sum_1^\infty\|k_n\|<\infty$ we see that $\sum_1^\infty\|\phi^{-1}k_n\|\leq\|\phi^{-1}\|\sum_1^\infty\|h_n\|<\infty$ so $\sum_1^\infty\phi^{-1}k_n$ converges, which implies, by continuity of $\phi$, convergence of $\sum_1^\infty k_n$ so by Theorem 5.1 we are done.  
+\end{solution}
 \begin{problem}\label{prob:5-36}
-Let $X$ be a separable Banach space and let $\mu$ be counting measure on $\mathbf{N}$. Suppose that $\{x_n\}_{1}^{\infty}$ is a countable dense subset of the unit ball of $X$, and define $T : L^1(\mu) \rightarrow X$ by $Tf = \sum_{1}^{\infty} f(n)x_n$.
-\begin{enumerate}
-\item[(a)] $T$ is bounded.
-\item[(b)] $T$ is surjective.
-\item[(c)] $X$ is isomorphic to a quotient space of $L^1(\mu)$. (Use Exercise 35.)
+Let $X$ be a separable Banach space and let $\mu$ be counting measure on $\mathbb{N}$. Suppose that $\{x_n\}_{1}^{\infty}$ is a countable dense subset of the unit ball of $X$, and define $T : L^1(\mu) \rightarrow X$ by $Tf = \sum_{1}^{\infty} f(n)x_n$.
+\begin{enumerate}[label=\alph*.]
+\item $T$ is bounded.
+\item $T$ is surjective.
+\item $X$ is isomorphic to a quotient space of $L^1(\mu)$. (Use Exercise 35.)
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item Linearity is trivially shown and as $x_n$ are in the unit ball we have $\|Tf\|\leq\sum_1^\infty|f(n)|\|x_n\|\leq\|f_n\|$ proving boundedness
+        \item For any $x\neq 0$ we can find $x_{n_1}$ such that $\|\|x\|\cdot x_{n_1}-x\|\leq 1/2$ by hypothesis and again we can find $x_{n_2}$ (it is possible to choose $n_2\neq n_1$ as omitting finitelyelements does not affect density) with $0\leq\alpha_2\leq 1/2$ such that $\|\alpha x_{n_2}+\|x\|\cdot x_{n_1}-x\|\leq 1/4$, we can keep going to have a sequence $\{n_k\} \subseteq\bN$ with unique terms and $\{\alpha_k\} \subseteq\bR$ with $\alpha_1=\|x\|$ and $0\leq\alpha_j\leq 2^{j-1}$ for $j\geq 2$ such that $\|x-\sum_1^j\alpha_j x_{n_j}\|\leq 2^{-j}$ and thus $\sum_1^\infty\alpha_jx_{n_j}=x.$ 
+            Now, let $f$ be defined as $f(n_j)=\alpha_j$ and $0$ otherwise, then it is clearly $L^1$ and $\sum_1^\infty f(n)x_n=x$ proving surjectivity. 
+        \item By Theorem 2.25, if $\sum_1^\infty\|f_n\|<\infty$ then $\sum f_n$ converges a.e. (here, this implies convergence everywhere as we work with a counting measure) to a function in $L^1(\mu)$ proving completeness of $L^1(\mu)$ by theorem 5.1. 
+            Now, as $T$ is surjective as shown above, by \hyperref[prob:5-35]{Problem 5.35} we must have $X$ isomorphic to $L^1(\mu)/\mN(T).$ 
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-37}
 Let $X$ and $Y$ be Banach spaces. If $T : X \rightarrow Y$ is a linear map such that $f \circ T \in X^*$ for every $f \in Y^*$, then $T$ is bounded.
 \end{problem}
-
+\begin{solution}
+   By the closed graph theorem, to prove continuity it suffices to show that if $x_n\to x$ and $Tx_n\to y$ then $y=Tx.$ 
+   By hypothesis we have $(f\circ T)(x_n)\to(f\circ T)(x)$ and $f(Tx_n)\to f(y)$ thus $f(y)=f(Tx)$ for all $f\in Y^*.$ 
+   By theorem 5.8c we know that bounded linear functionals seperate points and thus we must have $y=Tx$ so we are done. 
+\end{solution}
 \begin{problem}\label{prob:5-38}
 Let $X$ and $Y$ be Banach spaces, and let $\{T_n\}$ be a sequence in $L(X,Y)$ such that $\lim T_n x$ exists for every $x \in X$. Let $Tx = \lim T_n x$; then $T \in L(X,Y)$.
 \end{problem}
-
+\begin{solution}
+    By the uniform bounded principle, as $T_nx$ converges for each $x$, this sequence must be bounded and we have $\sup_{n\in\bN}\|T_nx\|<\infty$ so by the uniform boundedness princple $\sup_{n\in\bN}\|T_n\|<\infty$ and if we let this be $C$ then $\|Tx\|=\|\lim T_nx\|=\lim\|T_nx\|\leq\lim\|T_n\|\|x\|\leq C\|x\|$ by continuity of the norm so we are done. 
+\end{solution}
 \begin{problem}\label{prob:5-39}
 Let $X, Y, Z$ be Banach spaces and let $B : X \times Y \rightarrow Z$ be a separately continuous bilinear map; that is, $B(x,\cdot) \in L(Y,Z)$ for each $x \in X$ and $B(\cdot,y) \in L(X,Z)$ for each $y \in Y$. Then $B$ is jointly continuous, that is, continuous from $X \times Y$ to $Z$. (Reduce the problem to proving that $\|B(x,y)\| \le C\|x\|\|y\|$ for some $C > 0$.)
 \end{problem}
-
+\begin{solution}
+    As $\sup_{\|x\|\leq 1}\|B(x,y)\|=\|B(\cdot,y)\|<\infty$ for all $y$, by the uniform boundedness principle we have $\sup_{\|x\|\leq 1}\|B(x,\cdot)\|<\infty$. 
+    This implies that the linear map $x\mapsto B(x,\cdot)$ is bounded and thus we can find $C$ with $\|B(x,\cdot)\|\leq C\|x\|$ so 
+    \[
+        \|B(x,y)\|\leq\|B(x,\cdot)\|\|y\|\leq C\|x\|\|y\|.
+    \]
+    Continuity follows by the sequential criterion: if $(x_n,y_n)\to(x,y)$ then 
+    \[
+        \begin{aligned}
+        \|B(x_n,y_n)-B(x,y)\| &\leq \|B(x_n,y_n)-B(x_n,y)\|+\|B(x_n,y)-B(x,y)\| \\
+                              &\leq C(\|x_n\|\|y_n-y\|+\|x_n-x\|\|y\|)\longrightarrow 0
+        \end{aligned}
+    \]
+    so we are done. 
+\end{solution}
 \begin{problem}\label{prob:5-40}
-(The Principle of Condensation of Singularities) Let $X$ and $Y$ be Banach spaces and $\{T_{jk} : j,k \in \mathbf{N}\} \subset L(X,Y)$. Suppose that for each $k$ there exists $x \in X$ such that $\sup \{ \|T_{jk}x\| : j \in \mathbf{N}\} = \infty$. Then there is an $x$ (indeed, a residual set of $x$'s) such that $\sup \{ \|T_{jk}x\| : j \in \mathbf{N} \} = \infty$ for all $k$.
+(The Principle of Condensation of Singularities) Let $X$ and $Y$ be Banach spaces and $\{T_{jk} : j,k \in \mathbb{N}\} \subset L(X,Y)$. Suppose that for each $k$ there exists $x \in X$ such that $\sup \{ \|T_{jk}x\| : j \in \mathbb{N}\} = \infty$. Then there is an $x$ (indeed, a residual set of $x$'s) such that $\sup \{ \|T_{jk}x\| : j \in \mathbb{N} \} = \infty$ for all $k$.
 \end{problem}
-
+\begin{solution}
+    We will show that its complement
+    \[
+        \bigcup_{k\in\bN}\{x\in X:\sup_{j\in\bN}\|T_{jk}x\|<\infty\}
+    \]
+    is meager. 
+    If $\{x\in X:\sup_{j\in\bN}\|T_{jk}x\|<\infty\}$ is non meager then by the uniform boundedness principle we must have $\sup_{j\in\bN}\|T_{jk}\|<\infty$ which implies that for all $x\in X$ 
+    \[
+        \|T_{jk}x\|\leq\|x\|\sup_{j\in\bN}\|T_{jk}\|<\infty\quad\text{for all }j\in\bN
+    \]
+    which is a contradiction so these must be meager, let it be $\cup_{j\in\bN} E_j^{(k)}$ with $E_j^{(k)}$ all nowhere dense. 
+    Then, 
+    \[
+        \bigcup_{k\in\bN}\{x\in X:\sup_{j\in\bN}\|T_{jk}x\|<\infty\}=\bigcup_{k\in\bN}\bigcup_{j\in\bN}E_j^{(k)}=\bigcup_{(k,j)\in\bN^2}E_j^{(k)}
+    \]
+    which a countable union of nowhere dense sets, and thus its complement (which is the setwe care about) is residual. 
+\end{solution}
 \begin{problem}\label{prob:5-41}
 Let $X$ be a vector space of countably infinite dimension (that is, every element is a finite linear combination of members of a countably infinite linearly independent set). There is no norm on $X$ with respect to which $X$ is complete. (Given a norm on $X$, apply Exercise 18b and the Baire category theorem.)
 \end{problem}
-
+\begin{solution}
+    Say $\{x_n\}_1^\infty$ is a basis, let $E_k:=\span \qty{x_j:1\leq j\leq k}$, then $\cup E_k=X.$ 
+    If we manage to show that $E_k$ are all nowhere dense then we would have a contradictiondue to BCT and prove the claim. 
+    By \hyperref[prob:5-18]{Problem 5.18b} $E_k$ is closed for all $k$, for the sake of contradiction say $E_k$ is not nowhere dense and we can find some $x$ and $r>0$ with $B(x,r) \subseteq \overline{E_k}=E_k$ but then, as $E_k$ is closed under dilation we must have $E_k=X$ which contradicts infinite dimensionality of $X$ so we are done. 
+\end{solution}
 \begin{problem}\label{prob:5-42}
 Let $E_n$ be the set of all $f \in C([0,1])$ for which there exists $x_0 \in [0,1]$ (depending on $f$) such that $|f(x)-f(x_0)| \le n|x-x_0|$ for all $x \in [0,1]$.
-\begin{enumerate}
-\item[(a)] $E_n$ is nowhere dense in $C([0,1])$. (Any real $f \in C([0,1])$ can be uniformly approximated by a piecewise linear function $g$ whose linear pieces, finite in number, have slope $\pm 2n$. If $\|h-g\|_u$ is sufficiently small, then $h \notin E_n$.)
-\item[(b)] The set of nowhere differentiable functions is residual in $C([0,1])$.
+\begin{enumerate}[label=\alph*.]
+\item $E_n$ is nowhere dense in $C([0,1])$. (Any real $f \in C([0,1])$ can be uniformly approximated by a piecewise linear function $g$ whose linear pieces, finite in number, have slope $\pm 2n$. If $\|h-g\|_u$ is sufficiently small, then $h \notin E_n$.)
+\item The set of nowhere differentiable functions is residual in $C([0,1])$.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item If $f\in C([0,1])$ then it is uniformly continuous and bounded on $[0,1]$ from which we can easily construct such $g$ as in the hint by making the the intervals on which it is linear small enough (first approximate it with a piecewise linear function and then approximate this by functions in $g_n$.)  
+            Fix $g\in E_n$, and let the intervals on which its linear have length atleast $L>0$ (we can do this as there are finitely many such intervals by definition.) 
+            For all $x_0\in[0,1]$ we can look at the interval its in and conclude that atleast one of the endpoints of this interval is atleast $L/2$ away from $x_0$, let it be $x$ (thus $|x-x_0|\geq L/2)$. 
+            If we have $\|h-g\|_u<L/4$ then by construction we must have $|h(x)-h(x_0)|>|g(x)-g(x_0)|-2(L/4)\geq 2n|x-x_0|-|x-x_0|>n|x-x_0|$ and as $x_0$ was arbitrary we must have $h\notin E_n.$ 
+            For any $f\in C([0,1])$ and $\ep>0$ we can find such a $g\in B(f,\ep)$ and there will exist $\ep_*>0$ such that $B(g,\ep_*) \subseteq E_n^c$ so $g\notin\overline{E_n}$ implying $B(f,\epsilon) \subsetneq( \overline{E_n})^\circ$ and thus $E_n$ is nowhere dense in $C([0,1]).$ 
+        \item The complement of the set of nowhewre differntiable functions (call it $S$) contains functions that are differentiable somewhere, say $x_0$ then we can find some $\delta>0$ such that 
+            \[
+                \sup_{x\in[0,1]\cap B(x_0,\delta)}\left| \frac{f(x)-f(x_0)}{x-x_0}\right|\leq 1
+            \]
+            as the limit of this expression as $x\to x_0$ (from inside $[0,1]$) exists and is thus bounded near $x_0.$ 
+            We also see that $k(x):=|f(x)-f(x_0)|/|x-x_0|$ is a continuous function on the compact set $[0,1]\setminus B(x_0,\delta)$ and has a supremum, let it be $M.$ 
+            Then, by construction $f\in E_n$ if $n\geq\max\{M,1\}.$ 
+            Thus, $S^c\subseteq \cup E_n$ and we can write $S^c=\cup(E_n\cap S^c)$ and as $E_n\cap S$ are nowhere dense too, $S^c$ is meager and $S$ residual so we are done. 
+            
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-43}
 Prove Proposition 5.16. (For part (b), proceed as in Exercise 56d in \S4.5.)
 \end{problem}
@@ -665,7 +796,7 @@ If $X$ is a first countable topological vector space and every Cauchy sequence i
 \end{problem}
 
 \begin{problem}\label{prob:5-45}
-The space $C^\infty(\mathbf{R})$ of all infinitely differentiable functions on $\mathbf{R}$ has a Fr'{e}chet space topology with respect to which $f_n \rightarrow f$ iff $f_n^{(k)} \rightarrow f^{(k)}$ uniformly on compact sets for all $k \ge 0$.
+The space $C^\infty(\mathbb{R})$ of all infinitely differentiable functions on $\mathbb{R}$ has a Fr'{e}chet space topology with respect to which $f_n \rightarrow f$ iff $f_n^{(k)} \rightarrow f^{(k)}$ uniformly on compact sets for all $k \ge 0$.
 \end{problem}
 
 \begin{problem}\label{prob:5-46}
@@ -711,7 +842,7 @@ A vector subspace of a normed vector space $X$ is norm-closed iff it is weakly c
 \begin{problem}\label{prob:5-52}
 Let $X$ be a Banach space and let $f_1,\dots,f_n$ be linearly independent elements of $X^*$.
 \begin{enumerate}
-\item[(a)] Define $T : X \rightarrow \mathbf{C}^n$ by $Tx = (f_1(x),\dots,f_n(x))$. If $\mathcal{N} = \{x : Tx = 0\}$ and $\mathcal{M}$ is the linear span of $f_1,\dots,f_n$, then $\mathcal{M} = \mathcal{N}^0$ in the notation of Exercise 23 and hence $\mathcal{M}^*$ is isomorphic to $(X/\mathcal{N})^*$.
+\item[(a)] Define $T : X \rightarrow \mathbb{C}^n$ by $Tx = (f_1(x),\dots,f_n(x))$. If $\mathcal{N} = \{x : Tx = 0\}$ and $\mathcal{M}$ is the linear span of $f_1,\dots,f_n$, then $\mathcal{M} = \mathcal{N}^0$ in the notation of Exercise 23 and hence $\mathcal{M}^*$ is isomorphic to $(X/\mathcal{N})^*$.
 \item[(b)] If $F \in X^{**}$, for any $\epsilon > 0$ there exists $x \in X$ such that $F(f_j) = f_j(x)$ for $j=1,\dots,n$ and $\|x\| \le (1+\epsilon)\|F\|$. ($F|_\mathcal{M}$ can be identified with an element of $(X/\mathcal{N})^{**}$ and hence with an element of $X/\mathcal{N}$ since the latter is finite-dimensional.)
 \item[(c)] If $X$ is considered as a subspace of $X^{**}$, the relative topology on $X$ induced by the weak* topology on $X^{**}$ is the weak topology on $X$.
 \item[(d)] In the weak* topology on $X^{**}$, $X$ is dense in $X^{**}$ and the closed unit ball in $X$ is dense in the closed unit ball in $X^{**}$.
@@ -786,8 +917,8 @@ In this exercise the measure defining the $L^2$ spaces is Lebesgue measure.
 \item[(a)] $C([0,1])$ is dense in $L^2([0,1])$. (Adapt the proof of Theorem 2.26.)
 \item[(b)] The set of polynomials is dense in $L^2([0,1])$.
 \item[(c)] $L^2([0,1])$ is separable.
-\item[(d)] $L^2(\mathbf{R})$ is separable. (Use Exercise 60.)
-\item[(e)] $L^2(\mathbf{R}^n)$ is separable. (Use Exercise 61.)
+\item[(d)] $L^2(\mathbb{R})$ is separable. (Use Exercise 60.)
+\item[(e)] $L^2(\mathbb{R}^n)$ is separable. (Use Exercise 61.)
 \end{enumerate}
 \end{problem}
 
@@ -802,8 +933,8 @@ Let $\mathcal{H}$ be an infinite-dimensional Hilbert space.
 \begin{problem}\label{prob:5-64}
 Let $\mathcal{H}$ be a separable infinite-dimensional Hilbert space with orthonormal basis $\{u_n\}_{1}^{\infty}$.
 \begin{enumerate}
-\item[(a)] For $k \in \mathbf{N}$, define $L_k \in L(\mathcal{H},\mathcal{H})$ by $L_k(\sum_{1}^{\infty} a_n u_n) = \sum_{k+1}^{\infty} a_n u_{n-k}$. Then $L_k \rightarrow 0$ in the strong operator topology but not in the norm topology.
-\item[(b)] For $k \in \mathbf{N}$, define $R_k \in L(\mathcal{H},\mathcal{H})$ by $R_k(\sum_{1}^{\infty} a_n u_n) = \sum_{1}^{\infty} a_n u_{n+k}$. Then $R_k \rightarrow 0$ in the weak operator topology but not in the strong operator topology.
+\item[(a)] For $k \in \mathbb{N}$, define $L_k \in L(\mathcal{H},\mathcal{H})$ by $L_k(\sum_{1}^{\infty} a_n u_n) = \sum_{k+1}^{\infty} a_n u_{n-k}$. Then $L_k \rightarrow 0$ in the strong operator topology but not in the norm topology.
+\item[(b)] For $k \in \mathbb{N}$, define $R_k \in L(\mathcal{H},\mathcal{H})$ by $R_k(\sum_{1}^{\infty} a_n u_n) = \sum_{1}^{\infty} a_n u_{n+k}$. Then $R_k \rightarrow 0$ in the weak operator topology but not in the strong operator topology.
 \item[(c)] $R_k L_k \rightarrow 0$ in the strong operator topology, but $L_k R_k = I$ for all $k$. (Use Exercise 53b.)
 \end{enumerate}
 \end{problem}
