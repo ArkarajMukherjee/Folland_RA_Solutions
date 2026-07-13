@@ -20,10 +20,10 @@ Chapter 3. Signed Measures and Differentiation [Finished]
 Chapter 4. Point Set Topology [Finished, except problem 23]
 
 
-Chapter 5. Elements of Functional Analysis [Ongoing]
+Chapter 5. Elements of Functional Analysis [Finished]
 
 
-Chapter 6. L^p spaces [Starting soon]
+Chapter 6. L^p spaces [Ongoing]
 
 
 Chapter 7. Radon Measures [Starting soon]
