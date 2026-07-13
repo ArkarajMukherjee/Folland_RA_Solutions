@@ -980,107 +980,328 @@ Suppose that $X$ is a Banach space and $\{T_n\}$, $\{S_n\}$ are sequences in $L(
     \begin{enumerate}[label=\alph*.]
         \item By the mentioned problem in the hint, let $C=\sup_n\|T_n\|<\infty$, then  
             \[
-                \|T_nx_n-Tx\|\leq\|\|T_nx_n-T_nx\|+\|T_nx-Tx\|\leq C\|x_n-x\|+\|T_nx-tx\|\to 0
+                \|T_nx_n-Tx\|\leq\|\|T_nx_n-T_nx\|+\|T_nx-Tx\|\leq C\|x_n-x\|+\|T_nx-Tx\|\to 0
             \]
         \item As $T_n\to T$ strongly, for all $x$ we have $T_nx\to Tx$ and by part (a) we see that $S_n(T_nx)\to S(Tx)$ implying $S_nT_n\to ST$ strongly. 
     \end{enumerate}
-    
 \end{solution}
-
 \begin{problem}\label{prob:5-54}
 For any nonempty set $A$, $l^2(A)$ is complete.
 \end{problem}
-
+\begin{solution}
+    We treat $l^2(A)$ as $L^2(A,\mathcal P(A),\mu)$ where $\mu$ is the counting measure. 
+    For $\{f_n\} \subseteq l^2(A)$, suppose we have $\sum_n\|f_n\|<\infty$, then $|f_n|\leq\|f_n\|$ and we can thus define $f=\sum f_n$ by completeness of $\bK.$ 
+    Let $F_N:=\sum_{k\leq N}|f_k|$, then $F_n\to F=\sum|f_k|$ pointwise and by MCT $\int|F|^2=\lim\int|F_n|^2=\lim\|F_n\|^2$ and $\|F_n\|\leq\sum_n\|f_n\|$ is bounded by hypothesis so $|F|^2$ is $L^1$. 
+    Let $S_n=\sum_{k\leq n}f_n$, then $|f-S_n|\leq F\implies |f-S_n|^2\leq|F|^2$ so we can use DCT and conclude that, 
+    \[
+        \|f-S_n\|^2=\int\qty|f-S_n|^2\longrightarrow 0
+    \]
+    as $|S_n-f|\to 0$ pointwise, proving completeness (If $\|S_N-f\|<\epsilon$ then $\|f\|\leq\|S_N\|+\|f-S_n\|<\|S_N\|+\epsilon<\infty$ given $S_n\in L^2$ as this has vector space structure, so $f\in L^2$ too.) 
+\end{solution}
 \begin{problem}\label{prob:5-55}
 Let $\mathcal{H}$ be a Hilbert space.
-\begin{enumerate}
-\item[(a)] (The polarization identity) For any $x,y \in \mathcal{H}$,
-
-
+\begin{enumerate}[label=\alph*.]
+\item (The polarization identity) For any $x,y \in \mathcal{H}$,
 $$\langle x,y \rangle = \frac{1}{4} (\|x+y\|^2 - \|x-y\|^2 + i\|x+iy\|^2 - i\|x-iy\|^2).$$
-
-
 (Completeness is not needed here.)
-\item[(b)] If $\mathcal{H}^\prime$ is another Hilbert space, a linear map from $\mathcal{H}$ to $\mathcal{H}^\prime$ is unitary iff it is isometric and surjective.
+\item If $\mathcal{H}^\prime$ is another Hilbert space, a linear map from $\mathcal{H}$ to $\mathcal{H}^\prime$ is unitary iff it is isometric and surjective.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item Let $\zeta:=\exp(2\pi i/4)$, then four times our sum is 
+            \[
+                \sum_{k=0}^3\zeta^k\|x+\zeta^ky\|^2=\sum_{k=0}^3\zeta^k\|x\|^2+\sum_{k=0}^3\zeta^k\qty(\ipp{x,\zeta^ky}+\ipp{\zeta^ky,x})+\sum_{k=0}^3\zeta^k\|\zeta^ky\|^2 
+            \]
+            The left and right sums are zero as $\sum_0^3\zeta^k=0$ expanding the middle sum 
+            \[
+                \sum_{k=0}^3\zeta^k \overline{\zeta^k}\ipp{x,y}+\sum_{k=0}^3\zeta^k\zeta^k\ipp{y,x}=4\ipp{x,y}
+            \]
+            as $\sum_{k=0}^3\zeta^{2k}=0$, this can be checked manually given that $\zeta^{4+j}=\zeta^j$ but a more succint reason for this is the fact that $(k\mapsto n\cdot k)\in\operatorname{Aut}((\bZ/m\bZ)^{\cross})$ for $n$ coprime to $m.$  
+        \item If $U:\mH\to\mH'$ is a unitary then it is an isometry as $\|Ux\|=\langle Ux,Ux\rangle=\langle x,x\rangle=\|x\|$ and surjective as it is invertible by definition. 
+            Conversely, by the polarisation identity in part (a) and isometry we have 
+            \[
+                \ipp{Ux,Uy}= \frac{1}{4}\sum_{k=0}^3\zeta^k\underbrace{\|Ux+\zeta^kUy\|^2}_{=\|U(x+\zeta^k y)\|^2}= \frac{1}{4}\sum_{k=0}^3\zeta^k\|x+\zeta^ky\|=\ipp{x,y}
+            \]
+            so it is an isometry and hence injective, as surjectivity is assumed, it is thus invertible and hence a unitary.   
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-56}
 If $E$ is a subset of a Hilbert space $\mathcal{H}$, $(E^\perp)^\perp$ is the smallest closed subspace of $\mathcal{H}$ containing $E$.
 \end{problem}
-
+\begin{solution}
+    If $F$ is a closed subspace containing $E$ then $E^\perp \supseteq F^\perp\implies (E^\perp)^\perp \subseteq(F^\perp)^\perp$ and as we have $\mH=F\oplus F^\perp$ it can be easily shown that $F=(F^\perp)^\perp$ just as we would in the finite dimensional case so $(E^\perp)^\perp \subseteq F.$ 
+    As $(E^\perp)^\perp$ is itself also a closed subspace the claim is proven. 
+\end{solution}
 \begin{problem}\label{prob:5-57}
 Suppose that $\mathcal{H}$ is a Hilbert space and $T \in L(\mathcal{H},\mathcal{H})$.
-\begin{enumerate}
-\item[(a)] There is a unique $T^* \in L(\mathcal{H},\mathcal{H})$, called the adjoint of $T$, such that $\langle Tx,y \rangle = \langle x,T^*y \rangle$ for all $x,y \in \mathcal{H}$. (Cf. Exercise 22. We have $T^* = V^{-1}T^\dagger V$ where $V$ is the conjugate-linear isomorphism from $\mathcal{H}$ to $\mathcal{H}^*$ in Theorem 5.25, $(Vy)(x) = \langle x,y \rangle$.)
-\item[(b)] $\|T^*\| = \|T\|$, $\|T^*T\| = \|T\|^2$, $(aS+bT)^* = \overline{a}S^* + \overline{b}T^*$, $(ST)^* = T^*S^*$, and $T^{**} = T$.
-\item[(c)] Let $\mathcal{R}$ and $\mathcal{N}$ denote range and nullspace; then $\mathcal{R}(T)^\perp = \mathcal{N}(T^*)$ and $\mathcal{N}(T)^\perp = \mathcal{R}(T^*)$.
-\item[(d)] $T$ is unitary iff $T$ is invertible and $T^{-1} = T^*$.
+\begin{enumerate}[label=\alph*.]
+\item There is a unique $T^* \in L(\mathcal{H},\mathcal{H})$, called the adjoint of $T$, such that $\langle Tx,y \rangle = \langle x,T^*y \rangle$ for all $x,y \in \mathcal{H}$. (Cf. Exercise 22. We have $T^* = V^{-1}T^\dagger V$ where $V$ is the conjugate-linear isomorphism from $\mathcal{H}$ to $\mathcal{H}^*$ in Theorem 5.25, $(Vy)(x) = \langle x,y \rangle$.)
+\item $\|T^*\| = \|T\|$, $\|T^*T\| = \|T\|^2$, $(aS+bT)^* = \overline{a}S^* + \overline{b}T^*$, $(ST)^* = T^*S^*$, and $T^{**} = T$.
+\item Let $\mathcal{R}$ and $\mathcal{N}$ denote range and nullspace; then $\mathcal{R}(T)^\perp = \mathcal{N}(T^*)$ and $\mathcal{N}(T)^\perp = \mathcal{R}(T^*)$.
+\item $T$ is unitary iff $T$ is invertible and $T^{-1} = T^*$.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item As per the hint we can let $V$ be the conjugate linear invertible isometric of $\mH$ into its dual given by $y\mapsto f_y$ where $f_y(x)=\ipp{x,y}.$ 
+            Now, $T^\da Vy$ is the map $x\mapsto f_y\circ T(x)=\ipp{Tx,y}$ which is also a linear functional, call it $g$, then $g(x)=\ipp{x,V^{-1}g}$ and thus, $\ipp{Tx,y}=\ipp{x,V^{-1}T^\da Vy}.$ 
+            If $S$ was another such map then $\ipp{Tx,y}=\ipp{x,Sy}=\ipp{x,T^*y}$ for all $x,y$ and thus $\ipp{x,(S-T^*)y}=0$ so we must have $S_T^*=0$ by taking $x=(S-T^*)y$ proving uniqueness. 
+        \item All of these identities except the norm ones are proved just as they would be in the finite dimensional case so we assume these and only prove the non trivial ones. 
+            As $V$ is an invertible isometry, so is its inverse and thus for all $x\in X$
+            \[
+                \|T^*x\|_{\mH}=\|V^{-1}T^\da Vx\|_{\mH}=\|V^{-1}(T^\da Vx)\|_{\mH}=\|T^\da Vx\|_{\mH^*}
+            \] 
+            and as $\|Vx\|_{\mH^*}=\|x\|_{\mH}$ and it is also invertible, we have 
+            \[
+                \sup_{\|x\|=1}\|T^*x\|_{\mH}=\sup_{\|x\|=1}\|T^\da Vx\|_{\mH^*}=\sup_{\|u\|=1}\|T^\da u\|_{\mH^*}=\|T^\da\|_{L(\mH,\mH)}=\|T\|
+            \]
+            by \hyperref[prob:5-22]{Problem 5.22}. 
+            Now $\|Tx\|^2=\ipp{Tx,Tx}=\ipp{T^*Tx,x}\leq\|T^*Tx\|\|x\|\leq\|T^*T\|\|x\|^2$ by cauchy schwarz so $\|T\|^2\leq\|T^*T\|$ and $\|T^*T\|\leq\|T^*\|\|T\|=\|T\|^2$ so we are done. 
+        \item $y\in\mR(T)^\perp\iff\forall x\in\mH,\ipp{Tx,y}=0\iff\forall x\in\mH,\ipp{x,T^*y}=0\iff T^*y=0$ so we have $\mR(T)^\perp=\mN(T^*).$ 
+            The other identity follows by a similar element chase, leveraging the definition of $T^*.$ 
+        \item If it is unitary then $\ipp{Tx,Ty}=\ipp{x,y}=\ipp{T^*Tx,y}$ so we must have $T^*T=I$ using the same arguement we used to show uniqueness in part (a) and thus $T^*=T^*TT^{-1}=IT^{-1}=T^{-1}$. 
+        Conversely if it is invertible and $T^*=T^{-1}$ then $\ipp{Tx,Ty}=\ipp{T^*Tx,y}=\ipp{x,y}$ as $T^*T=I$ implying that $T$ is unitary by definition. 
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-58}
 Let $\mathcal{M}$ be a closed subspace of the Hilbert space $\mathcal{H}$, and for $x \in \mathcal{H}$ let $Px$ be the element of $\mathcal{M}$ such that $x - Px \in \mathcal{M}^\perp$ as in Theorem 5.24.
-\begin{enumerate}
-\item[(a)] $P \in L(\mathcal{H},\mathcal{H})$, and in the notation of Exercise 57 we have $P^*=P$, $P^2=P$, $\mathcal{R}(P)=\mathcal{M}$ and $\mathcal{N}(P)=\mathcal{M}^\perp$. $P$ is called the orthogonal projection onto $\mathcal{M}$.
-\item[(b)] Conversely, suppose that $P \in L(\mathcal{H},\mathcal{H})$ satisfies $P^2 = P^* = P$. Then $\mathcal{R}(P)$ is closed and $P$ is the orthogonal projection onto $\mathcal{R}(P)$.
-\item[(c)] If $\{u_\alpha\}$ is an orthonormal basis for $\mathcal{M}$, then $Px = \sum \langle x,u_\alpha \rangle u_\alpha$.
+\begin{enumerate}[label=\alph*.]
+\item $P \in L(\mathcal{H},\mathcal{H})$, and in the notation of Exercise 57 we have $P^*=P$, $P^2=P$, $\mathcal{R}(P)=\mathcal{M}$ and $\mathcal{N}(P)=\mathcal{M}^\perp$. $P$ is called the orthogonal projection onto $\mathcal{M}$.
+\item Conversely, suppose that $P \in L(\mathcal{H},\mathcal{H})$ satisfies $P^2 = P^* = P$. Then $\mathcal{R}(P)$ is closed and $P$ is the orthogonal projection onto $\mathcal{R}(P)$.
+\item If $\{u_\alpha\}$ is an orthonormal basis for $\mathcal{M}$, then $Px = \sum \langle x,u_\alpha \rangle u_\alpha$.
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item We know that $\mH=\mM\oplus\mM^\perp$ for $x,y\in\mH$ and $\alpha,\beta\in\bK$ we have $Px,Py\in\mM$ and $x-Px,y-Py\in\mM^\perp$ so 
+            \[
+                \alpha x+\beta y=\alpha Px+\alpha(x-Px)+\beta Py+\beta(y-Py)=\underbrace{(\alpha Px+\beta Py)}_{\in\mM}+\underbrace{(\alpha(x-Px)+\beta(y-Py))}_{\in\mM^\perp}
+            \]
+            so $P(\alpha x+\beta y)=\alpha Px+\beta Py$ given that we have a direct sum so all vectors in $\mH$ can be written uniquely as the sum of vectors from $\mM,\mM^\perp.$ 
+            By the pythagorean theorem we have $\|x\|^2=\|Px\|^2+\|x-Px\|^2\geq\|Px\|^2$ so $P\in L(\mH,\mH).$ 
+            As $Px\in\mM$ we have $P(Px)=Px$ by definition as $Px=Px+0$ is the unique representation here ($0\in\mM$) implying $P=P^2.$ 
+            Now, for $x,y\in\mH$ we have $\ipp{Px,y}=\ipp{Px,Py}+\ipp{Px,x-Py}=\ipp{Px,Py}+0=\ipp{x-(x-Px),Py}=\ipp{x,Py}-\ipp{x-Px,Py}=\ipp{x,Py}+0=\ipp{x,Py}$ implying $P=P^*.$ 
+            Clearly $\mR(P)=\mM$ and by \hyperref[prob:5-57]{Problem 5.57d} we see that $\mN(P)=\mR(P^*)^\perp=\mM^\perp$ as $P=P^*.$ 
+        \item As $\mR(P)=\mN(P^*)^\perp$ this is closed. 
+            Also as $P=P^*$ we have $\mR(P)^\perp=\mN(P^*)=\mN(P)$ so indeed $\mH=\mR(P)\oplus\mN(P)$ from which we can deduce that $\ipp{Px,x-Px}=\ipp{Px,x}-\ipp{Px,Px}=\ipp{Px,x}-\ipp{P^*Px,x}=\ipp{Px,x}-\ipp{Px,x}=0$ as $P^*P=PP=P$ here so it is indeed an orthogonal projection onto $\mR(P)$ as $P(x-Px)=Px-PPx=Px-Px=0$ so $Px\in\mR(P)$ and $x-Px\in\mN(P)=\mR(P)^\perp.$ 
+        \item Firstly, this basis can be extended to an orthonormal basis of $\mH$ using zorn's lemma via arguements like those in proposition 5.28. 
+            Say we extend this by attaching a new disjoin set $\{u_\beta\}_{\beta\in B}$ with the indexes being disjoint i.e. $A\cap B=\emptyset$ and then for any $x\in\mH$, the set $S=\{\alpha\in A\cup B:\ipp{x,u_\alpha}\neq 0\}$ is countable. 
+            Ennumerating this as $\{s_n\}$ we have, from the continuity of $P,$ 
+            \[
+                Px=\lim_{n\to\infty}\sum_{k\leq n}P(\ipp{x,u_{s_n}}u_{s_n})=\lim_{n\to\infty}\sum_{k\leq n,s_k\in A}\ipp{x,u_{s_n}}u_{s_n}=\sum_{\alpha\in A}\ipp{x,u_\alpha}u_\alpha
+            \]
+            by part (c) of theorem 5.27. 
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-59}
 Every closed convex set $\bK$ in a Hilbert space has a unique element of minimal norm. (If $0 \in K$ the result is trivial; otherwise, adapt the proof of Theorem 5.24.)
 \end{problem}
-
+\begin{solution}
+    Suppose $\{x_n\} \subseteq K$ is a sequence such that $\|x_n\|\to\inf_{x\in K}\|x\|=$ say, $\delta.$  
+    Then $\|x_n-x_m\|^2+\|x_n+x_m\|^2=2\|x_n\|^2+2\|y_n\|^2$ and for any $\ep>0$ we can find $N$ such that $n\geq N\implies\|x_n\|\leq\delta+\epsilon$, rearranging this 
+    \[
+        \frac{1}{4}\|x_n-x_m\|^2=\frac{\|x_n\|^2+\|x_m\|^2}{2}- \bigg\|\underbrace{\frac{x_n+y_n}{2}}_{\in K}\bigg\|\leq\delta+\ep-\delta=\ep
+    \]
+    so this sequence is cauchy and hence must converge, let $x=\lim x_n.$ 
+    As the norm is continuous and $K$ closed we see that $x\in K$ and $\|x\|=\lim\|x_n\|=\delta$. 
+    If $y$ is another such element then, 
+    \[
+        \delta\leq\bigg\|\frac{x+y}{2}\bigg\|= \frac{\|x\|+\|y\|}{2}-\bigg\| \frac{x-y}{2}\bigg\|\leq\delta-\bigg\| \frac{x-y}{2}\bigg\|\implies \|x-y\|=0
+    \]
+    so $x=y$
+\end{solution}
 \begin{problem}\label{prob:5-60}
 Let $(X,\mathcal{M},\mu)$ be a measure space. If $E \in \mathcal{M}$, we identify $L^2(E,\mu)$ with the subspace of $L^2(X,\mu)$ consisting of functions that vanish outside $E$. If $\{E_n\}$ is a disjoint sequence in $\mathcal{M}$ with $X = \bigcup_{1}^{\infty} E_n$, then $\{L^2(E_n,\mu)\}$ is a sequence of mutually orthogonal subspaces of $L^2(X,\mu)$ and every $f \in L^2(X,\mu)$ can be written uniquely as $f = \sum_{1}^{\infty} f_n$ (the series converging in norm) where $f_n \in L^2(E_n,\mu)$. If $L^2(E_n,\mu)$ is separable for every $n$, so is $L^2(X,\mu)$.
 \end{problem}
-
+\begin{solution}
+    If $f_n\in E_n,f_m\in E_m$ for $n\neq m$ then $\ipp{f_n,f_m}=0$ as their product is always zero stemming from the fact that $\{E_n\}$ are mutually disjoint. 
+    For $f\in L^2(X)$ we can decompose this as $f=\sum f_n$ with $f_n:=\chi_{E_n}f$ which is clearly unique, converges pointwise. 
+    Also, by MCT and the fact that $(\sum_1^n |f_k|)^2=\sum_1^n|f_k|^2=|f|^2$ (this follows from the fact that no two $f_k$ are nonzero at once) we have
+    \[
+        \sum_{k=1}^n\|f_k\|\leq \bigg\|\sum_{k=1}^n|f_k|\bigg\|=\qty(\int(|f_1|+\ldots+|f_k|)^2\d\mu)^{1/2}\leq\|f\|<\infty
+    \]
+    Let $F_N:=\sum_1^N|f_n|$, then similarly we again have $\|F_n\|\leq\|f\|$ and thus, by MCT $F:=\lim F_n$ is $L^2$ as by MCT we have
+    \[
+        \int|F|^2\d\mu=\lim_n\int|F_n|^2\d\mu\leq\|f\|^2<\infty
+    \]
+    so $|f-F_N|^2\leq 2(|f|^2+|F_N|^2)\leq2|F|$ and using DCT we can say that $\|f-S_N\|\to 0$. 
+    Now, if $L(E_n,\mu)$ are all seperable, say $F_n$ is a countable dense set in it, then 
+    \[
+        F:=\qty{\sum_{\alpha\in A}f_\alpha:A\text{ is a finite subset of }\bN\text{ and }\forall\alpha\in A,f_\alpha\in F_\alpha}
+    \]
+    is a countable set and we claim that this is dense in $L^2(X).$ 
+    For any $f\in L^2$ and $\ep>0$ we can find $f_n\in F_n$ such that $\|f_n-\chi_{E_n}f\|<\epsilon 2^{-n}$ and by the previous part we can find $N$ such that $\|f-\sum_1^N\chi_{E_n}f\|<\ep$ so,
+    \[
+        \bigg\|f-\sum_{k=1}^Nf_k\bigg\|\leq \bigg\|f-\sum_{k=1}^Nf\chi_{E_k}\bigg\|+\sum_{k=1}^N\|f_n-\chi_{E_n}f\|<\epsilon(1+1-2^N)\leq2\ep
+    \]
+     proving density of $F$ in $L^2(X)$ making it seperable. 
+\end{solution}
 \begin{problem}\label{prob:5-61}
 Let $(X,\mathcal{M},\mu)$ and $(Y,\mathcal{N},\nu)$ be $\sigma$-finite measure spaces such that $L^2(\mu)$ and $L^2(\nu)$ are separable. If $\{f_m\}$ and $\{g_n\}$ are orthonormal bases for $L^2(\mu)$ and $L^2(\nu)$ and $h_{mn}(x,y) = f_m(x)g_n(y)$, then $\{h_{mn}\}$ is an orthonormal basis for $L^2(\mu \times \nu)$.
 \end{problem}
-
+\begin{solution}
+    If $m\neq p$ then by \hyperref[prob:2-51]{Problem 2.51b} (we can do this because $f_m,f_n\in L^2$ implies that $f_m \overline{f_n}\in L^1$, this is clear from the inequality $|xy|\leq|x|^2+|y|^2$) we have 
+    \[
+        \begin{aligned}
+            \ipp{h_{mn},h_{pq}} &= \int_{X\times Y}f_m(x)g_n(y) \overline{f_p(x)g_q(y)}\d(\mu\times\nu)(x,y) \\
+                                &= \bigg(\underbrace{\int_Xf_m(x) \overline{f_p(x)}\d\mu(x)}_{=\ipp{f_m,f_n}_{L^2(X,\mu)}=0\text{ as }m\neq n}\bigg)\qty(\int_Yg_n(y) \overline{g_q(y)}\d\nu(y)) =0
+        \end{aligned}
+    \]
+    So we have orthogonality and similarly we see that 
+    \[
+        \ipp{h_{mn},h_{mn}}_{L^2(X\times Y)}=\ipp{f_m,f_m}_{L^2(X)}\ipp{g_n,g_n}_{L^2(Y)}=1\cdot 1=1
+    \]
+    as $\{f_m\},\{g_n\}$ were orthonormal basis. 
+    This proves that $\{h_{mn}\}$ is an orthonormal set and if $u\in L^2(X\times Y)$ then $u^2\in L^1(X\times Y)$ so by fubini's thoerem we have (we use the notation in page 67) $u_x^2\in L^1(Y)$ for a.e. $x$ i.e. $u_x\in L^2(Y)$ for a.e. $x$ so we can write 
+    \[
+        \|u_x\|_{L^2(Y)}^2=\sum_{n=1}^\infty|\ipp{u_x,g_n}|^2\quad\text{for }\mu\text{-a.e. }x
+    \] 
+    by parseval's identity. 
+    Now, for fixed $n$, consider the function $x\mapsto\ipp{u_x,g_n}$ (this is the composition of a continuous function $v\mapsto\ipp{v,g_n}$ on a measurable function $x\mapsto u_x$, see proposition 2.34), these are in $L^2(X)$ as $|\ipp{u_x,g_n}|^2\leq\|u_x\|_{L^2(Y)}^2$ a.e. and fubini's tells us that this a.e. defined function $x\mapsto\|u_x\|_{L^2(Y)}^2$ is in $L^1(X).$ 
+    As $\{f_m\}$ is an orthonormal basis we can write, 
+    \[
+        \|\ipp{u_x,g_n}\|_{L^2(X)}^2=\sum_{m=1}^\infty|\ipp{\ipp{u_x,g_n},f_m}|^2
+    \]
+    Now, by MCT we have 
+    \[
+        \|u\|_{L^2(X\times Y)}^2=\int\underbrace{\sum_{n=1}^\infty|\ipp{u_x,g_n}|^2}_{=\|u_x\|_{L^2(Y)}^2}\d\mu(x)=\sum_{n=1}^\infty\|\ipp{u_x,g_n}\|_{L^2(X)}^2=\sum_{n=1}\sum_{m=1}|\ipp{\ipp{u_x,g_n},f_m}|^2
+    \]
+    And as $u,h_{mn}\in L^2$ we have $uh_{mn}\in L^1$ so by fubini's 
+    \[
+       \begin{aligned}
+           \ipp{\ipp{u_x,g_n},f_m}=\int\ipp{u_x,g_n} \overline{f_m}(x)\d\mu(x) &= \int\qty(\int u_x(y) \overline{g_n(y)}\d\nu(y)) \overline{f_m(x)}\d\mu(x) \\
+                                                                               &= \int u(x,y) \overline{g_n(y)f_m(x)}\d(\mu\times\nu)(x,y) \\
+                                                                               &= \ipp{u,f_{mn}}_{L^2(X\times Y)}
+       \end{aligned}
+    \]
+    From this we finally conclude that 
+    \[
+        \|u\|_{L^2(X\times Y)}=\sum_{m,n=1}^\infty|\ipp{u,h_{mn}}|^2
+    \]
+    and we are done by Theorem 5.27b.  
+\end{solution}
 \begin{problem}\label{prob:5-62}
 In this exercise the measure defining the $L^2$ spaces is Lebesgue measure.
-\begin{enumerate}
-\item[(a)] $C([0,1])$ is dense in $L^2([0,1])$. (Adapt the proof of Theorem 2.26.)
-\item[(b)] The set of polynomials is dense in $L^2([0,1])$.
-\item[(c)] $L^2([0,1])$ is separable.
-\item[(d)] $L^2(\mathbb{R})$ is separable. (Use Exercise 60.)
-\item[(e)] $L^2(\mathbb{R}^n)$ is separable. (Use Exercise 61.)
+\begin{enumerate}[label=\alph*.]
+\item $C([0,1])$ is dense in $L^2([0,1])$. (Adapt the proof of Theorem 2.26.)
+\item The set of polynomials is dense in $L^2([0,1])$.
+\item $L^2([0,1])$ is separable.
+\item $L^2(\mathbb{R})$ is separable. (Use Exercise 60.)
+\item $L^2(\mathbb{R}^n)$ is separable. (Use Exercise 61.)
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item As in the proof of Theorem 2.26 consider the same $\phi_n$ and as $|\phi_n|\leq|f|$ we see that $|\phi_n-f|^2\leq 2(|\phi_n|^2+|f|^2)\leq4|f|^2$ and thus by DCT, for any $\ep>0$ we can find $n$ large enough such that $\|\phi_n-f\|_{L^2}^2<\ep.$ 
+            Say $\phi_n=\sum_1^ma_j\chi_{E_j}$ where $E_j$ are disjoint. 
+             We also see that $m(E\Delta F)=\|\chi_E-\chi_F\|_{L^2}^2$ and thus by proposition 1.20 we can find a disjoint collections of open intervals $H_j$ with union $U_j$ such that $\|\chi_{U_j}-\chi_{E_j}\|_{L^2}^2<\ep$ so, 
+            \[
+                \bigg\|f-\sum_{j=1}^ma_j\chi_{U_j}\bigg\|_{L^2}\leq \bigg\|\sum_{j=1}^ma_j(\chi_{E_j}-\chi_{U_j})\bigg\|_{L^2}+ \bigg\|f-\sum_{j=1}^ma_j\chi_{E_j}\bigg\|_{L^2}\leq\sum_{j=1}^m|a_j|\ep^{1/2}+\ep
+            \]
+            which can be made arbitrarily small. 
+            Now, we can find a finite refinement of $\cup H_j$ made of intervals (not necessarily open) and then get rid of the endpoints from closed intervals and remove singletons, then rearrange the coeffecients to write $\sum_1^ma_j\chi_{U_j}=\sum_1^kb_k\chi_{I_k}$ a.e. (which \textit{is} equality here) where $I_k$ are all disjoint open intervals. 
+            The later can be easily approximated in $L^2$ by continuous functions in the same way we do it in the book too so we are done with the same arguements. 
+        \item As the polynomials are dense in $C([0,1])$ in the uniform norm, they are dense in the $L^2$ norm too and as $C([0,1])$ is dense in $L^2([0,1])$ in the same norm, a two step approximation shows that the polynomials are dense in $L^2([0,1])$ too. 
+        \item The set of all polynomials is countable and this is dense in $L^2([0,1])$ making it seperable. 
+        \item By the mentioned exercise this follows by considering $E_n:=(n,n+1]$ for $n\in\bZ$ (this is sill countable so changing the indexing set doesn't alter anything) and $L^2([0,1])$ being seperable easily implies that $L^2(I)$ is seperable for any bounded interval $I$ so $L^2((n,n+1])$ are all measurable. 
+        \item A hilbert space is seperable iff it has a countable orthonormal basis by proposition 5.29. 
+            As $L^2(\bR)$ is seperable it has a countable orthonormal basis $\{f_n\}_{n\in\bN}$ and as $\bR^m$ is $\sigma$-finite for all $m$, using the mentioned exercise we can proceed by induction and see that $\{f_{i_1\ldots i_n}\}_{(i_1,\ldots,i_k)\in\bN^n}$ is am orthonormal basis where $f_{i_1\ldots i_n}(x_1,\ldots,x_n):=f_{i_1}(x_1)\cdots f_{i_n}(x_n)$, which is countable and this in turn implies that $L^2(\bR^n)$ is seperable. 
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-63}
 Let $\mathcal{H}$ be an infinite-dimensional Hilbert space.
-\begin{enumerate}
-\item[(a)] Every orthonormal sequence in $\mathcal{H}$ converges weakly to 0.
-\item[(b)] The unit sphere $S = \{x : \|x\| = 1\}$ is weakly dense in the unit ball $B = \{x : \|x\| \le 1\}$. (In fact, every $x \in B$ is the weak limit of a sequence in $S$.)
+\begin{enumerate}[label=\alph*.]
+\item Every orthonormal sequence in $\mathcal{H}$ converges weakly to 0.
+\item The unit sphere $S = \{x : \|x\| = 1\}$ is weakly dense in the unit ball $B = \{x : \|x\| \le 1\}$. (In fact, every $x \in B$ is the weak limit of a sequence in $S$.)
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item Say $\{u_n\}_{n\in\bN}$ is an orthonormal sequence, as all linear functionals here are of form $u\mapsto\ipp{u,v}$ for some $v$, bessel's inequality tells us that, 
+            \[
+                \sum_{n=1}^\infty|\ipp{u_n,v}|\leq\|v\|\implies|\ipp{u_n,v}|\longrightarrow 0\text{ as }n\to\infty
+            \]
+            proving weak convergence. 
+        \item We prove the stronger claim of every element in $B$ being a weak limit of some sequence in $S.$ 
+            Firstly, by part (a) we see that $0$ is the weak limit of any orthonormal sequence in $S$, which exist due to $\mH$ having infinite dimension. 
+            For any $x\in B\setminus \qty{0}$, we can find an orthonormal basis $\{u_n\}_{n\in\bN}$ where $u_1=x/\|x\|$ by gram schmidt and let $v_n:=(1-\|x\|)u_n+x\in S$ for $n\geq 2$ so for all $v\in\mH$ we have $\ipp{v_n,v}=(1-\|x\|)\ipp{u_n,v}+\ipp{x,v}\to\ipp{x,v}$ by part (a). 
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-64}
 Let $\mathcal{H}$ be a separable infinite-dimensional Hilbert space with orthonormal basis $\{u_n\}_{1}^{\infty}$.
-\begin{enumerate}
-\item[(a)] For $k \in \mathbb{N}$, define $L_k \in L(\mathcal{H},\mathcal{H})$ by $L_k(\sum_{1}^{\infty} a_n u_n) = \sum_{k+1}^{\infty} a_n u_{n-k}$. Then $L_k \rightarrow 0$ in the strong operator topology but not in the norm topology.
-\item[(b)] For $k \in \mathbb{N}$, define $R_k \in L(\mathcal{H},\mathcal{H})$ by $R_k(\sum_{1}^{\infty} a_n u_n) = \sum_{1}^{\infty} a_n u_{n+k}$. Then $R_k \rightarrow 0$ in the weak operator topology but not in the strong operator topology.
-\item[(c)] $R_k L_k \rightarrow 0$ in the strong operator topology, but $L_k R_k = I$ for all $k$. (Use Exercise 53b.)
+\begin{enumerate}[label=\alph*.]
+\item For $k \in \mathbb{N}$, define $L_k \in L(\mathcal{H},\mathcal{H})$ by $L_k(\sum_{1}^{\infty} a_n u_n) = \sum_{k+1}^{\infty} a_n u_{n-k}$. Then $L_k \rightarrow 0$ in the strong operator topology but not in the norm topology.
+\item For $k \in \mathbb{N}$, define $R_k \in L(\mathcal{H},\mathcal{H})$ by $R_k(\sum_{1}^{\infty} a_n u_n) = \sum_{1}^{\infty} a_n u_{n+k}$. Then $R_k \rightarrow 0$ in the weak operator topology but not in the strong operator topology.
+\item $R_k L_k \rightarrow 0$ in the strong operator topology, but $L_k R_k = I$ for all $k$. (Use Exercise 53b.)
 \end{enumerate}
 \end{problem}
-
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item $L_k$ shifts the coeffecients $k$-units to the left. 
+            Given any $x\in\mH$ we see that $\|L_kx\|^2=\sum_j|\ipp{L_kx,u_j}|^2=\sum_j|\ipp{x,u_{k+j}}|^2=\sum_{j>k}|\ipp{x,u_j}|^2\longrightarrow 0$ as $\|x\|^2=\sum_j|\ipp{x,u_j}|^2<\infty$ so $L_k\to 0$ strongly but for any $k$ we can have $L_ku_{k+1}=u_1$ so $\|L_k\|\geq 1$ and we can not have convergence in norm. 
+        \item This one is basically a right shift. 
+            For any $k$ we have $R_ku_1=u_{k+1}$ so $R_k$ does not tend to $0$ in the strong operator topology but we clearly have $\ipp{R_kx,u_n}=0$ for all $k\geq n$ and thus given any $x,u\in\mH$ we have, 
+            \[
+                |\ipp{R_kx,u}|=\qty|\sum_{n=1}^\infty \overline{\ipp{u,u_n}}\ipp{R_kx,u_n}|=\bigg|\sum_{n>k} \overline{\ipp{u,u_n}}\ipp{R_kx,u_n}\bigg|=\bigg|\sum_{n=1}^\infty\overline{\ipp{u,u_{n+k}}}\ipp{x,u_n}\bigg|
+            \]
+            For any $\ep>0$, as the sum $\sum_{n=1}^\infty |\ipp{x,u_n}|^2$ converges we can choose $N$ such that $\sum_{n=N+1}^\infty |\ipp{x,u_n}|^2<\ep$ and, 
+            \[
+                |\ipp{R_kx,u}| \leq \bigg|\sum_{n=1}^N \overline{\ipp{u,u_{n+k}}}\ipp{x,u_n}\bigg| + \bigg|\sum_{n=N+1}^\infty \overline{\ipp{u,u_{n+k}}}\ipp{x,u_n}\bigg|
+            \]
+            By the cauchy schwarz, we can bound the second sum by
+            \[
+                \qty(\sum_{n=N+1}^\infty |\ipp{u,u_{n+k}}|^2)^{1/2} \qty(\sum_{n=N+1}^\infty |\ipp{x,u_n}|^2)^{1/2} \leq \|u\|\ep^{1/2} 
+            \]
+            For the first part, \hyperref[prob:5-63]{Problem 5.63a} implies that $\ipp{u,u_{n+k}} \to 0$ as $k \to \infty$ for each fixed $n$ so these $N$ terms all converge to $0$ giving us $\limsup_k|\ipp{R_kx,u}|\leq\|u\|\ep^{1/2}$ which can be made arbitrarily small and thus $\ipp{R_kx,u}\to 0$ proving conveergrence in weak operator topology. 
+            
+        \item $L_kR_k=I$ follows from the definition and $R_kL_kx=\sum_n\ipp{x,u_{n+k}}u_n$ implying $\|R_kL_kx\|^2=\sum_{n>k}|\ipp{x,u_n}|^2\to 0$ by parseval's identity so $R_kL_k\to 0$ in the strong operator topology. 
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-65}
 $l^2(A)$ is unitarily isomorphic to $l^2(B)$ iff $\operatorname{card}(A) = \operatorname{card}(B)$.
 \end{problem}
-
+\begin{solution}
+    If $\operatorname{card}(A)=\operatorname{B}$ then there exists a bijection $f:A\to B$ and we define $U(\sum_\alpha a_\alpha u_\alpha):=\sum_\alpha a_\alpha v_{f(\alpha)}$ where $\{u_\alpha\}_{\alpha\in A}$ and $\{v_\beta\}_{\beta\in B}$ are the cannonical basis for $l^2$ spaces mentioned in page 176. 
+    Clearly $U$ is linear, surjective given the bijectivity of $f$, and it is an isometry as 
+    \[
+        \|Ux\|^2=\sum_{\alpha\in A}\big|\ipp{Ux,v_{f(\alpha)}}\big|^2=\sum_{\alpha\in A}|\ipp{x,u_\alpha}|^2=\|x\|^2
+    \]
+    as $\ipp{Ux,v_{f(\alpha)}}=\ipp{x,u_\alpha}$ (this follows from the definition) and thus it is an isometry and also surjective, making it an unitary isomorphism by \hyperref[prob:5-55]{Problem 5.55b}. 
+    Conversely, if they are unitarily isomorphic via $U$ then for a basis $\{u_\alpha\}_{\alpha\in A}$ we claim that $\{U(u_\alpha)\}_{\alpha\in A}$ is an orthonormal basis for $l^2(B).$ 
+    This set is clearly orthonormal and if for some $x\in l^2(B)$ we have $\ipp{x,U(u_\alpha)}=0$ for all $\alpha\in A$ then as it is unitary we have $\ipp{U^{-1}x,u_\alpha}=0$ too so $U^{-1}x=0\implies x=0$ so by theorem 5.27a this is an orthonormal basis. 
+    Now, using the fact from cardinal arithmetic that if $\{K_a\}_{a\in A}$ is a collection of countable sets such that $A$ is infinite then $\cup_{a\in A}K_a$ has cardinality atmost that of $A$ we can show that $\operatorname{card}(B)\leq\operatorname{card}(A)$ using an arguement similar to that in proposition 5.29 which, by symmetry implies equality. 
+\end{solution}
 \begin{problem}\label{prob:5-66}
 Let $\mathcal{M}$ be a closed subspace of $L^2([0,1],m)$ that is contained in $C([0,1])$.
-\begin{enumerate}
-\item[(a)] There exists $C > 0$ such that $\|f\|_u \le C\|f\|_{L^2}$ for all $f \in \mathcal{M}$. (Use the closed graph theorem.)
-\item[(b)] For each $x \in [0,1]$ there exists $g_x \in \mathcal{M}$ such that $f(x) = \langle f,g_x \rangle$ for all $f \in \mathcal{M}$, and $\|g_x\|_{L^2} \le C$.
-\item[(c)] The dimension of $\mathcal{M}$ is at most $C^2$. (Hint: If $\{f_j\}$ is an orthonormal sequence in $\mathcal{M}$, $\sum |f_j(x)|^2 \le C^2$ for all $x \in [0,1]$.)
+\begin{enumerate}[label=\alph*.]
+\item There exists $C > 0$ such that $\|f\|_u \le C\|f\|_{L^2}$ for all $f \in \mathcal{M}$. (Use the closed graph theorem.)
+\item For each $x \in [0,1]$ there exists $g_x \in \mathcal{M}$ such that $f(x) = \langle f,g_x \rangle$ for all $f \in \mathcal{M}$, and $\|g_x\|_{L^2} \le C$.
+\item The dimension of $\mathcal{M}$ is at most $C^2$. (Hint: If $\{f_j\}$ is an orthonormal sequence in $\mathcal{M}$, $\sum |f_j(x)|^2 \le C^2$ for all $x \in [0,1]$.)
 \end{enumerate}
 \end{problem}
+\begin{solution}
+    \begin{enumerate}[label=\alph*.]
+        \item Consider the inclusion linear map $i:\mM\to C([0,1])$, if $f_n\to f$ in $L^1$ and $f_n\to g$ in the uniform norm then we see that $\|f-g\|_{L^2}\leq\|f-f_n\|_{L^2}+\|g-f_n\|_{L^2}$ and for any $\ep>0$, for large enough $n$ we have $\|g-f_n\|_u<\ep\implies\|g-f_n\|_{L^2}\leq\ep$ and $\|f-f_n\|_{L^2}<\ep$ adding which we get $\|f-g\|_{L^2}<2\ep$ so $f=g$ in $L^2([0,1])$ and as $L^2([0,1])$ is banach, $\mM$ is banach too being a closed subspace and as $C([0,1])$ is banach too here, the closed graph theorem implies that $i$ is continuous so we can find some $C>0$ with $\|f\|_u\leq C\|f\|_{L^2}$ for $f\in\mM.$ 
+        \item $f\mapsto f(x)$ is a linear functional on the hilbert space $\mM$ (it has the induced inner product and it is complete being a closed subset of a complete space $L^2([0,1])$) and we also have $|f(x)|\leq\|f\|_u\leq C\|f\|_{L^2}$ (thus $\|x\mapsto f(x)\|\leq C$) making it continuous so by theorem 5.25 we can find $g_x\in\mM$ such that $f(x)=\ipp{f,g_x}$ and as $\|f\mapsto f(x)\|=\|g_x\|_{L^2}$ as in the paragraph above theorem 5.25 we see that $\|g_x\|_{L^2}\leq C.$ 
+        \item If $\{f_j\}_{j=1}^n$ is an orthonormal sequence in $\mM$ then bessel's inequality tells us that $\sum_1^n|f_j(x)|^2=\sum_1^n|\ipp{f_j,g_x}|^2\leq\|g_x\|^2\leq C^2$ and thus, 
+            \[
+                n=\sum_{j=1}^n\|f_j\|_{L^2}^2=\sum_{j=1}^n\int_0^1|f_j(x)|\d m(x)=\int_0^1\sum_{j=1}^n|f_j(x)|\d m(x)\leq\int_0^1C^2\d m(x)=C^2
+            \]
+            so $\dim\mM\leq C^2.$
+    \end{enumerate}
+\end{solution}
 \begin{problem}\label{prob:5-67}
 (The Mean Ergodic Theorem). Let $U$ be a unitary operator on the Hilbert space $\mathcal{H}$, $\mathcal{M} = \{x : Ux = x\}$, $P$ the orthogonal projection onto $\mathcal{M}$ (Exercise 58), and $S_n = n^{-1} \sum_{0}^{n-1} U^j$. Then $S_n \rightarrow P$ in the strong operator topology. (If $x \in \mathcal{M}$, then $S_n x = x$; if $x = y - Uy$ for some $y$, then $S_n x \rightarrow 0$. By Exercise 57d, $\mathcal{M} = \{x : U^* x = x\}$. Apply Exercise 57c with $T = I - U$.)
 \end{problem}
+\begin{solution}
+    As $U^*=U^{-1}$ we see that $x=Ux\iff U^{-1}x=x\iff U^*x=x$ and thus $\mN(I-U)=\mN(I-U^*)$ so (as per the notation in the hint) $\mM^\perp=\mN(T)^\perp=\mN(T^*)^\perp=\mR(T)=\mR(I-U)$ so $\mH=\mN(I-U)\oplus\mR(I-U)$. 
+    If $x\in\mM$ then $Ux=x\implies U^jx=x$ for all $j$ and thus $S_nx=n^{-1}\sum_1^{n-1}U^jx=x$. 
+    Otherwise, if $x=y-Uy\in\mR(I-U)$ then 
+    \[
+        S_n(y-Uy)= \frac{\sum_{j=0}^{n-1}U^j(y-Uy)}{n}= \frac{\sum_{j=0}^{n-1}U^jy-U^{j+1}y}{n}= \frac{(U-U^n)y}{n}
+    \]
+    and as $U$ is an isometry see that $\|S_n(y-Uy)\|=n^{-1}\|Uy-U^ny\|\leq n^{-1}(\|Uy\|+\|U^ny\|)\leq2n^{-1}\|y\|\to 0$ as $\|U^jx\|=\|x\|$ for all $j$ here, proving that $S_nx\to 0.$ 
+    Now, for all $x\in\mH$ we can find an unique decomposition of form $x=z+(y-Uy)$ where $z\in\mM=\mN(I-U)$ and $y-Uy\in\mM^\perp=\mR(I-U)$ and we see that $S_nx=S_nz+S_n(y-Uy)=z+S_n(y-Uy)\to z=Px$ as $S_n(y-Uy)\to 0$ as we saw above proving that $S_n\to P$ in the stong operator topology. 
+\end{solution}
 \end{document}
