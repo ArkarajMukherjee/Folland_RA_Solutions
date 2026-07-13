@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{folland-sol}[2026/06/28 Folland solutions' Environments]
+\ProvidesPackage{folland_sol}[2026/06/28 Folland solutions' Environments]
 
 % Required packages
 \RequirePackage{cleveref}
@@ -20,11 +20,11 @@
   {}      % Theorem head spec
 
 \theoremstyle{problemstyle}
-\newtheorem{problem}{Problem}[section]
+\newtheorem{problem}{Exercise}[section]
 
 % TOC and Referencing
 \apptocmd{\problem}{%
-  \addcontentsline{toc}{subsection}{Problem~\thesection.\arabic{problem}}%
+  \addcontentsline{toc}{subsection}{Exercise~\thesection.\arabic{problem}}%
 }{}{}
 
 \crefname{problem}{Problem}{Problems}

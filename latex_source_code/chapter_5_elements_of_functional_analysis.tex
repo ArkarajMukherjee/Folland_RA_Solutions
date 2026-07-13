@@ -69,7 +69,7 @@ For any $\epsilon>0$ we can find $N$ such that $n\geq N$ implies $ \norm{T_n-T},
     %\leq\norm{T_n(x_n-x)}+\norm{(T_n-T)x}
     \leq\norm{T_n}\norm{x_n-x}+ \norm{T_n-T} \norm{x}<\epsilon( \norm{T_n}+ \norm{x})
 \]
-proving $T_nx_n\to Tx$ as $\norm{T_n}$ is bounded, being a convergent sequence (\hyperref[prob:5-3]{Problem 5.3}.)
+proving $T_nx_n\to Tx$ as $\norm{T_n}$ is bounded, being a convergent sequence (\hyperref[prob:5-3]{Exercise 5.3}.)
 \end{solution}
 \begin{problem}\label{prob:5-5}
 If $X$ is a normed vector space, the closure of any subspace of $X$ is a subspace.
@@ -94,7 +94,12 @@ Suppose that $X$ is a finite-dimensional vector space. Let $e_1,\dots,e_n$ be a 
         \] 
     \item As $ \qty{(a_1,\ldots,a_n)\in\bK^n :\sum_1^\infty|a_j|=1}$ is compact in $\bK^n$ (being closed and bounded) and mapping in part (b) is continuous, this too must be compact.  
     \item Let the compact set in part (b) be $B.$ 
-        Let $\norm{\cdot}$ be any norm on $X$, then as continuous functions attain their extremums on compact sets, we can find $p,q\in B$ such that $\sup_{x\in B}\norm{x}=\norm{p}$ and $\inf_{x\in B} \norm{x}= \norm{q}$, both of these are strictly positive and finite by the definition of a norm. 
+        Let $\norm{\cdot}$ be any norm on $X$, this is continuous with respect to the $1$-norm as 
+        \[
+            \norm{\sum_{k=1}^na_ke_k}\leq\sum_{k=1}^n|a_k|\|e_k\|\leq\max_{1\leq j\leq n}\|e_j\|\cdot\norm{\sum_{k=1}^na_ke_k}_1
+        \]
+        
+        then as continuous functions attain their extremums on compact sets, we can find $p,q\in B$ such that $\sup_{x\in B}\norm{x}=\norm{p}$ and $\inf_{x\in B} \norm{x}= \norm{q}$, both of these are strictly positive and finite by the definition of a norm. 
         Let this supremum be $C$ and infimum $c$, then as $x/ \norm{x}_1\in B$ for all $x\in X\setminus \qty{0}$ we see that
         \[
             c \norm{x}_1\leq\norm{x}= \norm{x}_1\cdot \norm{ \frac{x}{ \norm{x}_1}}\leq C \norm{x}_1
@@ -114,7 +119,12 @@ Let $X$ be a Banach space.
     \item As $X$ is a banach space so is $L(X,X)$ and thus the series $\sum_0^\infty(I-T)^n$ converges in $L(X,X)$ given absolute convergence (this is evident from the fact that $\norm{I-T}<1$.) 
     Thus, $T\sum_0^m(I-T)^n=(I-(I-T))\sum_0^m(I-T)^n=I-(I-T)^{m+1}\to I$ as $ \norm{I-T}^m\to 0.$ 
     This proves that $\sum_0^\infty(I-T)^n=T^{-1}$ as, if $S_n\to S$ in $L(X,X)$ then clearly $TS_n\to TS$ too (here, take $S_n$ to be the $n$-th partial sum of this series. As $TS_n\to I$ we must have $TS=I$ and $ST=I$ follows in the exact same manner as everything commutes nicely.)   
-\item As $S-T,T\in L(X,X)$ we clearly have $S\in L(X,X)$ and for any $x\in X$ we see that $ \norm{Sx-Tx}\leq\norm{(S-T)T^{-1}Tx}\leq\norm{S-T} \norm{T^{-1}}\norm{Tx}=C\norm{Tx}$ where $C<1$ by hypothesis. 
+\item As $S-T,T\in L(X,X)$ we clearly have $S\in L(X,X)$ and as 
+    \[
+        \|I-T^{-1}S\|=\|T^{-1}T(I-T^{-1}S)\|\leq\|T^{-1}\|\|T-S\|<1 
+    \]
+    proving $T^{-1}S$ to be invertible by part (a) which in turn makes $S$ invertible, being a composition of invertible maps $S=T\circ(T^{-1}S).$ 
+    Now, or any $x\in X$ we see that $ \norm{Sx-Tx}\leq\norm{(S-T)T^{-1}Tx}\leq\norm{S-T} \norm{T^{-1}}\norm{Tx}=C\norm{Tx}$ where $C<1$ by hypothesis. 
     Thus, $ \norm{Sx}\geq \norm{Tx}-\norm{Sx-Tx}\geq (1-C) \norm{Tx}\geq(1-C)\|T^{-1}\|^{-1}\norm{x}$ proving that $S\in L(X,X).$ 
 \end{enumerate}
 \end{solution}
@@ -126,7 +136,7 @@ If $ \left\|\mu\right\|=|\mu|(X)=0$ then we see that for all $E\in\mM$ we have $
 It can be easily shown that $|\mu_1+\mu_2|\leq|\mu_1|+|\mu_2|$, which proves the triangle inequality and for scalars $\alpha\in \bK$ we clearly see that $|\alpha\cdot\mu|=|\alpha|\cdot|\mu|$ so this is indeed a norm. 
 To show completeness we use the theorem mentioned in the theorem which shows us that it suffices to prove that $\sum_1^\infty\mu_j$ converges if $\sum_1^\infty \left\|\mu_j\right\|<\infty$ (this is clearly a positive measure.) 
 If this was the case then we first show that $\sum_1^\infty\mu_j$ is a complex measure. 
-Clearly $\mu_j\ll\sum_1^\infty \left\|\mu_i\right\|=\text{say, }\nu$ and we can find radon nikodym derivatives $f_j$ such that $d\mu_j=f_jd\nu$ and by hypothesis $\sum_1^\infty|f_j|\in L^1(\nu)$ and by DCT, for all $E\in\mM$ 
+Clearly $\mu_j\ll\sum_1^\infty|\mu_i|=\text{say, }\nu$ and we can find radon nikodym derivatives $f_j$ such that $d\mu_j=f_jd\nu$ and by hypothesis $\sum_1^\infty|f_j|\in L^1(\nu)$ and by DCT, for all $E\in\mM$ 
 \[
     \int_E\sum_{j=1}^\infty f_jd\nu=\sum_{j=1}^\infty\int_Ef_jd\nu= \qty(\sum_{j=1}^\infty\mu_j)(E)
 \]
@@ -145,14 +155,14 @@ Let $C^k([0,1])$ be the space of functions on $[0,1]$ possessing continuous deri
         \item ($\implies$) This is trivial as differentiablity implies continuity (the one sided limits work out nicely too.) 
             \\ ($\impliedby$) For $j\leq k$ and $x_n\searrow 0$ in $(0,1)$ we can find $y_n\in(0,x_n)$ such that 
             \[
-                \lim_{x_n\searrow 0} \frac{f^{(j-1)}(x_n)-f^{j-1}(0)}{x-0}=\lim_{x_n\searrow 0} f^{(j)}(y_n)\quad\text{ which exists}
+                \lim_{x_n\searrow 0} \frac{f^{(j-1)}(x_n)-f^{(j-1)}(0)}{x-0}=\lim_{x_n\searrow 0} f^{(j)}(y_n)\quad\text{ which exists}
             \]
             by the mid value theorem, this proves the existence of the one sided deirvative at $0$ by the sequential criterion, that at $1$ follows similarly. 
         \item This is trivially a vectorspace. 
             Clearly $f\mapsto \left\|f\right\|_u$ is a norm and $f\mapsto\|f^{(j)}\|_u$ a seminorm for $j=1,\ldots,k$ so their pointwise sum is clearly a norm. 
             If $f_n$ is cauchy in this norm then we see that $f_n^{(j)}$ are also cauchy in the uniform norm and as $C([0,1])$ is complete in the uniform norm, $f_n^{(j)}\to g_j$ uniformly where $g_j\in C([0,1]).$ 
             We will show that $g_0^{(j)}=g_j$ which proves the claim. 
-            As $f_n'\to g_1$ uniformly we see that $g_0(x)-g_0(0)=\lim_n f_n(x)-f_n(0)=\lim_n\int_0^xf_n'=\int_0^xg_1$ and thus by FTC $g_0'=g_1$ and we can proceed similarly by contradiction to prove that $g_0^{(j)}=g_j$ and thus $f_n\to g_0$ in this norm with $g_0\in C^k([0,1]).$ 
+            As $f_n'\to g_1$ uniformly we see that $g_0(x)-g_0(0)=\lim_n f_n(x)-f_n(0)=\lim_n\int_0^xf_n'=\int_0^xg_1$ and thus by FTC $g_0'=g_1$ and we can proceed similarly by induction to prove that $g_0^{(j)}=g_j$ and thus $f_n\to g_0$ in this norm with $g_0\in C^k([0,1]).$ 
     \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:5-10}
@@ -179,9 +189,9 @@ Let $L_k^1([0,1])$ be the space of all $f \in C^{k-1}([0,1])$ such that $f^{(k-1
     \[
         \left\|f-\sum_1^nf_j\right\|=\int_0^1\qty|f-\sum_1^nf_j|+\int_0^1\qty|h-\sum_1^nf_j'|
     \]
-    And as $\int_0^1\sum|f_n|<\infty,$ the first term tends to $0$ by DCT (keep in mind thatthis produces a conclusion stronger than the usual, i.e. $L^1$ convergence.) 
+    And as $\int_0^1\sum|f_n|<\infty,$ the first term tends to $0$ by DCT (keep in mind that DCT produces a conclusion stronger than what is usually considered, i.e. $L^1$ convergence.) 
     As $\int\sum|f'_n|<\infty$ we also have that $\sum f'_n\to h$ in $L^1$ using DCT so we are done. 
-    Now, for the general case of $f_n\in L_k^1$ with $\sum_1^\infty \left\|f_n\right\|<\infty$ we see that $f_n^{(k-1)}\in L_1^1$ and $\sum \left\|f^{(k-1)}\right\|_{L_1^1}<\infty$ too and thus we can get the absolute continuity of $\sum f^{(k-1)}$ following the above arguemt and the rest follows similarly. 
+    Now, for the general case of $f_n\in L_k^1$ with $\sum_1^\infty \left\|f_n\right\|<\infty$ we see that $f_n^{(k-1)}\in L_1^1$ and $\sum\|f^{(k-1)}\|_{L_1^1}<\infty$ too and thus we can get the absolute continuity of $\sum f^{(k-1)}$ following the above arguemt and the rest follows similarly. 
 \end{solution}
 \begin{problem}\label{prob:5-11}
 If $0 < \alpha \le 1$ let $\Lambda_\alpha([0,1])$ be the space of H\"older continuous functions of exponent $\alpha$ on $[0,1]$. That is, $f \in \Lambda_\alpha([0,1])$ iff $\|f\|_{\Lambda_\alpha} < \infty$, where
@@ -249,7 +259,7 @@ Let $X$ be a normed vector space and $\mathcal{M}$ a proper closed subspace of $
                 \left\|x+\mM\right\|=\inf \qty{ \left\|y+z+v\right\|:v\in\mM}=\inf \qty{ \left\|y+u\right\|:u\in\mM}= \left\|y+\mM\right\|
             \]
             as $ \qty{z+v:v\in\mM}=\mM$ due to it being a subspace. 
-            Now, if $y\in\mM$ iff $-y\in\mM$ we find that $ \left\|x+\mM\right\|=d(x,\mM)$ in previously used notation where $d$ is the metric induced by $ \left\|\cdot\right\|$ and we have proved in \hyperref[prob:4-3]{Problem 4.3} that $d(x,\mM)=0$ iff $x\in\mM$ so we have definiteness. 
+            Now, if $y\in\mM$ iff $-y\in\mM$ we find that $ \left\|x+\mM\right\|=d(x,\mM)$ in previously used notation where $d$ is the metric induced by $ \left\|\cdot\right\|$ and we have proved in \hyperref[prob:4-3]{Exercise 4.3} that $d(x,\mM)=0$ iff $x\in\mM$ so we have definiteness. 
             If $\alpha\in\bK$ and $\alpha=0$ then clearly $ \left\|\alpha x+\mM\right\|=|\alpha|\left\|x+\mM\right\|=0$ and otherwise as $y\in\mM$ iff $\alpha y\in\mM$ we have $\left\|\alpha x+\mM\right\|=\inf \qty{ |\alpha|\cdot\left\|x+\alpha^{-1}y\right\|:y\in\mM}=|\alpha|\cdot\inf \qty{ \left\|x+y\right\|:y\in\mM}=|\alpha|\cdot \left\|x+\mM\right\|$. 
             Now, say $x_n,y_n\in\mM$ are such that $ \left\|x+x_n\right\|\to \left\|x+\mM\right\|$ and $ \left\|y+y_n\right\|\to \left\|y+\mM\right\|$. 
             Then, as $x_n+y_n\in\mM$ too we have that, $ \left\|x+y+\mM\right\|\leq \left\|x+y+x_n+y_n\right\|\leq \left\|x+x_n\right\|+ \left\|y+y_n\right\|\to \left\|x+\mM\right\|+ \left\|y+\mM\right\|$ and thus 
@@ -288,7 +298,7 @@ Let $X$ be a normed vector space and $\mathcal{M}$ a proper closed subspace of $
 If $\|\cdot\|$ is a seminorm on the vector space $X$, let $\mathcal{M} = \{x \in X : \|x\| = 0\}$. Then $\mathcal{M}$ is a subspace, and the map $x+\mathcal{M} \mapsto \|x\|$ is a norm on $X/\mathcal{M}$.
 \end{problem}
 \begin{solution}
-    We claim that this map is the same as $x+\mM\mapsto\left\|x+\mM\right\|$ in the notation of \hyperref[prob:5-12]{Problem 5.12}(part (a) specifically). 
+    We claim that this map is the same as $x+\mM\mapsto\left\|x+\mM\right\|$ in the notation of \hyperref[prob:5-12]{Exercise 5.12}(part (a) specifically). 
     If $\left\|z\right\|=0$ then $\left\|x\right\|=| \left\|x\right\|- \left\|z\right\||\leq\left\|x+z\right\|\leq \left\|x\right\|+ \left\|z\right\|= \left\|x\right\|$ and thus $\inf_{z\in\mM} \left\|x+z\right\|= \left\|x\right\|$ so this the quotient norm induced by $\mM$ and we are done. 
 \end{solution}
 \begin{problem}\label{prob:5-14}
@@ -296,7 +306,7 @@ If $X$ is a normed vector space and $\mathcal{M}$ is a nonclosed subspace, then 
 \end{problem}
 \begin{solution}
     Let $\mN:= \qty{x+\mM\in X/\mM: \|x+\mM\|=0}$, we want to prove that $(X/\mM)/\mN$ is isometrically isomorphic to $X/\overline{\mM}$. 
-    By \hyperref[prob:5-13]{Problem 5.13} we see that 
+    By \hyperref[prob:5-13]{Exercise 5.13} we see that 
     \[
         (x+\mM)+\mN\mapsto\|x+\mM\| 
     \]
@@ -324,14 +334,14 @@ Suppose that $X$ and $Y$ are normed vector spaces and $T \in L(X,Y)$. Let $\math
 \item $\mN(T)= T^{-1}( \qty{0})$ is closed as $ \qty{0}$ is closed (metric spaces are clearly $T_1$) and $T$ continuous. 
 \item As $\pi$ is a surjection such a map must be unique and if it exists it is given by $x+\mN(T)\mapsto T(x).$ 
     This is well defined as $x-y\in\mN(T)\implies T(x)=T(y)$ so $S(x+\mM)=S(y+\mM)$. 
-    It is clearly linear and by \hyperref[prob:4-28]{Problem 4.28} it is continuous as $T=S\circ\pi$ is continuous so $S\in L(X/\mN(T),Y).$ 
-Now, if $T$ is not $0$ we see that $\mN(T)$ is a proper closed subspace and thus, $\|T\|=\|S\circ\pi\|\leq\|S\|$ as $\|\pi\|=1$ by \hyperref[prob:5-12]{Problem 5.12}c. 
-    Now, for any $\epsilon>0$ we can find $x+\mN(T)$ of unit norm such that $\|S(x+\mN(T))\|=\|Tx\|+\epsilon>\|S\|$ and we can also find $v\in\mN(T)$ such that $\|x+v\|<1-\epsilon$. 
+    It is clearly linear and by \hyperref[prob:4-28]{Exercise 4.28} it is continuous as $T=S\circ\pi$ is continuous so $S\in L(X/\mN(T),Y).$ 
+Now, if $T$ is not $0$ we see that $\mN(T)$ is a proper closed subspace and thus, $\|T\|=\|S\circ\pi\|\leq\|S\|$ as $\|\pi\|=1$ by \hyperref[prob:5-12]{Exercise 5.12}c. 
+    Now, for any $\epsilon>0$ we can find $x+\mN(T)$ of unit norm such that $\|S(x+\mN(T))\|=\|Tx\|+\epsilon>\|S\|$ and we can also find $v\in\mN(T)$ such that $\|x+v\|<1+\epsilon$. 
     Thus, as $x+v\neq 0$ clearly (if we had $\|S\|=0$ then the claim is true already, otherwise for small enough $\epsilon$ we have $\|Tx\|>0$ so $x\notin\mN(T)$ and thus $x+v\neq 0$)
     \[
-    \|T\|\geq\frac{\|T(x+v)\|}{\|x+v\|}> \frac{\|S\|-\epsilon}{1-\epsilon}
+    \|T\|\geq\frac{\|T(x+v)\|}{\|x+v\|}> \frac{\|S\|-\epsilon}{1+\epsilon}
     \]
-    implying $\|T\|>\|S\|-\epsilon(1-\|T\|)$ and as $\epsilon>0$ was arbitrary we must have $\|T\|\geq\|S\|$ and we are done showing $\|T\|=\|S\|$ (If $T=0$ then its trivially true.) 
+    implying $\|T\|>\|S\|-\epsilon(1+\|T\|)$ and as $\epsilon>0$ was arbitrary we must have $\|T\|\geq\|S\|$ and we are done showing $\|T\|=\|S\|$ (If $T=0$ then its trivially true.) 
 \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:5-16}
@@ -360,11 +370,11 @@ The purpose of this exercise is to develop a theory of integration for functions
         \|\alpha f\|=\int\|\alpha f(x)\|d\mu(x)=|\alpha|\cdot\int\|f(x)\|d\mu(x)=|\alpha|\|f\|_1
     \]
     so $\|\alpha f\|_1<\infty$ too and we thus have that $L_Y^1$ is a subspace and $\|\cdot\|_1$ is a seminorm on it. 
-    For any $\sum_1^ny_j\chi_{E_j}\in F_Y$, define $K=\cup E_j^c\in\mM$, then this is constant and hence measurable when restricted to $E_j,K$ and as $K\cup(\cup E_j)=X$ it must be measurable on $X$ by simple induction on \hyperref[prob:2-5]{Problem 2.5}. 
+    For any $\sum_1^ny_j\chi_{E_j}\in F_Y$, define $K=\cup E_j^c\in\mM$, then this is constant and hence measurable when restricted to $E_j,K$ and as $K\cup(\cup E_j)=X$ it must be measurable on $X$ by simple induction on \hyperref[prob:2-5]{Exercise 2.5}. 
     $F_Y$ is trivially closed under addition and scalar multiplication making it a subspace of $L_Y$ and the fact that $F_Y \subseteq L_Y^1$ follows directly from the triangle inequality. 
     If we idetify functions a.e. then clearly $\|f\|_1=0$ implies $\|f\|=0$ a.e. i.e. $f=0$ a.e. so $\|\cdot\|_1$ is a norm in this case. 
 \item It suffices to prove this for small enough $\epsilon>0$ so assume $\epsilon<1$. 
-    If $y\neq 0$ then for all \textit{small enough} $\delta$ we can find $n$ with $\|y_n-y\|<\delta$, implying $0<\|y\|-\delta<\|y_n\|$ and it suffices to have $\delta<\epsilon(\|y\|-\delta)$ rearranging which we get $\delta<(1-\epsilon)^{-1}\epsilon\|y\|$ so $\delta=2^{-1}\cdot\min \qty{\|y\|,\epsilon\|y\|/(1-\epsilon)}>0$ works and we have $Y\setminus \qty{0} \subseteq\cup B_n^\epsilon.$ 
+    If $y\neq 0$ then for all \textit{small enough} $\delta$ we can find $n$ with $\|y_n-y\|<\delta$, implying $0<\|y\|-\delta<\|y_n\|$ and it suffices to have $\delta<\epsilon(\|y\|-\delta)$ rearranging which we get $\delta<(1+\epsilon)^{-1}\epsilon\|y\|$ so $\delta=2^{-1}\cdot\min \qty{\|y\|,\epsilon\|y\|/(1-\epsilon)}>0$ works and we have $Y\setminus \qty{0} \subseteq\cup B_n^\epsilon.$ 
 \item  We can assume that all the $y_n$ are nonzero as otherwise we can just remove it and add on countably many points of form $n^{-1}x$ for some $x\neq 0$. 
     Firstly, the $g_j$ in the hint are all measurable using the same arguement we used for functions in $F_Y$ but working with countably many things (it still works out as sigma algebra are closed under countable unions.) 
     Now, by construction we see $\|f(x)-g_j(x)\|=\|f(x)-y_n\|<j^{-1}\|y_n\|$ on $E_{nj}$ and $0$ if it isn't in any $E_{nj}$ and we denote this regioin by $S_j^c$ ( $g_j,f$ are both zero here.)  
@@ -397,14 +407,14 @@ The purpose of this exercise is to develop a theory of integration for functions
 \item If $T\in L(Y,Z)$ then for $E\in\mM$ with $\mu(E)<\infty$ and $y\in Y$, let $f=\chi_Ey$ and then $T(f(x))=\chi_E(x)T(y)$ so $T\circ f\in F_Z$ and we have $\int T\circ f=\int T(y)\chi_E=\chi(E)T(y)=T(\chi(E)y)=T(\int f)$ and we can extend by linearity to $F_Y$. 
     Now, say $f\in L^1_Y$ and $\{h_n\} \subseteq F_Y$ such that $h_n\to f$ a.e. as in part (c), then we see that $T\circ h_n\to T\circ f$ a.e. too and $\|T(h_n(x))\|\leq\|T\|\|h_n(x)\|$. 
     As $T$ is continuous, composition by it preserves measurablity and $\|T(f(x))\|\leq\|T\|\|f(x)|$ so $T\circ f\in L_Z^1$. 
-    Now using the generalized DCT in \hyperref[prob:2-20]{Problem 2.20} we see that $\int T\circ h_n\to\int T\circ f$ and as $T$ is continuous we have $\int T\circ f=\lim\int T\circ h_n=\lim T (\int h_n)=T (\lim\int h_n)=T(\int f)$ so we are done. 
+    Now using the generalized DCT in \hyperref[prob:2-20]{Exercise 2.20} we see that $\int T\circ h_n\to\int T\circ f$ and as $T$ is continuous we have $\int T\circ f=\lim\int T\circ h_n=\lim T (\int h_n)=T (\lim\int h_n)=T(\int f)$ so we are done. 
 \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:5-17}
 A linear functional $f$ on a normed vector space $X$ is bounded iff $f^{-1}(\{0\})$ is closed. (Use Exercise 12b.)
 \end{problem}
 If $f$ is bounded then its continuous $f^{-1}( \qty{0})$ is closed being the preimage of a closed set. 
-Conversely, using \hyperref[prob:5-12]{Problem 5.12b} (here the kernel is a closed subspace which we may assume to be proper as otherwise its trivial) we can find $x\in X\setminus\ker(T)$ of norm $1$ such that $\|x+\ker(T)\|\geq 1/2$. 
+Conversely, using \hyperref[prob:5-12]{Exercise 5.12b} (here the kernel is a closed subspace which we may assume to be proper as otherwise its trivial) we can find $x\in X\setminus\ker(T)$ of norm $1$ such that $\|x+\ker(T)\|\geq 1/2$. 
 Consider $Tx\neq 0$, let this be $C$, then we see for all $y$ we have $Ty=T(T(y)C^{-1}x)$ and as $\|T(y)C^{-1}x+\ker(T)\|=\|y+\ker(T)\|$, we have 
 \[
     \|y\|\geq\|y+\ker(T)\|\geq(1/2)|T(y)C^{-1}|\implies \frac{|Ty|}{\|y\|}\leq 2C\quad(\text{if }y\neq 0)
@@ -421,7 +431,7 @@ Let $X$ be a normed vector space.
     \begin{enumerate}[label=\alph*.]
         \item Let $f$ be as in the proof of Theorem 5.8a. 
             If $x_n+\alpha_n x$ is convergent in $\mM+\bC x$ with $x_n\in\mM$ then $f(x_n+\alpha_n x)=\alpha_n$ also converges by continuity so by alebra of limits we see that $x_n$ converges as well. 
-            Now, as $\mM$ is closed, $\lim x_n\in X$ and thus $\lim(x_n+\alpha_n x)=\lim x_n+(\lim\alpha_n)x\in\mM+\bC x$ by continuity of multiplication by scalars as seen in \hyperref[prob:5-1]{Problem 5.1} proving that this is closed. 
+            Now, as $\mM$ is closed, $\lim x_n\in X$ and thus $\lim(x_n+\alpha_n x)=\lim x_n+(\lim\alpha_n)x\in\mM+\bC x$ by continuity of multiplication by scalars as seen in \hyperref[prob:5-1]{Exercise 5.1} proving that this is closed. 
         \item We can find linearly independant $x_1,\ldots,x_n$ spanning this subspace. 
             Using the previous part and induction we see that for linearly independant $x_1,\ldots x_n$, the subspaces $\{0\}+\bC x_1=\bC x_1,\bC x_1+\bC x_2,\ldots,\bC x_1+\ldots+\bC x_n$ are all closed so we are done (by linear indepdance we have that $x_k\notin\sum_1^{k-1}\bC x_j$ and we could use the previous part.).  
     \end{enumerate}
@@ -435,7 +445,7 @@ Let $X$ be an infinite-dimensional normed vector space.
 \end{problem}
 \begin{solution}
 \begin{enumerate}[label=\alph*.]
-    \item Following the hint, by the previous problem and \hyperref[prob:5-12]{Problem 5.12b} we can inductively choose $x_{n+1}\in X\setminus\sum_1^n\bC x_j$ such that $\|x_{n+1}-x_k\|\geq\|x_{n+1}-\sum_1^n\bC x_j\|\geq 1-1/2$ for all $k=1,\ldots,n$. 
+    \item Following the hint, by the previous problem and \hyperref[prob:5-12]{Exercise 5.12b} we can inductively choose $x_{n+1}\in X\setminus\sum_1^n\bC x_j$ such that $\|x_{n+1}-x_k\|\geq\|x_{n+1}-\sum_1^n\bC x_j\|\geq 1-1/2$ for all $k=1,\ldots,n$. 
     \item If it was locally compact then we see that we can find some $\delta>0$ and compact $K$ such that $B(0,\delta) \subseteq K$ but then this would imply that the sequence $ \qty{\delta x_j} \subseteq K$ has a converging subsequence (compactness is equivalent to relative compactness) which is absurd as $\|\delta x_i-\delta x_j\|\geq\delta/2$ for $i\neq j$ and hence we have  a contradiction. 
 \end{enumerate}
 \end{solution}
@@ -443,11 +453,13 @@ Let $X$ be an infinite-dimensional normed vector space.
 If $\mathcal{M}$ is a finite-dimensional subspace of a normed vector space $X$, there is a closed subspace $\mathcal{N}$ such that $\mathcal{M} \cap \mathcal{N} = \{0\}$ and $\mathcal{M} + \mathcal{N} = X$.
 \end{problem}
 \begin{solution}
-    By zorn's lemma we can find a basis $B$ of $X$ that includes a basis $B'$ of $\mM$ and set $\mN:=\span_{\bK}(B\setminus B')$, we will now prove that all such complements are closed. 
-    Assume that $\mM$ is nonempty throughout, otherwise it is trivial. 
-    Every $x\in X$ has an unique decomposition in the form $m+n$ where $m\in\mM,n\in\mN$ and we define a linear map $T(m+n):=m$. 
-    The induced linear map $\tilde{T}:X/\ker(T)\to X$ has a finite dimensional domain as $X/\ker(T)$ is linearly isomorphic to $T(X)=\mM$ and is thus continuous. 
-    As the projection $\pi:X\to X/\ker(T)$ is continuous too by \hyperref[prob:5-12]{Problem 5.12c}, their composition $\tilde{T}\circ\pi=T$ is also continuous proving and thus we must have $\ker(T)=\mN$ be closed. 
+    Choose a basis $e_1,\ldots,e_k$ of $\mM$ and consider linear functionals $f_j$ such that $f_k(e_j)=1$ and $f_j|_{\span(\{e_1,\ldots,e_k\}\setminus\{e_j)}=0$ from theorem 5.8a as all finite dimensional subspaces are closed. 
+    Now, we claim that $\mN=\cap_1^k\mN(f_k)$ works. 
+    This is clearly closed and for all $x\in X$, 
+    \[
+        x=\underbrace{\sum_{j=1}^kf_j(x)e_j}_{\in\mM}+\underbrace{x-\sum_{j=1}^kf_j(x)e_j}_{\in\mN}
+    \]
+    and if $z\in\mM\cap\mN$ then $z=\sum_1^ka_je_j\implies f_j(z)=a_j=0$ for all $j$ and thus $z=0$ so $\mN$ works. 
 \end{solution}
 \begin{problem}\label{prob:5-21}
 If $X$ and $Y$ are normed vector spaces, define $\alpha : X^* \times Y^* \rightarrow (X \times Y)^*$ by $\alpha(f,g)(x,y) = f(x) + g(y)$. Then $\alpha$ is an isomorphism which is isometric if we use the norm $\|(x,y)\| = \max(\|x\|, \|y\|)$ on $X \times Y$, the corresponding operator norm on $(X \times Y)^*$, and the norm $\|(f,g)\| = \|f\| + \|g\|$ on $X^* \times Y^*$.
@@ -501,7 +513,7 @@ Suppose that $X$ is a Banach space. If $\mathcal{M}$ is a closed subspace of $X$
 \begin{solution}
     \begin{enumerate}[label=\alph*.]
         \item These are trivially subspacess. 
-            If $f_n\in\mM^0$ converge to $f$ then by \hyperref[prob:5-4]{Problem 5.4}, for any $x\in\mM$ we have $f(x)=\lim_nf_n(x)=0$ proving this to be closed. 
+            If $f_n\in\mM^0$ converge to $f$ then by \hyperref[prob:5-4]{Exercise 5.4}, for any $x\in\mM$ we have $f(x)=\lim_nf_n(x)=0$ proving this to be closed. 
             Now, as $f^{-1}( \qty{0})$ is always closed for $f\in X^*$ we see that
             \[
                 \mN^\perp=\bigcap_{f\in\mN}f^{-1}( \qty{0})
@@ -512,10 +524,10 @@ Suppose that $X$ is a Banach space. If $\mathcal{M}$ is a closed subspace of $X$
             Now, by Theorem 5.8a we can find, for $x\in X\setminus\mM$, linear functionals $f\in\mM^0$ such that $f(x)\neq 0$ so $\mM^c \subseteq((\mM^0)^\perp)^c\implies\mM \supseteq(\mM^0)^\perp$ so we have set equality. 
             If $f\in\mN$ then as $\mN^\perp \subseteq\ker(f)$ we have $f\in(\mN^\perp)^0$ so $\mN \subseteq(\mN^\perp)^0.$ 
         \item We see that by definition $\alpha=\pi^\da\in L((X/\mM)^*,X^*)$ and it is injective as $\pi$ is surjective (and hence has its range is obviously dense in $X/\mM$) so its an isomorphism on its range. 
-            If $x\in\mM$ then $\alpha(f)(x)=f(\pi(x))=f(0+\mM)=0$ so $\alpha$'s range is a subset of $\mM^0$ and if $f\in\mM^0$ then just as in \hyperref[prob:5-15]{Problem 5.15} it induces an unique $S\in(X/\mM)^*$ as $S(x+\mM)=f(x)$ and thus $S\circ\pi=f$ (continuity follows with the same arguement as in the linked problem) showing surjectivity. 
+            If $x\in\mM$ then $\alpha(f)(x)=f(\pi(x))=f(0+\mM)=0$ so $\alpha$'s range is a subset of $\mM^0$ and if $f\in\mM^0$ then just as in \hyperref[prob:5-15]{Exercise 5.15} it induces an unique $S\in(X/\mM)^*$ as $S(x+\mM)=f(x)$ and thus $S\circ\pi=f$ (continuity follows with the same arguement as in the linked problem) showing surjectivity. 
             So we have proved that this is an isomorphism onto $\mM^0.$ 
             To show that this is an isometry it suffices to notice that we can follow the exact steps (the closed subspace $\mM$ replaces  $\mN(T)$ there) as in the linked problem to show that $\|f\circ\pi\|=\|f\|$ for all such $f\in(X/\mM)^*$. 
-        \item As $\ker\beta=\mM^0$ we have an induced continuous linear map $ \overline{\beta}:X^*/\mM^0\to\mM^*$ as in \hyperref[prob:5-15]{Problem 5.15}. 
+        \item As $\ker\beta=\mM^0$ we have an induced continuous linear map $ \overline{\beta}:X^*/\mM^0\to\mM^*$ as in \hyperref[prob:5-15]{Exercise 5.15}. 
             Given any $g\in\mM^*$ we can use hahn banach with the seminorm $x\mapsto\|g\|\|x\|$ to get $f\in X^*$ such that $f|_{\mM}=g$ and thus, $\beta(f)=g$ so $\beta$ is surjective and thus so is $ \overline{\beta}$ by construction. 
             Here, $\| \overline{\beta}(f+\mM^0)\|=\|f|_{\mM}\|$ and we claim that $\|f|_{\mM}\|=\|f+\mM^0\|.$ 
             If $g\in\mM^0$ then $\|f|_\mM\|=\|(f+g)|_{\mM}\|\leq\|f+g\|$ where the second inequality holds as in the last term the supremum is taken over a larger set and thus $\|f|_{\mM}\|\leq\|f+\mM^0\|.$ 
@@ -545,7 +557,7 @@ If $X$ is a Banach space and $X^*$ is separable, then $X$ is separable. (Let $\{
 \end{problem}
 \begin{solution}
     $\bK$ always has a seperable subfield ($\bQ$ or $\bQ+i\bQ$) and it can be easily shown that the closure of the linear combinations of $ \qty{x_n}_1^\infty$ over $\bK$ is the same as that over this seperable subfield and as the span of countably many vectors over a countable field is countable (this follows via basic set theoretic arguements) we would be done if we prove the claim in the hint. 
-    If the closure of the span was a strict subspace (it is a subspace by \hyperref[prob:5-5]{Problem 5.5}) then we could find $f\in X^*$ such that $f\neq 0$ but $f$ is zero on the closure. 
+    If the closure of the span was a strict subspace (it is a subspace by \hyperref[prob:5-5]{Exercise 5.5}) then we could find $f\in X^*$ such that $f\neq 0$ but $f$ is zero on the closure. 
     If $\|f-f_n\|\leq\epsilon$ then $\ep>|(f_n-f)(x_n)|=|f_n(x_n)|\geq\|f_n\|/2$ and thus, $\|f\|\leq\|f_n\|+\|f-f_n\|\leq 2\epsilon+\epsilon$. 
     By density, this contraidcts the fact that $f\neq 0$ so we get a contradiction and hence the span was dense to begin with. 
 \end{solution}
@@ -583,9 +595,9 @@ This is clearly meager and for all $[n,n+1]$ we have $\mu(K\cap[n,n+1])\geq\mu(\
 The Baire category theorem remains true if $X$ is assumed to be an LCH space rather than a complete metric space. (The proof is similar; the substitute for completeness is Proposition 4.21.)
 \end{problem}
 \begin{solution}
-For any $x\in X$, any open nbhd $W$ of $x$ will have nonempty intersection with $U_1$ and by proposition 4.30 we can choose a compact neighbourhood $K_1$ of $x$ such that $K_1 \subseteq W\cap U_1.$ 
-As $K_1$ is a nbhd we can find an open nbhd $H$ of $x$ in $K_1$ and repeating the above arguement with $H$ replacing $W$ and $U_2$ replacing $U_1$ we can find a compact nbhd $K_2$ of $x$ such that $K_2 \subseteq H\cap U_2 \subseteq K_1 \subseteq U_1$ and we keep doing this to inductively construct a decreasing sequence of nonempty compact sets $ \qty{K_n}$ such that $K_n \subseteq U_n$. 
-Now, by proposition 4.21 (finite intersection property), as $K_1$ is compact and contains $K_n$ for all $n$, which in turn are also relatively compact in $K_1$ (this has been proved in the beginning of \hyperref[prob:4-49]{Problem 4.49}), we can say that $\cap_nK_n$ is nonempty and for any $p$ as such, it is contained in all $U_n$ and $p\in W$ and as $W$ was arbitrary we can say that $\cap U_n$ is dense. 
+For any $x\in X$, any open nbhd $W$ of $x$ will have nonempty intersection with $U_1$ and by proposition 4.30 we can choose a compact neighbourhood $K_1$ of $y_1$ where $y_1\in U_1\cap W$ such that $K_1 \subseteq W\cap U_1.$ 
+As $K_1$ is a nbhd we can find an open nbhd $H$ of $y_2$ in $K_1$ and repeating the above arguement with $H$ replacing $W$ and $U_2$ replacing $U_1$ we can find a compact nbhd $K_2$ of $y_2$ such that $K_2 \subseteq H\cap U_2 \subseteq K_1 \subseteq U_1$ and we keep doing this to inductively construct a decreasing sequence of nonempty compact sets $ \qty{K_n}$ such that $K_n \subseteq U_n$. 
+Now, by proposition 4.21 (finite intersection property), as $K_1$ is compact and contains $K_n$ for all $n$, which in turn are also relatively compact in $K_1$ (this has been proved in the beginning of \hyperref[prob:4-49]{Exercise 4.49}), we can say that $\cap_nK_n$ is nonempty and for any $p$ as such, it is contained in all $U_n$ and $p\in W$ and as $W$ was arbitrary we can say that $\cap U_n$ is dense. 
 For the other part it suffices to notice that if $F_n$ are nowhere dense sets then $( \overline{F_n})^c$ is dense and open so $\cap ( \overline{F_n})^c$ is nonempty by the previous proof, so $\cup F_n \subseteq\cup \overline{F_n} =(\cap (\overline{F_n})^c)^c$ is not all of $X.$ 
 \end{solution}
 \begin{problem}\label{prob:5-29}
@@ -621,7 +633,7 @@ Let $Y = C([0,1])$ and $X = C^1([0,1])$, both equipped with the uniform norm.
     \begin{enumerate}[label=\alph*.]
         \item Non differentiable functions that are continuous on $[0,1]$ exist so $X$ is not complete by the stone-weirstrass approximation theorem (polynomials are differentiable.) 
         \item It is not bounded as $(d/dx)\exp(nx)=n\cdot\exp(nx)$. 
-            This being closed follows directly from \hyperref[prob:5-9]{Problem 5.9} as $(f_n,f_n')$ converging in the product norm to $(f,g)$ implies pointwise convergence in the uniform norm too. 
+            This being closed follows directly from \hyperref[prob:5-9]{Exercise 5.9} as $(f_n,f_n')$ converging in the product norm to $(f,g)$ implies pointwise convergence in the uniform norm too. 
     \end{enumerate}
     
 \end{solution}
@@ -636,8 +648,8 @@ Let $X, Y$ be Banach spaces and let $S : X \rightarrow Y$ be an unbounded linear
 \begin{solution}
 \begin{enumerate}[label=\alph*.]
     \item Complete sets are closed and thus if this was complete then $T$ would be bounded by the closed graph theorem, thus is not complete. 
-    \item If $\|Sx\|\geq n\|x\|$ for $n\in\bN$ then $\|(Sx,x)\|=\|Sx\|\geq n\|x\|$ as $\|Sx\|\geq\|x\|$ so this is unbounded too. 
-        The maps $\pi_1:X\times\Gamma(S)\to X$ defined by $(x,(t,S(t))\mapsto x$ and $\pi_2$with the same domain and codomain mapping $(x,(t,S(t))$ to $t$ are both clearly continuous and as $X$ is hausdorff (being a metric space), by \hyperref[prob:4-16]{Problem 4.16} we see that $\Gamma(T)=\{p\in X\times\Gamma(S):\pi_1(p)=\pi_2(p)\}$ is closed (this can also be done by considering $\ker(\pi_1-\pi_2)$ with a bit more justification.) 
+    \item If $\|Sx\|\geq n\|x\|$ for $n\in\bN$ then $\|(Sx,x)\|=\|Sx\|\geq n\|x\|$ as $\|Sx\|\geq\|x\|$ so this is unbounded too as such $x$ exist given unboundedness of $S.$ 
+        The maps $\pi_1:X\times\Gamma(S)\to X$ defined by $(x,(t,S(t))\mapsto x$ and $\pi_2$with the same domain and codomain mapping $(x,(t,S(t))$ to $t$ are both clearly continuous and as $X$ is hausdorff (being a metric space), by \hyperref[prob:4-16]{Exercise 4.16} we see that $\Gamma(T)=\{p\in X\times\Gamma(S):\pi_1(p)=\pi_2(p)\}$ is closed (this can also be done by considering $\ker(\pi_1-\pi_2)$ with a bit more justification.) 
     \item This maps $(x,Sx)$ to $x$ and as $\|(x,Sx)\|\geq\|x\|$, it is bounded. 
         It is clearly surjective and if it was open then the open mapping theorem would imply boundedness of $T$ which is false. 
 \end{enumerate}
@@ -646,7 +658,7 @@ Let $X, Y$ be Banach spaces and let $S : X \rightarrow Y$ be an unbounded linear
 Let $\|\cdot\|_1$ and $\|\cdot\|_2$ be norms on the vector space $X$ such that $\|\cdot\|_1 \le \|\cdot\|_2$. If $X$ is complete with respect to both norms, then the norms are equivalent.
 \end{problem}
 \begin{solution}
-    Consider the identity linear map from $X$ with norm $\|\cdot\|_1$ to $X$ with norm $\|\cdot\|_2$, this is clearly bounded by hypothesis (infact $\|\cdot\|_1\leq C\|\cdot\|_2$ would do as well) and by open mapping theorem, it is an isomorphism so we can find $K>0$ with $\|\cdot\|_1\geq K\|\cdot\|_2$ and we are done. 
+    Consider the identity linear map from $X$ with norm $\|\cdot\|_2$ to $X$ with norm $\|\cdot\|_1$, this is clearly bounded by hypothesis (infact $\|\cdot\|_1\leq C\|\cdot\|_2$ would do as well) and by corollary 5.11, it's inverse is an isomorphism so we can find $K>0$ with $\|\cdot\|_1\geq K\|\cdot\|_2$ and we are done as equivalent norms generate the topologies.   
 \end{solution}
 \begin{problem}\label{prob:5-33}
 There is no slowest rate of decay of the terms of an absolutely convergent series; that is, there is no sequence $\{a_n\}$ of positive numbers such that $\sum a_n |c_n| < \infty$ iff $\{c_n\}$ is bounded. (The set of bounded sequences is the space $B(\mathbb{N})$ of bounded functions on $\mathbb{N}$, and the set of absolutely summable sequences is $L^1(\mu)$ where $\mu$ is counting measure on $\mathbb{N}$. If such an $\{a_n\}$ exists, consider $T : B(\mathbb{N}) \rightarrow L^1(\mu)$ defined by $Tf(n) = a_n f(n)$. The set of $f$ such that $f(n)=0$ for all but finitely many $n$ is dense in $L^1(\mu)$ but not in $B(\mathbb{N})$.)
@@ -667,10 +679,13 @@ With reference to Exercises 9 and 10, show that the inclusion map of $L_k^1([0,1
         \item If $(f_n,f_n)$ converges to $(f,g)$ in $L_k^1\times C^{k-1}$ then we want to show that $f=g,$ after which closed graph theorem implies continuity. 
             The components must converge too so we always have, by the definition of these norms, $f_n\to f$ in $L^1$ and $f_n\to g$ uniformly so $f_n\to g$ in $L^1$ too and thus $f=g$ a.e but as $f,g$ are continuous by inclusion in $C^{k-1} \supseteq L_k^1$, we have $f=g.$ 
         \item This time we want to show that $\|f\|_{C^{k-1}}\leq C\|f\|_{L_k^1}$ for some $C>0.$
-            Infact $C=1$ works because for all $t,\int_0^1|f^{(j)}(x)\d x\geq\int_0^t|f^{(j)}(x)|\d x\geq|\int_0^tf^{(j)}(x)\d x|=|f^{(j-1)}(t)|$ where we use the fundamental theorem of calculus for $j=1,\ldots,k-1$ and absolute continuity for $j=k$. 
-            As this works for all $t,\sup_{x\in[0,1]}|f^{(j-1)}(x)|\leq\int_0^1|f^{(j)}(x)|\d x$ and thus, 
+            For $j=1,\ldots,k$, as $f^{(j-1)}$ is continuous, so is $|f^{(j-1)}|$ and we can find some $x_{j-1}$ such that $|f^{(j-1)}(x_{j-1})|=\int_0^1|f^{(j-1)}(t)|\d t$ and thus, for all $x,$ by the fundamental theorem of calculus (for $j=k$ we use absolute continuity) 
             \[
-                \|f\|_{C^{k-1}}=\sum_{j=1}^k\sup_{x\in[0,1]}|f^{(j-1)}(x)|\leq\sum_{j=1}^k\int_0^1|f^{(j)}(x)|\d x\leq\sum_{j=0}^k\int_0^1|f^{(j)}(x)|\d x=\|f\|_{L_k^1}
+                |f^{(j-1)}(x)|=\qty|f^{(j-1)}(x_{j-1})+\int_{x_{j-1}}^xf^{(j)}(t)\d t|\leq\int_0^1|f^{(j-1)}(t)|\d t+\int_0^1|f^{(j)}(t)|\d t
+            \]
+            Thus, we have 
+            \[
+                \|f\|_{C^{k-1}}=\sum_{j=1}^k\|f^{(j-1)}\|_u\leq\sum_{j=1}^k\qty(\int_0^1|f^{(j-1)}(t)|\d t+\int_0^1|f^{(j)}(t)|\d t)\leq 2\|f\|_{L_k^1}
             \]
             So we are done. 
             We can confidently say that the closed graph theorem makes life easier. 
@@ -680,8 +695,8 @@ With reference to Exercises 9 and 10, show that the inclusion map of $L_k^1([0,1
 Let $X$ and $Y$ be Banach spaces, $T \in L(X,Y)$, $\mathcal{N}(T) = \{x : Tx = 0\}$, and $\mathcal{M} = \operatorname{range}(T)$. Then $X/\mathcal{N}(T)$ is isomorphic to $\mathcal{M}$ iff $\mathcal{M}$ is closed. (See Exercise 15.)
 \end{problem}
 \begin{solution}
-    If $\mM$ is closed then it is complete as $Y$ is complete and by \hyperref[prob:5-12]{Problem 5.12d} $X/\mN(T)$ is complete as the kernel is closed. 
-    Following the notation of \hyperref[prob:5-15]{Problem 5.15} we see that $T$ induces a map $S\in L(X/\mN(T),Y)$, if we look at this as a continuous linear map into $\mM$ then this is clearly bijective and by Corollary 5.11 it is an isomorphism. 
+    If $\mM$ is closed then it is complete as $Y$ is complete and by \hyperref[prob:5-12]{Exercise 5.12d} $X/\mN(T)$ is complete as the kernel is closed. 
+    Following the notation of \hyperref[prob:5-15]{Exercise 5.15} we see that $T$ induces a map $S\in L(X/\mN(T),Y)$, if we look at this as a continuous linear map into $\mM$ then this is clearly bijective and by Corollary 5.11 it is an isomorphism. 
     For the converse it suffices to prove that if $H$ is a banach space isomorphic to a normed vector space $K$ then $K$ is also a banach space. 
     Indeed if these are isomorphic through $\phi$, for $k_n\in K$ such that $\sum_1^\infty\|k_n\|<\infty$ we see that $\sum_1^\infty\|\phi^{-1}k_n\|\leq\|\phi^{-1}\|\sum_1^\infty\|h_n\|<\infty$ so $\sum_1^\infty\phi^{-1}k_n$ converges, which implies, by continuity of $\phi$, convergence of $\sum_1^\infty k_n$ so by Theorem 5.1 we are done.  
 \end{solution}
@@ -695,11 +710,11 @@ Let $X$ be a separable Banach space and let $\mu$ be counting measure on $\mathb
 \end{problem}
 \begin{solution}
     \begin{enumerate}[label=\alph*.]
-        \item Linearity is trivially shown and as $x_n$ are in the unit ball we have $\|Tf\|\leq\sum_1^\infty|f(n)|\|x_n\|\leq\|f_n\|$ proving boundedness
-        \item For any $x\neq 0$ we can find $x_{n_1}$ such that $\|\|x\|\cdot x_{n_1}-x\|\leq 1/2$ by hypothesis and again we can find $x_{n_2}$ (it is possible to choose $n_2\neq n_1$ as omitting finitelyelements does not affect density) with $0\leq\alpha_2\leq 1/2$ such that $\|\alpha x_{n_2}+\|x\|\cdot x_{n_1}-x\|\leq 1/4$, we can keep going to have a sequence $\{n_k\} \subseteq\bN$ with unique terms and $\{\alpha_k\} \subseteq\bR$ with $\alpha_1=\|x\|$ and $0\leq\alpha_j\leq 2^{j-1}$ for $j\geq 2$ such that $\|x-\sum_1^j\alpha_j x_{n_j}\|\leq 2^{-j}$ and thus $\sum_1^\infty\alpha_jx_{n_j}=x.$ 
+        \item Linearity is trivially shown and as $x_n$ are in the unit ball, $\|Tf\|\leq\sum_1^\infty|f(n)|\|x_n\|\leq\|f\|_1$ proving boundedness
+        \item For any $x\neq 0$ we can find $x_{n_1}$ such that $\|\|x\|\cdot x_{n_1}-x\|\leq 1/2$ by hypothesis and again we can find $x_{n_2}$ (it is possible to choose $n_2\neq n_1$ as omitting finitelyelements does not affect density) with $0\leq\alpha_2\leq 1/2$ such that $\|\alpha x_{n_2}+\|x\|\cdot x_{n_1}-x\|\leq 1/4$, we can keep going to have a sequence $\{n_k\} \subseteq\bN$ with unique terms and $\{\alpha_k\} \subseteq\bR$ with $\alpha_1=\|x\|$ and $0\leq\alpha_j\leq 2^{1-j}$ for $j\geq 2$ such that $\|x-\sum_1^j\alpha_j x_{n_j}\|\leq 2^{-j}$ and thus $\sum_1^\infty\alpha_jx_{n_j}=x.$ 
             Now, let $f$ be defined as $f(n_j)=\alpha_j$ and $0$ otherwise, then it is clearly $L^1$ and $\sum_1^\infty f(n)x_n=x$ proving surjectivity. 
         \item By Theorem 2.25, if $\sum_1^\infty\|f_n\|<\infty$ then $\sum f_n$ converges a.e. (here, this implies convergence everywhere as we work with a counting measure) to a function in $L^1(\mu)$ proving completeness of $L^1(\mu)$ by theorem 5.1. 
-            Now, as $T$ is surjective as shown above, by \hyperref[prob:5-35]{Problem 5.35} we must have $X$ isomorphic to $L^1(\mu)/\mN(T).$ 
+            Now, as $T$ is surjective as shown above, by \hyperref[prob:5-35]{Exercise 5.35} we must have $X$ isomorphic to $L^1(\mu)/\mN(T).$ 
     \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:5-37}
@@ -760,7 +775,7 @@ Let $X$ be a vector space of countably infinite dimension (that is, every elemen
 \begin{solution}
     Say $\{x_n\}_1^\infty$ is a basis, let $E_k:=\span \qty{x_j:1\leq j\leq k}$, then $\cup E_k=X.$ 
     If we manage to show that $E_k$ are all nowhere dense then we would have a contradictiondue to BCT and prove the claim. 
-    By \hyperref[prob:5-18]{Problem 5.18b} $E_k$ is closed for all $k$, for the sake of contradiction say $E_k$ is not nowhere dense and we can find some $x$ and $r>0$ with $B(x,r) \subseteq \overline{E_k}=E_k$ but then, as $E_k$ is closed under dilation we must have $E_k=X$ which contradicts infinite dimensionality of $X$ so we are done. 
+    By \hyperref[prob:5-18]{Exercise 5.18b} $E_k$ is closed for all $k$, for the sake of contradiction say $E_k$ is not nowhere dense and we can find some $x$ and $r>0$ with $B(x,r) \subseteq \overline{E_k}=E_k$ but then, as $E_k$ is closed under dilation we must have $E_k=X$ which contradicts infinite dimensionality of $X$ so we are done. 
 \end{solution}
 \begin{problem}\label{prob:5-42}
 Let $E_n$ be the set of all $f \in C([0,1])$ for which there exists $x_0 \in [0,1]$ (depending on $f$) such that $|f(x)-f(x_0)| \le n|x-x_0|$ for all $x \in [0,1]$.
@@ -774,7 +789,7 @@ Let $E_n$ be the set of all $f \in C([0,1])$ for which there exists $x_0 \in [0,
         \item If $f\in C([0,1])$ then it is uniformly continuous and bounded on $[0,1]$ from which we can easily construct such $g$ as in the hint by making the the intervals on which it is linear small enough (first approximate it with a piecewise linear function and then approximate this by functions in $g_n$.)  
             Fix $g\in E_n$, and let the intervals on which its linear have length atleast $L>0$ (we can do this as there are finitely many such intervals by definition.) 
             For all $x_0\in[0,1]$ we can look at the interval its in and conclude that atleast one of the endpoints of this interval is atleast $L/2$ away from $x_0$, let it be $x$ (thus $|x-x_0|\geq L/2)$. 
-            If we have $\|h-g\|_u<L/4$ then by construction we must have $|h(x)-h(x_0)|>|g(x)-g(x_0)|-2(L/4)\geq 2n|x-x_0|-|x-x_0|>n|x-x_0|$ and as $x_0$ was arbitrary we must have $h\notin E_n.$ 
+            If we have $\|h-g\|_u<L/4$ then by construction we must have $|h(x)-h(x_0)|>|g(x)-g(x_0)|-2(L/4)\geq 2n|x-x_0|-|x-x_0|\geq n|x-x_0|$ and as $x_0$ was arbitrary we must have $h\notin E_n.$ 
             For any $f\in C([0,1])$ and $\ep>0$ we can find such a $g\in B(f,\ep)$ and there will exist $\ep_*>0$ such that $B(g,\ep_*) \subseteq E_n^c$ so $g\notin\overline{E_n}$ implying $B(f,\epsilon) \subsetneq( \overline{E_n})^\circ$ and thus $E_n$ is nowhere dense in $C([0,1]).$ 
         \item The complement of the set of nowhewre differntiable functions (call it $S$) contains functions that are differentiable somewhere, say $x_0$ then we can find some $\delta>0$ such that 
             \[
@@ -798,7 +813,7 @@ Prove Proposition 5.16. (For part (b), proceed as in Exercise 56d in \S4.5.)
             \[
                 \rho(x,y):=\sum_{k=1}^\bN \frac{1}{2^k}\cdot \frac{p_k(x-y)}{1+p_k(x-y)}
             \]
-            The triangle inequality is satisfied and the proof in \hyperref[prob:4-56]{Problem 4.56} can be repurposed here. 
+            The triangle inequality is satisfied and the proof in \hyperref[prob:4-56]{Exercise 4.56} can be repurposed here. 
             It is symmetric and from part (a) we have that $\rho(x,y)=0$ iff $x=y$, proving that this is a metric and translation invariance follows from that of the $p_k.$  
             \\
             We use the following lemma: If $X$ is a topological space with two topologies $E,F$ then $E=F$ whenever convergence of nets in either is equivalent i.e. $x_\alpha\to x$ in $E$ iff $x_\alpha\to x$ in $F.$ 
@@ -812,7 +827,7 @@ Prove Proposition 5.16. (For part (b), proceed as in Exercise 56d in \S4.5.)
                 \rho(x_\alpha,x)\leq\sum_{1\leq j\leq n}\frac{\epsilon}{2^j(1+\epsilon)}+\sum_{j>n}\frac{1}{2^j}\leq\epsilon+2^{-n}
             \]
             Now, if we choose $n$ large enough and $\epsilon$ small enough, for all $r>0$ we can find $\beta$ such that $\alpha\gtrsim\beta\implies x_\alpha\in B(x,r)$ and we thus have convergence in the metric. 
-            If we begin with convergence in the metric then the fact that $\rho(x,y)\geq 2^{-k}p_k(x-y)/(1+p_k(x-y))$ for all $k$, implies that $\rho(x_\alpha,x)\to 0$ using properties of $\Phi$ as in \hyperref[prob:4-56]{Problem 4.56} (which is equivalent to the net converging in the metric, this is easily shown) implies $p_k(x_\alpha-x)\to 0$ for all $k$ and we thus have convergence in the topology generated by $ \qty{p_k}_{k\in\bN}$ too by proposition 5.14b and we can thus conclude by the lemma. 
+            If we begin with convergence in the metric then the fact that $\rho(x,y)\geq 2^{-k}p_k(x-y)/(1+p_k(x-y))$ for all $k$, implies that $\rho(x_\alpha,x)\to 0$ using properties of $\Phi$ as in \hyperref[prob:4-56]{Exercise 4.56} (which is equivalent to the net converging in the metric, this is easily shown) implies $p_k(x_\alpha-x)\to 0$ for all $k$ and we thus have convergence in the topology generated by $ \qty{p_k}_{k\in\bN}$ too by proposition 5.14b and we can thus conclude by the lemma. 
     \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:5-44}
@@ -823,12 +838,12 @@ If $X$ is a first countable topological vector space and every Cauchy sequence i
     Suppose $\ipp{x_i}_{i\in I}$ is a cauchy net, i.e. $\ipp{x_i-x_j}_{(i,j)\in I\times I}$ converges to $0.$ 
     Because the topology is first countable we can find a countable decreasing neighborhood base of $0$, $\{V_n\}_{n\in\bN}.$ 
     We can find $\alpha_n$ inductively such tha that $\beta,\gamma\geq\alpha_n\implies x_\beta-x_\gamma\in V_n$ and $\alpha_k\gtrsim\alpha_{k-1}.$ 
-    The sequence $(x_{\alpha_k})_{k\in\bN}$ is clearly cauchy too (in the net sense) as $\ipp{x_{\alpha_i}-x_{\alpha_j}}_{(i,j)\in\bN\times\bN}$ is a cauchy net as $m,n\geq k\implies\alpha_m,\alpha_n\geq\alpha_k$ and thus $x_{\alpha_m}-x_{\alpha_n}\in V_k$ so we have convergence as $V_j$ formed a decreasing countable neighbourhood base. 
+    The sequence $(x_{\alpha_k})_{k\in\bN}$ is clearly cauchy too (in the net sense) as $\ipp{x_{\alpha_i}-x_{\alpha_j}}_{(i,j)\in\bN\times\bN}$ is a cauchy net as $m,n\geq k\implies\alpha_m,\alpha_n\geq\alpha_k$ and thus $x_{\alpha_m}-x_{\alpha_n}\in V_k$ so we have cauchy convergence as $V_j$ formed a decreasing countable neighbourhood base. 
     Now, as all cauchy sequences converge, we must have some $x$ which $(x_{\alpha_k})$ coverges to. 
-    As this is a TVS, addition is continuous so given any open $U\ni 0$ and $x=x+0\in U$ we can find some open (in the product topology) $E\times F$ such that $x\in E,0\in F$ and $E+F \subseteq U$ implying $x+F \subseteq U$. 
-    By construction, for all $k$, we can find open neighborhoods $F_k$ of $0$ such that $x_{\alpha_k}+F_k \subseteq V_k$ and we can also find, by definition of cauchy nets, $\beta$ such that $\beta_1,\beta_2\gtrsim\beta$ implies $x_{\beta_1}-x_{\beta_2}\in F_k$ and now for any $\gamma\gtrsim\beta,\alpha_k$ we can write 
+    As this is a TVS, addition is continuous so given any open $U$ containing $x$, as $x=x+0\in U$ we can find some open (in the product topology) $E\times F$ such that $x\in E,0\in F$ and $E+F \subseteq U$ implying $x+F \subseteq U$. 
+    By construction, for all $k$, we can find $m_k$ such that $x-x_{\alpha_{m_k}}\in V_k$ and then we can find open neighborhoods $F_k$ of $0$ such that $(x-x_{\alpha_{m_k}})+F_k \subseteq V_k$ and we can also find, by definition of cauchy nets, $\beta$ such that $\beta_1,\beta_2\gtrsim\beta$ implies $x_{\beta_1}-x_{\beta_2}\in F_k$ and now for any $\gamma\gtrsim\beta,\alpha_{m_k}$ we can write 
     \[
-        x-x_\zeta=(x-x_{\alpha_k})+(x_{\alpha_k}-x_\zeta)\in\underbrace{(x-x_{\alpha_k})}_{\in V_k}+ F_k \subseteq V_k\quad\text{ for all }\zeta\geq\gamma
+        x-x_\zeta=(x-x_{\alpha_{m_k}})+(x_{\alpha_{m_k}}-x_\zeta)\in(x-x_{\alpha_{m_k}})+ F_k \subseteq V_k\quad\text{ for all }\zeta\geq\gamma
     \]
     proving that $x_\alpha\to x$ as $V_k$ formed a countable decreasing neighborhood base so this net converges. 
     This is a mimicry of the proof of cauchy sequences with convergent subsequences converging but at higher generality. 
@@ -838,7 +853,7 @@ The space $C^\infty(\mathbb{R})$ of all infinitely differentiable functions on $
 \end{problem}
 \begin{solution}
     Consider the seminorms $p_{k,n}(f):=\sup_{|x|\leq n}|f^{(k)}|$, consider the TVS generated by $\{p_{k,n}\}_{k,n\geq 0}$ (indexed over integers), this is clearly hausdorff and convergence here is equivalent to uniform convergence of the derivatives on compact sets so we only have to prove completeness. 
-    Say $f_n$ is cauchy here, then $f_m^{(k)}$ is cauchy on $[-n,n]$ for any $n$ so we can find $g_n$ defined on $[-n,n]$ so that $f_m^{(k)}\to g_n^{(k)}$ on $[-n,n]$ (this easily follows from \hyperref[prob:5-9]{Problem 5.9}) 
+    Say $f_n$ is cauchy here, then $f_m^{(k)}$ is cauchy on $[-n,n]$ for any $n$ so we can find $g_n$ defined on $[-n,n]$ so that $f_m^{(k)}\to g_n^{(k)}$ on $[-n,n]$ (this easily follows from \hyperref[prob:5-9]{Exercise 5.9}) 
     If $n\leq m$ then clearly $g_m|_{[-n,n]}=g_n$ so there exists an unique $f$ defined on $\bR$ that extends all $g_n$ and for any open ball $B(x,r) \subseteq\bR$, for large enough $n$ we have $[-n,n] \supseteq B(x,r)$ and thus $f|_{[-n,n]}=g_n\in C^\infty([-n,n])$ so $f$ is smooth at $x$ and as this was arbitrary, $f\in C^\infty(\bR)$ proving completeness.  
 \end{solution}
 \begin{problem}\label{prob:5-46}
@@ -849,7 +864,7 @@ If $X$ is a vector space, $Y$ a normed linear space, $\mathcal{T}$ the weak topo
     \[
         T_\alpha(x_\beta)\longrightarrow T_\alpha(x)\iff \|\underbrace{T_\alpha(x_\beta)-T_\alpha(x)}_{=T(x_\beta-x)}\|\longrightarrow 0
     \]
-    so convergence of nets is equivalent across these two topologies from \hyperref[prob:4-34]{Problem 4.34} and the definitions, making them equal by the lemma in \hyperref[prob:5-43]{Probleme 5.43}.
+    so convergence of nets is equivalent across these two topologies from \hyperref[prob:4-34]{Exercise 4.34} and the definitions, making them equal by the lemma in \hyperref[prob:5-43]{Exercisee 5.43}.
 \end{solution}
 \begin{problem}\label{prob:5-47}
 Suppose that $X$ and $Y$ are Banach spaces.
@@ -860,12 +875,8 @@ Suppose that $X$ and $Y$ are Banach spaces.
 \end{problem}
 \begin{solution}
     \begin{enumerate}[label=\alph*.]
-        \item If $T_n\to T$ in the strongly then for all $x,T_nx\to Tx$ so $\sup_n\|T_nx\|<\infty$ given $T_nx$ converges so $\sup_{n\in\bN}\|T_n\|<\infty$ by the uniform boundedness principle and if convergence is weak then for all $f\in Y^*$ and $x\in X,$ $f(T_nx)\to f(Tx)$ and thus for \textit{large enough} $n,|f(T_nx)|<1+\|f\|\|Tx\|$ but for all $T_nx\neq 0$ we can find $f_n\in Y^*$ such that $\|f_n\|=1$ and $f_n(T_nx)=\|T_nx\|$ by Theorem 5.8b so we must have 
-            \[
-                \|T_nx\|=|\|T_nx\|=|f_n(T_nx)|< 1+\|f_n\|\|Tx\|=1+\|Tx\|
-            \]
-            so $\sup_n\|T_nx\|<\infty$ and we can proceed in the exact same way with the uniform boundedness principle. 
-        \item If $x_n\to x$ weakly then $f(x_n)\to f(x)$ for all $f\in X^*$ and just like we did in the previous part, for large enough $n$ we have $\|x_n\|\leq 1+\|x\|$ after considering functionals $f_n$ such that $f_n(x_n)=\|x_n\|.$ 
+        \item If $T_n\to T$ strongly then for all $x,T_nx\to Tx$ so $\sup_n\|T_nx\|<\infty$ given $T_nx$ converges so $\sup_{n\in\bN}\|T_n\|<\infty$ by the uniform boundedness principle and if convergence is weak then for all $f\in Y^*$ and $x\in X,$ $f(T_nx)\to f(Tx)$ and thus, as $\sup_n\|\hh{T_nx}(f)\|<\infty$ for all $f\in Y^*$, by the uniform boundedness principle we have $\sup_n\|\hh{T_nx}\|<\infty\implies\sup_n\|T_nx\|<\infty$ (the natural pairing is an isometry) which implies $\sup_n\|T_n\|<\infty$ after another application of the same. 
+        \item If $x_n\to x$ weakly then $f(x_n)\to f(x)$ for all $f\in X^*$ and equivalently $\hh{x_n}\to\hh{x}$ in the strong operator topology over $L(X^*,\bK)$ implying, by part (a) that $\sup_n\|\hh{x_n}\|=\sup_n\|x_n\|<\infty$. 
             When $f_n\to f$ is weak*-convergent then for all $x$ we have $\hh{x}(f_n)=f_n(x)\to f(x)=\hh{x}(f)$ so we can say that $f_n\to f$ in the strong operator topology in this case and conclude by part (a).  
     \end{enumerate}
 \end{solution}
@@ -882,12 +893,12 @@ Suppose that $X$ is a Banach space.
     \begin{enumerate}[label=\alph*.]
         \item Suppose $\|x_n\|\leq 1$ and $x_n\to x$ weakly, let $f$ be an unit norm linear functional such that $f(x)=\|x\|$ (this exists by theorem 5.8b) then for any $\epsilon>0$ and large enough $n$ we have $|f(x)|=\|x\|\leq \epsilon+|f(x_n)|\leq\epsilon+\|f\|\|x_n\|\leq 1+\epsilon$ and as $\epsilon>0$ was arbitrary we must have $\|x\|\leq 1$ proving that it is weaklt closed. 
         \item If it is bounded then we can find some $r$ with $E \subseteq \overline{B(x,r)}$ and from the previous part we see that for all sequences $(x_n) \subseteq E \subseteq \overline{B(0,r)}$ which converge, their limit must be in $ \overline{B(0,r)}$ too so $ \overline{E} \subseteq \overline{B(x,r)}$ proving boundedness. 
-        \item If $F \subseteq \overline{B(0,r)}$ and $(f_n) \subseteq E$ are weak*-convergent then we see that $f_n(x)\to f(x)$ for all $x$ and first of all $f\in X^*$ by \hyperref[prob:5-38]{Problem 5.38} and for $\epsilon>0$ we can find $x$ of unit norm such that $f(x)\geq\|f\|-\epsilon$ and for large enough $n$ we have 
+        \item If $F \subseteq \overline{B(0,r)}$ and $(f_n) \subseteq E$ are weak*-convergent then we see that $f_n(x)\to f(x)$ for all $x$ and first of all $f\in X^*$ by \hyperref[prob:5-38]{Exercise 5.38} and for $\epsilon>0$ we can find $x$ of unit norm such that $f(x)\geq\|f\|-\epsilon$ and for large enough $n$ we have 
             \[
                 \|f\|-\epsilon\leq|f(x)|<\epsilon+|f_n(x)|\leq\epsilon+r|x|=\epsilon+r
             \]
             implying $\|f\|\leq r+2\ep$ and as $\ep>0$ was arbitrary we have $\|f\|\leq r$ proving boundedness of the closure just as in part (a). 
-        \item If $(f_n)$ is weak* cauchy then the net $\ipp{f_n-f_m}_{(n,m)\in\bN}$ must converge to $0$ in the weak* topologhy and thus for all $x\in X,(f_n(x))$ is a cauchy sequence and as $\bK$ is complete, it converges to $\lim f_n(x)$ which we denote by $f(x)$ and $f\in X^*$ by \hyperref[prob:5-38]{Problem 5.38} so we are done ($f_n(x)\to f(x)$ follows from construction so we have weak* convergence.)
+        \item If $(f_n)$ is weak* cauchy then the net $\ipp{f_n-f_m}_{(n,m)\in\bN}$ must converge to $0$ in the weak* topologhy and thus for all $x\in X,(f_n(x))$ is a cauchy sequence and as $\bK$ is complete, it converges to $\lim f_n(x)$ which we denote by $f(x)$ and $f\in X^*$ by \hyperref[prob:5-38]{Exercise 5.38} so we are done ($f_n(x)\to f(x)$ follows from construction so we have weak* convergence.)
     \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:5-49}
@@ -902,8 +913,8 @@ Suppose that $X$ is an infinite-dimensional Banach space.
 \begin{solution}
     \begin{enumerate}[label=\alph*.]
         \item By the structure of topologies, it suffices to prove this for a base. 
-            By \hyperref[prob:5-46]{Problem 5.46} and Proposition 5.14 it is sufficient to only consider nonempty sets of form $\cap_1^nU_{x_jf_j\epsilon_j}$ where $U_{xf\epsilon}:= \qty{y:|f(x-y)|<\epsilon}$. 
-            We know from \hyperref[prob:5-35]{Problem 5.35} that $f_j\neq 0$ implies $X/\mN(f_j)$ is isomorphic to $\bK$ and thus $\prod_1^n(X/\mN(f_j))$ is isomorphic (atleast algebraically) to $\bK^n$ where the prior is a vectorspace under pointwise addition and scalar multiplication. 
+            By \hyperref[prob:5-46]{Exercise 5.46} and Proposition 5.14 it is sufficient to only consider nonempty sets of form $\cap_1^nU_{x_jf_j\epsilon_j}$ where $U_{xf\epsilon}:= \qty{y:|f(x-y)|<\epsilon}$. 
+            We know from \hyperref[prob:5-35]{Exercise 5.35} that $f_j\neq 0$ implies $X/\mN(f_j)$ is isomorphic to $\bK$ and thus $\prod_1^n(X/\mN(f_j))$ is isomorphic (atleast algebraically) to $\bK^n$ where the prior is a vectorspace under pointwise addition and scalar multiplication. 
             We write $K_j$ for $\mN(f_j)$. 
             Define a map $\Phi:X/\cap^n_1K_j\to\prod_1^n(X/K_j)$ by $\pi_j(\Phi(x+\cap_1^nK_j)):=x+K_j,$ this is clearly linear and an injection as $\Phi(x+\cap_1^nK_j)=0$ implies $x+K_j=0+K_j$ i.e. $x\in K_j$ for all $j$ and thus $x\in\cap_1^nK_j$ implying $x+\cap_1^nK_j=0+\cap_1^nK_j.$ 
             If $\{v_\alpha\}_{\alpha\in A}$ is linearly independent in the domain $\Phi$ then by injectivity $ \qty{\Phi(v_\alpha)}_{\alpha\in A}$ must be lienarly independent in the codomain, which in our case has dimension atmost $n,$ being isomorphic to $\bK^n$ so the domain can not have dimension more than $n.$ 
@@ -915,19 +926,19 @@ Suppose that $X$ is an infinite-dimensional Banach space.
                 U_{f\hh{x}\epsilon}:=\{g\in X^*:|\hh{x}(f-g)|<\epsilon\}= \qty{g\in X^*:|f(x)-g(x)|<\ep}
             \]
             Say $\cap_1^nU_{f_j\hh{x_j}\epsilon_j}$ is nonempty and contains $g$.
-            As $X$ is infinite dimensional we have $X\neq\span\{x_j\}$ so by Proposition 5.8a there exists a nonzero linear functional $f$ that is zero on this span (which is closed by \hyperref[prob:5-18]{Problem 5.18}) and thus also zero on $x_j$, this implies that $g+\bK f \subseteq\cap^1_nU_{f_j\hh{x_j}\ep_j}$ and that set is clearly unbounded so we are done. 
-        \item The arguement is identical for $X$ with the weak topology and $X^*$ with the weak* topology so we only state it once. By \hyperref[prob:5-48]{Problem 5.48b,c} (b for the weak case and c for the weak* case) if a set is bounded then so is its closure and by the previous part of this problem, these having nonempty interior would make them unbounded so they must have empty interior, making them nowhere dense. 
+            As $X$ is infinite dimensional we have $X\neq\span\{x_j\}$ so by Proposition 5.8a there exists a nonzero linear functional $f$ that is zero on this span (which is closed by \hyperref[prob:5-18]{Exercise 5.18}) and thus also zero on $x_j$, this implies that $g+\bK f \subseteq\cap^1_nU_{f_j\hh{x_j}\ep_j}$ and that set is clearly unbounded so we are done. 
+        \item The arguement is identical for $X$ with the weak topology and $X^*$ with the weak* topology so we only state it once. By \hyperref[prob:5-48]{Exercise 5.48b,c} (b for the weak case and c for the weak* case) if a set is bounded then so is its closure and by the previous part of this problem, these having nonempty interior would make them unbounded so they must have empty interior, making them nowhere dense. 
         \item As $X$ and $X^*$ are normed, they can be written as countable unions of bounded sets, for an example: balls of radius diverging to infinity which are centered at $0$ and by the previous part we see that all of these are nowhere dense in their repsective topologies so we are done here. 
-        \item If it were metirzable then that would be a complete metric space by \hyperref[prob:5-48]{Problem 5.48d} which makes $X^*$ non meager by the baire category theorem, contradiction the claim proved in the previous part so it is not even metrizable.  
+        \item If it were metirzable then that would be a complete metric space by \hyperref[prob:5-48]{Exercise 5.48d} which makes $X^*$ non meager by the baire category theorem, contradiction the claim proved in the previous part so it is not even metrizable.  
     \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:5-50}
 If $X$ is a separable normed linear space, the weak* topology on the closed unit ball in $X^*$ is second countable and hence metrizable. (But cf. Exercise 49d.)
 \end{problem}
 \begin{solution}
-    By \hyperref[prob:5-43]{Problem 5.43} we can find a metric $\rho$ (it is even translation invariant) that generates the topology on $X^*$ generated by the seminorms $ \qty{f\mapsto|f(x_n)|}_{n\in\bN}$ where $\{x_n\}$ is a countable dense set in $X.$ 
+    By \hyperref[prob:5-43]{Exercise 5.43} we can find a metric $\rho$ (it is even translation invariant) that generates the topology on $X^*$ generated by the seminorms $ \qty{f\mapsto|f(x_n)|}_{n\in\bN}$ where $\{x_n\}$ is a countable dense set in $X.$ 
     $\rho$ induces a metric on the closed unit ball and we claim that the topology generated by this metric is the weak* topology on the closed unit ball. 
-    If $f_\alpha\to f$ weakly then clearly $f_\alpha(x_n)\to f(x_n)$ for all $n$ implying $\rho(f_n-f)\to 0$ and if $\rho(f_n-f)\to 0$ then $f_\alpha(x_n)\to f(x_n)$ for all $n$ and for any $x\in X$ and $\ep>0$ we can find $n$ such that $\|x_n-x\|<\ep$ and as we work in the closed unit ball, $|f_\alpha(x)-f(x)|\leq|f_\alpha(x_n)-f(x_n)|+\|f\|\|x_n-x\|+\|f_\alpha\|\|x_n-x\|<|f_\alpha(x_n)-f(x_n)|+2\epsilon\to 2\epsilon$ in $\alpha$ and as $\ep$ was arbitrary we have $f_\alpha(x)\to f(x)$ for all $x$ implying weak convergence so we can say that these are same topologies by the lemma in \hyperref[prob:5-43]{Problem 5.43}. 
+    If $f_\alpha\to f$ weakly then clearly $f_\alpha(x_n)\to f(x_n)$ for all $n$ implying $\rho(f_n-f)\to 0$ and if $\rho(f_n-f)\to 0$ then $f_\alpha(x_n)\to f(x_n)$ for all $n$ and for any $x\in X$ and $\ep>0$ we can find $n$ such that $\|x_n-x\|<\ep$ and as we work in the closed unit ball, $|f_\alpha(x)-f(x)|\leq|f_\alpha(x_n)-f(x_n)|+\|f\|\|x_n-x\|+\|f_\alpha\|\|x_n-x\|<|f_\alpha(x_n)-f(x_n)|+2\epsilon\to 2\epsilon$ in $\alpha$ and as $\ep$ was arbitrary we have $f_\alpha(x)\to f(x)$ for all $x$ implying weak convergence so we can say that these are same topologies by the lemma in \hyperref[prob:5-43]{Exercise 5.43}. 
     Second countablity follows from the fact that this is a compact metric space easily, this standard. 
 \end{solution}
 \begin{problem}\label{prob:5-51}
@@ -949,7 +960,7 @@ Let $X$ be a Banach space and let $f_1,\dots,f_n$ be linearly independent elemen
 \end{problem}
 \begin{solution}
     \begin{enumerate}[label=\alph*.]
-        \item $\mM \subseteq\mN^0$ is obvious and by \hyperref[prob:5-23]{Problem 5.23}, $\mN^0$ is isomorphic to $(X/\mN)^*$ and as $\dim(X/\mN)\leq\dim(\prod_j(X/\mN(f_j)))=n$ using the arguement in \hyperref[prob:5-49]{Problem 5.49} as all $f_j$ are nonzero, and  have $\dim((X/\mN)^*)\leq n$ implying $\dim(\mN^0)\leq n$ so $\mM=\mN^0$ and $\mM$ is isomorphic to $(X/\mN)^*.$ 
+        \item $\mM \subseteq\mN^0$ is obvious and by \hyperref[prob:5-23]{Exercise 5.23}, $\mN^0$ is isomorphic to $(X/\mN)^*$ and as $\dim(X/\mN)\leq\dim(\prod_j(X/\mN(f_j)))=n$ using the arguement in \hyperref[prob:5-49]{Exercise 5.49} as all $f_j$ are nonzero, and  have $\dim((X/\mN)^*)\leq n$ implying $\dim(\mN^0)\leq n$ so $\mM=\mN^0$ and $\mM$ is isomorphic to $(X/\mN)^*.$ 
         \item $F|_{\mM}\in\mM^*$ and the map $\Phi:X/\mN\to\mM^*$ given by $x+\mN\mapsto(f\mapsto\hh{x}(f))$ is injective as $f_j(x)=0$ for all $j$ implies $x\in\mN$ and as $n=\dim(X/\mN)=\dim((X/\mN)^*)=\dim(\mM)=\dim(\mM^*)$ this map is an isomorphism, thus $F|_{\mM}=\Phi(x+\mN)$ for some $x$ and we can write $F|_{\mM}(f_j)=\Phi(x+\mN)(f_j)=f_j(x)$ so $F(f_j)=f_j(x)$ and $F|_{\mM}=\hh{x}|_{\mN^0}$. 
             We claim that $\Phi$ is an isometry, indeed 
             \[
@@ -957,9 +968,9 @@ Let $X$ be a Banach space and let $f_1,\dots,f_n$ be linearly independent elemen
             \]
             This is atleast $\|x+\mN\|_{X/\mN}$ from theorem 5.8a as $\mN$ is closed and if $\|f\|\leq 1$ then for all $v\in\mN$ we have $|f(x)|=|f(x+v)|\leq\|x+v\|$ as $f(v)=0$ by definition, thus $|f(x)|\leq\|x+\mN\|$ and we thus have equality, proving that this is an isometry. 
             We can now write $\|F|_\mM\|=\|\Phi(x+\mN)\|=\|x+\mN\|$ and for any $\epsilon>0$ we can find $v\in\mN$ such that $(1+\epsilon)\|x+\mN\|\geq\|x+v\|$ (As $\mN$ is closed, $\|x+\mN\|=0\implies x\in\mN$) and we still have $F(f_j)=f_j(x+v)$ while $\|F\|\geq\|F|_{\mM}\|=\|\Phi(x+\mN)\|=\|x+\mN\|\geq(1+\epsilon)^{-1}\|x+v\|$ so $(1+\epsilon)\|F\|\geq\|x+v\|$. 
-        \item We can use the lemma in \hyperref[prob:5-43]{Problem 5.43} and check that the convergence of nets is equivalent in these topologies. 
+        \item We can use the lemma in \hyperref[prob:5-43]{Exercise 5.43} and check that the convergence of nets is equivalent in these topologies. 
             $\hh{x_\alpha}\to\hh{x}$ in the weak* topology on $X^{**}$ iff $\forall f\in X^*,\hh{x_\alpha}(f)=f(x_\alpha)\to f(x)=\hh{x}(f)$ iff $x_\alpha\to x$ in the weak topology on $X$ so we are done. 
-        \item By \hyperref[prob:5-46]{Problem 5.46} and proposition 5.14, to show density of $X$ (that is to say, $\hh{X}$) in $X^{**}$, to prove density at $F\in X^{**}$ it suffices to consider sets of form $\cap_1^nU_{F\hh{f_j}\epsilon_j}$ (these form a neighborhood base) where $\hh{f}\in\hh{X^{**}}$, here $U_{F\hh{f}\epsilon}$ is the set $\{G\in X^{**}:|\hh{f}(F-G)|<\ep\}$ as in proposition 5.14. 
+        \item By \hyperref[prob:5-46]{Exercise 5.46} and proposition 5.14, to show density of $X$ (that is to say, $\hh{X}$) in $X^{**}$, to prove density at $F\in X^{**}$ it suffices to consider sets of form $\cap_1^nU_{F\hh{f_j}\epsilon_j}$ (these form a neighborhood base) where $\hh{f}\in\hh{X^{**}}$, here $U_{F\hh{f}\epsilon}$ is the set $\{G\in X^{**}:|\hh{f}(F-G)|<\ep\}$ as in proposition 5.14. 
             By part (b) we can find $x\in X$ such that $F(f_j)=\hh{x}(f_j)$ and thus $\hh{x}\in\cap_1^nU_{F\hh{f}\ep}$ proving density of $\hh{X}$ in $X^{**}$ in the weak* topology and if we consider the closed unit ball $K=\{F\in X^{**}:\|F\|\leq 1\}$ then again from the previous part we can find $\hh{x}\in\cap_1^nU_{F\hh{f_j}\epsilon_j}$ such that $\|x\|=\|\hh{x}\|\leq(1+\epsilon)\|F\|\leq(1+\ep)$ with $\ep<\ep_j(1+\|f_j\|)^{-1}$ for all $j$ and thus $(1+\epsilon)^{-1}\hh{x}\in K\cap\hh{X}$, checking the inequalities
             \[
                 |(1+\epsilon)^{-1}\hh{x}(f_j)-F(f_j)|=|\ep(1+\ep)^{-1}\hh{x}(f_j)|\leq\ep(1+\ep)^{-1}\|\hh{x}\|\|f_j\|<\ep_j
@@ -982,7 +993,7 @@ Suppose that $X$ is a Banach space and $\{T_n\}$, $\{S_n\}$ are sequences in $L(
             \[
                 \|T_nx_n-Tx\|\leq\|\|T_nx_n-T_nx\|+\|T_nx-Tx\|\leq C\|x_n-x\|+\|T_nx-Tx\|\to 0
             \]
-        \item As $T_n\to T$ strongly, for all $x$ we have $T_nx\to Tx$ and by part (a) we see that $S_n(T_nx)\to S(Tx)$ implying $S_nT_n\to ST$ strongly. 
+        \item As $S_n\to S$ strongly, for all $x$ we have $S_nx\to Sx$ and by part (a) we see that $T_n(S_nx)\to T(Sx)$ implying $T_nS_n\to TS$ strongly. 
     \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:5-54}
@@ -1056,7 +1067,7 @@ Suppose that $\mathcal{H}$ is a Hilbert space and $T \in L(\mathcal{H},\mathcal{
             \[
                 \sup_{\|x\|=1}\|T^*x\|_{\mH}=\sup_{\|x\|=1}\|T^\da Vx\|_{\mH^*}=\sup_{\|u\|=1}\|T^\da u\|_{\mH^*}=\|T^\da\|_{L(\mH,\mH)}=\|T\|
             \]
-            by \hyperref[prob:5-22]{Problem 5.22}. 
+            by \hyperref[prob:5-22]{Exercise 5.22}. 
             Now $\|Tx\|^2=\ipp{Tx,Tx}=\ipp{T^*Tx,x}\leq\|T^*Tx\|\|x\|\leq\|T^*T\|\|x\|^2$ by cauchy schwarz so $\|T\|^2\leq\|T^*T\|$ and $\|T^*T\|\leq\|T^*\|\|T\|=\|T\|^2$ so we are done. 
         \item $y\in\mR(T)^\perp\iff\forall x\in\mH,\ipp{Tx,y}=0\iff\forall x\in\mH,\ipp{x,T^*y}=0\iff T^*y=0$ so we have $\mR(T)^\perp=\mN(T^*).$ 
             The other identity follows by a similar element chase, leveraging the definition of $T^*.$ 
@@ -1076,14 +1087,14 @@ Let $\mathcal{M}$ be a closed subspace of the Hilbert space $\mathcal{H}$, and f
     \begin{enumerate}[label=\alph*.]
         \item We know that $\mH=\mM\oplus\mM^\perp$ for $x,y\in\mH$ and $\alpha,\beta\in\bK$ we have $Px,Py\in\mM$ and $x-Px,y-Py\in\mM^\perp$ so 
             \[
-                \alpha x+\beta y=\alpha Px+\alpha(x-Px)+\beta Py+\beta(y-Py)=\underbrace{(\alpha Px+\beta Py)}_{\in\mM}+\underbrace{(\alpha(x-Px)+\beta(y-Py))}_{\in\mM^\perp}
+                \alpha x+\beta y=\underbrace{\alpha Px+\beta Py}_{\in\mM}+\underbrace{\alpha(x-Px)+\beta(y-Py)}_{\in\mM^\perp}
             \]
             so $P(\alpha x+\beta y)=\alpha Px+\beta Py$ given that we have a direct sum so all vectors in $\mH$ can be written uniquely as the sum of vectors from $\mM,\mM^\perp.$ 
             By the pythagorean theorem we have $\|x\|^2=\|Px\|^2+\|x-Px\|^2\geq\|Px\|^2$ so $P\in L(\mH,\mH).$ 
             As $Px\in\mM$ we have $P(Px)=Px$ by definition as $Px=Px+0$ is the unique representation here ($0\in\mM$) implying $P=P^2.$ 
             Now, for $x,y\in\mH$ we have $\ipp{Px,y}=\ipp{Px,Py}+\ipp{Px,x-Py}=\ipp{Px,Py}+0=\ipp{x-(x-Px),Py}=\ipp{x,Py}-\ipp{x-Px,Py}=\ipp{x,Py}+0=\ipp{x,Py}$ implying $P=P^*.$ 
-            Clearly $\mR(P)=\mM$ and by \hyperref[prob:5-57]{Problem 5.57d} we see that $\mN(P)=\mR(P^*)^\perp=\mM^\perp$ as $P=P^*.$ 
-        \item As $\mR(P)=\mN(P^*)^\perp$ this is closed. 
+            Clearly $\mR(P)=\mM$ and by \hyperref[prob:5-57]{Exercise 5.57d} we see that $\mN(P)=\mR(P^*)^\perp=\mM^\perp$ as $P=P^*.$ 
+        \item It can be easily shown that $\mR(P)=\mN(I-P)$ and the later is closed. 
             Also as $P=P^*$ we have $\mR(P)^\perp=\mN(P^*)=\mN(P)$ so indeed $\mH=\mR(P)\oplus\mN(P)$ from which we can deduce that $\ipp{Px,x-Px}=\ipp{Px,x}-\ipp{Px,Px}=\ipp{Px,x}-\ipp{P^*Px,x}=\ipp{Px,x}-\ipp{Px,x}=0$ as $P^*P=PP=P$ here so it is indeed an orthogonal projection onto $\mR(P)$ as $P(x-Px)=Px-PPx=Px-Px=0$ so $Px\in\mR(P)$ and $x-Px\in\mN(P)=\mR(P)^\perp.$ 
         \item Firstly, this basis can be extended to an orthonormal basis of $\mH$ using zorn's lemma via arguements like those in proposition 5.28. 
             Say we extend this by attaching a new disjoin set $\{u_\beta\}_{\beta\in B}$ with the indexes being disjoint i.e. $A\cap B=\emptyset$ and then for any $x\in\mH$, the set $S=\{\alpha\in A\cup B:\ipp{x,u_\alpha}\neq 0\}$ is countable. 
@@ -1099,17 +1110,17 @@ Every closed convex set $\bK$ in a Hilbert space has a unique element of minimal
 \end{problem}
 \begin{solution}
     Suppose $\{x_n\} \subseteq K$ is a sequence such that $\|x_n\|\to\inf_{x\in K}\|x\|=$ say, $\delta.$  
-    Then $\|x_n-x_m\|^2+\|x_n+x_m\|^2=2\|x_n\|^2+2\|y_n\|^2$ and for any $\ep>0$ we can find $N$ such that $n\geq N\implies\|x_n\|\leq\delta+\epsilon$, rearranging this 
+    By the paralellogram identity, $\|x_n-x_m\|^2+\|x_n+x_m\|^2=2\|x_n\|^2+2\|y_n\|^2$ and for any $\ep>0$ we can find $N$ such that $n\geq N\implies\|x_n\|\leq\delta+\epsilon$, rearranging this 
     \[
-        \frac{1}{4}\|x_n-x_m\|^2=\frac{\|x_n\|^2+\|x_m\|^2}{2}- \bigg\|\underbrace{\frac{x_n+y_n}{2}}_{\in K}\bigg\|\leq\delta+\ep-\delta=\ep
+        \frac{1}{4}\|x_n-x_m\|^2=\frac{\|x_n\|^2+\|x_m\|^2}{2}- \bigg\|\underbrace{\frac{x_n+y_n}{2}}_{\in K}\bigg\|^2\leq(\delta+\ep)^2-\delta^2=2\ep\delta+\ep^2
     \]
-    so this sequence is cauchy and hence must converge, let $x=\lim x_n.$ 
+    which can be made arbitraril small so this sequence is cauchy and hence must converge, let $x=\lim x_n.$ 
     As the norm is continuous and $K$ closed we see that $x\in K$ and $\|x\|=\lim\|x_n\|=\delta$. 
     If $y$ is another such element then, 
     \[
-        \delta\leq\bigg\|\frac{x+y}{2}\bigg\|= \frac{\|x\|+\|y\|}{2}-\bigg\| \frac{x-y}{2}\bigg\|\leq\delta-\bigg\| \frac{x-y}{2}\bigg\|\implies \|x-y\|=0
+        \delta^2\leq\bigg\|\frac{x+y}{2}\bigg\|^2= \frac{\|x\|^2+\|y\|^2}{2}-\bigg\| \frac{x-y}{2}\bigg\|^2\leq\delta^2-\bigg\| \frac{x-y}{2}\bigg\|^2\implies \|x-y\|=0
     \]
-    so $x=y$
+    implying $x=y$ proving uniqueness.
 \end{solution}
 \begin{problem}\label{prob:5-60}
 Let $(X,\mathcal{M},\mu)$ be a measure space. If $E \in \mathcal{M}$, we identify $L^2(E,\mu)$ with the subspace of $L^2(X,\mu)$ consisting of functions that vanish outside $E$. If $\{E_n\}$ is a disjoint sequence in $\mathcal{M}$ with $X = \bigcup_{1}^{\infty} E_n$, then $\{L^2(E_n,\mu)\}$ is a sequence of mutually orthogonal subspaces of $L^2(X,\mu)$ and every $f \in L^2(X,\mu)$ can be written uniquely as $f = \sum_{1}^{\infty} f_n$ (the series converging in norm) where $f_n \in L^2(E_n,\mu)$. If $L^2(E_n,\mu)$ is separable for every $n$, so is $L^2(X,\mu)$.
@@ -1117,15 +1128,7 @@ Let $(X,\mathcal{M},\mu)$ be a measure space. If $E \in \mathcal{M}$, we identif
 \begin{solution}
     If $f_n\in E_n,f_m\in E_m$ for $n\neq m$ then $\ipp{f_n,f_m}=0$ as their product is always zero stemming from the fact that $\{E_n\}$ are mutually disjoint. 
     For $f\in L^2(X)$ we can decompose this as $f=\sum f_n$ with $f_n:=\chi_{E_n}f$ which is clearly unique, converges pointwise. 
-    Also, by MCT and the fact that $(\sum_1^n |f_k|)^2=\sum_1^n|f_k|^2=|f|^2$ (this follows from the fact that no two $f_k$ are nonzero at once) we have
-    \[
-        \sum_{k=1}^n\|f_k\|\leq \bigg\|\sum_{k=1}^n|f_k|\bigg\|=\qty(\int(|f_1|+\ldots+|f_k|)^2\d\mu)^{1/2}\leq\|f\|<\infty
-    \]
-    Let $F_N:=\sum_1^N|f_n|$, then similarly we again have $\|F_n\|\leq\|f\|$ and thus, by MCT $F:=\lim F_n$ is $L^2$ as by MCT we have
-    \[
-        \int|F|^2\d\mu=\lim_n\int|F_n|^2\d\mu\leq\|f\|^2<\infty
-    \]
-    so $|f-F_N|^2\leq 2(|f|^2+|F_N|^2)\leq2|F|$ and using DCT we can say that $\|f-S_N\|\to 0$. 
+    As $f_k$ are always nonzero one at a time, $|f-\sum_1^nf_k|\leq\sum_1^\infty|f_k|$ implying $|f-\sum_1^nf_k|^2\leq|f|^2$ and as $f\in L^2$, $|f|^2$ is integrable so DCT gives us convergence of $|f-\sum_1^nf_k|^2$ to $0$ in $L^1$ which implies $\sum_1^nf_k\to f$ in $L^2$ so we are done. 
     Now, if $L(E_n,\mu)$ are all seperable, say $F_n$ is a countable dense set in it, then 
     \[
         F:=\qty{\sum_{\alpha\in A}f_\alpha:A\text{ is a finite subset of }\bN\text{ and }\forall\alpha\in A,f_\alpha\in F_\alpha}
@@ -1141,7 +1144,7 @@ Let $(X,\mathcal{M},\mu)$ be a measure space. If $E \in \mathcal{M}$, we identif
 Let $(X,\mathcal{M},\mu)$ and $(Y,\mathcal{N},\nu)$ be $\sigma$-finite measure spaces such that $L^2(\mu)$ and $L^2(\nu)$ are separable. If $\{f_m\}$ and $\{g_n\}$ are orthonormal bases for $L^2(\mu)$ and $L^2(\nu)$ and $h_{mn}(x,y) = f_m(x)g_n(y)$, then $\{h_{mn}\}$ is an orthonormal basis for $L^2(\mu \times \nu)$.
 \end{problem}
 \begin{solution}
-    If $m\neq p$ then by \hyperref[prob:2-51]{Problem 2.51b} (we can do this because $f_m,f_n\in L^2$ implies that $f_m \overline{f_n}\in L^1$, this is clear from the inequality $|xy|\leq|x|^2+|y|^2$) we have 
+    If $m\neq p$ then by \hyperref[prob:2-51]{Exercise 2.51b} (we can do this because $f_m,f_n\in L^2$ implies that $f_m \overline{f_n}\in L^1$, this is clear from the inequality $|xy|\leq|x|^2+|y|^2$) we have 
     \[
         \begin{aligned}
             \ipp{h_{mn},h_{pq}} &= \int_{X\times Y}f_m(x)g_n(y) \overline{f_p(x)g_q(y)}\d(\mu\times\nu)(x,y) \\
@@ -1203,7 +1206,7 @@ In this exercise the measure defining the $L^2$ spaces is Lebesgue measure.
             Now, we can find a finite refinement of $\cup H_j$ made of intervals (not necessarily open) and then get rid of the endpoints from closed intervals and remove singletons, then rearrange the coeffecients to write $\sum_1^ma_j\chi_{U_j}=\sum_1^kb_k\chi_{I_k}$ a.e. (which \textit{is} equality here) where $I_k$ are all disjoint open intervals. 
             The later can be easily approximated in $L^2$ by continuous functions in the same way we do it in the book too so we are done with the same arguements. 
         \item As the polynomials are dense in $C([0,1])$ in the uniform norm, they are dense in the $L^2$ norm too and as $C([0,1])$ is dense in $L^2([0,1])$ in the same norm, a two step approximation shows that the polynomials are dense in $L^2([0,1])$ too. 
-        \item The set of all polynomials is countable and this is dense in $L^2([0,1])$ making it seperable. 
+        \item The set of all polynomials with rational coeffecients is countable and this is dense in the set of polynomials clearly, which in turn is dense in $L^2([0,1])$ as we saw above, making it seperable. 
         \item By the mentioned exercise this follows by considering $E_n:=(n,n+1]$ for $n\in\bZ$ (this is sill countable so changing the indexing set doesn't alter anything) and $L^2([0,1])$ being seperable easily implies that $L^2(I)$ is seperable for any bounded interval $I$ so $L^2((n,n+1])$ are all measurable. 
         \item A hilbert space is seperable iff it has a countable orthonormal basis by proposition 5.29. 
             As $L^2(\bR)$ is seperable it has a countable orthonormal basis $\{f_n\}_{n\in\bN}$ and as $\bR^m$ is $\sigma$-finite for all $m$, using the mentioned exercise we can proceed by induction and see that $\{f_{i_1\ldots i_n}\}_{(i_1,\ldots,i_k)\in\bN^n}$ is am orthonormal basis where $f_{i_1\ldots i_n}(x_1,\ldots,x_n):=f_{i_1}(x_1)\cdots f_{i_n}(x_n)$, which is countable and this in turn implies that $L^2(\bR^n)$ is seperable. 
@@ -1225,7 +1228,7 @@ Let $\mathcal{H}$ be an infinite-dimensional Hilbert space.
             proving weak convergence. 
         \item We prove the stronger claim of every element in $B$ being a weak limit of some sequence in $S.$ 
             Firstly, by part (a) we see that $0$ is the weak limit of any orthonormal sequence in $S$, which exist due to $\mH$ having infinite dimension. 
-            For any $x\in B\setminus \qty{0}$, we can find an orthonormal basis $\{u_n\}_{n\in\bN}$ where $u_1=x/\|x\|$ by gram schmidt and let $v_n:=(1-\|x\|)u_n+x\in S$ for $n\geq 2$ so for all $v\in\mH$ we have $\ipp{v_n,v}=(1-\|x\|)\ipp{u_n,v}+\ipp{x,v}\to\ipp{x,v}$ by part (a). 
+            For any $x\in B\setminus \qty{0}$, we can find an orthonormal basis $\{u_n\}_{n\in\bN}$ where $u_1=x/\|x\|$ by gram schmidt and let $v_n:=(1-\|x\|)^{1/2}u_n+x\in S$ for $n\geq 2$ so for all $v\in\mH$ we have $\ipp{v_n,v}=(1-\|x\|)\ipp{u_n,v}+\ipp{x,v}\to\ipp{x,v}$ by part (a). 
     \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:5-64}
@@ -1253,7 +1256,7 @@ Let $\mathcal{H}$ be a separable infinite-dimensional Hilbert space with orthono
             \[
                 \qty(\sum_{n=N+1}^\infty |\ipp{u,u_{n+k}}|^2)^{1/2} \qty(\sum_{n=N+1}^\infty |\ipp{x,u_n}|^2)^{1/2} \leq \|u\|\ep^{1/2} 
             \]
-            For the first part, \hyperref[prob:5-63]{Problem 5.63a} implies that $\ipp{u,u_{n+k}} \to 0$ as $k \to \infty$ for each fixed $n$ so these $N$ terms all converge to $0$ giving us $\limsup_k|\ipp{R_kx,u}|\leq\|u\|\ep^{1/2}$ which can be made arbitrarily small and thus $\ipp{R_kx,u}\to 0$ proving conveergrence in weak operator topology. 
+            For the first part, \hyperref[prob:5-63]{Exercise 5.63a} implies that $\ipp{u,u_{n+k}} \to 0$ as $k \to \infty$ for each fixed $n$ so these $N$ terms all converge to $0$ giving us $\limsup_k|\ipp{R_kx,u}|\leq\|u\|\ep^{1/2}$ which can be made arbitrarily small and thus $\ipp{R_kx,u}\to 0$ proving conveergrence in weak operator topology. 
             
         \item $L_kR_k=I$ follows from the definition and $R_kL_kx=\sum_n\ipp{x,u_{n+k}}u_n$ implying $\|R_kL_kx\|^2=\sum_{n>k}|\ipp{x,u_n}|^2\to 0$ by parseval's identity so $R_kL_k\to 0$ in the strong operator topology. 
     \end{enumerate}
@@ -1267,7 +1270,7 @@ $l^2(A)$ is unitarily isomorphic to $l^2(B)$ iff $\operatorname{card}(A) = \oper
     \[
         \|Ux\|^2=\sum_{\alpha\in A}\big|\ipp{Ux,v_{f(\alpha)}}\big|^2=\sum_{\alpha\in A}|\ipp{x,u_\alpha}|^2=\|x\|^2
     \]
-    as $\ipp{Ux,v_{f(\alpha)}}=\ipp{x,u_\alpha}$ (this follows from the definition) and thus it is an isometry and also surjective, making it an unitary isomorphism by \hyperref[prob:5-55]{Problem 5.55b}. 
+    as $\ipp{Ux,v_{f(\alpha)}}=\ipp{x,u_\alpha}$ (this follows from the definition) and thus it is an isometry and also surjective, making it an unitary isomorphism by \hyperref[prob:5-55]{Exercise 5.55b}. 
     Conversely, if they are unitarily isomorphic via $U$ then for a basis $\{u_\alpha\}_{\alpha\in A}$ we claim that $\{U(u_\alpha)\}_{\alpha\in A}$ is an orthonormal basis for $l^2(B).$ 
     This set is clearly orthonormal and if for some $x\in l^2(B)$ we have $\ipp{x,U(u_\alpha)}=0$ for all $\alpha\in A$ then as it is unitary we have $\ipp{U^{-1}x,u_\alpha}=0$ too so $U^{-1}x=0\implies x=0$ so by theorem 5.27a this is an orthonormal basis. 
     Now, using the fact from cardinal arithmetic that if $\{K_a\}_{a\in A}$ is a collection of countable sets such that $A$ is infinite then $\cup_{a\in A}K_a$ has cardinality atmost that of $A$ we can show that $\operatorname{card}(B)\leq\operatorname{card}(A)$ using an arguement similar to that in proposition 5.29 which, by symmetry implies equality. 
@@ -1282,26 +1285,28 @@ Let $\mathcal{M}$ be a closed subspace of $L^2([0,1],m)$ that is contained in $C
 \end{problem}
 \begin{solution}
     \begin{enumerate}[label=\alph*.]
-        \item Consider the inclusion linear map $i:\mM\to C([0,1])$, if $f_n\to f$ in $L^1$ and $f_n\to g$ in the uniform norm then we see that $\|f-g\|_{L^2}\leq\|f-f_n\|_{L^2}+\|g-f_n\|_{L^2}$ and for any $\ep>0$, for large enough $n$ we have $\|g-f_n\|_u<\ep\implies\|g-f_n\|_{L^2}\leq\ep$ and $\|f-f_n\|_{L^2}<\ep$ adding which we get $\|f-g\|_{L^2}<2\ep$ so $f=g$ in $L^2([0,1])$ and as $L^2([0,1])$ is banach, $\mM$ is banach too being a closed subspace and as $C([0,1])$ is banach too here, the closed graph theorem implies that $i$ is continuous so we can find some $C>0$ with $\|f\|_u\leq C\|f\|_{L^2}$ for $f\in\mM.$ 
+        \item Consider the inclusion linear map $i:\mM\to C([0,1])$, if $f_n\to f$ in $L^2$ and $f_n\to g$ in the uniform norm then we see that $\|f-g\|_{L^2}\leq\|f-f_n\|_{L^2}+\|g-f_n\|_{L^2}$ and for any $\ep>0$, for large enough $n$ we have $\|g-f_n\|_u<\ep\implies\|g-f_n\|_{L^2}\leq\ep$ and $\|f-f_n\|_{L^2}<\ep$ adding which we get $\|f-g\|_{L^2}<2\ep$ so $f=g$ in $L^2([0,1])$ and as $L^2([0,1])$ is banach, $\mM$ is banach too being a closed subspace and as $C([0,1])$ is banach too here, the closed graph theorem implies that $i$ is continuous so we can find some $C>0$ with $\|f\|_u\leq C\|f\|_{L^2}$ for $f\in\mM.$ 
         \item $f\mapsto f(x)$ is a linear functional on the hilbert space $\mM$ (it has the induced inner product and it is complete being a closed subset of a complete space $L^2([0,1])$) and we also have $|f(x)|\leq\|f\|_u\leq C\|f\|_{L^2}$ (thus $\|x\mapsto f(x)\|\leq C$) making it continuous so by theorem 5.25 we can find $g_x\in\mM$ such that $f(x)=\ipp{f,g_x}$ and as $\|f\mapsto f(x)\|=\|g_x\|_{L^2}$ as in the paragraph above theorem 5.25 we see that $\|g_x\|_{L^2}\leq C.$ 
         \item If $\{f_j\}_{j=1}^n$ is an orthonormal sequence in $\mM$ then bessel's inequality tells us that $\sum_1^n|f_j(x)|^2=\sum_1^n|\ipp{f_j,g_x}|^2\leq\|g_x\|^2\leq C^2$ and thus, 
             \[
-                n=\sum_{j=1}^n\|f_j\|_{L^2}^2=\sum_{j=1}^n\int_0^1|f_j(x)|\d m(x)=\int_0^1\sum_{j=1}^n|f_j(x)|\d m(x)\leq\int_0^1C^2\d m(x)=C^2
+                n=\sum_{j=1}^n\|f_j\|_{L^2}^2=\sum_{j=1}^n\int_0^1|f_j(x)|^2\d m(x)\leq C^2
             \]
-            so $\dim\mM\leq C^2.$
+            so we must have $\dim\mM\leq C^2$ as otherwise we could find an orthonormal sequence with $m>C^2$ elements given $m\leq\dim\mM$ (the dimension is clearly finite as $n\leq C^2$ always holds) which is false. 
     \end{enumerate}
 \end{solution}
 \begin{problem}\label{prob:5-67}
 (The Mean Ergodic Theorem). Let $U$ be a unitary operator on the Hilbert space $\mathcal{H}$, $\mathcal{M} = \{x : Ux = x\}$, $P$ the orthogonal projection onto $\mathcal{M}$ (Exercise 58), and $S_n = n^{-1} \sum_{0}^{n-1} U^j$. Then $S_n \rightarrow P$ in the strong operator topology. (If $x \in \mathcal{M}$, then $S_n x = x$; if $x = y - Uy$ for some $y$, then $S_n x \rightarrow 0$. By Exercise 57d, $\mathcal{M} = \{x : U^* x = x\}$. Apply Exercise 57c with $T = I - U$.)
 \end{problem}
 \begin{solution}
-    As $U^*=U^{-1}$ we see that $x=Ux\iff U^{-1}x=x\iff U^*x=x$ and thus $\mN(I-U)=\mN(I-U^*)$ so (as per the notation in the hint) $\mM^\perp=\mN(T)^\perp=\mN(T^*)^\perp=\mR(T)=\mR(I-U)$ so $\mH=\mN(I-U)\oplus\mR(I-U)$. 
-    If $x\in\mM$ then $Ux=x\implies U^jx=x$ for all $j$ and thus $S_nx=n^{-1}\sum_1^{n-1}U^jx=x$. 
-    Otherwise, if $x=y-Uy\in\mR(I-U)$ then 
+    If $x\in\mM$ then $Ux=x$ so $U^jx=x$ for all $j$ implying $S_nx=n^{-1}\sum_1^{n-1}U^jx=x$. 
+    Otherwise, if $x=y-Uy$ for some $y$ then 
     \[
-        S_n(y-Uy)= \frac{\sum_{j=0}^{n-1}U^j(y-Uy)}{n}= \frac{\sum_{j=0}^{n-1}U^jy-U^{j+1}y}{n}= \frac{(U-U^n)y}{n}
+        S_n(y-Uy)= \frac{\sum_{j=0}^{n-1}U^j(y-Uy)}{n}= \frac{\sum_{j=0}^{n-1}U^jy-U^{j+1}y}{n}= \frac{(I-U^n)y}{n}
     \]
-    and as $U$ is an isometry see that $\|S_n(y-Uy)\|=n^{-1}\|Uy-U^ny\|\leq n^{-1}(\|Uy\|+\|U^ny\|)\leq2n^{-1}\|y\|\to 0$ as $\|U^jx\|=\|x\|$ for all $j$ here, proving that $S_nx\to 0.$ 
-    Now, for all $x\in\mH$ we can find an unique decomposition of form $x=z+(y-Uy)$ where $z\in\mM=\mN(I-U)$ and $y-Uy\in\mM^\perp=\mR(I-U)$ and we see that $S_nx=S_nz+S_n(y-Uy)=z+S_n(y-Uy)\to z=Px$ as $S_n(y-Uy)\to 0$ as we saw above proving that $S_n\to P$ in the stong operator topology. 
+    and as $U$ is an isometry see that $\|S_n(y-Uy)\|=n^{-1}\|y-U^ny\|\leq n^{-1}(\|y\|+\|U^ny\|)\leq2n^{-1}\|y\|\to 0$ as $\|U^jx\|=\|x\|$ for all $j$ here, proving that $S_nx\to 0.$ 
+    Using the notation in the hint, we have $\mN(T)=\mR(T^*)^\perp$ by the mentioned exercise and as $\mM=\mN(I-U)=\mN(I-U^*)$ ($Ux=x$ iff $x=U^{-1}x$ iff $x=U^*x$ as $U^{-1}=U^*$) we have $\mM=\mN(I-U^*)=\mR(I-U)^\perp.$  
+    Now, by \hyperref[prob:5-56]{Exercise 5.56} and \hyperref[prob:5-5]{Exercise 5.5} we have $\mM^\perp=(\mR(I-U)^\perp)^\perp= \overline{\mR(I-U)}$ implying $\mH=\mM\oplus \overline{\mR(I-U)}$ by theorem 5.24.  
+    For any $v\in \overline{\mR(I-U)}$ and $\ep>0$ we can find $u\in\mR(I-U)$ with $\|u-v\|<\ep$ and as $\|S_n\|\leq 1$ (this follows from the triangle inequality and the fact that $\|U^jx\|=\|x\|$ for all $j$) we have $\|S_nv\|\leq\|S_n(u-v)\|+\|S_nu\|\leq\ep+\|S_nu\|$ where the second term tends to $0$ as we saw above, so $\limsup\|S_nv\|\leq\ep$ for $\ep>0$ implying convergence to zero. 
+    From this we see that if $x=y+z$ with $y\in\mM$ and $z\in\mM^\top$ then $S_n(y+z)=S_ny+S_nz=y+S_nz\to y=P(y+z)$ as $S_nz\to 0$ as we showed above and we can say that $S_n\to P$ strongly. 
 \end{solution}
 \end{document}
