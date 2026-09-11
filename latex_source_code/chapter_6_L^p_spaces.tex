@@ -1,0 +1,238 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{mypreamble, folland_sol}
+\title{\textbf{Chapter 6 : $L^p$ Spaces}}
+\author{Arkaraj Mukherjee}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\setcounter{section}{6}
+\section*{Chapter \thesection\ : $L^p$ Spaces}
+\addcontentsline{toc}{section}{Chapter \thesection\ :  $L^p$ Spaces}
+\begin{problem}\label{prob:6-1}
+When does equality hold in Minkowski's inequality? (The answer is different for $p=1$ and for $1<p<\infty$. What about $p=\infty$?)
+\end{problem}
+
+\begin{problem}\label{prob:6-2}
+Prove Theorem 6.8.
+\end{problem}
+
+\begin{problem}\label{prob:6-3}
+If $1\le p<r\le\infty$, $L^{p}\cap L^{r}$ is a Banach space with norm $\|f\|=\|f\|_{p}+\|f\|_{r}$, and if $p<q<r$, the inclusion map $L^{p}\cap L^{r}\rightarrow L^{q}$ is continuous.
+\end{problem}
+
+\begin{problem}\label{prob:6-4}
+If $1\le p<r\le\infty,$ $L^{p}+L^{r}$ is a Banach space with norm $\|f\|=\inf\{\|g\|_{p}+\|h\|_{r}: f=g+h\}$, and if $p<q<r,$ the inclusion map $L^{q}\rightarrow L^{p}+L^{r}$ is continuous.
+\end{problem}
+
+\begin{problem}\label{prob:6-5}
+Suppose $0<p<q<\infty.$ Then $L^{p}\not\subset L^{q}$ iff $X$ contains sets of arbitrarily small positive measure, and $L^{q}\not\subset L^{p}$ iff $X$ contains sets of arbitrarily large finite measure. (For the "if" implication: In the first case there is a disjoint sequence $\{E_{n}\}$ with $0<\mu(E_{n})<2^{-n}$, and in the second case there is a disjoint sequence $\{E_{n}\}$ with $1\le\mu(E_{n})<\infty.$ Consider $f=\sum a_{n}\chi_{E_{n}}$ for suitable constants $a_{n}$.) What about the case $q=\infty$?
+\end{problem}
+
+\begin{problem}\label{prob:6-6}
+Suppose $0<p_{0}<p_{1}\le\infty.$ Find examples of functions $f$ on $(0,\infty)$ (with Lebesgue measure), such that $f\in L^{p}$ iff (a) $p_{0}<p<p_{1}$, (b) $p_{0}\le p\le p_{1}$, (c) $p=p_{0}$. (Consider functions of the form $f(x)=x^{-a}|\log x|^{b}$.)
+\end{problem}
+
+\begin{problem}\label{prob:6-7}
+If $f\in L^{p}\cap L^{\infty}$ for some $p<\infty$, so that $f\in L^{q}$ for all $q>p,$ then $\|f\|_{\infty}=\lim_{q\rightarrow\infty}\|f\|_{q}$.
+\end{problem}
+
+\begin{problem}\label{prob:6-8}
+Suppose $\mu(X)=1$ and $f\in L^{p}$ for some $p>0$, so that $f\in L^{q}$ for $0<q<p.$
+\begin{enumerate}[label=\alph*.]
+\item $\log\|f\|_{q}\ge\int\log|f|$. (Use Exercise 42d in \S 3.5, with $F(t)=e^{t}$.)
+\item $(\int|f|^{q}-1)/q\ge\log\|f\|_{q}$ and $(\int|f|^{q}-1)/q\rightarrow\int\log|f|$ as $q\rightarrow0$.
+\item $\lim_{q\rightarrow0}\|f\|_{q}=\exp(\int\log|f|)$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:6-9}
+Suppose $1\le p<\infty$. If $\|f_{n}-f\|_{p}\rightarrow0$ then $f_{n}\rightarrow f$ in measure, and hence some subsequence converges to $f$ a.e. On the other hand, if $f_{n}\rightarrow f$ in measure and $|f_{n}|\le g\in L^{p}$ for all $n$, then $\|f_{n}-f\|_{p}\rightarrow0.$
+\end{problem}
+
+\begin{problem}\label{prob:6-10}
+Suppose $1\le p<\infty$. If $f_{n},f\in L^{p}$ and $f_{n}\rightarrow f$ a.e., then $\|f_{n}-f\|_{p}\rightarrow0$ iff $\|f_{n}\|_{p}\rightarrow\|f\|_{p}$. (Use Exercise 20 in \S 2.3.)
+\end{problem}
+
+\begin{problem}\label{prob:6-11}
+If $f$ is a measurable function on $X$, define the essential range $R_{f}$ of $f$ to be the set of all $z\in\bC$ such that $\{x:|f(x)-z|<\ep\}$ has positive measure for all $\ep>0.$
+\begin{enumerate}[label=\alph*.]
+\item $R_{f}$ is closed.
+\item If $f\in L^{\infty}$ then $R_{f}$ is compact and $\|f\|_{\infty}=\max\{|z|:z\in R_{f}\}$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:6-12}
+If $p\ne2$, the $L^{p}$ norm does not arise from an inner product on $L^{p}$, except in trivial cases when $\dim(L^{p})\le1.$ (Show that the parallelogram law fails.)
+\end{problem}
+
+\begin{problem}\label{prob:6-13}
+$L^{p}(\bR^{n},m)$ is separable for $1\le p<\infty$. However, $L^{\infty}(\bR^{n},m)$ is not separable. (There is an uncountable set $\mathcal{F}\subset L^{\infty}$ such that $\|f-g\|_{\infty}\ge1$ for all $f,g\in\mathcal{F}$ with $f\ne g$.)
+\end{problem}
+
+\begin{problem}\label{prob:6-14}
+If $g\in L^{\infty}$ the operator $T$ defined by $Tf=fg$ is bounded on $L^{p}$ for $1\le p\le\infty.$ Its operator norm is at most $\|g\|_{\infty}$, with equality if $\mu$ is semifinite.
+\end{problem}
+
+\begin{problem}\label{prob:6-15}
+(The Vitali Convergence Theorem) Suppose $1\le p<\infty$ and $\{f_{n}\}_{1}^{\infty}\subset L^{p}$. In order for $\{f_{n}\}$ to be Cauchy in the $L^{p}$ norm it is necessary and sufficient for the following three conditions to hold: (i) $\{f_{n}\}$ is Cauchy in measure; (ii) the sequence $\{|f_{n}|^{p}\}$ is uniformly integrable (see Exercise 11 in \S 3.2); and (iii) for every $\ep>0$ there exists $E\subset X$ such that $\mu(E)<\infty$ and $\int_{E^{c}}|f_{n}|^{p}<\ep$ for all $n$. (To prove the sufficiency: Given $\ep>0$, let $E$ be as in (iii), and let $A_{mn}=\{x\in E: |f_{m}(x)-f_{n}(x)|\ge\ep\}$. Then the integrals of $|f_{n}-f_{m}|^{p}$ over $E\backslash A_{mn}$, $A_{mn}$, and $E^{c}$ are small when $m$ and $n$ are large for three different reasons.)
+\end{problem}
+
+\begin{problem}\label{prob:6-16}
+If $0<p<1$, the formula $\rho(f,g)=\int|f-g|^{p}$ defines a metric on $L^{p}$ that makes $L^{p}$ into a complete topological vector space. (The proof of Theorem 6.6 still works for $p<1$ if $\|f\|_{p}$ is replaced by $\int|f|^{p}$, as it uses only the triangle inequality and not the homogeneity of the norm.)
+\end{problem}
+
+\begin{problem}\label{prob:6-17}
+With notation as in Theorem 6.14, if $\mu$ is semifinite, $q<\infty$, and $M_{q}(g)<\infty$, then $\{x:|g(x)|>\ep\}$ has finite measure for all $\ep>0$ and hence $S_{g}$ is $\sigma$-finite.
+\end{problem}
+
+\begin{problem}\label{prob:6-18}
+The self-duality of $L^{2}$ follows from Hilbert space theory (Theorem 5.25), and this fact can be used to prove the Lebesgue-Radon-Nikodym theorem by the following argument due to von Neumann. Suppose that $\mu,\nu$ are positive finite measures on $(X,\mM)$ (the $\sigma$-finite case follows easily as in \S 3.2), and let $\lambda=\mu+\nu$.
+\begin{enumerate}[label=\alph*.]
+\item The map $f\mapsto\int f\db\nu$ is a bounded linear functional on $L^{2}(\lambda),$ so $\int f\db\nu=\int fg\db\lambda$ for some $g\in L^{2}(\lambda)$. Equivalently, $\int f(1-g)\db\nu=\int fg\db\mu$ for $f\in L^{2}(\lambda)$.
+\item $0\le g\le1$ $\lambda$-a.e., so we may assume $0\le g\le1$ everywhere.
+\item Let $A=\{x:g(x)<1\}$, $B=\{x:g(x)=1\}$, and set $\nu_{a}(E)=\nu(A\cap E)$, $\nu_{s}(E)=\nu(B\cap E)$. Then $\nu_{s}\perp\mu$ and $\nu_{a}\ll\mu$; in fact, $\db\nu_{a}=g(1-g)^{-1}\chi_{A}\db\mu$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:6-19}
+Define $\phi_{n}\in(l^{\infty})^{*}$ by $\phi_{n}(f)=n^{-1}\sum_{1}^{n}f(j)$. Then the sequence $\{\phi_{n}\}$ has a weak* cluster point $\phi$, and $\phi$ is an element of $(l^{\infty})^{*}$ that does not arise from an element of $l^{1}$.
+\end{problem}
+
+\begin{problem}\label{prob:6-20}
+Suppose $\sup_{n}\|f_{n}\|_{p}<\infty$ and $f_{n}\rightarrow f$ a.e.
+\begin{enumerate}[label=\alph*.]
+\item If $1<p<\infty$ then $f_{n}\rightarrow f$ weakly in $L^{p}$. (Given $g\in L^{q},$ where $q$ is conjugate to $p$, and $\ep>0$, there exist (i) $\delta>0$ such that $\int_{E}|g|^{q}<\ep$ whenever $\mu(E)<\delta,$ (ii) $A\subset X$ such that $\mu(A)<\infty$ and $\int_{X\backslash A}|g|^{q}<\ep$ and (iii) $B\subset A$ such that $\mu(A\backslash B)<\delta$ and $f_{n}\rightarrow f$ uniformly on $B$.)
+\item The result of (a) is false in general for $p=1$. (Find counterexamples in $L^{1}(\bR,m)$ and $l^{1}$.) It is, however, true for $p=\infty$ if $\mu$ is $\sigma$-finite and weak convergence is replaced by weak* convergence.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:6-21}
+If $1<p<\infty$, $f_{n}\rightarrow f$ weakly in $l^{p}(A)$ iff $\sup_{n}\|f_{n}\|_{p}<\infty$ and $f_{n}\rightarrow f$ pointwise.
+\end{problem}
+
+\begin{problem}\label{prob:6-22}
+Let $X=[0,1]$, with Lebesgue measure.
+\begin{enumerate}[label=\alph*.]
+\item Let $f_{n}(x)=\cos2\pi nx.$ Then $f_{n}\rightarrow0$ weakly in $L^{2}$ (see Exercise 63 in \S 5.5), but $f_{n}\not\rightarrow0$ a.e. or in measure.
+\item Let $f_{n}(x)=n\chi_{(0,1/n)}$. Then $f_{n}\rightarrow0$ a.e. and in measure, but $f_{n}\not\rightarrow0$ weakly in $L^{p}$ for any $p$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:6-23}
+Let $(X,\mM,\mu)$ be a measure space. A set $E\in\mM$ is called locally null if $\mu(E\cap F)=0$ for every $F\in\mM$ such that $\mu(F)<\infty.$ If $f:X\rightarrow\bC$ is a measurable function, define $\|f\|_{*}=\inf\{a:\{x:|f(x)|>a\} \text{ is locally null}\}$, and let $\mL^{\infty}=\mL^{\infty}(X,\mM,\mu)$ be the space of all measurable $f$ such that $\|f\|_{*}<\infty$. We consider $f,g\in\mL^{\infty}$ to be identical if $\{x:f(x)\ne g(x)\}$ is locally null.
+\begin{enumerate}[label=\alph*.]
+\item If $E$ is locally null, then $\mu(E)$ is either $0$ or $\infty$. If $\mu$ is semifinite, then every locally null set is null.
+\item $\|\cdot\|_{*}$ is a norm on $\mL^{\infty}$ that makes $\mL^{\infty}$ into a Banach space. If $\mu$ is semifinite, then $\mL^{\infty}=L^{\infty}$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:6-24}
+If $g\in\mL^{\infty}$ (see Exercise 23), then $\|g\|_{*}=\sup\{|\int fg|:\|f\|_{1}=1\},$ so the map $g\mapsto\phi_{g}$ is an isometry from $\mL^{\infty}$ into $(L^{1})^{*}.$ Conversely, if $M_{\infty}(g)<\infty$ as in Theorem 6.14, then $g\in\mL^{\infty}$ and $M_{\infty}(g)=\|g\|_{*}$.
+\end{problem}
+
+\begin{problem}\label{prob:6-25}
+Suppose $\mu$ is decomposable (see Exercise 15 in \S 3.2). Then every $\phi\in(L^{1})^{*}$ is of the form $\phi(f)=\int fg$ for some $g\in\mL^{\infty}$, and hence $(L^{1})^{*}\cong\mL^{\infty}$ (see Exercises 23 and 24). (If $\mathcal{F}$ is a decomposition of $\mu$ and $f\in L^{1}$, there exists $\{E_{j}\}\subset\mathcal{F}$ such that $f=\sum_{1}^{\infty}f\chi_{E_{j}}$ where the series converges in $L^{1}$.)
+\end{problem}
+
+\begin{problem}\label{prob:6-26}
+Complete the proof of Theorem 6.18 for the cases $p=1$ and $p=\infty.$
+\end{problem}
+
+\begin{problem}\label{prob:6-27}
+(Hilbert's Inequality) The operator $Tf(x)=\int_{0}^{\infty}(x+y)^{-1}f(y)\db y$ satisfies $\|Tf\|_{p}\le C_{p}\|f\|_{p}$ for $1<p<\infty$, where $C_{p}=\int_{0}^{\infty}x^{-1/p}(x+1)^{-1}\db x.$ (For those who know about contour integrals: Show that $C_{p}=\pi\csc(\pi/p)$.)
+\end{problem}
+
+\begin{problem}\label{prob:6-28}
+Let $I_{\alpha}$ be the $\alpha$th fractional integral operator as in Exercise 61 of \S 2.6, and let $J_{\alpha}f(x)=x^{-\alpha}I_{\alpha}f(x)$.
+\begin{enumerate}[label=\alph*.]
+\item $J_{\alpha}$ is bounded on $L^{p}(0,\infty)$ for $1<p\le\infty$; more precisely, $\|J_{\alpha}f\|_{p}\le\frac{\Gamma(1-p^{-1})}{\Gamma(\alpha+1-p^{-1})}\|f\|_{p}.$
+\item There exists $f\in L^{1}(0,\infty)$ such that $J_{1}f\notin L^{1}(0,\infty)$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:6-29}
+Suppose that $1\le p<\infty$, $r>0$, and $h$ is a nonnegative measurable function on $(0,\infty)$. Then:
+$\int_{0}^{\infty}x^{-r-1}\left[\int_{0}^{x}h(y)\db y\right]^{p}\db x\le\left(\frac{p}{r}\right)^{p}\int_{0}^{\infty}x^{p-r-1}h(x)^{p}\db x,$
+$\int_{0}^{\infty}x^{r-1}\left[\int_{x}^{\infty}h(y)\db y\right]^{p}\db x\le\left(\frac{p}{r}\right)^{p}\int_{0}^{\infty}x^{p+r-1}h(x)^{p}\db x.$
+(Apply Theorem 6.20 with $K(x,y)=x^{\beta-1}y^{-\beta}\chi_{(0,\infty)}(y-x)$, $f(x)=x^{\gamma}h(x)$, and $g(x)=x^{\delta}h(x)$ for suitable $\beta, \gamma, \delta$.)
+\end{problem}
+
+\begin{problem}\label{prob:6-30}
+Suppose that $K$ is a nonnegative measurable function on $(0,\infty)$ such that $\int_{0}^{\infty}K(x)x^{s-1}\db x=\phi(s)<\infty$ for $0<s<1$.
+\begin{enumerate}[label=\alph*.]
+\item If $1<p<\infty$, $p^{-1}+q^{-1}=1$, and $f,g$ are nonnegative measurable functions on $(0,\infty)$, then (with $\int=\int_{0}^{\infty}$)
+$\iint K(xy)f(x)g(y)\db x\db y\le\phi(p^{-1})\left[\int x^{p-2}f(x)^{p}\db x\right]^{1/p}\left[\int g(x)^{q}\db x\right]^{1/q}.$
+\item The operator $Tf(x)=\int_{0}^{\infty}K(xy)f(y)\db y$ is bounded on $L^{2}((0,\infty))$ with norm $\le\phi(\frac{1}{2})$. (Interesting special case: If $K(x)=e^{-x}$ then $T$ is the Laplace transform and $\phi(s)=\Gamma(s)$.)
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:6-31}
+(A Generalized Hölder Inequality) Suppose that $1\le p_{j}\le\infty$ and $\sum_{1}^{n}p_{j}^{-1}=r^{-1}\le1$. If $f_{j}\in L^{p_{j}}$ for $j=1,\ldots,n$ then $\prod_{1}^{n}f_{j}\in L^{r}$ and $\|\prod_{1}^{n}f_{j}\|_{r}\le\prod_{1}^{n}\|f_{j}\|_{p_{j}}$. (First do the case $n=2$.)
+\end{problem}
+
+\begin{problem}\label{prob:6-32}
+Suppose that $(X,\mM,\mu)$ and $(Y,\mN,\nu)$ are $\sigma$-finite measure spaces and $K\in L^{2}(\mu\times\nu)$. If $f\in L^{2}(\nu)$, the integral $Tf(x)=\int K(x,y)f(y)\db\nu(y)$ converges absolutely for a.e. $x\in X$ moreover, $Tf\in L^{2}(\mu)$ and $\|Tf\|_{2}\le\|K\|_{2}\|f\|_{2}$.
+\end{problem}
+
+\begin{problem}\label{prob:6-33}
+Given $1<p<\infty$, let $Tf(x)=x^{-1/p}\int_{0}^{x}f(t)\db t$. If $p^{-1}+q^{-1}=1$ then $T$ is a bounded linear map from $L^{q}((0,\infty))$ to $C_{0}((0,\infty))$.
+\end{problem}
+
+\begin{problem}\label{prob:6-34}
+If $f$ is absolutely continuous on $[\ep,1]$ for $0<\ep<1$ and $\int_{0}^{1}x|f^{\prime}(x)|^{p}\db x<\infty,$ then $\lim_{x\rightarrow0}f(x)$ exists (and is finite) if $p>2$, $|f(x)|/|\log x|^{1/2}\rightarrow0$ as $x\rightarrow0$ if $p=2$, and $|f(x)|/x^{1-(2/p)}\rightarrow0$ as $x\rightarrow0$ if $p<2$.
+\end{problem}
+
+\begin{problem}\label{prob:6-35}
+For any measurable $f$ and $g$ we have $[cf]_{p}=|c|[f]_{p}$ and $[f+g]_{p}\le2([f]_{p}^{p}+[g]_{p}^{p})^{1/p}$; hence weak $L^{p}$ is a vector space. Moreover, the "balls" $\{g:[g-f]_{p}<r\}$ ($r>0,$ $f\in\text{weak } L^{p}$) generate a topology on weak $L^{p}$ that makes weak $L^{p}$ into a topological vector space.
+\end{problem}
+
+\begin{problem}\label{prob:6-36}
+If $f\in\text{weak } L^{p}$ and $\mu(\{x:f(x)\ne0\})<\infty$, then $f\in L^{q}$ for all $q<p.$ On the other hand, if $f\in(\text{weak } L^{p})\cap L^{\infty}$, then $f\in L^{q}$ for all $q>p$.
+\end{problem}
+
+\begin{problem}\label{prob:6-37}
+Prove Proposition 6.25.
+\end{problem}
+
+\begin{problem}\label{prob:6-38}
+$f\in L^{p}$ iff $\sum_{-\infty}^{\infty}2^{kp}\lambda_{f}(2^{k})<\infty.$
+\end{problem}
+
+\begin{problem}\label{prob:6-39}
+If $f\in L^{p}$, then $\lim_{\alpha\rightarrow0}\alpha^{p}\lambda_{f}(\alpha)=\lim_{\alpha\rightarrow\infty}\alpha^{p}\lambda_{f}(\alpha)=0$ (First suppose $f$ is simple.)
+\end{problem}
+
+\begin{problem}\label{prob:6-40}
+If $f$ is a measurable function on $X$, its decreasing rearrangement is the function $f^{*}:(0,\infty)\rightarrow[0,\infty]$ defined by $f^{*}(t)=\inf\{\alpha:\lambda_{f}(\alpha)\le t\}$ (where $\inf\emptyset=\infty$).
+\begin{enumerate}[label=\alph*.]
+\item $f^{*}$ is decreasing. If $f^{*}(t)<\infty$ then $\lambda_{f}(f^{*}(t))\le t$, and if $\lambda_{f}(\alpha)<\infty$ then $f^{*}(\lambda_{f}(\alpha))\le\alpha$.
+\item $\lambda_{f}=\lambda_{f^{*}}$, where $\lambda_{f^{*}}$ is defined with respect to Lebesgue measure on $(0,\infty)$.
+\item If $\lambda_{f}(\alpha)<\infty$ for all $\alpha>0$ and $\lim_{\alpha\rightarrow\infty}\lambda_{f}(\alpha)=0$ (so that $f^{*}(t)<\infty$ for all $t>0$), and $\phi$ is a nonnegative measurable function on $(0,\infty)$, then $\int_{X}\phi\circ|f|\db\mu=\int_{0}^{\infty}\phi\circ f^{*}(t)\db t$. In particular, $\|f\|_{p}=\|f^{*}\|_{p}$ for $0<p<\infty$.
+\item If $0<p<\infty$, $[f]_{p}=\sup_{t>0}t^{1/p}f^{*}(t)$.
+\item The name "rearrangement" for $f^{*}$ comes from the case where $f$ is a nonnegative function on $(0,\infty)$. To see why it is appropriate, pick a step function on $(0,\infty)$ assuming four or five different values and draw the graphs of $f$ and $f^{*}$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}\label{prob:6-41}
+Suppose $1<p\le\infty$ and $p^{-1}+q^{-1}=1$. If $T$ is a bounded operator on $L^{p}$ such that $\int(Tf)g=\int f(Tg)$ for all $f,g\in L^{p}\cap L^{q},$ then $T$ extends uniquely to a bounded operator on $L^{r}$ for all $r$ in $[p,q]$ (if $p<q$) or $[q,p]$ (if $q<p$).
+\end{problem}
+
+\begin{problem}\label{prob:6-42}
+Prove the Marcinkiewicz theorem in the case $p_{0}=p_{1}$. (Setting $p=p_{0}=p_{1}$, we have $\lambda_{Tf}(\alpha)\le(C_{0}\|f\|_{p}/\alpha)^{q_{0}}$ and $\lambda_{Tf}(\alpha)\le(C_{1}\|f\|_{p}/\alpha)^{q_{1}}$. Use whichever estimate is better, depending on $\alpha$, to majorize $q\int_{0}^{\infty}\alpha^{q-1}\lambda_{Tf}(\alpha)\db\alpha$.)
+\end{problem}
+
+\begin{problem}\label{prob:6-43}
+Let $H$ be the Hardy-Littlewood maximal operator on $\bR$. Compute $H\chi_{(0,1)}$ explicitly. Show that it is in $L^{p}$ for all $p>1$ and in weak $L^{1}$ but not in $L^{1},$ and that its $L^{p}$ norm tends to $\infty$ like $(p-1)^{-1}$ as $p\rightarrow1,$ although $\|\chi_{(0,1)}\|_{p}=1$ for all $p$.
+\end{problem}
+
+\begin{problem}\label{prob:6-44}
+Let $I_{\alpha}$ be the fractional integration operator of Exercise 61 in \S 2.6. If $0<\alpha<1$, $1<p<\alpha^{-1}$ and $r^{-1}=p^{-1}-\alpha$, then $I_{\alpha}$ is weak type (1, $(1-\alpha)^{-1}$) and strong type ($p,r$) with respect to Lebesgue measure on $(0,\infty)$.
+\end{problem}
+
+\begin{problem}\label{prob:6-45}
+If $0<\alpha<n$ define an operator $T_{\alpha}$ on functions on $\bR^{n}$ by $T_{\alpha}f(x)=\int|x-y|^{-\alpha}f(y)\db y.$ Then $T_{\alpha}$ is weak type (1, $(n-\alpha)^{-1}$) and strong type ($p,r$) with respect to Lebesgue measure on $\bR^{n}$, where $1<p<n\alpha^{-1}$ and $r^{-1}=p^{-1}-\alpha n^{-1}$. (The case $n=3$, $\alpha=1$ is of particular interest in physics: If $f$ represents the density of a mass or charge distribution, $-(4\pi)^{-1}T_{1}f$ represents the induced gravitational or electrostatic potential.)
+\end{problem}
+\end{document}

@@ -453,7 +453,7 @@ Let $X$ be an infinite-dimensional normed vector space.
 If $\mathcal{M}$ is a finite-dimensional subspace of a normed vector space $X$, there is a closed subspace $\mathcal{N}$ such that $\mathcal{M} \cap \mathcal{N} = \{0\}$ and $\mathcal{M} + \mathcal{N} = X$.
 \end{problem}
 \begin{solution}
-    Choose a basis $e_1,\ldots,e_k$ of $\mM$ and consider linear functionals $f_j$ such that $f_k(e_j)=1$ and $f_j|_{\span(\{e_1,\ldots,e_k\}\setminus\{e_j)}=0$ from theorem 5.8a as all finite dimensional subspaces are closed. 
+    Choose a basis $e_1,\ldots,e_k$ of $\mM$ and consider linear functionals $f_j$ such that $f_k(e_j)=1$ and $f_j|_{\Span (\{e_1,\ldots,e_k\}\setminus\{e_j)}=0$ from theorem 5.8a as all finite dimensional subspaces are closed. 
     Now, we claim that $\mN=\cap_1^k\mN(f_k)$ works. 
     This is clearly closed and for all $x\in X$, 
     \[
@@ -773,7 +773,7 @@ Let $X, Y, Z$ be Banach spaces and let $B : X \times Y \rightarrow Z$ be a separ
 Let $X$ be a vector space of countably infinite dimension (that is, every element is a finite linear combination of members of a countably infinite linearly independent set). There is no norm on $X$ with respect to which $X$ is complete. (Given a norm on $X$, apply Exercise 18b and the Baire category theorem.)
 \end{problem}
 \begin{solution}
-    Say $\{x_n\}_1^\infty$ is a basis, let $E_k:=\span \qty{x_j:1\leq j\leq k}$, then $\cup E_k=X.$ 
+    Say $\{x_n\}_1^\infty$ is a basis, let $E_k:=\Span \qty{x_j:1\leq j\leq k}$, then $\cup E_k=X.$ 
     If we manage to show that $E_k$ are all nowhere dense then we would have a contradictiondue to BCT and prove the claim. 
     By \hyperref[prob:5-18]{Exercise 5.18b} $E_k$ is closed for all $k$, for the sake of contradiction say $E_k$ is not nowhere dense and we can find some $x$ and $r>0$ with $B(x,r) \subseteq \overline{E_k}=E_k$ but then, as $E_k$ is closed under dilation we must have $E_k=X$ which contradicts infinite dimensionality of $X$ so we are done. 
 \end{solution}
@@ -926,7 +926,7 @@ Suppose that $X$ is an infinite-dimensional Banach space.
                 U_{f\hh{x}\epsilon}:=\{g\in X^*:|\hh{x}(f-g)|<\epsilon\}= \qty{g\in X^*:|f(x)-g(x)|<\ep}
             \]
             Say $\cap_1^nU_{f_j\hh{x_j}\epsilon_j}$ is nonempty and contains $g$.
-            As $X$ is infinite dimensional we have $X\neq\span\{x_j\}$ so by Proposition 5.8a there exists a nonzero linear functional $f$ that is zero on this span (which is closed by \hyperref[prob:5-18]{Exercise 5.18}) and thus also zero on $x_j$, this implies that $g+\bK f \subseteq\cap^1_nU_{f_j\hh{x_j}\ep_j}$ and that set is clearly unbounded so we are done. 
+            As $X$ is infinite dimensional we have $X\neq\Span\{x_j\}$ so by Proposition 5.8a there exists a nonzero linear functional $f$ that is zero on this span (which is closed by \hyperref[prob:5-18]{Exercise 5.18}) and thus also zero on $x_j$, this implies that $g+\bK f \subseteq\cap^1_nU_{f_j\hh{x_j}\ep_j}$ and that set is clearly unbounded so we are done. 
         \item The arguement is identical for $X$ with the weak topology and $X^*$ with the weak* topology so we only state it once. By \hyperref[prob:5-48]{Exercise 5.48b,c} (b for the weak case and c for the weak* case) if a set is bounded then so is its closure and by the previous part of this problem, these having nonempty interior would make them unbounded so they must have empty interior, making them nowhere dense. 
         \item As $X$ and $X^*$ are normed, they can be written as countable unions of bounded sets, for an example: balls of radius diverging to infinity which are centered at $0$ and by the previous part we see that all of these are nowhere dense in their repsective topologies so we are done here. 
         \item If it were metirzable then that would be a complete metric space by \hyperref[prob:5-48]{Exercise 5.48d} which makes $X^*$ non meager by the baire category theorem, contradiction the claim proved in the previous part so it is not even metrizable.  
@@ -1147,8 +1147,8 @@ Let $(X,\mathcal{M},\mu)$ and $(Y,\mathcal{N},\nu)$ be $\sigma$-finite measure s
     If $m\neq p$ then by \hyperref[prob:2-51]{Exercise 2.51b} (we can do this because $f_m,f_n\in L^2$ implies that $f_m \overline{f_n}\in L^1$, this is clear from the inequality $|xy|\leq|x|^2+|y|^2$) we have 
     \[
         \begin{aligned}
-            \ipp{h_{mn},h_{pq}} &= \int_{X\times Y}f_m(x)g_n(y) \overline{f_p(x)g_q(y)}\d(\mu\times\nu)(x,y) \\
-                                &= \bigg(\underbrace{\int_Xf_m(x) \overline{f_p(x)}\d\mu(x)}_{=\ipp{f_m,f_n}_{L^2(X,\mu)}=0\text{ as }m\neq n}\bigg)\qty(\int_Yg_n(y) \overline{g_q(y)}\d\nu(y)) =0
+            \ipp{h_{mn},h_{pq}} &= \int_{X\times Y}f_m(x)g_n(y) \overline{f_p(x)g_q(y)}\db(\mu\times\nu)(x,y) \\
+                                &= \bigg(\underbrace{\int_Xf_m(x) \overline{f_p(x)}\db\mu(x)}_{=\ipp{f_m,f_n}_{L^2(X,\mu)}=0\text{ as }m\neq n}\bigg)\qty(\int_Yg_n(y) \overline{g_q(y)}\db\nu(y)) =0
         \end{aligned}
     \]
     So we have orthogonality and similarly we see that 
@@ -1168,13 +1168,13 @@ Let $(X,\mathcal{M},\mu)$ and $(Y,\mathcal{N},\nu)$ be $\sigma$-finite measure s
     \]
     Now, by MCT we have 
     \[
-        \|u\|_{L^2(X\times Y)}^2=\int\underbrace{\sum_{n=1}^\infty|\ipp{u_x,g_n}|^2}_{=\|u_x\|_{L^2(Y)}^2}\d\mu(x)=\sum_{n=1}^\infty\|\ipp{u_x,g_n}\|_{L^2(X)}^2=\sum_{n=1}\sum_{m=1}|\ipp{\ipp{u_x,g_n},f_m}|^2
+        \|u\|_{L^2(X\times Y)}^2=\int\underbrace{\sum_{n=1}^\infty|\ipp{u_x,g_n}|^2}_{=\|u_x\|_{L^2(Y)}^2}\db\mu(x)=\sum_{n=1}^\infty\|\ipp{u_x,g_n}\|_{L^2(X)}^2=\sum_{n=1}\sum_{m=1}|\ipp{\ipp{u_x,g_n},f_m}|^2
     \]
     And as $u,h_{mn}\in L^2$ we have $uh_{mn}\in L^1$ so by fubini's 
     \[
        \begin{aligned}
-           \ipp{\ipp{u_x,g_n},f_m}=\int\ipp{u_x,g_n} \overline{f_m}(x)\d\mu(x) &= \int\qty(\int u_x(y) \overline{g_n(y)}\d\nu(y)) \overline{f_m(x)}\d\mu(x) \\
-                                                                               &= \int u(x,y) \overline{g_n(y)f_m(x)}\d(\mu\times\nu)(x,y) \\
+           \ipp{\ipp{u_x,g_n},f_m}=\int\ipp{u_x,g_n} \overline{f_m}(x)\db\mu(x) &= \int\qty(\int u_x(y) \overline{g_n(y)}\db\nu(y)) \overline{f_m(x)}\db\mu(x) \\
+                                                                               &= \int u(x,y) \overline{g_n(y)f_m(x)}\db(\mu\times\nu)(x,y) \\
                                                                                &= \ipp{u,f_{mn}}_{L^2(X\times Y)}
        \end{aligned}
     \]
@@ -1198,7 +1198,7 @@ In this exercise the measure defining the $L^2$ spaces is Lebesgue measure.
     \begin{enumerate}[label=\alph*.]
         \item As in the proof of Theorem 2.26 consider the same $\phi_n$ and as $|\phi_n|\leq|f|$ we see that $|\phi_n-f|^2\leq 2(|\phi_n|^2+|f|^2)\leq4|f|^2$ and thus by DCT, for any $\ep>0$ we can find $n$ large enough such that $\|\phi_n-f\|_{L^2}^2<\ep.$ 
             Say $\phi_n=\sum_1^ma_j\chi_{E_j}$ where $E_j$ are disjoint. 
-             We also see that $m(E\Delta F)=\|\chi_E-\chi_F\|_{L^2}^2$ and thus by proposition 1.20 we can find a disjoint collections of open intervals $H_j$ with union $U_j$ such that $\|\chi_{U_j}-\chi_{E_j}\|_{L^2}^2<\ep$ so, 
+             We also see that $m(E\delta F)=\|\chi_E-\chi_F\|_{L^2}^2$ and thus by proposition 1.20 we can find a disjoint collections of open intervals $H_j$ with union $U_j$ such that $\|\chi_{U_j}-\chi_{E_j}\|_{L^2}^2<\ep$ so, 
             \[
                 \bigg\|f-\sum_{j=1}^ma_j\chi_{U_j}\bigg\|_{L^2}\leq \bigg\|\sum_{j=1}^ma_j(\chi_{E_j}-\chi_{U_j})\bigg\|_{L^2}+ \bigg\|f-\sum_{j=1}^ma_j\chi_{E_j}\bigg\|_{L^2}\leq\sum_{j=1}^m|a_j|\ep^{1/2}+\ep
             \]

@@ -1,6 +1,6 @@
 \documentclass[12pt,a4paper]{article}
 
-\usepackage{mypreamble, folland_sol}
+\usepackage{mypreamble,folland_sol}
 
 \title{\textbf{Chapter 2 : Integration}}
 \author{Arkaraj Mukherjee}
@@ -1099,7 +1099,7 @@ x_{n-1} &= r \sin \phi_1 \dots \sin \phi_{n-2} \cos \theta, \quad x_n = r \sin \
 		We also see that $J_n(\Omega_n)=\bR\times(0,\infty)\times(0,\pi)^{n-3}\times(0,2\pi)=\bR\times\Omega_{n-1}$ and this is a diffeomorphism as we only alter the first two coordinates and this corresponds to $G_2$. 
 		By the definition of $H_n$ and the assumption we see that $G_n(\Omega_n)=H_n(J_n(\Omega_n))=\bR\times U_{n-1}$ and this is also a diffeomorphism as the first coordinate is unaltered and the rest correpsonds to $G_{n-1}.$  
 		Thus we have that, $\bR^n\setminus G_n(\Omega_n)=\bR^n\setminus(\bR\times U_{n-1})=\bR\times(\bR^{n-1}\setminus U_{n-1})$ and $G_n$ being a composition of diffeomorphisms, is one itself. 
-		By our convention of $0\cdot\infty=0$ we see that this is of measure $0$ (one could also use the fact that this has measure $\int_\bR m_{n-1}(\bR^{n-1}\setminus u_{n-1})\,dm_1=\int 0\,dm_1=0$)
+        By our convention of $0\cdot\infty=0$ we see that this is of measure $0$ (one could also use the fact that this has measure $\int_\bR m_{n-1}(\bR^{n-1}\setminus U_{n-1})\,dm_1=\int 0\,dm_1=0$)
 	\item By definition we see that $G_n(r,\omega)=rF_n(\omega)$, and as we had $|G_n(r,\omega)|=r$ we see that $F_n(\omega)=G_n(1,\omega)$ maps $\Omega'_n$ into $S^{n-1}$. 
 		As $G_n$ was diffeomorphic on $\Omega_n=(0,\infty)\times\Omega'_n$ and acted injectively we must have $F_n$ act diffeomorphically on $\Omega'_n$ as its still $C^1$ (it shares partial derivatives with $G_n$ clearly.) 
 		Thus, $F_n|_{\Omega'_n}^{-1}$ forms a valid coordinate system on $F_n(\Omega_n')\subseteq S^{n-1}$. 
